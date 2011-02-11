@@ -17,18 +17,19 @@ SCRIPT = dccc.dccc idx.idx64 interact Experiment.config
 # OBJ = NOTitr_4.tmc
 TGTDIR = $(TGTNODE)/home/Hal
 
-Halcol : Halcol.tmc idxcol.tmc navcol.tmc
+Halsrvr : -lsubbus
+Halcol : Halcol.tmc idxcol.tmc navcol.tmc -lsubbus
 # Hal.sft : Hal.sol
 
-hddisp : idxflag.tmc VT.tmc dstat.tmc idxczba.tmc time.tmc SlowCnts.tmc haldiag.tbl
+# hddisp : idxflag.tmc VT.tmc dstat.tmc idxczba.tmc time.tmc SlowCnts.tmc haldiag.tbl
 # thdisp : dstat.tmc VT.tmc VI.tmc therm.tbl dhtr.tbl
-gddisp : dstat.tmc gasdiag.tbl
-rvdisp : Rover.tbl
-Hlabdoit : Hlab.doit
-Hdoit : H.doit
+# gddisp : dstat.tmc gasdiag.tbl
+# rvdisp : Rover.tbl
+# Hlabdoit : Hlab.doit
+# Hdoit : H.doit
 # rvdoit : rv.doit
 # Halfalgo : dstat.tmc idxflag.tmc VT.tmc VI.tmc Half.tma Halog.tma DHtr.tma TRU.tma
-Hlabalgo : Hlab.tma
+# Hlabalgo : Hlab.tma
 
 #STAText : STAT.edf
 #HAL1ext : HAL1.edf

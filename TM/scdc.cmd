@@ -3,7 +3,6 @@
 &command
     : &scdc_cmd
       { cis_turf(if_dccc, "D%d\n", $1); }
-    : &psd_cmd
     ;
 &scdc_cmd <int>
     : GasDeck Air Flow to Duct 2 On * { $0 = 0; }
@@ -93,15 +92,4 @@
     : Lab Connector cmd Off * { $0 = 97; }
     : Air Heater On * { $0 = 102; }
     : Air Heater Off * { $0 = 103; }
-    ;
-&psd_cmd
-    : &PsMn &Hi_Lo * { DigSelect( $1, $2 ); }
-    ;
-&PsMn <int>
-    : PsMn 1 { $0 = 94; }
-    : PsMn 2 { $0 = 95; }
-    ;
-&Hi_Lo <unsigned short>
-    : Hi { $0 = 0xFFFF; }
-    : Lo { $0 = 0; }
     ;

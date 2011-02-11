@@ -32,7 +32,7 @@
     : &SoldrvA * { cis_turf(if_soldrv, "M%d\n", $1); }
     ;
 
-&SoldrvA
+&SoldrvA <int>
     : Soldrv Select Halogen Mode %d (Enter Mode Number) { $0 = $5; }
     : Soldrv NO Addition { $0 = 2; }
     : Soldrv NO Off { $0 = 1; }

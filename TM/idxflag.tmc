@@ -1,0 +1,49 @@
+%{
+  const char *IxDrive_text[] = {
+	"  <  ",
+	"| <  ",
+	"  < |",
+	"| < |",
+	"  >  ",
+	"| >  ",
+	"  > |",
+	"| > |",
+	"<----",  /* driving in */
+	"|<---",  /* driving in against in limit */
+	"<---|",  /* driving in from out limit */
+	"|<--|",  /* driving in both limits. Broke */
+	"---->",  /* driving out */
+	"|--->",  /* driving out from in limit */
+	"--->|",  /* driving out agains out limit */
+	"|-->|"   /* driving out both limits. Broke */
+  };
+%}
+TM typedef unsigned char IxDriveStat { text "%5d" IxDrive_text[]; }
+IxDriveStat SV1Stat; invalidate SV1Stat; { SV1Stat = SV1St & 0xF; Validate SV1Stat; }
+IxDriveStat GV1Stat; invalidate GV1Stat; { GV1Stat = GV1St & 0xF; Validate GV1Stat; }
+IxDriveStat SV2Stat; invalidate SV2Stat; { SV2Stat = SV2St & 0xF; Validate SV2Stat; }
+IxDriveStat GV2Stat; invalidate GV2Stat; { GV2Stat = GV2St & 0xF; Validate GV2Stat; }
+%{
+  const char *IdxFlgTxt[8] = {
+	"    ",
+	"Scan",
+	"On  ",
+	"S/On",
+	"Off ",
+	"S/Of",
+	"Alt ",
+	"S/Al"
+  };
+%}
+TM typedef unsigned short IndxrFlag {
+  text "%4d" IdxFlgTxt[];
+}
+
+IndxrFlag SV1Flg; invalidate SV1Flg;
+{ SV1Flg = ( IXStt ) & 1; validate SV1Flg; }
+IndxrFlag GV1Flg; invalidate GV1Flg;
+{ GV1Flg = ( IXStt >> 1 ) & 1; validate GV1Flg; }
+IndxrFlag SV2Flg; invalidate SV2Flg;
+{ SV2Flg = ( IXStt >> 2 ) & 1; validate SV2Flg; }
+IndxrFlag GV2Flg; invalidate GV2Flg;
+{ GV2Flg = ( IXStt >> 3 ) & 1; validate GV2Flg; }
