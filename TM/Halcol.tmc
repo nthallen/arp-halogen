@@ -1,0 +1,12 @@
+%{
+  #include "subbus.h"
+%}
+Collect DS855 = sbrba( DS855.address ) ^ 0x61;
+Collect DS835 = sbrba( DS835.address ) ^ 0xF2;
+
+%{
+  static void Ct64_init( void ) {
+    sbwr( 0x600, 0x0000 ); /* HCtr 16 Hz */
+  }
+%}
+TM INITIFUNC Ct64_init();

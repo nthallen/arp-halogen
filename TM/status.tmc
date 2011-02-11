@@ -1,0 +1,18 @@
+%{
+  #include "swstat.h"
+%}
+TM Receive SWData 0;
+
+TM 1 Hz DStat IOSwS; Collect IOSwS = read_switches();
+TM 1/16 Hz DStat FailS; Collect FailS = read_failure();
+TM 1 Hz SWStat SW1_S; /* Mode switching */
+TM 1 Hz SWStat SW2_S; /* Apparently used for lab purposes */
+
+Group SWS (SW1_S,SW2_S) {
+  SW1_S = SWData.SW1_S;
+  SW2_S = SWData.SW2_S;
+}
+
+/* TM 1 Hz DUCT_SP SD1TSP; Address SD1TSP 0x1002; */
+/* TM 1 Hz DUCT_SP SD2TSP; Address SD2TSP 0x1003; */
+/* TM 4 Hz SWStat HSolS; Address HSolS 0x1004; */

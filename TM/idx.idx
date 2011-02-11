@@ -1,0 +1,59 @@
+Indexer Status 4 Hz IXStt
+channel 0 Secondary Throttle 1
+  position 1 Hz SV1Step
+  status   1 Hz SV1St Diagram SV1Stat
+  scanstat SV1Flg
+  disable zeroref
+  invert direction
+  speed 16000 Hz
+  scan
+channel 1 Gate Valve 1
+  position 1 Hz GV1Step
+  status   1 Hz GV1St Diagram GV1Stat
+  scanstat GV1Flg
+  disable zeroref
+  invert direction
+  scan
+channel 2 Secondary Throttle 2
+  position 1 Hz SV2Step
+  status   1 Hz SV2St Diagram SV2Stat
+  scanstat SV2Flg
+  disable zeroref
+  invert direction
+  speed 16000 Hz
+  scan
+channel 3 Gate Valve 2
+  position 1 Hz GV2Step
+  status   1 Hz GV2St Diagram GV2Stat
+  scanstat GV2Flg
+  disable zeroref
+  scan
+#channel 4 NO2 Throttle
+#  position 1 Hz NTVStep
+#  status   1 Hz NTVSt Diagram NTVStat
+#  scanstat NTVFlg
+#  disable zeroref
+#  scan
+#channel 6 Axis Filter 1
+#  position 4 Hz AF1Step
+#  status   4 Hz AF1St Diagram AF1Stat
+#  disable zeroref
+#  invert direction
+#channel 7 Axis Filter 2
+#  position 4 Hz AF2Step
+#  status   4 Hz AF2St Diagram AF2Stat
+#  disable zeroref
+#  invert direction
+#channel 8 Etalon
+#  position 4 Hz EtnStep
+#  status   4 Hz EtnSt Diagram EtnStat
+#  scanstat EtnFlg
+#  invert direction
+#  chop
+#  scan
+#channel 9 Bellows
+#  position 1 Hz BelStep 
+#  status   1 Hz BelSt Diagram BelStat
+#  scanstat BelFlg
+#  disable zeroref
+#  scan
