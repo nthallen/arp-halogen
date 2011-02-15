@@ -1,0 +1,80 @@
+StBit AirHS; Invalidate AirHS; { AirHS = ( DS86A >> 2 ) & 1; Validate AirHS; }
+StBit ArH1S; Invalidate ArH1S; { ArH1S = ( DS815 >> 3 ) & 1; Validate ArH1S; }
+StBit ArH2S; Invalidate ArH2S; { ArH2S = ( DS80A >> 0 ) & 1; Validate ArH2S; }
+StBit AuxHS; Invalidate AuxHS; { AuxHS = ( DS855 >> 0 ) & 1; Validate AuxHS; }
+StBit ClNFlC; Invalidate ClNFlC; { ClNFlC = ( DS82A >> 3 ) & 1; Validate ClNFlC; }
+StBit ClNFlO; Invalidate ClNFlO; { ClNFlO = ( DS82A >> 2 ) & 1; Validate ClNFlO; }
+StBit ClNH1; Invalidate ClNH1; { ClNH1 = ( DS80A >> 5 ) & 1; Validate ClNH1; }
+StBit ClNH2; Invalidate ClNH2; { ClNH2 = ( DS80A >> 6 ) & 1; Validate ClNH2; }
+StBit_OK_Fail DH1_I; Invalidate DH1_I; { DH1_I = ( DS855 >> 3 ) & 1; Validate DH1_I; }
+StBit DH1_S; Invalidate DH1_S; { DH1_S = ( DS855 >> 1 ) & 1; Validate DH1_S; }
+StBit_OK_Fail DH2_I; Invalidate DH2_I; { DH2_I = ( DS855 >> 4 ) & 1; Validate DH2_I; }
+StBit DH2_S; Invalidate DH2_S; { DH2_S = ( DS855 >> 2 ) & 1; Validate DH2_S; }
+StBit DH3_S; Invalidate DH3_S; { DH3_S = ( DS855 >> 5 ) & 1; Validate DH3_S; }
+StBit DewrS; Invalidate DewrS; { DewrS = ( DS86A >> 1 ) & 1; Validate DewrS; }
+StBit DyePS; Invalidate DyePS; { DyePS = ( DS84A >> 0 ) & 1; Validate DyePS; }
+StBit EmisS; Invalidate EmisS; { EmisS = ( DS835 >> 4 ) & 1; Validate EmisS; }
+StBit EnbDS; Invalidate EnbDS; { EnbDS = ( DS835 >> 2 ) & 1; Validate EnbDS; }
+StBit H1_SS; Invalidate H1_SS; { H1_SS = ( DS815 >> 6 ) & 1; Validate H1_SS; }
+StBit H2_SS; Invalidate H2_SS; { H2_SS = ( DS815 >> 2 ) & 1; Validate H2_SS; }
+StBit HV1_S; Invalidate HV1_S; { HV1_S = ( DS84A >> 2 ) & 1; Validate HV1_S; }
+StBit HV2_S; Invalidate HV2_S; { HV2_S = ( DS84A >> 3 ) & 1; Validate HV2_S; }
+StBit_OK_Fail InLkS; Invalidate InLkS; { InLkS = ( DS835 >> 6 ) & 1; Validate InLkS; }
+StBit LN2SS; Invalidate LN2SS; { LN2SS = ( DS835 >> 0 ) & 1; Validate LN2SS; }
+StBit LPwrS; Invalidate LPwrS; { LPwrS = ( DS835 >> 3 ) & 1; Validate LPwrS; }
+StBit Lab1S; Invalidate Lab1S; { Lab1S = ( DS86A >> 0 ) & 1; Validate Lab1S; }
+StBit Lmp_A; Invalidate Lmp_A; { Lmp_A = ( DS84A >> 4 ) & 1; Validate Lmp_A; }
+StBit Lmp_B; Invalidate Lmp_B; { Lmp_B = ( DS84A >> 5 ) & 1; Validate Lmp_B; }
+StBit Lmp_C; Invalidate Lmp_C; { Lmp_C = ( DS84A >> 6 ) & 1; Validate Lmp_C; }
+StBit Lmp_D; Invalidate Lmp_D; { Lmp_D = ( DS84A >> 7 ) & 1; Validate Lmp_D; }
+StBit N2_3S; Invalidate N2_3S; { N2_3S = ( DS84A >> 1 ) & 1; Validate N2_3S; }
+StBit NO2FC; Invalidate NO2FC; { NO2FC = ( DS82A >> 7 ) & 1; Validate NO2FC; }
+StBit NO2FO; Invalidate NO2FO; { NO2FO = ( DS82A >> 6 ) & 1; Validate NO2FO; }
+StBit NO2N1; Invalidate NO2N1; { NO2N1 = ( DS80A >> 7 ) & 1; Validate NO2N1; }
+StBit NO2N2; Invalidate NO2N2; { NO2N2 = ( DS815 >> 0 ) & 1; Validate NO2N2; }
+StBit NO2PS; Invalidate NO2PS; { NO2PS = ( DS80A >> 2 ) & 1; Validate NO2PS; }
+StBit NOF1C; Invalidate NOF1C; { NOF1C = ( DS82A >> 1 ) & 1; Validate NOF1C; }
+StBit NOF1O; Invalidate NOF1O; { NOF1O = ( DS82A >> 0 ) & 1; Validate NOF1O; }
+StBit NOF2C; Invalidate NOF2C; { NOF2C = ( DS82A >> 5 ) & 1; Validate NOF2C; }
+StBit NOF2O; Invalidate NOF2O; { NOF2O = ( DS82A >> 4 ) & 1; Validate NOF2O; }
+StBit NOH1S; Invalidate NOH1S; { NOH1S = ( DS80A >> 4 ) & 1; Validate NOH1S; }
+StBit NOH2S; Invalidate NOH2S; { NOH2S = ( DS815 >> 5 ) & 1; Validate NOH2S; }
+StBit Ozn_S; Invalidate Ozn_S; { Ozn_S = ( DS815 >> 7 ) & 1; Validate Ozn_S; }
+StBit SPARE_SB6D5; Invalidate SPARE_SB6D5; { SPARE_SB6D5 = ( DS86A >> 5 ) & 1; Validate SPARE_SB6D5; }
+StBit SPARE_SB6D6; Invalidate SPARE_SB6D6; { SPARE_SB6D6 = ( DS86A >> 6 ) & 1; Validate SPARE_SB6D6; }
+StBit SPARE_SB6D7; Invalidate SPARE_SB6D7; { SPARE_SB6D7 = ( DS86A >> 7 ) & 1; Validate SPARE_SB6D7; }
+StBit SPARE_SB7D0; Invalidate SPARE_SB7D0; { SPARE_SB7D0 = ( DS875 >> 0 ) & 1; Validate SPARE_SB7D0; }
+StBit SPARE_SB7D1; Invalidate SPARE_SB7D1; { SPARE_SB7D1 = ( DS875 >> 1 ) & 1; Validate SPARE_SB7D1; }
+StBit SPARE_SB7D2; Invalidate SPARE_SB7D2; { SPARE_SB7D2 = ( DS875 >> 2 ) & 1; Validate SPARE_SB7D2; }
+StBit SPARE_SB7D3; Invalidate SPARE_SB7D3; { SPARE_SB7D3 = ( DS875 >> 3 ) & 1; Validate SPARE_SB7D3; }
+StBit SPARE_SB7D4; Invalidate SPARE_SB7D4; { SPARE_SB7D4 = ( DS875 >> 4 ) & 1; Validate SPARE_SB7D4; }
+StBit SPARE_SB7D5; Invalidate SPARE_SB7D5; { SPARE_SB7D5 = ( DS875 >> 5 ) & 1; Validate SPARE_SB7D5; }
+StBit SPARE_SB7D6; Invalidate SPARE_SB7D6; { SPARE_SB7D6 = ( DS875 >> 6 ) & 1; Validate SPARE_SB7D6; }
+StBit SPARE_SB7D7; Invalidate SPARE_SB7D7; { SPARE_SB7D7 = ( DS875 >> 7 ) & 1; Validate SPARE_SB7D7; }
+StBit SpG1S; Invalidate SpG1S; { SpG1S = ( DS86A >> 3 ) & 1; Validate SpG1S; }
+StBit SpG2S; Invalidate SpG2S; { SpG2S = ( DS86A >> 4 ) & 1; Validate SpG2S; }
+StBit SpG3S; Invalidate SpG3S; { SpG3S = ( DS855 >> 7 ) & 1; Validate SpG3S; }
+StBit Spr1S; Invalidate Spr1S; { Spr1S = ( DS80A >> 1 ) & 1; Validate Spr1S; }
+StBit ArNO2S; Invalidate ArNO2S; { ArNO2S = ( DS80A >> 3 ) & 1; Validate ArNO2S; }
+StBit Spr3S; Invalidate Spr3S; { Spr3S = ( DS815 >> 4 ) & 1; Validate Spr3S; }
+StBit Spr4S; Invalidate Spr4S; { Spr4S = ( DS815 >> 1 ) & 1; Validate Spr4S; }
+StBit TRU_S; Invalidate TRU_S; { TRU_S = ( DS835 >> 7 ) & 1; Validate TRU_S; }
+StBit_OK_Fail T_OKS; Invalidate T_OKS; { T_OKS = ( DS835 >> 5 ) & 1; Validate T_OKS; }
+StBit V28H_S; Invalidate V28H_S; { V28H_S = ( DS835 >> 1 ) & 1; Validate V28H_S; }
+StBit Vlv3S; Invalidate Vlv3S; { Vlv3S = ( DS855 >> 6 ) & 1; Validate Vlv3S; }
+
+%{
+  char *of_text[] = { " ", "*" };
+%}
+TM typedef unsigned char Bit_Overflow { text "%1d" of_text[]; }
+/* Bit_Overflow Det1N_OF; invalidate Det1N_OF; */
+/*   { Det1N_OF = (NCtStat >> 1) & 1; Validate Det1N_OF; } */
+/* Bit_Overflow Det2N_OF; invalidate Det2N_OF; */
+/*   { Det2N_OF = (NCtStat >> 4) & 1; Validate Det2N_OF; } */
+
+StBit IOSw0; invalidate IOSw0; { IOSw0 = IOSwS & 1; validate IOSw0; }
+StBit IOSw1; invalidate IOSw1; { IOSw1 = ( IOSwS >> 1 ) & 1; validate IOSw1; }
+StBit CpSw0; invalidate CpSw0; { CpSw0 = ( IOSwS >> 4 ) & 1; validate CpSw0; }
+StBit CpSw1; invalidate CpSw1; { CpSw1 = ( IOSwS >> 5 ) & 1; validate CpSw1; }
+StBit Fail0; invalidate Fail0; { Fail0 = FailS & 1; validate Fail0; }
+StBit Fail1; invalidate Fail1; { Fail1 = ( FailS >> 1 ) & 1; validate Fail1; }

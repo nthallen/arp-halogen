@@ -1,0 +1,58 @@
+Axes {
+  HBox { +=+; Title: "Halogen Axes"; +=+ };
+  ""     >A< >B< >C< >D<;
+ "Det:" (DetA_S,6) (DetB_S,6) (DetC_S,6) (DetD_S,6) "";
+ "UV:" (A_UVV,6) (B_UVV,6) (C_UVV,6) (D_UVV,6) "V";
+ "IR:" (A_IRV,6) (B_IRV,6) (C_IRV,6) (D_IRV,6) "V";
+ "IR Set:" (A_IRSet,4) (B_IRSet,4) (C_IRSet,4) (D_IRSet,4);
+ "Status:" (Lmp_A,3) (Lmp_B,3) (Lmp_C,3) (Lmp_D,3) "";
+ "RF Fwd:" (ARFFW,6) (BRFFW,6) (CRFFW,6) (DRFFW,6) "V";
+ "RF Set:" (RFASet,4) (RFBSet,4) (RFCSet,4) (RFDSet,4) "V";
+ "RF Bwd:" (ARFBW,6) (BRFBW,6) (CRFBW,6) (DRFBW,6) "V";
+ "DetT:" (ADetT,5) (BDetT,5) (CDetT,5) (DDetT,5) "C";
+ "DHV:" (A_DHV,6) (B_DHV,6) (C_DHV,6) (D_DHV,6) "V";
+ "LMT:" (A_LMT,5) (B_LMT,5) (C_LMT,5) (D_LMT,5) "V";
+ "ModP:" (AModP,6) (BModP,6) (CModP,6) (DModP,6) "V";
+}
+Indexers {
+  HBox { +=+; Title: "Flow Indexers"; +=+ };
+  ""      Step        Flag      >Pot<   CZBA  Status;
+  SV1: (SV1Step,5) (SV1Flg,4) (SV1Ps,6) (SV1CZBA,4) (SV1Stat,5);
+  SV2: (SV2Step,5) (SV2Flg,4) (SV2Ps,6) (SV2CZBA,4) (SV2Stat,5);
+  GV1: (GV1Step,5) (GV1Flg,4) ""        (GV1CZBA,4) (GV1Stat,5);
+  GV2: (GV2Step,5) (GV2Flg,4) ""        (GV2CZBA,4) (GV2Stat,5);
+# PTV: (PTVStep,5) (PTVFlg,4) ""        (PTVCZBA,4) (PTVStat,5);
+  ""   ""          ""            >V<;
+}
+Ducts {
+  HBox { +=+; Title: Ducts; +=+ };
+  ""     >P<       >DP<      >Vel<;
+  "1:" (SD1_P,6) (SD1DP,6) (SD1Vel,5);
+  "2:" (SD2_P,6) (SD2DP,6) (SD2Vel,5);
+#  P:  (PD_P,6)  (PD_DP,6) (PDVel,5);
+  ""    >Torr<    >Torr<     >"m/s"<;
+}
+Status {
+  HBox { +=+; Title: Status; +=+ };
+  SW1: (SW1_S,3);
+  SW2: (SW2_S,3);
+  Sol: (HSolS,3);
+}
+MFCtr {
+  HBox { +=+; Title: MFCtr; +=+ };
+  (flttime,9);
+  (MFCtr,5);
+}
+{ HBox {
+	||+; [Axes]; ||+; {
+	  [Indexers];
+	  HBox {
+		[Ducts]; ||+; { [Status]; [MFCtr] }
+	  }
+	}; ||+
+  };
+  =;
+  Overlay { (%TMA:ClNfalgo:1,0+1,2) (%TMA:Hlabalgo:1,0+1,2)
+    (%TMA:no_algo:1,0+1,2) };
+  (%CLIENT,0+1,1);
+}
