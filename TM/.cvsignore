@@ -22,6 +22,16 @@ hddispnc.cc
 hddispncoui.c
 hddispncoui.o
 hddispnc.o
+thermtbl.tmc
+thdisp.cc
+thdispoui.c
+thdispoui.o
+thdisp.o
+thermtblnc.tmc
+thdispnc.cc
+thdispncoui.c
+thdispncoui.o
+thdispnc.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -34,5 +44,7 @@ Halcol
 muxctrl
 hddisp
 hddispnc
+thdisp
+thdispnc
 Halclt
 Halcltnc
