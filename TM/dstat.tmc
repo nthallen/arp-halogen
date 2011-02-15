@@ -64,7 +64,7 @@ StBit V28H_S; Invalidate V28H_S; { V28H_S = ( DS835 >> 1 ) & 1; Validate V28H_S;
 StBit Vlv3S; Invalidate Vlv3S; { Vlv3S = ( DS855 >> 6 ) & 1; Validate Vlv3S; }
 
 %{
-  char *of_text[] = { " ", "*" };
+  const char *of_text[] = { " ", "*" };
 %}
 TM typedef unsigned char Bit_Overflow { text "%1d" of_text[]; }
 /* Bit_Overflow Det1N_OF; invalidate Det1N_OF; */

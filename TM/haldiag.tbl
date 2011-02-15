@@ -36,7 +36,7 @@ Status {
   HBox { +=+; Title: Status; +=+ };
   SW1: (SW1_S,3);
   SW2: (SW2_S,3);
-  Sol: (HSolS,3);
+  Sol: HSolS; # (HSolS,3);
 }
 MFCtr {
   HBox { +=+; Title: MFCtr; +=+ };
@@ -51,8 +51,4 @@ MFCtr {
 	  }
 	}; ||+
   };
-  =;
-  Overlay { (%TMA:ClNfalgo:1,0+1,2) (%TMA:Hlabalgo:1,0+1,2)
-    (%TMA:no_algo:1,0+1,2) };
-  (%CLIENT,0+1,1);
 }

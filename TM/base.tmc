@@ -204,4 +204,4 @@ TM 1 Hz AD12 V28V4; Address V28V4 0xDAA;
 /* TM 1 Hz DASPt16 APD1HVSet; Address APD1HVSet 0xCF0; */
 /* TM 1 Hz DASPt16 APD2HVSet; Address APD2HVSet 0xDF0; */
 TM MAXCOLS = 120;
-TM 0   Hz UINT  Synch, MFCtr;
+TM 16  Hz UINT  Synch, MFCtr;

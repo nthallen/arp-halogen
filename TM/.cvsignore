@@ -12,6 +12,16 @@ Halcol.o
 muxctrloui.c
 muxctrl.o
 muxctrloui.o
+haldiagtbl.tmc
+hddisp.cc
+hddispoui.c
+hddispoui.o
+hddisp.o
+haldiagtblnc.tmc
+hddispnc.cc
+hddispncoui.c
+hddispncoui.o
+hddispnc.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -22,5 +32,7 @@ Halcltncoui.o
 Halsrvr
 Halcol
 muxctrl
+hddisp
+hddispnc
 Halclt
 Halcltnc
