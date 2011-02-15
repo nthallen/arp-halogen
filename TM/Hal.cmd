@@ -45,11 +45,11 @@
     : Set SW Status &swstat to %d ( Enter value from 0-255 ) {
         *$4 = $6;
       }
-    : Set SW Command &swcommand { SWData.SW_1S = $4; }
+    : Set SW Command &swcommand { SWData.SW1_S = $4; }
     ;
 &swstat <unsigned char *>
-    : 1 { $0 = &SWData.SW_1S; }
-    : 2 { $0 = &SWData.SW_2S; }
+    : 1 { $0 = &SWData.SW1_S; }
+    : 2 { $0 = &SWData.SW2_S; }
     ;
 &swcommand <unsigned char>
     : Clear { $0 = 0; }

@@ -23,7 +23,7 @@ muxctrl : muxctrl.c muxctrl.oui
 
 # Hal.sft : Hal.sol
 
-# hddisp : idxflag.tmc VT.tmc dstat.tmc idxczba.tmc time.tmc SlowCnts.tmc haldiag.tbl
+hddisp : idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiag.tbl
 # thdisp : dstat.tmc VT.tmc VI.tmc therm.tbl dhtr.tbl
 # gddisp : dstat.tmc gasdiag.tbl
 # rvdisp : Rover.tbl

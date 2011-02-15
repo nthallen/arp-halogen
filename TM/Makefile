@@ -1,22 +1,25 @@
-# Makefile Generated Tue Feb 15 12:38:58 EST 2011
+# Makefile Generated Tue Feb 15 12:57:20 EST 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
 SRC=idx.idx NOTitr_4.cyc *.edf tlookup*.dat sws_init.cmd scdc.cmd
 SRC+=daspt.cmd idxdrv.cmd Hal.cmd types.tmc base.tmc mux.tmc
 SRC+=status.tmc cts.tmc idx.tmc nav.tmc Halcol.tmc idxcol.tmc
-SRC+=navcol.tmc muxctrl.c muxctrl.oui
+SRC+=navcol.tmc muxctrl.c muxctrl.oui idxflag.tmc VT.tmc dstat.tmc
+SRC+=SlowCnts.tmc haldiag.tbl
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
 OBJ=Halcmd.c Halcmd.dat Halsrvr.o Halsrvroui.c Halsrvroui.o
 OBJ+=Halcol.cc Hal.pcm tm.dac Halcoloui.c Halcoloui.o Halcol.o
-OBJ+=muxctrloui.c muxctrl.o muxctrloui.o Halclt.o Halcltoui.c
+OBJ+=muxctrloui.c muxctrl.o muxctrloui.o haldiagtbl.tmc hddisp.cc
+OBJ+=hddispoui.c hddispoui.o hddisp.o haldiagtblnc.tmc hddispnc.cc
+OBJ+=hddispncoui.c hddispncoui.o hddispnc.o Halclt.o Halcltoui.c
 OBJ+=Halcltoui.o Halcltnc.o Halcltncoui.c Halcltncoui.o
-TGT=Halsrvr Halcol muxctrl Halclt Halcltnc
+TGT=Halsrvr Halcol muxctrl hddisp hddispnc Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION
-SRCDIST=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
-SRCDIST+=nav.tmc
+SRCDIST=haldiag.tbl types.tmc base.tmc mux.tmc status.tmc cts.tmc
+SRCDIST+=idx.tmc nav.tmc
 NONRCS=
 TMCBASE=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 TMCBASE+=nav.tmc
@@ -54,6 +57,12 @@ Halcol : Halcol.o Halcoloui.o
 muxctrl : muxctrl.o muxctrloui.o
 	$(LINK.norm) muxctrl.o muxctrloui.o -ltm -lnort
 	$(OUIUSE) muxctrloui.c
+hddisp : hddisp.o hddispoui.o
+	$(LINK.normCXX) hddisp.o hddispoui.o -ldisp -ltmph -lph -ltmpp -ltm -lnort
+	$(OUIUSE) hddispoui.c
+hddispnc : hddispnc.o hddispncoui.o
+	$(LINK.normCXX) hddispnc.o hddispncoui.o -ldispnc -ltmnc -lncurses -ltmpp -ltm -lnort
+	$(OUIUSE) hddispncoui.c
 Halclt : Halclt.o Halcltoui.o
 	$(LINK.norm) Halclt.o Halcltoui.o -ltmph -lph -ltm -lnort
 	$(OUIUSE) Halcltoui.c
@@ -77,6 +86,22 @@ muxctrloui.c : muxctrl.oui $(OUIDIR)/msg.oui
 	$(OUI) muxctrl.oui $(OUIDIR)/msg.oui
 muxctrl.o : muxctrl.c
 muxctrloui.o : muxctrloui.c
+haldiagtbl.tmc : haldiag.tbl
+	$(TABLE) haldiag.tbl
+hddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtbl.tmc
+hddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+hddispoui.o : hddispoui.c
+hddisp.o : hddisp.cc
+haldiagtblnc.tmc : haldiag.tbl
+	$(NCTABLE) haldiag.tbl
+hddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtblnc.tmc
+hddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+hddispncoui.o : hddispncoui.c
+hddispnc.o : hddispnc.cc
 Halclt.o : Halcmd.c
 	$(COMPILE.clt) Halcmd.c
 Halcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui

@@ -3,8 +3,8 @@
 #define SWSTAT_H_INCLUDED
 
 typedef struct {
-  unsigned char SW_1S;
-  unsigned char SW_2S;
+  unsigned char SW1_S;
+  unsigned char SW2_S;
 } __attribute__((packed)) swstat_t;
 extern swstat_t SWData;
 
