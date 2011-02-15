@@ -1,4 +1,4 @@
-# Makefile Generated Tue Feb 15 13:16:41 EST 2011
+# Makefile Generated Tue Feb 15 13:18:41 EST 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
@@ -6,7 +6,7 @@ SRC=idx.idx NOTitr_4.cyc *.edf tlookup*.dat sws_init.cmd scdc.cmd
 SRC+=daspt.cmd idxdrv.cmd Hal.cmd types.tmc base.tmc mux.tmc
 SRC+=status.tmc cts.tmc idx.tmc nav.tmc Halcol.tmc idxcol.tmc
 SRC+=navcol.tmc muxctrl.c muxctrl.oui idxflag.tmc VT.tmc dstat.tmc
-SRC+=SlowCnts.tmc haldiag.tbl therm.tbl
+SRC+=SlowCnts.tmc haldiag.tbl therm.tbl gasdiag.tbl
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
 OBJ=Halcmd.c Halcmd.dat Halsrvr.o Halsrvroui.c Halsrvroui.o
@@ -15,14 +15,16 @@ OBJ+=muxctrloui.c muxctrl.o muxctrloui.o haldiagtbl.tmc hddisp.cc
 OBJ+=hddispoui.c hddispoui.o hddisp.o haldiagtblnc.tmc hddispnc.cc
 OBJ+=hddispncoui.c hddispncoui.o hddispnc.o thermtbl.tmc thdisp.cc
 OBJ+=thdispoui.c thdispoui.o thdisp.o thermtblnc.tmc thdispnc.cc
-OBJ+=thdispncoui.c thdispncoui.o thdispnc.o Halclt.o Halcltoui.c
+OBJ+=thdispncoui.c thdispncoui.o thdispnc.o gasdiagtbl.tmc gddisp.cc
+OBJ+=gddispoui.c gddispoui.o gddisp.o gasdiagtblnc.tmc gddispnc.cc
+OBJ+=gddispncoui.c gddispncoui.o gddispnc.o Halclt.o Halcltoui.c
 OBJ+=Halcltoui.o Halcltnc.o Halcltncoui.c Halcltncoui.o
-TGT=Halsrvr Halcol muxctrl hddisp hddispnc thdisp thdispnc Halclt
-TGT+=Halcltnc
+TGT=Halsrvr Halcol muxctrl hddisp hddispnc thdisp thdispnc gddisp
+TGT+=gddispnc Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION
-SRCDIST=haldiag.tbl therm.tbl types.tmc base.tmc mux.tmc status.tmc
-SRCDIST+=cts.tmc idx.tmc nav.tmc
+SRCDIST=haldiag.tbl therm.tbl gasdiag.tbl types.tmc base.tmc mux.tmc
+SRCDIST+=status.tmc cts.tmc idx.tmc nav.tmc
 NONRCS=
 TMCBASE=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 TMCBASE+=nav.tmc
@@ -72,6 +74,12 @@ thdisp : thdisp.o thdispoui.o
 thdispnc : thdispnc.o thdispncoui.o
 	$(LINK.normCXX) thdispnc.o thdispncoui.o -ldispnc -ltmnc -lncurses -ltmpp -ltm -lnort
 	$(OUIUSE) thdispncoui.c
+gddisp : gddisp.o gddispoui.o
+	$(LINK.normCXX) gddisp.o gddispoui.o -ldisp -ltmph -lph -ltmpp -ltm -lnort
+	$(OUIUSE) gddispoui.c
+gddispnc : gddispnc.o gddispncoui.o
+	$(LINK.normCXX) gddispnc.o gddispncoui.o -ldispnc -ltmnc -lncurses -ltmpp -ltm -lnort
+	$(OUIUSE) gddispncoui.c
 Halclt : Halclt.o Halcltoui.o
 	$(LINK.norm) Halclt.o Halcltoui.o -ltmph -lph -ltm -lnort
 	$(OUIUSE) Halcltoui.c
@@ -127,6 +135,22 @@ thdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 thdispncoui.o : thdispncoui.c
 thdispnc.o : thdispnc.cc
+gasdiagtbl.tmc : gasdiag.tbl
+	$(TABLE) gasdiag.tbl
+gddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc dstat.tmc gasdiagtbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc dstat.tmc gasdiagtbl.tmc
+gddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+gddispoui.o : gddispoui.c
+gddisp.o : gddisp.cc
+gasdiagtblnc.tmc : gasdiag.tbl
+	$(NCTABLE) gasdiag.tbl
+gddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc dstat.tmc gasdiagtblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc dstat.tmc gasdiagtblnc.tmc
+gddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+gddispncoui.o : gddispncoui.c
+gddispnc.o : gddispnc.cc
 Halclt.o : Halcmd.c
 	$(COMPILE.clt) Halcmd.c
 Halcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui

@@ -25,7 +25,7 @@ muxctrl : muxctrl.c muxctrl.oui
 
 hddisp : idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiag.tbl
 thdisp : dstat.tmc VT.tmc therm.tbl
-# gddisp : dstat.tmc gasdiag.tbl
+gddisp : dstat.tmc gasdiag.tbl
 # rvdisp : Rover.tbl
 # Hlabdoit : Hlab.doit
 # Hdoit : H.doit
