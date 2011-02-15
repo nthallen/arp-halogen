@@ -32,6 +32,16 @@ thdispnc.cc
 thdispncoui.c
 thdispncoui.o
 thdispnc.o
+gasdiagtbl.tmc
+gddisp.cc
+gddispoui.c
+gddispoui.o
+gddisp.o
+gasdiagtblnc.tmc
+gddispnc.cc
+gddispncoui.c
+gddispncoui.o
+gddispnc.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -46,5 +56,7 @@ hddisp
 hddispnc
 thdisp
 thdispnc
+gddisp
+gddispnc
 Halclt
 Halcltnc
