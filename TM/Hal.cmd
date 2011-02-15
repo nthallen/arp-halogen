@@ -1,6 +1,5 @@
 %{
   #include "subbus.h"
-  #include "da_cache.h"
   #include "swstat.h"
   #define IOMODE_INIT (IO_SPACE|IO_BACKSPACE|IO_WORD|IO_WORDSKIP)
 

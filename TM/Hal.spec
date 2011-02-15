@@ -19,6 +19,8 @@ TGTDIR = $(TGTNODE)/home/Hal
 
 Halsrvr : -lsubbus
 Halcol : Halcol.tmc idxcol.tmc navcol.tmc -lsubbus
+muxctrl : muxctrl.c muxctrl.oui
+
 # Hal.sft : Hal.sol
 
 # hddisp : idxflag.tmc VT.tmc dstat.tmc idxczba.tmc time.tmc SlowCnts.tmc haldiag.tbl

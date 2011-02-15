@@ -9,6 +9,9 @@ tm.dac
 Halcoloui.c
 Halcoloui.o
 Halcol.o
+muxctrloui.c
+muxctrl.o
+muxctrloui.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -18,5 +21,6 @@ Halcltncoui.o
 *.err
 Halsrvr
 Halcol
+muxctrl
 Halclt
 Halcltnc

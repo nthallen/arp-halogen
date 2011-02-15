@@ -1,18 +1,18 @@
-# Makefile Generated Fri Feb 11 16:53:48 EST 2011
+# Makefile Generated Tue Feb 15 12:38:58 EST 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
 SRC=idx.idx NOTitr_4.cyc *.edf tlookup*.dat sws_init.cmd scdc.cmd
 SRC+=daspt.cmd idxdrv.cmd Hal.cmd types.tmc base.tmc mux.tmc
 SRC+=status.tmc cts.tmc idx.tmc nav.tmc Halcol.tmc idxcol.tmc
-SRC+=navcol.tmc
+SRC+=navcol.tmc muxctrl.c muxctrl.oui
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
 OBJ=Halcmd.c Halcmd.dat Halsrvr.o Halsrvroui.c Halsrvroui.o
 OBJ+=Halcol.cc Hal.pcm tm.dac Halcoloui.c Halcoloui.o Halcol.o
-OBJ+=Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c
-OBJ+=Halcltncoui.o
-TGT=Halsrvr Halcol Halclt Halcltnc
+OBJ+=muxctrloui.c muxctrl.o muxctrloui.o Halclt.o Halcltoui.c
+OBJ+=Halcltoui.o Halcltnc.o Halcltncoui.c Halcltncoui.o
+TGT=Halsrvr Halcol muxctrl Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION
 SRCDIST=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
@@ -51,6 +51,9 @@ Halcol : Halcol.o Halcoloui.o
 	$(LINK.privCXX) Halcol.o Halcoloui.o -lsubbus -ltmpp -ltm -lnort
 	$(OUIUSE) Halcoloui.c
 	$(PROMOTE) Halcol
+muxctrl : muxctrl.o muxctrloui.o
+	$(LINK.norm) muxctrl.o muxctrloui.o -ltm -lnort
+	$(OUIUSE) muxctrloui.c
 Halclt : Halclt.o Halcltoui.o
 	$(LINK.norm) Halclt.o Halcltoui.o -ltmph -lph -ltm -lnort
 	$(OUIUSE) Halcltoui.c
@@ -70,6 +73,10 @@ Halcoloui.c : $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $
 	$(OUI) $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 Halcoloui.o : Halcoloui.c
 Halcol.o : Halcol.cc
+muxctrloui.c : muxctrl.oui $(OUIDIR)/msg.oui
+	$(OUI) muxctrl.oui $(OUIDIR)/msg.oui
+muxctrl.o : muxctrl.c
+muxctrloui.o : muxctrloui.c
 Halclt.o : Halcmd.c
 	$(COMPILE.clt) Halcmd.c
 Halcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui

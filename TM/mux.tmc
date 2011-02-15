@@ -1,7 +1,3 @@
-%{
-  unsigned short MUXCtrl;
-%}
-
 TM 1 Hz AD12  MUX01;   Address MUX01 0xDC2;
 TM 1 Hz AD12  MUX02;   Address MUX02 0xDC4;
 TM 1 Hz AD12  MUX03;   Address MUX03 0xDC6;
@@ -10,6 +6,7 @@ TM 1 Hz AD12  MUX05;   Address MUX05 0xDCA;
 TM 1 Hz AD12  MUX06;   Address MUX06 0xDCC;
 TM 1 Hz AD12  MUX07;   Address MUX07 0xDCE;
 TM 1 Hz UCHAR MUXAddr; Address MUXAddr 0x868;
+TM 1 Hz UCHAR MUXStale;
 
 TM "Receive" MUXCtrl 1;
 
@@ -22,6 +19,7 @@ Group MUX ( MUXAddr, MUX01, MUX02, MUX03, MUX04, MUX05, MUX06, MUX07) {
   MUX05 = (sbrwa(MUX05.address) & 0xFFF) << 4;
   MUX06 = (sbrwa(MUX06.address) & 0xFFF) << 4;
   MUX07 = (sbrwa(MUX07.address) & 0xFFF) << 4;
+  MUXStale = MUXCtrl_obj->stale(255);
   MUXCtrl_obj->synch();
 }
 
