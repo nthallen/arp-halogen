@@ -4,6 +4,8 @@
   #define IOMODE_INIT (IO_SPACE|IO_BACKSPACE|IO_WORD|IO_WORDSKIP)
 
   #ifdef SERVER
+    swstat_t SWData;
+
     static void setfail( unsigned int bit, int on ) {
       static int fail_code;
       int mask;
@@ -17,18 +19,17 @@
   #endif
 
 %}
+
+%INTERFACE <SWData:DG/data>
 %INTERFACE <soldrv>
+%INTERFACE <subbus>
 
 &command
     : CMDENBL &on_off * { set_cmdenbl( $2 ); }
     : Fail Lamp %d(Enter Bit Number 0-7) &on_off * { setfail( $3, $4 ); }
     : TRU &on_off * { setfail( 1, $2 ); }
-    : &CmdData * {
-        if ( SWS_id == 0 )
-          SWS_id = Col_send_init( "SWData", &SWData, sizeof( SWData ), 0 );
-        Col_send( SWS_id );
-      }
-    : &SoldrvA * { cis_turf(if_soldrv, "M%d\n", $1); }
+    : &CmdData * { if_SWData.Turf(); }
+    : &SoldrvA * { if_soldrv.Turf( "M%d\n", $1); }
     ;
 
 &SoldrvA <int>

@@ -1,7 +1,6 @@
 tmcbase = types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 tmcbase = nav.tmc
 
-cmdbase = sws_init.cmd
 cmdbase = /usr/local/share/huarp/root.cmd
 cmdbase = /usr/local/share/huarp/getcon.cmd
 cmdbase = scdc.cmd daspt.cmd

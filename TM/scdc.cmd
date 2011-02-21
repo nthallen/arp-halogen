@@ -1,10 +1,10 @@
-%INTERFACE <dccc>
+%INTERFACE <dccc:dccc>
 
 &command
     : &scdc_cmd
-      { cis_turf(if_dccc, "D%d\n", $1); }
+      { if_dccc.Turf("D%d\n", $1); }
     : Mux address set %d *
-      { cis_turf(if_dccc, "S%d=%d\n", 98, $4<<2 ); }
+      { if_dccc.Turf( "S%d=%d\n", 98, $4<<2 ); }
     ;
 &scdc_cmd <int>
     : GasDeck Air Flow to Duct 2 On * { $0 = 0; }
