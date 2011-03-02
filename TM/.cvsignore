@@ -43,6 +43,11 @@ gddispncoui.c
 gddispncoui.o
 gddispnc.o
 Hdoit.dep
+Halalgoa.tmc
+Halalgo.cc
+Halalgooui.c
+Halalgooui.o
+Halalgo.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -60,5 +65,6 @@ thdispnc
 gddisp
 gddispnc
 Hdoit
+Halalgo
 Halclt
 Halcltnc

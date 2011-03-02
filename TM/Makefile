@@ -1,4 +1,4 @@
-# Makefile Generated Sun Feb 20 20:19:46 EST 2011
+# Makefile Generated Fri Feb 25 09:03:15 EST 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
@@ -6,7 +6,7 @@ SRC=idx.idx NOTitr_4.cyc *.edf tlookup*.dat scdc.cmd daspt.cmd
 SRC+=idxdrv.cmd Hal.cmd types.tmc base.tmc mux.tmc status.tmc cts.tmc
 SRC+=idx.tmc nav.tmc Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c
 SRC+=muxctrl.oui idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc
-SRC+=haldiag.tbl therm.tbl gasdiag.tbl H.doit
+SRC+=haldiag.tbl therm.tbl gasdiag.tbl H.doit Hal.tma
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
 OBJ=Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c Halsrvroui.o
@@ -17,14 +17,15 @@ OBJ+=hddispncoui.c hddispncoui.o hddispnc.o thermtbl.tmc thdisp.cc
 OBJ+=thdispoui.c thdispoui.o thdisp.o thermtblnc.tmc thdispnc.cc
 OBJ+=thdispncoui.c thdispncoui.o thdispnc.o gasdiagtbl.tmc gddisp.cc
 OBJ+=gddispoui.c gddispoui.o gddisp.o gasdiagtblnc.tmc gddispnc.cc
-OBJ+=gddispncoui.c gddispncoui.o gddispnc.o Hdoit.dep Halclt.o
+OBJ+=gddispncoui.c gddispncoui.o gddispnc.o Hdoit.dep Halalgoa.tmc
+OBJ+=Halalgo.cc Halalgooui.c Halalgooui.o Halalgo.o Halclt.o
 OBJ+=Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c Halcltncoui.o
 TGT=Halsrvr Halcol muxctrl hddisp hddispnc thdisp thdispnc gddisp
-TGT+=gddispnc Hdoit Halclt Halcltnc
+TGT+=gddispnc Hdoit Halalgo Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION Hdoit
-SRCDIST=haldiag.tbl therm.tbl gasdiag.tbl types.tmc base.tmc mux.tmc
-SRCDIST+=status.tmc cts.tmc idx.tmc nav.tmc
+SRCDIST=haldiag.tbl therm.tbl gasdiag.tbl Hal.tma types.tmc base.tmc
+SRCDIST+=mux.tmc status.tmc cts.tmc idx.tmc nav.tmc
 NONRCS=
 TMCBASE=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 TMCBASE+=nav.tmc
@@ -82,6 +83,9 @@ gddispnc : gddispnc.o gddispncoui.o
 	$(OUIUSE) gddispncoui.c
 Hdoit : H.doit
 	mkdoit3 -o Hdoit  H.doit
+Halalgo : Halalgo.o Halalgooui.o
+	$(LINK.normCXX) Halalgo.o Halalgooui.o -ltmpp -ltm -lnort
+	$(OUIUSE) Halalgooui.c
 Halclt : Halclt.o Halcltoui.o
 	$(LINK.normCXX) Halclt.o Halcltoui.o -ltmph -lph -ltmpp -ltm -lnort
 	$(OUIUSE) Halcltoui.c
@@ -156,6 +160,15 @@ gddispnc.o : gddispnc.cc
 Hdoit.dep : H.doit
 	mkdoit3 -M -o Hdoit  H.doit
 -include Hdoit.dep
+Halalgoa.tmc : Hal.tma Halsrvr
+	$(SERVER) ./Halsrvr
+	$(TMCALGO) -V "`./Halsrvr -R`" Hal.tma
+Halalgo.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc Halalgoa.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc Halalgoa.tmc
+Halalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+Halalgooui.o : Halalgooui.c
+Halalgo.o : Halalgo.cc
 Halclt.o : Halcmd.cc
 	$(COMPILE.clt) Halcmd.cc
 Halcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui

@@ -32,6 +32,7 @@ Hdoit : H.doit
 # rvdoit : rv.doit
 # Halfalgo : dstat.tmc idxflag.tmc VT.tmc VI.tmc Half.tma Halog.tma DHtr.tma TRU.tma
 # Hlabalgo : Hlab.tma
+Halalgo : Hal.tma
 
 #STAText : STAT.edf
 #HAL1ext : HAL1.edf
