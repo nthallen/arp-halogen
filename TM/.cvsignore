@@ -12,6 +12,9 @@ Halcol.o
 muxctrloui.c
 muxctrl.o
 muxctrloui.o
+rfdoui.c
+rfdoui.o
+rfd.o
 haldiagtbl.tmc
 hddisp.cc
 hddispoui.c
@@ -58,6 +61,7 @@ Halcltncoui.o
 Halsrvr
 Halcol
 muxctrl
+rfd
 hddisp
 hddispnc
 thdisp

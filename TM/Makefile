@@ -1,27 +1,28 @@
-# Makefile Generated Fri Feb 25 09:03:15 EST 2011
+# Makefile Generated Thu Mar 03 09:42:23 EST 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
 SRC=idx.idx NOTitr_4.cyc *.edf tlookup*.dat scdc.cmd daspt.cmd
 SRC+=idxdrv.cmd Hal.cmd types.tmc base.tmc mux.tmc status.tmc cts.tmc
 SRC+=idx.tmc nav.tmc Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c
-SRC+=muxctrl.oui idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc
-SRC+=haldiag.tbl therm.tbl gasdiag.tbl H.doit Hal.tma
+SRC+=muxctrl.oui rfd.cc rfd.oui idxflag.tmc VT.tmc dstat.tmc
+SRC+=SlowCnts.tmc haldiag.tbl therm.tbl gasdiag.tbl H.doit Hal.tma
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
 OBJ=Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c Halsrvroui.o
 OBJ+=Halcol.cc Hal.pcm tm.dac Halcoloui.c Halcoloui.o Halcol.o
-OBJ+=muxctrloui.c muxctrl.o muxctrloui.o haldiagtbl.tmc hddisp.cc
-OBJ+=hddispoui.c hddispoui.o hddisp.o haldiagtblnc.tmc hddispnc.cc
-OBJ+=hddispncoui.c hddispncoui.o hddispnc.o thermtbl.tmc thdisp.cc
-OBJ+=thdispoui.c thdispoui.o thdisp.o thermtblnc.tmc thdispnc.cc
-OBJ+=thdispncoui.c thdispncoui.o thdispnc.o gasdiagtbl.tmc gddisp.cc
-OBJ+=gddispoui.c gddispoui.o gddisp.o gasdiagtblnc.tmc gddispnc.cc
-OBJ+=gddispncoui.c gddispncoui.o gddispnc.o Hdoit.dep Halalgoa.tmc
-OBJ+=Halalgo.cc Halalgooui.c Halalgooui.o Halalgo.o Halclt.o
-OBJ+=Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c Halcltncoui.o
-TGT=Halsrvr Halcol muxctrl hddisp hddispnc thdisp thdispnc gddisp
-TGT+=gddispnc Hdoit Halalgo Halclt Halcltnc
+OBJ+=muxctrloui.c muxctrl.o muxctrloui.o rfdoui.c rfdoui.o rfd.o
+OBJ+=haldiagtbl.tmc hddisp.cc hddispoui.c hddispoui.o hddisp.o
+OBJ+=haldiagtblnc.tmc hddispnc.cc hddispncoui.c hddispncoui.o
+OBJ+=hddispnc.o thermtbl.tmc thdisp.cc thdispoui.c thdispoui.o
+OBJ+=thdisp.o thermtblnc.tmc thdispnc.cc thdispncoui.c thdispncoui.o
+OBJ+=thdispnc.o gasdiagtbl.tmc gddisp.cc gddispoui.c gddispoui.o
+OBJ+=gddisp.o gasdiagtblnc.tmc gddispnc.cc gddispncoui.c
+OBJ+=gddispncoui.o gddispnc.o Hdoit.dep Halalgoa.tmc Halalgo.cc
+OBJ+=Halalgooui.c Halalgooui.o Halalgo.o Halclt.o Halcltoui.c
+OBJ+=Halcltoui.o Halcltnc.o Halcltncoui.c Halcltncoui.o
+TGT=Halsrvr Halcol muxctrl rfd hddisp hddispnc thdisp thdispnc
+TGT+=gddisp gddispnc Hdoit Halalgo Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION Hdoit
 SRCDIST=haldiag.tbl therm.tbl gasdiag.tbl Hal.tma types.tmc base.tmc
@@ -63,6 +64,9 @@ Halcol : Halcol.o Halcoloui.o
 muxctrl : muxctrl.o muxctrloui.o
 	$(LINK.norm) muxctrl.o muxctrloui.o -ltm -lnort
 	$(OUIUSE) muxctrloui.c
+rfd : rfd.o rfdoui.o
+	$(LINK.normCXX) rfd.o rfdoui.o -ltm -lnort
+	$(OUIUSE) rfdoui.c
 hddisp : hddisp.o hddispoui.o
 	$(LINK.normCXX) hddisp.o hddispoui.o -ldisp -ltmph -lph -ltmpp -ltm -lnort
 	$(OUIUSE) hddispoui.c
@@ -109,6 +113,10 @@ muxctrloui.c : muxctrl.oui $(OUIDIR)/msg.oui
 	$(OUI) muxctrl.oui $(OUIDIR)/msg.oui
 muxctrl.o : muxctrl.c
 muxctrloui.o : muxctrloui.c
+rfdoui.c : rfd.oui $(OUIDIR)/msg.oui
+	$(OUI) rfd.oui $(OUIDIR)/msg.oui
+rfdoui.o : rfdoui.c
+rfd.o : rfd.cc
 haldiagtbl.tmc : haldiag.tbl
 	$(TABLE) haldiag.tbl
 hddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtbl.tmc
