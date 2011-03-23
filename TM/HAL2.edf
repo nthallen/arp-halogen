@@ -1,0 +1,27 @@
+spreadsheet LpRF_1 9
+	1	ARFBW %5.2lf
+	2	ARFFW %5.2lf
+	3	BRFBW %5.2lf
+	4	BRFFW %5.2lf
+	5	CRFBW %5.2lf
+	6	CRFFW %5.2lf
+	7	DRFBW %5.2lf
+	8	DRFFW %5.2lf
+
+spreadsheet LpSet_4t 9
+	1	RFASet %5.3lf
+	2	A_IRSet %5.3lf
+	3	RFBSet %5.3lf
+	4	B_IRSet %5.3lf
+	5	RFCSet %5.3lf
+	6	C_IRSet %5.3lf
+	7	RFDSet %5.3lf
+	8	D_IRSet %5.3lf
+
+spreadsheet LpIRUV_1 5
+	1	A_IRV %5.2lf
+	2	B_IRV %5.2lf
+	3	C_IRV %5.2lf
+	4	D_IRV %5.2lf
+
+

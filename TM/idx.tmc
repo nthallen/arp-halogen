@@ -6,12 +6,6 @@ TM typedef unsigned char IndxrStat {
   text "%08b";
   collect x = sbrba(x.address);
 }
-TM 1 Hz IndxrPos  SV1Step;  Address SV1Step 0xA0C;
-TM 1 Hz IndxrStat SV1St;  Address SV1St 0xA0E;
-TM 1 Hz IndxrPos  GV1Step;  Address GV1Step 0xA14;
-TM 1 Hz IndxrStat GV1St;  Address GV1St 0xA16;
 TM 1 Hz IndxrPos  SV2Step;  Address SV2Step 0xA1C;
 TM 1 Hz IndxrStat SV2St;  Address SV2St 0xA1E;
-TM 1 Hz IndxrPos  GV2Step;  Address GV2Step 0xA24;
-TM 1 Hz IndxrStat GV2St;  Address GV2St 0xA26;
 TM 4 Hz IndxrPos  IXStt;

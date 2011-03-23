@@ -1,5 +1,5 @@
 FlowT {
-  HBox { +=+; Title: "Flow Thermistors"; +=+ };
+  HBox { +-+; Title: "Flow Thermistors"; +-+ };
   Header:
   "" >SF1B< >SF1F< >SF2B< >SF2F<;
   "0:"  (SF1B0,6) (SF1F0,6) (SF2B0,6) (SF2F0,6) C;
@@ -12,20 +12,21 @@ FlowT {
   Temp: (SF1BTemp,6) ""     (SF2BTemp,6) ""     C;
 }
 Exhaust {
-  HBox { +=+; Title: Exhaust; +=+ };
+  HBox { +-+; Title: Exhaust; +-+ };
   "1:" (Exh1T,5) C;
   "2:" (Exh2T,5) C;
 }
 MFCtr {
-  HBox { +=+; Title: MFCtr; +=+ };
+  HBox { +-+; Title: MFCtr; +-+ };
   >(MFCtr,5)<;
 }
 {
   HBox {
-	||+; [FlowT]; ||+;
+	|+; [FlowT]; |+;
 	{ [Exhaust];
 	  VGlue 0+1;
 	  [MFCtr];
-	}; ||+;
+	}; |+;
   };
+  -;
 }

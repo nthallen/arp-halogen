@@ -1,32 +1,50 @@
-# Makefile Generated Thu Mar 03 09:42:23 EST 2011
+# Makefile Generated Wed Mar 23 17:55:36 EDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
-SRC=idx.idx NOTitr_4.cyc *.edf tlookup*.dat scdc.cmd daspt.cmd
-SRC+=idxdrv.cmd Hal.cmd types.tmc base.tmc mux.tmc status.tmc cts.tmc
-SRC+=idx.tmc nav.tmc Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c
-SRC+=muxctrl.oui rfd.cc rfd.oui idxflag.tmc VT.tmc dstat.tmc
-SRC+=SlowCnts.tmc haldiag.tbl therm.tbl gasdiag.tbl H.doit Hal.tma
+SRC=idx.idx NOTitr_4.cyc HAL1.edf HAL2.edf HAL3.edf INST1.edf
+SRC+=INST2.edf INST6.edf NOTitr_4.edf STAT.edf tlookup*.dat scdc.cmd
+SRC+=daspt.cmd idxdrv.cmd Hal.cmd types.tmc base.tmc mux.tmc
+SRC+=status.tmc cts.tmc idx.tmc nav.tmc Halcol.tmc idxcol.tmc
+SRC+=navcol.tmc muxctrl.c muxctrl.oui rfd.cc rfd.oui idxflag.tmc
+SRC+=VT.tmc dstat.tmc SlowCnts.tmc haldiag.tbl therm.tbl gasdiag.tbl
+SRC+=Rover.tbl H.doit Hal.tma NOTitr_4.tmc
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
-OBJ=Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c Halsrvroui.o
-OBJ+=Halcol.cc Hal.pcm tm.dac Halcoloui.c Halcoloui.o Halcol.o
-OBJ+=muxctrloui.c muxctrl.o muxctrloui.o rfdoui.c rfdoui.o rfd.o
-OBJ+=haldiagtbl.tmc hddisp.cc hddispoui.c hddispoui.o hddisp.o
+OBJ=NOTitr_4.tmc Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c
+OBJ+=Halsrvroui.o Halcol.cc Hal.pcm tm.dac Halcoloui.c Halcoloui.o
+OBJ+=Halcol.o muxctrloui.c muxctrl.o muxctrloui.o rfdoui.c rfdoui.o
+OBJ+=rfd.o haldiagtbl.tmc hddisp.cc hddispoui.c hddispoui.o hddisp.o
 OBJ+=haldiagtblnc.tmc hddispnc.cc hddispncoui.c hddispncoui.o
 OBJ+=hddispnc.o thermtbl.tmc thdisp.cc thdispoui.c thdispoui.o
 OBJ+=thdisp.o thermtblnc.tmc thdispnc.cc thdispncoui.c thdispncoui.o
 OBJ+=thdispnc.o gasdiagtbl.tmc gddisp.cc gddispoui.c gddispoui.o
 OBJ+=gddisp.o gasdiagtblnc.tmc gddispnc.cc gddispncoui.c
-OBJ+=gddispncoui.o gddispnc.o Hdoit.dep Halalgoa.tmc Halalgo.cc
-OBJ+=Halalgooui.c Halalgooui.o Halalgo.o Halclt.o Halcltoui.c
-OBJ+=Halcltoui.o Halcltnc.o Halcltncoui.c Halcltncoui.o
+OBJ+=gddispncoui.o gddispnc.o Rovertbl.tmc rvdisp.cc rvdispoui.c
+OBJ+=rvdispoui.o rvdisp.o Rovertblnc.tmc rvdispnc.cc rvdispncoui.c
+OBJ+=rvdispncoui.o rvdispnc.o Hdoit.dep Halalgoa.tmc Halalgo.cc
+OBJ+=Halalgooui.c Halalgooui.o Halalgo.o STATextedf.oui STAText.tmc
+OBJ+=STAText.cc STATextoui.c STATextoui.o STAText.o HAL1extedf.oui
+OBJ+=HAL1ext.tmc HAL1ext.cc HAL1extoui.c HAL1extoui.o HAL1ext.o
+OBJ+=HAL2extedf.oui HAL2ext.tmc HAL2ext.cc HAL2extoui.c HAL2extoui.o
+OBJ+=HAL2ext.o HAL3extedf.oui HAL3ext.tmc HAL3ext.cc HAL3extoui.c
+OBJ+=HAL3extoui.o HAL3ext.o INST1extedf.oui INST1ext.tmc INST1ext.cc
+OBJ+=INST1extoui.c INST1extoui.o INST1ext.o INST2extedf.oui
+OBJ+=INST2ext.tmc INST2ext.cc INST2extoui.c INST2extoui.o INST2ext.o
+OBJ+=INST6extedf.oui INST6ext.tmc INST6ext.cc INST6extoui.c
+OBJ+=INST6extoui.o INST6ext.o NOTitr_4extedf.oui NOTitr_4ext.tmc
+OBJ+=NOTitr_4ext.cc NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o
+OBJ+=Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c
+OBJ+=Halcltncoui.o
 TGT=Halsrvr Halcol muxctrl rfd hddisp hddispnc thdisp thdispnc
-TGT+=gddisp gddispnc Hdoit Halalgo Halclt Halcltnc
+TGT+=gddisp gddispnc rvdisp rvdispnc Hdoit Halalgo STAText HAL1ext
+TGT+=HAL2ext HAL3ext INST1ext INST2ext INST6ext NOTitr_4ext Halclt
+TGT+=Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION Hdoit
-SRCDIST=haldiag.tbl therm.tbl gasdiag.tbl Hal.tma types.tmc base.tmc
-SRCDIST+=mux.tmc status.tmc cts.tmc idx.tmc nav.tmc
+SRCDIST=haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Hal.tma
+SRCDIST+=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
+SRCDIST+=nav.tmc
 NONRCS=
 TMCBASE=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 TMCBASE+=nav.tmc
@@ -85,11 +103,41 @@ gddisp : gddisp.o gddispoui.o
 gddispnc : gddispnc.o gddispncoui.o
 	$(LINK.normCXX) gddispnc.o gddispncoui.o -ldispnc -ltmnc -lncurses -ltmpp -ltm -lnort
 	$(OUIUSE) gddispncoui.c
+rvdisp : rvdisp.o rvdispoui.o
+	$(LINK.normCXX) rvdisp.o rvdispoui.o -ldisp -ltmph -lph -ltmpp -ltm -lnort
+	$(OUIUSE) rvdispoui.c
+rvdispnc : rvdispnc.o rvdispncoui.o
+	$(LINK.normCXX) rvdispnc.o rvdispncoui.o -ldispnc -ltmnc -lncurses -ltmpp -ltm -lnort
+	$(OUIUSE) rvdispncoui.c
 Hdoit : H.doit
 	mkdoit3 -o Hdoit  H.doit
 Halalgo : Halalgo.o Halalgooui.o
 	$(LINK.normCXX) Halalgo.o Halalgooui.o -ltmpp -ltm -lnort
 	$(OUIUSE) Halalgooui.c
+STAText : STAText.o STATextoui.o
+	$(LINK.normCXX) STAText.o STATextoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) STATextoui.c
+HAL1ext : HAL1ext.o HAL1extoui.o
+	$(LINK.normCXX) HAL1ext.o HAL1extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) HAL1extoui.c
+HAL2ext : HAL2ext.o HAL2extoui.o
+	$(LINK.normCXX) HAL2ext.o HAL2extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) HAL2extoui.c
+HAL3ext : HAL3ext.o HAL3extoui.o
+	$(LINK.normCXX) HAL3ext.o HAL3extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) HAL3extoui.c
+INST1ext : INST1ext.o INST1extoui.o
+	$(LINK.normCXX) INST1ext.o INST1extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) INST1extoui.c
+INST2ext : INST2ext.o INST2extoui.o
+	$(LINK.normCXX) INST2ext.o INST2extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) INST2extoui.c
+INST6ext : INST6ext.o INST6extoui.o
+	$(LINK.normCXX) INST6ext.o INST6extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) INST6extoui.c
+NOTitr_4ext : NOTitr_4ext.o NOTitr_4extoui.o
+	$(LINK.normCXX) NOTitr_4ext.o NOTitr_4extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) NOTitr_4extoui.c
 Halclt : Halclt.o Halcltoui.o
 	$(LINK.normCXX) Halclt.o Halcltoui.o -ltmph -lph -ltmpp -ltm -lnort
 	$(OUIUSE) Halcltoui.c
@@ -165,6 +213,22 @@ gddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 gddispncoui.o : gddispncoui.c
 gddispnc.o : gddispnc.cc
+Rovertbl.tmc : Rover.tbl
+	$(TABLE) Rover.tbl
+rvdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc Rovertbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc Rovertbl.tmc
+rvdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+rvdispoui.o : rvdispoui.c
+rvdisp.o : rvdisp.cc
+Rovertblnc.tmc : Rover.tbl
+	$(NCTABLE) Rover.tbl
+rvdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc Rovertblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc Rovertblnc.tmc
+rvdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+rvdispncoui.o : rvdispncoui.c
+rvdispnc.o : rvdispnc.cc
 Hdoit.dep : H.doit
 	mkdoit3 -M -o Hdoit  H.doit
 -include Hdoit.dep
@@ -177,6 +241,86 @@ Halalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 Halalgooui.o : Halalgooui.c
 Halalgo.o : Halalgo.cc
+STATextedf.oui : STAT.edf
+	$(EDF2OUI) STAT.edf
+STAText.tmc : STAT.edf
+	$(EDF2EXT) STAT.edf
+STAText.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc STAText.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc STAText.tmc
+STATextoui.c : STATextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) STATextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+STATextoui.o : STATextoui.c
+STAText.o : STAText.cc
+HAL1extedf.oui : HAL1.edf
+	$(EDF2OUI) HAL1.edf
+HAL1ext.tmc : HAL1.edf
+	$(EDF2EXT) HAL1.edf
+HAL1ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc HAL1ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc HAL1ext.tmc
+HAL1extoui.c : HAL1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) HAL1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+HAL1extoui.o : HAL1extoui.c
+HAL1ext.o : HAL1ext.cc
+HAL2extedf.oui : HAL2.edf
+	$(EDF2OUI) HAL2.edf
+HAL2ext.tmc : HAL2.edf
+	$(EDF2EXT) HAL2.edf
+HAL2ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc HAL2ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc HAL2ext.tmc
+HAL2extoui.c : HAL2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) HAL2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+HAL2extoui.o : HAL2extoui.c
+HAL2ext.o : HAL2ext.cc
+HAL3extedf.oui : HAL3.edf
+	$(EDF2OUI) HAL3.edf
+HAL3ext.tmc : HAL3.edf
+	$(EDF2EXT) HAL3.edf
+HAL3ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc HAL3ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc HAL3ext.tmc
+HAL3extoui.c : HAL3extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) HAL3extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+HAL3extoui.o : HAL3extoui.c
+HAL3ext.o : HAL3ext.cc
+INST1extedf.oui : INST1.edf
+	$(EDF2OUI) INST1.edf
+INST1ext.tmc : INST1.edf
+	$(EDF2EXT) INST1.edf
+INST1ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc VT.tmc INST1ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc VT.tmc INST1ext.tmc
+INST1extoui.c : INST1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) INST1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+INST1extoui.o : INST1extoui.c
+INST1ext.o : INST1ext.cc
+INST2extedf.oui : INST2.edf
+	$(EDF2OUI) INST2.edf
+INST2ext.tmc : INST2.edf
+	$(EDF2EXT) INST2.edf
+INST2ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc INST2ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc INST2ext.tmc
+INST2extoui.c : INST2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) INST2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+INST2extoui.o : INST2extoui.c
+INST2ext.o : INST2ext.cc
+INST6extedf.oui : INST6.edf
+	$(EDF2OUI) INST6.edf
+INST6ext.tmc : INST6.edf
+	$(EDF2EXT) INST6.edf
+INST6ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc INST6ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc INST6ext.tmc
+INST6extoui.c : INST6extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) INST6extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+INST6extoui.o : INST6extoui.c
+INST6ext.o : INST6ext.cc
+NOTitr_4extedf.oui : NOTitr_4.edf
+	$(EDF2OUI) NOTitr_4.edf
+NOTitr_4ext.tmc : NOTitr_4.edf
+	$(EDF2EXT) NOTitr_4.edf
+NOTitr_4ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc VT.tmc NOTitr_4.tmc NOTitr_4ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc nav.tmc VT.tmc NOTitr_4.tmc NOTitr_4ext.tmc
+NOTitr_4extoui.c : NOTitr_4extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) NOTitr_4extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+NOTitr_4extoui.o : NOTitr_4extoui.c
+NOTitr_4ext.o : NOTitr_4ext.cc
 Halclt.o : Halcmd.cc
 	$(COMPILE.clt) Halcmd.cc
 Halcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui
@@ -194,5 +338,5 @@ clean : tidy
 	rm -f $(TARGET)
 .cvsignore :
 	@for i in Makefile '.B4*' $(OBJECT) $(TARGET); do echo "$$i"; done >.cvsignore
-# NOTitr_4.tmc : NOTitr_4.cyc
-#   cycle NOTitr_4.cyc >NOTitr_4.tmc
+NOTitr_4.tmc : NOTitr_4.cyc
+	cycle NOTitr_4.cyc >NOTitr_4.tmc

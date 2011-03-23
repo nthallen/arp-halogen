@@ -1,5 +1,5 @@
 Hal_Solenoids {
-  HBox { +=+; Title: Halogen; +=+ };
+  HBox { +-+; Title: Halogen; +-+ };
   HBox {
 	{ Header:
 	  Duct:	  >"1"<        >"2"<       >Purge<;
@@ -11,16 +11,9 @@ Hal_Solenoids {
 	HGlue 0+10;
   };
 }
-NO2_Solenoids {
-  HBox { +=+; Title: NO2; +=+ };
-  Header:
-  "Axis:"  >"1"<       >"2"<       >Dump<;
-  NO2:  (NO2N1,3)     (NO2N2,3)   (NO2PS,3);
-  -;
-  { Air: (ArNO2S,3) }
-}
+
 Flow_Control {
-  HBox { +=+; Title: "Flow Control"; +=+ };
+  HBox { +-+; Title: "Flow Control"; +-+ };
   Header: ""
             >Flow<      >SetPt<                 >Ope<      >Clo<;
   "NO D_1:" (NOH1F,6)   (NOH1Set,4)             (NOF1O,3)  (NOF1C,3);
@@ -29,32 +22,37 @@ Flow_Control {
   ClONO2:   (ClNFl,6)   (ClONO2Set,4)           (ClNFlO,3) (ClNFlC,3);
   ""        >V<         >V<
 }
+
 Pressure {
-  HBox { +=+; Title: Pressure; +=+ };
+  HBox { +-+; Title: Pressure; +-+ };
   Header: ""
           >High<     >Low<;
   Air:    (AirHP,4)  (AirLP,5);
   NO:     (NO_HP,4)  (NO_LP,5);
-  NO2:    (NO2HP,4)  (NO2LP,5);
-  ClONO2: (ClNHP,4)  (ClNLP,5);
+  N2:     (N2_HP,4)  (N2_LP,5);
+  N22:    (N22HP,4)  (N22LP,5);
   ""      >PSI<      >PSI<;
 }
+
 Temps {
-  HBox { +=+; Title: Temps; +=+ };
+  HBox { +-+; Title: Temps; +-+ };
   Temps: (Gas1T,5) (Gas2T,5) (Gas3T,5) (Gas4T,5) (Gas5T,5) C;
 }
+
 MFCtr {
-  +=+;
+  +-+;
   MFCtr: (MFCtr,5);
 }
-{ =;
-  HBox { +||+; Title: >"Gas Deck"<; +||+ };
+
+{ -;
+  HBox { +|+; Title: >"Gas Deck"<; +|+ };
   HBox {
-	+||+;
-	{ HBox { [Hal_Solenoids]; ||+; [NO2_Solenoids] };
-	  HBox { [Flow_Control]; ||+; [Pressure] };
-	  HBox { [Temps]; ||+; [MFCtr] };
+	+|+;
+	{ HBox { [Hal_Solenoids]; |+; [Pressure] };
+	  HBox { [Flow_Control]; };
+	  HBox { [Temps]; |+; [MFCtr] };
 	};
-	+||+
+	+|+
   };
+  -;
 }

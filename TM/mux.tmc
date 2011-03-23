@@ -40,8 +40,8 @@ AD12_T30K    BDetT;       invalidate BDetT;
 AD12_T30K    B_LMT;       invalidate B_LMT;
 AD12_T30K    CDetT;       invalidate CDetT;
 AD12_T30K    C_LMT;       invalidate C_LMT;
-AD12_HP      ClNHP;       invalidate ClNHP;
-AD12_LP      ClNLP;       invalidate ClNLP;
+AD12_HP      N22HP;       invalidate N22HP;
+AD12_LP      N22LP;       invalidate N22LP;
 AD12_T30K    Cvr1T;       invalidate Cvr1T;
 AD12_T30K    Cvr2T;       invalidate Cvr2T;
 AD12_T30K    Cvr3T;       invalidate Cvr3T;
@@ -71,8 +71,8 @@ AD12         LabM2;       invalidate LabM2;
 AD12         LabM3;       invalidate LabM3;
 AD12_T30K    NO21P2T;      invalidate NO21P2T;
 AD12_T30K    NO22P2T;      invalidate NO22P2T;
-AD12_HP      NO2HP;       invalidate NO2HP;
-AD12_LP      NO2LP;       invalidate NO2LP;
+AD12_HP      N2_HP;       invalidate N2_HP;
+AD12_LP      N2_LP;       invalidate N2_LP;
 AD12_T30K    NO21PT;      invalidate NO21PT;
 AD12_T30K    NO22PT;      invalidate NO22PT;
 AD12_HP      NO_HP;       invalidate NO_HP;
@@ -147,7 +147,7 @@ switch ( MUXAddr ) {
     LXH2T = MUX07; validate LXH2T;
     break;
   case 1:
-    NO2LP = MUX01; validate NO2LP;
+    N2_LP = MUX01; validate N2_LP; /* was NO2LP */
     Rv14T = MUX02; validate Rv14T;
     Air_T = MUX03; validate Air_T;
     X1PAT = MUX04; validate X1PAT;
@@ -156,7 +156,7 @@ switch ( MUXAddr ) {
     PLP1T = MUX07; validate PLP1T;
     break;
   case 2:
-    ClNLP = MUX01; validate ClNLP;
+    N22LP = MUX01; validate N22LP; /* was ClNLP */
     Rv15T = MUX02; validate Rv15T;
     DResT = MUX03; validate DResT;
     X2FAT = MUX04; validate X2FAT;
@@ -219,7 +219,7 @@ switch ( MUXAddr ) {
     LXH1T = MUX07; validate LXH1T;
     break;
   case 9:
-    ClNHP = MUX01; validate ClNHP;
+    N22HP = MUX01; validate N22HP; /* was ClNHP */
     Rv11T = MUX02; validate Rv11T;
     DLH2T = MUX03; validate DLH2T;
     Exh3T = MUX04; validate Exh3T;
@@ -246,7 +246,7 @@ switch ( MUXAddr ) {
     LXC1T = MUX07; validate LXC1T;
     break;
   case 12:
-    NO2HP = MUX01; validate NO2HP;
+    N2_HP = MUX01; validate N2_HP; /* was NO2HP */
     DHA2T = MUX02; validate DHA2T;
     Dbl_T = MUX03; validate Dbl_T;
     Rv_8T = MUX04; validate Rv_8T;

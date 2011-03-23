@@ -13,7 +13,7 @@ SRC = idx.idx NOTitr_4.cyc *.edf tlookup*.dat
 SCRIPT = dccc.dccc idx.idx64 interact Experiment.config
 # SCRIPT = Hlab_interact runfile.1111 RoverT.txt
 # SCRIPT = runfile.1101 runfile.Ncal
-# OBJ = NOTitr_4.tmc
+OBJ = NOTitr_4.tmc
 TGTDIR = $(TGTNODE)/home/Hal
 
 Halsrvr : -lsubbus
@@ -44,9 +44,9 @@ INST2ext : INST2.edf
 #INST4ext : VI.tmc INST4.edf
 #INST5ext : VI.tmc INST5.edf
 INST6ext : INST6.edf
-NOTitr_4ext : VT.tmc VI.tmc NOTitr_4.tmc NOTitr_4.edf
+NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.edf
 #HEng1ext : VI.tmc VT.tmc HEng1.edf
 #HEng1txtext : VI.tmc VT.tmc HEng1txt.tmc
 %%
-# NOTitr_4.tmc : NOTitr_4.cyc
-#   cycle NOTitr_4.cyc >NOTitr_4.tmc
+NOTitr_4.tmc : NOTitr_4.cyc
+	cycle NOTitr_4.cyc >NOTitr_4.tmc

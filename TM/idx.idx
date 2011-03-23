@@ -1,12 +1,12 @@
 Indexer Status 4 Hz IXStt
-channel 0 Secondary Throttle 1
-  position 1 Hz SV1Step
-  status   1 Hz SV1St Diagram SV1Stat KillStat SV1CZBA
-  scanstat SV1Flg
-  disable zeroref
-  invert direction
-  speed 16000 Hz
-  scan
+#channel 0 Secondary Throttle 1
+# position 1 Hz SV1Step
+# status   1 Hz SV1St Diagram SV1Stat KillStat SV1CZBA
+# scanstat SV1Flg
+# disable zeroref
+# invert direction
+# speed 16000 Hz
+# scan
 #channel 1 Gate Valve 1
 #  position 1 Hz GV1Step
 #  status   1 Hz GV1St Diagram GV1Stat KillStat GV1CZBA

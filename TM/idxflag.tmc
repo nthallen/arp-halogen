@@ -19,10 +19,7 @@
   };
 %}
 TM typedef unsigned char IxDriveStat { text "%5d" IxDrive_text[]; }
-IxDriveStat SV1Stat; invalidate SV1Stat; { SV1Stat = SV1St & 0xF; Validate SV1Stat; }
-IxDriveStat GV1Stat; invalidate GV1Stat; { GV1Stat = GV1St & 0xF; Validate GV1Stat; }
 IxDriveStat SV2Stat; invalidate SV2Stat; { SV2Stat = SV2St & 0xF; Validate SV2Stat; }
-IxDriveStat GV2Stat; invalidate GV2Stat; { GV2Stat = GV2St & 0xF; Validate GV2Stat; }
 %{
   const char *IxKillStat_text[] = {
     "----",
@@ -44,10 +41,7 @@ IxDriveStat GV2Stat; invalidate GV2Stat; { GV2Stat = GV2St & 0xF; Validate GV2St
   };
 %}
 TM typedef unsigned char IxKillStat { text "%4d" IxKillStat_text[]; }
-IxKillStat SV1CZBA; invalidate SV1CZBA; { SV1CZBA = (SV1St >> 4) & 0xF; Validate SV1CZBA; }
-IxKillStat GV1CZBA; invalidate GV1CZBA; { GV1CZBA = (GV1St >> 4) & 0xF; Validate GV1CZBA; }
 IxKillStat SV2CZBA; invalidate SV2CZBA; { SV2CZBA = (SV2St >> 4) & 0xF; Validate SV2CZBA; }
-IxKillStat GV2CZBA; invalidate GV2CZBA; { GV2CZBA = (GV2St >> 4) & 0xF; Validate GV2CZBA; }
 %{
   const char *IdxFlgTxt[8] = {
 	"    ",
@@ -64,11 +58,5 @@ TM typedef unsigned short IndxrFlag {
   text "%4d" IdxFlgTxt[];
 }
 
-IndxrFlag SV1Flg; invalidate SV1Flg;
-{ SV1Flg = ( IXStt ) & 1; validate SV1Flg; }
-IndxrFlag GV1Flg; invalidate GV1Flg;
-{ GV1Flg = ( IXStt >> 1 ) & 1; validate GV1Flg; }
 IndxrFlag SV2Flg; invalidate SV2Flg;
-{ SV2Flg = ( IXStt >> 2 ) & 1; validate SV2Flg; }
-IndxrFlag GV2Flg; invalidate GV2Flg;
-{ GV2Flg = ( IXStt >> 3 ) & 1; validate GV2Flg; }
+{ SV2Flg = ( IXStt ) & 1; validate SV2Flg; }
