@@ -26,8 +26,8 @@ rfd : rfd.cc rfd.oui
 hddisp : idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiag.tbl
 thdisp : dstat.tmc VT.tmc therm.tbl
 gddisp : dstat.tmc gasdiag.tbl
+rvdisp : Rover.tbl
 
-# rvdisp : Rover.tbl
 # Hlabdoit : Hlab.doit
 Hdoit : H.doit
 # rvdoit : rv.doit
@@ -35,16 +35,16 @@ Hdoit : H.doit
 # Hlabalgo : Hlab.tma
 Halalgo : Hal.tma
 
-#STAText : STAT.edf
-#HAL1ext : HAL1.edf
-#HAL2ext : HAL2.edf
-#HAL3ext : HAL3.edf
-#INST1ext : VT.tmc INST1.edf
-#INST2ext : INST2.edf
+STAText : STAT.edf
+HAL1ext : HAL1.edf
+HAL2ext : HAL2.edf
+HAL3ext : HAL3.edf
+INST1ext : VT.tmc INST1.edf
+INST2ext : INST2.edf
 #INST4ext : VI.tmc INST4.edf
 #INST5ext : VI.tmc INST5.edf
-#INST6ext : VI.tmc INST6.edf
-#NOTitr_4ext : VT.tmc VI.tmc NOTitr_4.tmc NOTitr_4.edf
+INST6ext : INST6.edf
+NOTitr_4ext : VT.tmc VI.tmc NOTitr_4.tmc NOTitr_4.edf
 #HEng1ext : VI.tmc VT.tmc HEng1.edf
 #HEng1txtext : VI.tmc VT.tmc HEng1txt.tmc
 %%

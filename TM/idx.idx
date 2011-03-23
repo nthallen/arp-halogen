@@ -7,13 +7,13 @@ channel 0 Secondary Throttle 1
   invert direction
   speed 16000 Hz
   scan
-channel 1 Gate Valve 1
-  position 1 Hz GV1Step
-  status   1 Hz GV1St Diagram GV1Stat KillStat GV1CZBA
-  scanstat GV1Flg
-  disable zeroref
-  invert direction
-  scan
+#channel 1 Gate Valve 1
+#  position 1 Hz GV1Step
+#  status   1 Hz GV1St Diagram GV1Stat KillStat GV1CZBA
+#  scanstat GV1Flg
+#  disable zeroref
+#  invert direction
+#  scan
 channel 2 Secondary Throttle 2
   position 1 Hz SV2Step
   status   1 Hz SV2St Diagram SV2Stat KillStat SV2CZBA
@@ -22,12 +22,12 @@ channel 2 Secondary Throttle 2
   invert direction
   speed 16000 Hz
   scan
-channel 3 Gate Valve 2
-  position 1 Hz GV2Step
-  status   1 Hz GV2St Diagram GV2Stat KillStat GV2CZBA
-  scanstat GV2Flg
-  disable zeroref
-  scan
+#channel 3 Gate Valve 2
+#  position 1 Hz GV2Step
+#  status   1 Hz GV2St Diagram GV2Stat KillStat GV2CZBA
+#  scanstat GV2Flg
+#  disable zeroref
+#  scan
 #channel 4 NO2 Throttle
 #  position 1 Hz NTVStep
 #  status   1 Hz NTVSt Diagram NTVStat
