@@ -110,17 +110,22 @@ rfamp::rfamp(int n) {
   if (tcgetattr(fd, &io))
     nl_error( 3, "RF%d: Error from tcgetattr: %s",
       rf_num, strerror(errno));
+  nl_error( -2, "c_iflag = %08X\n", io.c_iflag );
+  nl_error( -2, "c_oflag = %08X\n", io.c_oflag );
+  nl_error( -2, "c_cflag = %08X\n", io.c_cflag );
+  nl_error( -2, "c_lflag = %08X\n", io.c_lflag );
+
   io.c_iflag = IGNBRK | IGNPAR;
   io.c_oflag = 0;
   io.c_cflag = CREAD | CS8;
   io.c_lflag = 0;
-  if (cfsetispeed(&io, 13400))
+  if (cfsetispeed(&io, 38400))
     nl_error(2, "RF%d: Error setting ispeed: %s", rf_num,
       strerror(errno));
-  if (cfsetospeed(&io, 13400))
+  if (cfsetospeed(&io, 38400))
     nl_error(2, "RF%d: Error setting ospeed: %s", rf_num,
       strerror(errno));
-  if ( tcsetattr(fd, 0, &io) == -1 )
+  if ( tcsetattr(fd, TCSANOW, &io) == -1 )
     nl_error( 2, "RF%d: Error from tcsetattr: %s",
       rf_num, strerror(errno));
 }
@@ -339,7 +344,7 @@ cmd_if::~cmd_if() {
 
 /**
  * @return non-zero if command is quit (empty)
- * Command format is: Pn=m\r where n and m are in [1-4]
+ * Command format is: Sn=m\r where n and m are in [1-4]
  */
 int cmd_if::read() {
   char buf[20];
@@ -352,17 +357,17 @@ int cmd_if::read() {
     return 1;
   } else if ( nb != 5 ) {
     nl_error(2, "Expected 5 characters, received %d", nb);
-  } else if (buf[0] == 'P' && buf[1] >= '1' && buf[1] <= '4'
+  } else if (buf[0] == 'S' && buf[1] >= '1' && buf[1] <= '4'
 	    && buf[2] == '=' && buf[3] >= '1' && buf[3] <= '4'
 	    && (buf[4] == '\n' || buf[4] == '\r')) {
     ctrl->set_power(buf[1]-'0', buf[3]-'0');
   } else {
-    nl_error(2, "Syntax error from cmd_if" );
+    nl_error(2, "Syntax error from cmd_if: '%s'", buf );
   }
   return 0;
 }
 
-ctrl_if::ctrl_if() : cmd("RFD") {
+ctrl_if::ctrl_if() : cmd("cmd/RF") {
   int i;
   for (i = 0; i < 4; ++i) {
     rf[i] = new rfamp(i+1);

@@ -22,4 +22,5 @@ Group RFSet (RFASet, RFBSet, RFCSet, RFDSet) {
   RFDTemp = RFD.temp[3];
   RFDalive = RFD.alive;
   RFDstale = RFD_obj->stale(255);
+  RFD_obj->synch();
 }
