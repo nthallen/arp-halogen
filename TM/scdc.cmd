@@ -3,6 +3,8 @@
 &command
     : &scdc_cmd
       { if_dccc.Turf("D%d\n", $1); }
+    : Pump On * { if_dccc.Turf("S70=0\n"); }
+    : Pump Off * { if_dccc.Turf("S70=1\n"); }
     : Mux address set %d *
       { if_dccc.Turf( "S%d=%d\n", 98, $4<<2 ); }
     ;
@@ -51,22 +53,22 @@
     : GasDeck NO2 Flow Open Off * { $0 = 45; }
     : GasDeck NO2 Flow Closed On * { $0 = 46; }
     : GasDeck NO2 Flow Closed Off * { $0 = 47; }
-    : LN2 Solenoid On * { $0 = 48; }
-    : LN2 Solenoid Off * { $0 = 49; }
-    : 28V Heaters On * { $0 = 50; }
-    : 28V Heaters Off * { $0 = 51; }
-    : Laser Diode Enable On * { $0 = 52; }
-    : Laser Diode Enable Off * { $0 = 53; }
-    : Laser Power On * { $0 = 54; }
-    : Laser Power Off * { $0 = 55; }
-    : Dye Pump On * { $0 = 64; }
-    : Dye Pump Off * { $0 = 65; }
-    : GasDeck Air Flow to Laser On * { $0 = 66; }
-    : GasDeck Air Flow to Laser Off * { $0 = 67; }
-    : APD 1 HV On * { $0 = 68; }
-    : APD 1 HV Off * { $0 = 69; }
-    : APD 2 HV On * { $0 = 70; }
-    : APD 2 HV Off * { $0 = 71; }
+#   : LN2 Solenoid On * { $0 = 48; }
+#   : LN2 Solenoid Off * { $0 = 49; }
+#   : 28V Heaters On * { $0 = 50; }
+#   : 28V Heaters Off * { $0 = 51; }
+#   : Laser Diode Enable On * { $0 = 52; }
+#   : Laser Diode Enable Off * { $0 = 53; }
+#   : Laser Power On * { $0 = 54; }
+#   : Laser Power Off * { $0 = 55; }
+#   : Dye Pump On * { $0 = 64; }
+#   : Dye Pump Off * { $0 = 65; }
+#   : GasDeck Air Flow to Laser On * { $0 = 66; }
+#   : GasDeck Air Flow to Laser Off * { $0 = 67; }
+#   : APD 1 HV On * { $0 = 68; }
+#   : APD 1 HV Off * { $0 = 69; }
+#   : APD 2 HV On * { $0 = 70; }
+#   : APD 2 HV Off * { $0 = 71; }
     : Lamp A On * { $0 = 72; }
     : Lamp A Off * { $0 = 73; }
     : Lamp B On * { $0 = 74; }
@@ -75,23 +77,23 @@
     : Lamp C Off * { $0 = 77; }
     : Lamp D On * { $0 = 78; }
     : Lamp D Off * { $0 = 79; }
-    : AUX Heater On * { $0 = 80; }
-    : AUX Heater Off * { $0 = 81; }
-    : DHeater &dhtr On * { $0 = $2->on; }
-    : DHeater &dhtr Off * { $0 = $2->off; }
-    : DHeater &dhtr Interlock Reset *
-      { $0 = $2->reset;
-        if ( $0 == 0xFFFF ) {
-          nl_error( 2,
-            "DHeater %d does not support Interlock Reset",
-            $2->htr_num );
-          CANCEL_LINE;
-        }
-      }
-    : 3WAY Valve On * { $0 = 90; }
-    : 3WAY Valve Off * { $0 = 91; }
+#   : AUX Heater On * { $0 = 80; }
+#   : AUX Heater Off * { $0 = 81; }
+#   : DHeater &dhtr On * { $0 = $2->on; }
+#   : DHeater &dhtr Off * { $0 = $2->off; }
+#   : DHeater &dhtr Interlock Reset *
+#     { $0 = $2->reset;
+#       if ( $0 == 0xFFFF ) {
+#         nl_error( 2,
+#           "DHeater %d does not support Interlock Reset",
+#           $2->htr_num );
+#         CANCEL_LINE;
+#       }
+#     }
+#   : 3WAY Valve On * { $0 = 90; }
+#   : 3WAY Valve Off * { $0 = 91; }
     : Lab Connector cmd On * { $0 = 96; }
     : Lab Connector cmd Off * { $0 = 97; }
-    : Air Heater On * { $0 = 102; }
-    : Air Heater Off * { $0 = 103; }
+#   : Air Heater On * { $0 = 102; }
+#   : Air Heater Off * { $0 = 103; }
     ;
