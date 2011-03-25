@@ -7,9 +7,10 @@
      S[1-4]=[1-4]  Set amplifier [1-4] to power level [1-4]
      Empty command designates Quit according to convention.
 
-   Driver will send data to telemetry via Col_send()
-     Power level for each amplifier (two bits each?)
-     Temperature for each amplifier (4.1 fixed?)
+   Driver will send data to telemetry via Col_send() under the
+     name "RFD" using the structure defined in rfd.h
+     Power level for each amplifier
+     Temperature for each amplifier (3.0)
 
    Driver will poll each amplifier for temperature data.
    If an amplifier does not respond, driver will retry

@@ -1,9 +1,11 @@
 %{
   #include "subbus.h"
   #include "swstat.h"
+  #include "rfd.h"
   swstat_t SWData;
   unsigned short MUXCtrl; /* for mux.tmc */
   unsigned short SolStatA;
+  RFD_t RFD;
 %}
 Collect DS855 = sbrba( DS855.address ) ^ 0x61;
 Collect DS835 = sbrba( DS835.address ) ^ 0xF2;

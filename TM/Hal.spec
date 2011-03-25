@@ -1,4 +1,5 @@
 tmcbase = types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
+tmcbase = rfd.tmc
 tmcbase = nav.tmc
 
 cmdbase = /usr/local/share/huarp/root.cmd
@@ -7,6 +8,7 @@ cmdbase = scdc.cmd daspt.cmd
 cmdbase = /usr/local/share/huarp/idx64.cmd
 cmdbase = idxdrv.cmd
 cmdbase = Hal.cmd
+cmdbase = rfd.cmd
 
 SRC = idx.idx NOTitr_4.cyc *.edf tlookup*.dat
 # TOOL = README
