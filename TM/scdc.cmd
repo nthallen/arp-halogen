@@ -3,8 +3,8 @@
 &command
     : &scdc_cmd
       { if_dccc.Turf("D%d\n", $1); }
-    : Pump On * { if_dccc.Turf("S70=0\n"); }
-    : Pump Off * { if_dccc.Turf("S70=1\n"); }
+    : Pump On * { if_dccc.Turf("S70=1\n"); }
+    : Pump Off * { if_dccc.Turf("S70=0\n"); }
     : Mux address set %d *
       { if_dccc.Turf( "S%d=%d\n", 98, $4<<2 ); }
     ;
