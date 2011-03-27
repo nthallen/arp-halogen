@@ -103,7 +103,7 @@
   STRB,     8, 0x0008 ; 67: GasDeck Air Flow to Laser Off
   STRB,     8, 0x0010 ; 68: APD 1 HV On
   STRB,     8, 0x0020 ; 69: APD 1 HV Off
-  SET,      8, 0x0040 ; 70: APD 2 HV On
+  SET,      8, 0x0040 ; 70: Pump On/Off, APD 2 HV On
   SPARE,    8, 0x0080 ; 71: APD 2 HV Off
   STRB,     9, 0x0100 ; 72: Lamp A On
   STRB,     9, 0x0200 ; 73: Lamp A Off

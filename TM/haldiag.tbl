@@ -9,7 +9,10 @@ Axes {
  "RF Fwd:" (ARFFW,6) (BRFFW,6) (CRFFW,6) (DRFFW,6) "V";
  "RF Set:" (RFASet,3) (RFBSet,3) (RFCSet,3) (RFDSet,3);
  "RF Bwd:" (ARFBW,6) (BRFBW,6) (CRFBW,6) (DRFBW,6) "V";
- "RF T:"   (RFATemp,3) (RFBTemp,3) (RFCTemp,3) (RFDTemp,3) "C";
+ "RF T:"   >HBox{ (RFA_S,1); (RFATemp,3)}
+	   >HBox{ (RFB_S,1); (RFBTemp,3)}
+	   >HBox{ (RFC_S,1); (RFCTemp,3)}
+	   >HBox{ (RFD_S,1); (RFDTemp,3)} "C";
  "DetT:" (ADetT,5) (BDetT,5) (CDetT,5) (DDetT,5) "C";
 #"DHV:" (A_DHV,6) (B_DHV,6) (C_DHV,6) (D_DHV,6) "V";
  "LMT:" (A_LMT,5) (B_LMT,5) (C_LMT,5) (D_LMT,5) "V";
@@ -25,6 +28,7 @@ Indexers {
 # PTV: (PTVStep,5) (PTVFlg,4) ""        (PTVCZBA,4) (PTVStat,5);
   ""   ""          ""            >V<;
 }
+
 Ducts {
   HBox { +-+; Title: Ducts; +-+ };
   ""     >P<       >DP<      >Vel<;
@@ -33,26 +37,35 @@ Ducts {
 #  P:  (PD_P,6)  (PD_DP,6) (PDVel,5);
   ""    >Torr<    >Torr<     >"m/s"<;
 }
+
+Pump {
+  HBox { +-+; Title: Pump; +-+ };
+  Status: (PumpS,3);
+  PumpT: (PumpT,6) V;
+  PmotT: (PmotT,5) C;
+}
+
 Status {
   HBox { +-+; Title: Status; +-+ };
   SW1: (SW1_S,3);
   SW2: (SW2_S,3);
-  RF:  (RFDalive,3);
   RFs: (RFDstale,3);
   Sol: HSolS; # (HSolS,3);
 }
+
 MFCtr {
   HBox { +-+; Title: MFCtr; +-+ };
   (flttime,9);
   (MFCtr,5);
 }
+
 { HBox {
-	|+; [Axes]; |+; {
-	  [Indexers];
-	  HBox {
-		[Ducts]; |+; { [Status]; [MFCtr] }
-	  }
-	}; |+
+    |+; [Axes]; |+; {
+      [Indexers];
+      HBox {
+	{ [Ducts]; [Pump] }; |+; { [Status]; [MFCtr] }
+      }
+    }; |+
   };
   -;
 }

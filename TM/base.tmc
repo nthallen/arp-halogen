@@ -91,7 +91,7 @@ TM 1 Hz AD12 D_IRV; Address D_IRV 0xC54;
 /* TM 1 Hz AD12 D_UVV; Address D_UVV 0xC4E; */
 /* TM 1 Hz PRES_MXP4250 DewrP; Address DewrP 0xDA8; */
 /* TM 1 Hz AD12 Dwr1T; Address Dwr1T 0xCC2; */
-/* TM 1 Hz AD12 Dwr2T; Address Dwr2T 0xCC4; */
+TM 1 Hz AD12 PumpT; Address PumpT 0xCC4; /* Dwr2T */
 /* TM 1 Hz AD12_10V DyFlw; Address DyFlw 0xCBC; */
 /* TM 4 Hz AD12 EtPos; Address EtPos 0xCBA; */
 /* TM 4 Hz AD12 Et_LW; Address Et_LW 0xCB0; */
@@ -203,5 +203,7 @@ TM 1 Hz AD12 V28V4; Address V28V4 0xDAA;
 /* TM 1 Hz AD16 APD2HV; Address APD2HV 0xD78; */
 /* TM 1 Hz DASPt16 APD1HVSet; Address APD1HVSet 0xCF0; */
 /* TM 1 Hz DASPt16 APD2HVSet; Address APD2HVSet 0xDF0; */
+TM 1 Hz StBit PumpS; Address PumpS 0x848;
+  Collect PumpS = (sbrba(PumpS.address) & 0x40) ? 0 : 1;
 TM MAXCOLS = 120;
 TM 16  Hz UINT  Synch, MFCtr;

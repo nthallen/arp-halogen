@@ -1,4 +1,4 @@
-# Makefile Generated Fri Mar 25 16:43:51 EDT 2011
+# Makefile Generated Sun Mar 27 10:56:15 EDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
@@ -7,8 +7,8 @@ SRC+=INST2.edf INST6.edf NOTitr_4.edf STAT.edf tlookup*.dat scdc.cmd
 SRC+=daspt.cmd idxdrv.cmd Hal.cmd rfd.cmd types.tmc base.tmc mux.tmc
 SRC+=status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Halcol.tmc idxcol.tmc
 SRC+=navcol.tmc muxctrl.c muxctrl.oui rfd.cc rfd.oui idxflag.tmc
-SRC+=VT.tmc dstat.tmc SlowCnts.tmc haldiag.tbl therm.tbl gasdiag.tbl
-SRC+=Rover.tbl H.doit Hal.tma NOTitr_4.tmc
+SRC+=VT.tmc dstat.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl therm.tbl
+SRC+=gasdiag.tbl Rover.tbl H.doit Hal.tma NOTitr_4.tmc
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
 OBJ=NOTitr_4.tmc Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c
@@ -167,16 +167,16 @@ rfdoui.o : rfdoui.c
 rfd.o : rfd.cc
 haldiagtbl.tmc : haldiag.tbl
 	$(TABLE) haldiag.tbl
-hddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtbl.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtbl.tmc
+hddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtbl.tmc
 hddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 hddispoui.o : hddispoui.c
 hddisp.o : hddisp.cc
 haldiagtblnc.tmc : haldiag.tbl
 	$(NCTABLE) haldiag.tbl
-hddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtblnc.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc haldiagtblnc.tmc
+hddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtblnc.tmc
 hddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 hddispncoui.o : hddispncoui.c

@@ -1,0 +1,10 @@
+%{
+  #define RF_S_text(x) ((x)?" ":"*")
+%}
+
+TM typedef unsigned char RF_S { text "%1d" RF_S_text(); }
+
+RF_S RFA_S; Invalidate RFA_S; { RFA_S = RFDalive & 1; Validate RFA_S; }
+RF_S RFB_S; Invalidate RFB_S; { RFB_S = (RFDalive >> 1) & 1; Validate RFB_S; }
+RF_S RFC_S; Invalidate RFC_S; { RFC_S = (RFDalive >> 2) & 1; Validate RFC_S; }
+RF_S RFD_S; Invalidate RFD_S; { RFD_S = (RFDalive >> 3) & 1; Validate RFD_S; }

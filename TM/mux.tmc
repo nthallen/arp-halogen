@@ -128,7 +128,7 @@ AD12_T30K    X1_2T;       invalidate X1_2T;
 AD12_T30K    X1_3T;       invalidate X1_3T;
 AD12_T30K    X1_4T;       invalidate X1_4T;
 AD12_T30K    X2FAT;       invalidate X2FAT;
-AD12_T30K    X2HVT;       invalidate X2HVT;
+AD12_T30K    PmotT;       invalidate PmotT;
 AD12_T30K    X2PAT;       invalidate X2PAT;
 AD12_T30K    X2_1T;       invalidate X2_1T;
 AD12_T30K    X2_2T;       invalidate X2_2T;
@@ -212,7 +212,7 @@ switch ( MUXAddr ) {
   case 8:
     OxyHP = MUX01; validate OxyHP;
     Rv12T = MUX02; validate Rv12T;
-    X2HVT = MUX03; validate X2HVT;
+    PmotT = MUX03; validate PmotT; /* was X2HVT */
     Exh4T = MUX04; validate Exh4T;
     A_LMT = MUX05; validate A_LMT;
     OP1WT = MUX06; validate OP1WT;

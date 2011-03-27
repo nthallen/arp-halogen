@@ -1,6 +1,7 @@
 display gddisp
 display hddisp
 display thdisp
+display rvdisp
 client Halclt
 batchfile interact
 memo
