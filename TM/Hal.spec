@@ -22,20 +22,19 @@ Halsrvr : -lsubbus
 Halcol : Halcol.tmc idxcol.tmc navcol.tmc -lsubbus
 muxctrl : muxctrl.c muxctrl.oui
 rfd : rfd.cc rfd.oui
-
-# Hal.sft : Hal.sol
+Hal.sft : Hal.sol
 
 hddisp : idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
 thdisp : dstat.tmc VT.tmc therm.tbl
 gddisp : dstat.tmc gasdiag.tbl
 rvdisp : Rover.tbl
 
-# Hlabdoit : Hlab.doit
 Hdoit : H.doit
+# Hlabdoit : Hlab.doit
 # rvdoit : rv.doit
-# Halfalgo : dstat.tmc idxflag.tmc VT.tmc VI.tmc Half.tma Halog.tma DHtr.tma TRU.tma
-# Hlabalgo : Hlab.tma
+Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
 Halalgo : Hal.tma
+# Hlabalgo : Hlab.tma
 
 STAText : STAT.edf
 HAL1ext : HAL1.edf
