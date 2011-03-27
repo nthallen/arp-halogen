@@ -33,7 +33,7 @@ rvdisp : Rover.tbl
 Hdoit : H.doit
 # Hlabdoit : Hlab.doit
 # rvdoit : rv.doit
-# Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
+Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
 Halalgo : Hal.tma
 # Hlabalgo : Hlab.tma
 

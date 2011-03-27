@@ -1,13 +1,13 @@
 %INTERFACE <RF>
 
 &command
-    : RF &RFid Set &RFlvl * { if_RF.Turf("S%d=%d\n", $2, $4); }
+    : &RFid Setpoint &RFlvl * { if_RF.Turf("S%d=%d\n", $1, $3); }
     ;
 &RFid <int>
-    : A { $0 = 1; }
-    : B { $0 = 2; }
-    : C { $0 = 3; }
-    : D { $0 = 4; }
+    : Lamp A RF { $0 = 1; }
+    : Lamp B RF { $0 = 2; }
+    : Lamp C RF { $0 = 3; }
+    : Lamp D RF { $0 = 4; }
     ;
 &RFlvl <int>
     : 1 { $0 = 1; }

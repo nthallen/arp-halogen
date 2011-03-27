@@ -57,6 +57,11 @@ rvdispncoui.c
 rvdispncoui.o
 rvdispnc.o
 Hdoit.dep
+Halfalgoa.tmc
+Halfalgo.cc
+Halfalgooui.c
+Halfalgooui.o
+Halfalgo.o
 Halalgoa.tmc
 Halalgo.cc
 Halalgooui.c
@@ -131,6 +136,7 @@ gddispnc
 rvdisp
 rvdispnc
 Hdoit
+Halfalgo
 Halalgo
 STAText
 HAL1ext

@@ -1,4 +1,4 @@
-# Makefile Generated Sun Mar 27 11:59:46 EDT 2011
+# Makefile Generated Sun Mar 27 17:29:38 EDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
@@ -9,7 +9,7 @@ SRC+=status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc
 SRC+=Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c muxctrl.oui rfd.cc
 SRC+=rfd.oui Hal.sol idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc
 SRC+=rfdbits.tmc haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl H.doit
-SRC+=Hal.tma NOTitr_4.tmc
+SRC+=Half.tma Halog.tma Hal.tma NOTitr_4.tmc
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
 OBJ=NOTitr_4.tmc Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c
@@ -23,7 +23,8 @@ OBJ+=thdispnc.o gasdiagtbl.tmc gddisp.cc gddispoui.c gddispoui.o
 OBJ+=gddisp.o gasdiagtblnc.tmc gddispnc.cc gddispncoui.c
 OBJ+=gddispncoui.o gddispnc.o Rovertbl.tmc rvdisp.cc rvdispoui.c
 OBJ+=rvdispoui.o rvdisp.o Rovertblnc.tmc rvdispnc.cc rvdispncoui.c
-OBJ+=rvdispncoui.o rvdispnc.o Hdoit.dep Halalgoa.tmc Halalgo.cc
+OBJ+=rvdispncoui.o rvdispnc.o Hdoit.dep Halfalgoa.tmc Halfalgo.cc
+OBJ+=Halfalgooui.c Halfalgooui.o Halfalgo.o Halalgoa.tmc Halalgo.cc
 OBJ+=Halalgooui.c Halalgooui.o Halalgo.o STATextedf.oui STAText.tmc
 OBJ+=STAText.cc STATextoui.c STATextoui.o STAText.o HAL1extedf.oui
 OBJ+=HAL1ext.tmc HAL1ext.cc HAL1extoui.c HAL1extoui.o HAL1ext.o
@@ -38,14 +39,14 @@ OBJ+=NOTitr_4ext.cc NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o
 OBJ+=Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c
 OBJ+=Halcltncoui.o
 TGT=Halsrvr Halcol muxctrl rfd Hal.sft hddisp hddispnc thdisp
-TGT+=thdispnc gddisp gddispnc rvdisp rvdispnc Hdoit Halalgo STAText
-TGT+=HAL1ext HAL2ext HAL3ext INST1ext INST2ext INST6ext NOTitr_4ext
-TGT+=Halclt Halcltnc
+TGT+=thdispnc gddisp gddispnc rvdisp rvdispnc Hdoit Halfalgo Halalgo
+TGT+=STAText HAL1ext HAL2ext HAL3ext INST1ext INST2ext INST6ext
+TGT+=NOTitr_4ext Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION Hdoit
-SRCDIST=Hal.sol haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Hal.tma
-SRCDIST+=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
-SRCDIST+=rfd.tmc nav.tmc T30K1MU.tmc
+SRCDIST=Hal.sol haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Half.tma
+SRCDIST+=Halog.tma Hal.tma types.tmc base.tmc mux.tmc status.tmc
+SRCDIST+=cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc
 NONRCS=
 TMCBASE=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 TMCBASE+=rfd.tmc nav.tmc T30K1MU.tmc
@@ -114,6 +115,9 @@ rvdispnc : rvdispnc.o rvdispncoui.o
 	$(OUIUSE) rvdispncoui.c
 Hdoit : H.doit
 	mkdoit3 -o Hdoit  H.doit
+Halfalgo : Halfalgo.o Halfalgooui.o
+	$(LINK.normCXX) Halfalgo.o Halfalgooui.o -ltmpp -ltm -lnort
+	$(OUIUSE) Halfalgooui.c
 Halalgo : Halalgo.o Halalgooui.o
 	$(LINK.normCXX) Halalgo.o Halalgooui.o -ltmpp -ltm -lnort
 	$(OUIUSE) Halalgooui.c
@@ -235,6 +239,15 @@ rvdispnc.o : rvdispnc.cc
 Hdoit.dep : H.doit
 	mkdoit3 -M -o Hdoit  H.doit
 -include Hdoit.dep
+Halfalgoa.tmc : Half.tma Halog.tma Halsrvr
+	$(SERVER) ./Halsrvr
+	$(TMCALGO) -V "`./Halsrvr -R`" Half.tma Halog.tma
+Halfalgo.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc idxflag.tmc VT.tmc Halfalgoa.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc idxflag.tmc VT.tmc Halfalgoa.tmc
+Halfalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+Halfalgooui.o : Halfalgooui.c
+Halfalgo.o : Halfalgo.cc
 Halalgoa.tmc : Hal.tma Halsrvr
 	$(SERVER) ./Halsrvr
 	$(TMCALGO) -V "`./Halsrvr -R`" Hal.tma
