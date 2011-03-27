@@ -18,8 +18,9 @@
                         # and *.cmd and types.tmc have been
                         # updated accordingly.
                         #------------------------------------
-# Launch -              soldrv -h HalSol -d 1 $TMBINDIR/Hal.sft
+  Launch -              soldrv -h HalSol -d 1 $TMBINDIR/Hal.sft
   Launch -              rfd
+  Launch -              muxctrl
 
                         #------------------------------------
                         # Nav

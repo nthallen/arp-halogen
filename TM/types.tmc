@@ -627,6 +627,8 @@ Calibration ( AD12_T30K, CELCIUS ) {
   60400, -39.96
 }
 
+TM typedef AD12 AD12_T30K1MU { convert CELCIUS; text "%5.0lf"; }
+
 TM typedef double TORR { text "%5.1lf"; }
 
 TM typedef AD12 AD12_P1 { convert TORR; text "%5.1lf"; }

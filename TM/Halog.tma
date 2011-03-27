@@ -23,32 +23,32 @@
 
 #	Define global lamp failure threshold
 %{
-	#include "nortlib.h"
+  #include "nortlib.h"
 
-	double ir0=0.15;
-	int SW_stop = 0;
-	#define A_STOPPED 1
-	#define B_STOPPED 2
-	#define C_STOPPED 4
-	#define D_STOPPED 8
-	check_lamp_sws( int SWS, int val, int bit, int set ) {
-	  int rv = 0;
-	  if ( SWS == val ) {
-		if ( set ) {
-		  if ( ( SW_stop & bit ) == 0 ) {
-			SW_stop |= bit;
-			rv = 1;
-		  }
-		} else {
-		  if ( ( SW_stop & bit ) != 0 ) {
-			SW_stop &= ~bit;
-			rv = 1;
-		  }
-		}
-	  }
-	  if ( rv ) ci_sendcmd( "Set SW Status 1 to 0\n", 0 );
-	  return rv;
+  double ir0=0.15;
+  int SW_stop = 0;
+  #define A_STOPPED 1
+  #define B_STOPPED 2
+  #define C_STOPPED 4
+  #define D_STOPPED 8
+  check_lamp_sws( int SWS, int val, int bit, int set ) {
+    int rv = 0;
+    if ( SWS == val ) {
+      if ( set ) {
+	if ( ( SW_stop & bit ) == 0 ) {
+	  SW_stop |= bit;
+	  rv = 1;
 	}
+      } else {
+	if ( ( SW_stop & bit ) != 0 ) {
+	  SW_stop &= ~bit;
+	  rv = 1;
+	}
+      }
+    }
+    if ( rv ) ci_sendcmd( "Set SW Status 1 to 0\n", 0 );
+    return rv;
+  }
 %}
 
 { if ( check_lamp_sws( SW1_S, 211, A_STOPPED, 1 )) validate A_OFF; }

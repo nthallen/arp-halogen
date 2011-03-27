@@ -27,7 +27,7 @@
 &command
     : CMDENBL &on_off * { set_cmdenbl( $2 ); }
     : Fail Lamp %d(Enter Bit Number 0-7) &on_off * { setfail( $3, $4 ); }
-    : TRU &on_off * { setfail( 1, $2 ); }
+#   : TRU &on_off * { setfail( 1, $2 ); }
     : &CmdData * { if_SWData.Turf(); }
     : &SoldrvA * { if_soldrv.Turf( "M%d\n", $1); }
     ;
@@ -53,17 +53,11 @@
     : 2 { $0 = &SWData.SW2_S; }
     ;
 &swcommand <unsigned char>
-    : Clear { $0 = 0; }
-    : Altitude Takeoff { $0 = 1; }
-    : Altitude Cruise { $0 = 2; }
-    : Altitude Descend { $0 = 3; }
-    : Altitude Land { $0 = 4; }
-    : Green Peakup Start { $0 = 120; }
-    : Green Peakup Stop { $0 = 121; }
-    : Green Peakup Scan { $0 = 122; }
-    : Laser On { $0 = 140; }
-    : Write New Base Scan { $0 = 203; }
-    : Select Fluoresence { $0 = 204; }
-    : Select Absorption { $0 = 205; }
-    : TimeWarp { $0 = 244; }
+    : Clear { $0 = SWS_OK; }
+    : Altitude Takeoff { $0 = SWS_TAKEOFF; }
+    : Altitude Cruise { $0 = SWS_CLIMB; }
+    : Altitude Descend { $0 = SWS_DESCEND; }
+    : Altitude Land { $0 = SWS_LAND; }
+    : TimeWarp { $0 = SWS_TIME_WARP; }
+    : Shutdown { $0 = SWS_SHUTDOWN; }
     ;

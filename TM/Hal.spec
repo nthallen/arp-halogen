@@ -1,6 +1,7 @@
 tmcbase = types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 tmcbase = rfd.tmc
 tmcbase = nav.tmc
+tmcbase = T30K1MU.tmc
 
 cmdbase = /usr/local/share/huarp/root.cmd
 cmdbase = /usr/local/share/huarp/getcon.cmd
@@ -32,7 +33,7 @@ rvdisp : Rover.tbl
 Hdoit : H.doit
 # Hlabdoit : Hlab.doit
 # rvdoit : rv.doit
-Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
+# Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
 Halalgo : Hal.tma
 # Hlabalgo : Hlab.tma
 

@@ -1,14 +1,15 @@
-# Makefile Generated Sun Mar 27 10:56:15 EDT 2011
+# Makefile Generated Sun Mar 27 11:59:46 EDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
 SRC=idx.idx NOTitr_4.cyc HAL1.edf HAL2.edf HAL3.edf INST1.edf
 SRC+=INST2.edf INST6.edf NOTitr_4.edf STAT.edf tlookup*.dat scdc.cmd
 SRC+=daspt.cmd idxdrv.cmd Hal.cmd rfd.cmd types.tmc base.tmc mux.tmc
-SRC+=status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Halcol.tmc idxcol.tmc
-SRC+=navcol.tmc muxctrl.c muxctrl.oui rfd.cc rfd.oui idxflag.tmc
-SRC+=VT.tmc dstat.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl therm.tbl
-SRC+=gasdiag.tbl Rover.tbl H.doit Hal.tma NOTitr_4.tmc
+SRC+=status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc
+SRC+=Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c muxctrl.oui rfd.cc
+SRC+=rfd.oui Hal.sol idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc
+SRC+=rfdbits.tmc haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl H.doit
+SRC+=Hal.tma NOTitr_4.tmc
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
 OBJ=NOTitr_4.tmc Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c
@@ -36,18 +37,18 @@ OBJ+=INST6extoui.o INST6ext.o NOTitr_4extedf.oui NOTitr_4ext.tmc
 OBJ+=NOTitr_4ext.cc NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o
 OBJ+=Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c
 OBJ+=Halcltncoui.o
-TGT=Halsrvr Halcol muxctrl rfd hddisp hddispnc thdisp thdispnc
-TGT+=gddisp gddispnc rvdisp rvdispnc Hdoit Halalgo STAText HAL1ext
-TGT+=HAL2ext HAL3ext INST1ext INST2ext INST6ext NOTitr_4ext Halclt
-TGT+=Halcltnc
+TGT=Halsrvr Halcol muxctrl rfd Hal.sft hddisp hddispnc thdisp
+TGT+=thdispnc gddisp gddispnc rvdisp rvdispnc Hdoit Halalgo STAText
+TGT+=HAL1ext HAL2ext HAL3ext INST1ext INST2ext INST6ext NOTitr_4ext
+TGT+=Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION Hdoit
-SRCDIST=haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Hal.tma
+SRCDIST=Hal.sol haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Hal.tma
 SRCDIST+=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
-SRCDIST+=rfd.tmc nav.tmc
+SRCDIST+=rfd.tmc nav.tmc T30K1MU.tmc
 NONRCS=
 TMCBASE=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
-TMCBASE+=rfd.tmc nav.tmc
+TMCBASE+=rfd.tmc nav.tmc T30K1MU.tmc
 CMDBASE=/usr/local/share/huarp/root.cmd
 CMDBASE+=/usr/local/share/huarp/getcon.cmd scdc.cmd daspt.cmd
 CMDBASE+=/usr/local/share/huarp/idx64.cmd idxdrv.cmd Hal.cmd rfd.cmd
@@ -85,6 +86,8 @@ muxctrl : muxctrl.o muxctrloui.o
 rfd : rfd.o rfdoui.o
 	$(LINK.normCXX) rfd.o rfdoui.o -ltm -lnort
 	$(OUIUSE) rfdoui.c
+Hal.sft : Hal.sol
+	solfmt -oHal.sft  Hal.sol
 hddisp : hddisp.o hddispoui.o
 	$(LINK.normCXX) hddisp.o hddispoui.o -ldisp -ltmph -lph -ltmpp -ltm -lnort
 	$(OUIUSE) hddispoui.c
@@ -151,8 +154,8 @@ Halsrvr.o : Halcmd.cc
 Halsrvroui.c : $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/cis.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 Halsrvroui.o : Halsrvroui.c
-Halcol.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Halcol.tmc idxcol.tmc navcol.tmc
-	$(TMC.col) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Halcol.tmc idxcol.tmc navcol.tmc
+Halcol.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Halcol.tmc idxcol.tmc navcol.tmc
+	$(TMC.col) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Halcol.tmc idxcol.tmc navcol.tmc
 Halcoloui.c : $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/collect.oui $(OUIDIR)/seteuid.oui $(OUIDIR)/subbus.oui $(OUIDIR)/msg.oui
 Halcoloui.o : Halcoloui.c
@@ -167,64 +170,64 @@ rfdoui.o : rfdoui.c
 rfd.o : rfd.cc
 haldiagtbl.tmc : haldiag.tbl
 	$(TABLE) haldiag.tbl
-hddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtbl.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtbl.tmc
+hddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtbl.tmc
 hddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 hddispoui.o : hddispoui.c
 hddisp.o : hddisp.cc
 haldiagtblnc.tmc : haldiag.tbl
 	$(NCTABLE) haldiag.tbl
-hddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtblnc.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtblnc.tmc
+hddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtblnc.tmc
 hddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 hddispncoui.o : hddispncoui.c
 hddispnc.o : hddispnc.cc
 thermtbl.tmc : therm.tbl
 	$(TABLE) therm.tbl
-thdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc dstat.tmc VT.tmc thermtbl.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc dstat.tmc VT.tmc thermtbl.tmc
+thdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc thermtbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc thermtbl.tmc
 thdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 thdispoui.o : thdispoui.c
 thdisp.o : thdisp.cc
 thermtblnc.tmc : therm.tbl
 	$(NCTABLE) therm.tbl
-thdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc dstat.tmc VT.tmc thermtblnc.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc dstat.tmc VT.tmc thermtblnc.tmc
+thdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc thermtblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc thermtblnc.tmc
 thdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 thdispncoui.o : thdispncoui.c
 thdispnc.o : thdispnc.cc
 gasdiagtbl.tmc : gasdiag.tbl
 	$(TABLE) gasdiag.tbl
-gddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc dstat.tmc gasdiagtbl.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc dstat.tmc gasdiagtbl.tmc
+gddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc gasdiagtbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc gasdiagtbl.tmc
 gddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 gddispoui.o : gddispoui.c
 gddisp.o : gddisp.cc
 gasdiagtblnc.tmc : gasdiag.tbl
 	$(NCTABLE) gasdiag.tbl
-gddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc dstat.tmc gasdiagtblnc.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc dstat.tmc gasdiagtblnc.tmc
+gddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc gasdiagtblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc gasdiagtblnc.tmc
 gddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 gddispncoui.o : gddispncoui.c
 gddispnc.o : gddispnc.cc
 Rovertbl.tmc : Rover.tbl
 	$(TABLE) Rover.tbl
-rvdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Rovertbl.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Rovertbl.tmc
+rvdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Rovertbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Rovertbl.tmc
 rvdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 rvdispoui.o : rvdispoui.c
 rvdisp.o : rvdisp.cc
 Rovertblnc.tmc : Rover.tbl
 	$(NCTABLE) Rover.tbl
-rvdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Rovertblnc.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Rovertblnc.tmc
+rvdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Rovertblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Rovertblnc.tmc
 rvdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 rvdispncoui.o : rvdispncoui.c
@@ -235,8 +238,8 @@ Hdoit.dep : H.doit
 Halalgoa.tmc : Hal.tma Halsrvr
 	$(SERVER) ./Halsrvr
 	$(TMCALGO) -V "`./Halsrvr -R`" Hal.tma
-Halalgo.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Halalgoa.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc Halalgoa.tmc
+Halalgo.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Halalgoa.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Halalgoa.tmc
 Halalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 Halalgooui.o : Halalgooui.c
@@ -245,8 +248,8 @@ STATextedf.oui : STAT.edf
 	$(EDF2OUI) STAT.edf
 STAText.tmc : STAT.edf
 	$(EDF2EXT) STAT.edf
-STAText.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc STAText.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc STAText.tmc
+STAText.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc STAText.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc STAText.tmc
 STATextoui.c : STATextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) STATextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 STATextoui.o : STATextoui.c
@@ -255,8 +258,8 @@ HAL1extedf.oui : HAL1.edf
 	$(EDF2OUI) HAL1.edf
 HAL1ext.tmc : HAL1.edf
 	$(EDF2EXT) HAL1.edf
-HAL1ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc HAL1ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc HAL1ext.tmc
+HAL1ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL1ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL1ext.tmc
 HAL1extoui.c : HAL1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) HAL1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HAL1extoui.o : HAL1extoui.c
@@ -265,8 +268,8 @@ HAL2extedf.oui : HAL2.edf
 	$(EDF2OUI) HAL2.edf
 HAL2ext.tmc : HAL2.edf
 	$(EDF2EXT) HAL2.edf
-HAL2ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc HAL2ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc HAL2ext.tmc
+HAL2ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL2ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL2ext.tmc
 HAL2extoui.c : HAL2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) HAL2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HAL2extoui.o : HAL2extoui.c
@@ -275,8 +278,8 @@ HAL3extedf.oui : HAL3.edf
 	$(EDF2OUI) HAL3.edf
 HAL3ext.tmc : HAL3.edf
 	$(EDF2EXT) HAL3.edf
-HAL3ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc HAL3ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc HAL3ext.tmc
+HAL3ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL3ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL3ext.tmc
 HAL3extoui.c : HAL3extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) HAL3extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 HAL3extoui.o : HAL3extoui.c
@@ -285,8 +288,8 @@ INST1extedf.oui : INST1.edf
 	$(EDF2OUI) INST1.edf
 INST1ext.tmc : INST1.edf
 	$(EDF2EXT) INST1.edf
-INST1ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc VT.tmc INST1ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc VT.tmc INST1ext.tmc
+INST1ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc VT.tmc INST1ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc VT.tmc INST1ext.tmc
 INST1extoui.c : INST1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) INST1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 INST1extoui.o : INST1extoui.c
@@ -295,8 +298,8 @@ INST2extedf.oui : INST2.edf
 	$(EDF2OUI) INST2.edf
 INST2ext.tmc : INST2.edf
 	$(EDF2EXT) INST2.edf
-INST2ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc INST2ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc INST2ext.tmc
+INST2ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc INST2ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc INST2ext.tmc
 INST2extoui.c : INST2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) INST2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 INST2extoui.o : INST2extoui.c
@@ -305,8 +308,8 @@ INST6extedf.oui : INST6.edf
 	$(EDF2OUI) INST6.edf
 INST6ext.tmc : INST6.edf
 	$(EDF2EXT) INST6.edf
-INST6ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc INST6ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc INST6ext.tmc
+INST6ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc INST6ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc INST6ext.tmc
 INST6extoui.c : INST6extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) INST6extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 INST6extoui.o : INST6extoui.c
@@ -315,8 +318,8 @@ NOTitr_4extedf.oui : NOTitr_4.edf
 	$(EDF2OUI) NOTitr_4.edf
 NOTitr_4ext.tmc : NOTitr_4.edf
 	$(EDF2EXT) NOTitr_4.edf
-NOTitr_4ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc VT.tmc NOTitr_4.tmc NOTitr_4ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc VT.tmc NOTitr_4.tmc NOTitr_4ext.tmc
+NOTitr_4ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc VT.tmc NOTitr_4.tmc NOTitr_4ext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc VT.tmc NOTitr_4.tmc NOTitr_4ext.tmc
 NOTitr_4extoui.c : NOTitr_4extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) NOTitr_4extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 NOTitr_4extoui.o : NOTitr_4extoui.c
