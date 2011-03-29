@@ -96,7 +96,7 @@ State A_START {
 	    validate A_DEAD;
 	  }
 	}
-#   +1  > Lamp A RF Setpoint 2	
+    +1  > Lamp A RF Setpoint 2
     +5  > Lamp A on
    +10  hold until (convert(A_IRV) >= ir0)
 	  or 20 else validate A_START;
@@ -140,13 +140,13 @@ State A_OFF {
 	> Lamp A IR Setpoint 0
 	"Lamp A Heater Off, cooling down";
  +3:00	> Lamp A off
-#       > Lamp A RF Setpoint 1	
+        > Lamp A RF Setpoint 1
 	"Lamp A is Off";
 }
 
 State A_DEAD {
     +1  > Lamp A IR Setpoint 0
-#   +1  > Lamp A RF Setpoint 1	
+    +1  > Lamp A RF Setpoint 1
     +1  > Lamp A Off
     "Lamp A is Dead"; 
 }
@@ -178,7 +178,7 @@ State B_START {
 	    validate B_DEAD;
 	  }
 	}
-#   +1  > Lamp B RF Setpoint 2	
+    +1  > Lamp B RF Setpoint 2
    +10	> Lamp B on
    +10  hold until (convert(B_IRV) >= ir0)
 	  or 20 else validate B_START;
@@ -221,13 +221,13 @@ State B_OFF {
 	> Lamp B IR Setpoint 0
 	"Lamp B Heater Off, cooling down";
  +3:00	> Lamp B off
-#       > Lamp B RF Setpoint 1	
+        > Lamp B RF Setpoint 1
 	"Lamp B is Off";
 }
 
 State B_DEAD {
     +1  > Lamp B IR Setpoint 0
-#   +1  > Lamp B RF Setpoint 1	
+    +1  > Lamp B RF Setpoint 1
     +1  > Lamp B Off
     "Lamp B is Dead"; 
 }
@@ -259,7 +259,7 @@ State C_START {
 	    validate C_DEAD;
 	  }
 	}
-#   +1  > Lamp C RF Setpoint 2	
+    +1  > Lamp C RF Setpoint 2
    +15  > Lamp C on
    +10  hold until (convert(C_IRV) >= 0.015)
 #  +10  hold until (convert(C_IRV) >= ir0)
@@ -304,13 +304,13 @@ State C_OFF {
 	> Lamp C IR Setpoint 0
 	"Lamp C Heater Off, cooling down";
  +3:00	> Lamp C off
-#       > Lamp C RF Setpoint 1	
+        > Lamp C RF Setpoint 1
 	"Lamp C is Off";
 }
 
 State C_DEAD {
     +1  > Lamp C IR Setpoint 0
-#   +1  > Lamp C RF Setpoint 1	
+    +1  > Lamp C RF Setpoint 1
     +1  > Lamp C Off
     "Lamp C is Dead"; 
 }
@@ -342,7 +342,7 @@ State D_START {
 	    validate D_DEAD;
 	   }
 	}
-#   +1  > Lamp D RF Setpoint 2	
+    +1  > Lamp D RF Setpoint 2
    +20	> Lamp D on
    +10	hold until (convert(D_IRV) >= ir0)
 	  or 20 else validate D_START;
@@ -385,13 +385,13 @@ State D_OFF {
 	> Lamp D IR Setpoint 0
 	"Lamp D Heater Off, cooling down";
  +3:00	> Lamp D off
-#       > Lamp D RF Setpoint 1	
+        > Lamp D RF Setpoint 1
 	"Lamp D is Off";
 }
 
 State D_DEAD {
   +1  > Lamp D IR Setpoint 0
-# +1  > Lamp D RF Setpoint 1	
+  +1  > Lamp D RF Setpoint 1
   +1  > Lamp D Off
      "Lamp D is Dead"; 
 }
