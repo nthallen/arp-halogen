@@ -21,7 +21,7 @@
 %}
 
 %INTERFACE <SWData:DG/data>
-%INTERFACE <soldrv>
+%INTERFACE <SoldrvA>
 %INTERFACE <subbus>
 
 &command
@@ -29,7 +29,7 @@
     : Fail Lamp %d(Enter Bit Number 0-7) &on_off * { setfail( $3, $4 ); }
 #   : TRU &on_off * { setfail( 1, $2 ); }
     : &CmdData * { if_SWData.Turf(); }
-    : &SoldrvA * { if_soldrv.Turf( "M%d\n", $1); }
+    : &SoldrvA * { if_SoldrvA.Turf( "S%d\n", $1); }
     ;
 
 &SoldrvA <int>
