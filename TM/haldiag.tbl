@@ -50,7 +50,7 @@ Status {
   SW1: (SW1_S,3);
   SW2: (SW2_S,3);
   RFs: (RFDstale,3);
-  Sol: HSolS; # (HSolS,3);
+  Sol: (HSolS,3);
 }
 
 MFCtr {
