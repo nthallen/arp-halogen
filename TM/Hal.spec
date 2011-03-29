@@ -13,9 +13,12 @@ cmdbase = rfd.cmd
 
 SRC = idx.idx NOTitr_4.cyc *.edf tlookup*.dat
 # TOOL = README
+
 SCRIPT = dccc.dccc idx.idx64 interact Experiment.config
-# SCRIPT = Hlab_interact runfile.1111 RoverT.txt
-# SCRIPT = runfile.1101 runfile.Ncal
+SCRIPT = runfile.F
+
+# SCRIPT = RoverT.txt
+
 OBJ = NOTitr_4.tmc
 TGTDIR = $(TGTNODE)/home/Hal
 
