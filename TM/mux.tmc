@@ -156,7 +156,7 @@ switch ( MUXAddr ) {
     PLP1T = MUX07; validate PLP1T;
     break;
   case 2:
-    N22LP = MUX01; validate N22LP; /* was ClNLP */
+    N22HP = MUX01; validate N22HP; /* was ClNLP */
     Rv15T = MUX02; validate Rv15T;
     DResT = MUX03; validate DResT;
     X2FAT = MUX04; validate X2FAT;
@@ -219,7 +219,7 @@ switch ( MUXAddr ) {
     LXH1T = MUX07; validate LXH1T;
     break;
   case 9:
-    N22HP = MUX01; validate N22HP; /* was ClNHP */
+    N22LP = MUX01; validate N22LP; /* was ClNHP */
     Rv11T = MUX02; validate Rv11T;
     DLH2T = MUX03; validate DLH2T;
     Exh3T = MUX04; validate Exh3T;
