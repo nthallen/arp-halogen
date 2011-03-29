@@ -257,7 +257,7 @@ void rfamp::set_power(int n) {
 }
 
 int rfamp::report_err() {
-  if ( err_throttle > 10 ) return 0;
+  if ( err_throttle > 3 ) return 0;
   ++err_throttle;
   return 1;
 }
