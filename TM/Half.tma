@@ -237,8 +237,8 @@ State Pump_Init {
 
  +3 > Pump Off
 
-    Hold until (convert(PumpT) < 10.);
-    Hold until (convert(PumpT) > 12.) OR 3:00
+    Hold until (convert(PmotT) < 10.);
+    Hold until (convert(PmotT) > 12.) OR 3:00
     else Validate Pump_On_Low_Temp;
     Validate Pump_Init; # Loop
 }
@@ -249,9 +249,9 @@ State Pump_On_Low_Temp {
     depending on (SHUTDOWN) { Validate Pump_Off; }
     depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
     > Pump On
-    { if (convert(PumpT) > 90. || convert(PmotT) > 90.) {
-        msg(2, "Pump Over Temperature: Pump: %.1lf Motor: %.1lf",
-          convert(PumpT), convert(PmotT) );
+    { if (convert(PmotT) > 65.) {
+        msg(2, "Pump Over Temperature: Motor: %.1lf",
+          convert(PmotT) );
         Validate Pump_Over_Temp;
       }
     }
@@ -261,9 +261,9 @@ State Pump_On {
     depending on (SHUTDOWN) { Validate Pump_Off; }
     depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
     > Pump On
-    { if (convert(PumpT) > 90. || convert(PmotT) > 90.) {
-        msg(2, "Pump Over Temperature: Pump: %.1lf Motor: %.1lf",
-          convert(PumpT), convert(PmotT) );
+    { if (convert(PmotT) > 65.) {
+        msg(2, "Pump Over Temperature: Motor: %.1lf",
+          convert(PmotT) );
         Validate Pump_Over_Temp;
       }
     }
@@ -273,7 +273,7 @@ State Pump_Over_Temp {
     depending on (SHUTDOWN) { Validate Pump_Off; }
     depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
     > Pump Off
-    Hold until (convert(PumpT) < 50. && convert(PmotT) < 50.);
+    Hold until (convert(PmotT) < 35.);
     Validate Pump_On;
 }
 
