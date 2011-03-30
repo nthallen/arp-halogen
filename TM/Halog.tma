@@ -135,7 +135,7 @@ State A_ON {
 State A_OFF {
     depending on (ABOVE_CLOUDS)
       { if ( ! (SW_stop & A_STOPPED) ) Validate A_START; }
-    depending on (SHUTDOWN) { Validate B_DEAD; }
+    depending on (SHUTDOWN) { Validate A_DEAD; }
 
       "Holding for cycle start";
       hold until ((HSolS % 10) == 0) or 35;
@@ -360,7 +360,7 @@ State D_START {
         }
      +1 > Lamp D RF Setpoint 1
    +20	> Lamp D on
-   +10	hold until (DetD > 50)
+   +10	hold until (DetD > 10)
           or 20 else Validate D_START;
     +1  { fail_cnt_d = 0; }
      +1 > Lamp D IR Setpoint 0
@@ -368,7 +368,7 @@ State D_START {
 }
 
 State D_ON {
-    { if (DetD < 50) Validate D_START; }
+    { if (DetD < 10) Validate D_START; }
     depending on (DESCENT) { Validate D_OFF; }
     depending on (SHUTDOWN) { Validate D_DEAD; }
 
@@ -400,7 +400,7 @@ State D_OFF {
    +1 > set sw status 1 to 0
       > Lamp D IR Setpoint 0
       "Lamp D Heater Off, cooling down";
-      Hold until (DetD < 50) or 3:00;
+      Hold until (DetD < 10) or 3:00;
       > Lamp D off
       > Lamp D RF Setpoint 1
       "Lamp D is Off";
