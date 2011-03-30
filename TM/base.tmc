@@ -24,8 +24,8 @@ TM 1 Hz AD12 CRFFW; Address CRFFW 0xC5E;
 TM 1 Hz DASPt C_IRSet; Address C_IRSet 0xCE6;
 TM 1 Hz AD12 C_IRV; Address C_IRV 0xC90;
 /* TM 1 Hz AD12 C_UVV; Address C_UVV 0xC5A; */
-TM 4 Hz AD12 ClNFl; Address ClNFl 0xCCE;
-TM 4 Hz DASPt ClONO2Set; Address ClONO2Set 0xCEC;
+/* TM 4 Hz AD12 ClNFl; Address ClNFl 0xCCE; */
+/* TM 4 Hz DASPt ClONO2Set; Address ClONO2Set 0xCEC; */
 /* TM 1 Hz DASPt DH10Set; Address DH10Set 0xD6E; */
 /* TM 1 Hz DASPt DH11Set; Address DH11Set 0xD6C; */
 /* TM 1 Hz DASPt DH12Set; Address DH12Set 0xD6A; */

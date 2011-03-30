@@ -6,7 +6,6 @@ Hal_Solenoids {
 	  Main:   (H1_SS,3)    (H2_SS,3);
 	  Air:    (ArH1S,3)    (ArH2S,3);
 	  NO:     (NOH1S,3)    (NOH2S,3);
-	  # N2:     (ClNH1,3)    (ClNH2,3);
 	};
 	HGlue 0+10;
   };
@@ -18,8 +17,6 @@ Flow_Control {
             >Flow<      >SetPt<                 >Ope<      >Clo<;
   "NO D_1:" (NOH1F,6)   (NOH1Set,4)             (NOF1O,3)  (NOF1C,3);
   "NO D_2:" (NOH2F,6)   (NOH2Set,4)             (NOF2O,3)  (NOF2C,3);
-  #NO2:     (NO2Fl,6)   (NO2FlSet,4)            (NO2FO,3)  (NO2FC,3);
-  # N2:     (ClNFl,6)   (ClONO2Set,4)           (ClNFlO,3) (ClNFlC,3);
   ""        >V<         >V<
 }
 

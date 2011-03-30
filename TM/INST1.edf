@@ -47,11 +47,11 @@ spreadsheet GsFl_4 9
 	1	NOH1F %5.2lf
 	2	NOH2F %5.2lf
 ;	3	NO2Fl %5.2lf
-	4	ClNFl %5.2lf
+;	4	ClNFl %5.2lf
 	5	NOH1Set %5.2lf
 	6	NOH2Set %5.2lf
 ;	7	NO2FlSet %5.2lf
-	8	ClONO2Set %5.2lf
+;	8	ClONO2Set %5.2lf
 
 spreadsheet Calc_1 5
 	1	SD1Vel %5.2lf
