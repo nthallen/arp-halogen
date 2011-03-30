@@ -35,15 +35,15 @@
     int rv = 0;
     if ( SWS == val ) {
       if ( set ) {
-	if ( ( SW_stop & bit ) == 0 ) {
-	  SW_stop |= bit;
-	  rv = 1;
-	}
+        if ( ( SW_stop & bit ) == 0 ) {
+          SW_stop |= bit;
+          rv = 1;
+        }
       } else {
-	if ( ( SW_stop & bit ) != 0 ) {
-	  SW_stop &= ~bit;
-	  rv = 1;
-	}
+        if ( ( SW_stop & bit ) != 0 ) {
+          SW_stop &= ~bit;
+          rv = 1;
+        }
       }
     }
     if ( rv ) ci_sendcmd( "Set SW Status 1 to 0\n", 0 );
@@ -51,21 +51,22 @@
   }
 %}
 
-{ if ( check_lamp_sws( SW1_S, SWS_LAMP_A_OFF, A_STOPPED, 1 )) validate A_OFF; }
-{ if ( check_lamp_sws( SW1_S, SWS_LAMP_B_OFF, B_STOPPED, 1 )) validate B_OFF; }
-{ if ( check_lamp_sws( SW1_S, SWS_LAMP_C_OFF, C_STOPPED, 1 )) validate C_OFF; }
-{ if ( check_lamp_sws( SW1_S, SWS_LAMP_D_OFF, D_STOPPED, 1 )) validate D_OFF; }
-{ if ( check_lamp_sws( SW1_S, SWS_LAMP_A_ON, A_STOPPED, 0 )) validate A_WAIT; }
-{ if ( check_lamp_sws( SW1_S, SWS_LAMP_B_ON, B_STOPPED, 0 )) validate B_WAIT; }
-{ if ( check_lamp_sws( SW1_S, SWS_LAMP_C_ON, C_STOPPED, 0 )) validate C_WAIT; }
-{ if ( check_lamp_sws( SW1_S, SWS_LAMP_D_ON, D_STOPPED, 0 )) validate D_WAIT; }
+{ if ( check_lamp_sws( SW1_S, SWS_LAMP_A_OFF, A_STOPPED, 1 )) Validate A_OFF; }
+{ if ( check_lamp_sws( SW1_S, SWS_LAMP_B_OFF, B_STOPPED, 1 )) Validate B_OFF; }
+{ if ( check_lamp_sws( SW1_S, SWS_LAMP_C_OFF, C_STOPPED, 1 )) Validate C_OFF; }
+{ if ( check_lamp_sws( SW1_S, SWS_LAMP_D_OFF, D_STOPPED, 1 )) Validate D_OFF; }
+{ if ( check_lamp_sws( SW1_S, SWS_LAMP_A_ON, A_STOPPED, 0 )) Validate A_WAIT; }
+{ if ( check_lamp_sws( SW1_S, SWS_LAMP_B_ON, B_STOPPED, 0 )) Validate B_WAIT; }
+{ if ( check_lamp_sws( SW1_S, SWS_LAMP_C_ON, C_STOPPED, 0 )) Validate C_WAIT; }
+{ if ( check_lamp_sws( SW1_S, SWS_LAMP_D_ON, D_STOPPED, 0 )) Validate D_WAIT; }
+
 depending on (QUICK_SHUTDOWN) {
   if ( SW_stop != (A_STOPPED|B_STOPPED|C_STOPPED|D_STOPPED) ) {
-	SW_stop = (A_STOPPED|B_STOPPED|C_STOPPED|D_STOPPED);
-    validate A_OFF;
-    validate B_OFF;
-    validate C_OFF;
-    validate D_OFF;
+    SW_stop = (A_STOPPED|B_STOPPED|C_STOPPED|D_STOPPED);
+    Validate A_DEAD;
+    Validate B_DEAD;
+    Validate C_DEAD;
+    Validate D_DEAD;
   }
 }
 
@@ -77,77 +78,80 @@ depending on (QUICK_SHUTDOWN) {
 
 PARTITION
 
-%{	
+%{
   int fail_cnt_a = 0, warn_a = 0;
 %}
 
 State A_WAIT {
-  +1  > Lamp A off
+   +1 > Lamp A off
 
-  depending on (BELOW_CLOUDS) { validate A_START; }
-  depending on (ABOVE_CLOUDS) { validate A_START; }
+  depending on (BELOW_CLOUDS) { Validate A_START; }
+  depending on (ABOVE_CLOUDS) { Validate A_START; }
 }
 
 State A_START {
-    +1  > Lamp A IR Setpoint 0
-    +1  > Lamp A off
- +1:00	{ if (++fail_cnt_a>6) {
-	    msg(2, "Lamp A Failed 6 times" );
-	    validate A_DEAD;
-	  }
-	}
-    +1  > Lamp A RF Setpoint 2
-    +5  > Lamp A on
-   +10  hold until (convert(A_IRV) >= ir0)
-	  or 20 else validate A_START;
-    +1  {	fail_cnt_a = 0; }
-    +1  > Lamp A IR Setpoint 1025
-	Validate A_ON;
+    depending on (DESCENT) { Validate A_OFF; }
+    depending on (SHUTDOWN) { Validate A_DEAD; }
+
+     +1 > Lamp A IR Setpoint 0
+     +1 > Lamp A off
+  +1:00 { if (++fail_cnt_a>6) {
+            msg(2, "Lamp A Failed 6 times" );
+            Validate A_DEAD;
+          }
+        }
+     +1 > Lamp A RF Setpoint 2
+     +5 > Lamp A on
+    +10 Hold until (convert(A_IRV) >= ir0)
+          or 20 else Validate A_START;
+     +1 {	fail_cnt_a = 0; }
+     +1 > Lamp A IR Setpoint 1025
+        Validate A_ON;
 }
 
 State A_ON {
-	  { if (convert(A_IRV) < ir0) validate A_START; }
+    { if (convert(A_IRV) < ir0) Validate A_START; }
+    depending on (DESCENT) { Validate A_OFF; }
+    depending on (SHUTDOWN) { Validate A_DEAD; }
 
-	  depending on (DESCENT) { validate A_OFF; }
-
-	  "Lamp A is On: waiting to assess health";
-	  { warn_a = 7; }
+          "Lamp A is On: waiting to assess health";
+          { warn_a = 7; }
   +3:00   "Lamp A is On";
-	  { if ((warn_a&1) && convert(ARFFW) < 1.0) {
-	      msg(1, "Lamp A forward power is low"); 
-	      warn_a &= ~1;
-	    }
-	    if ((warn_a&2) && convert(ARFBW) > 4.0) {
-	      msg(1, "Lamp A reflected power is high");
-	      warn_a &= ~2;
-	    }
-	    if ((warn_a&4) && convert(A_IRV) < 0.4) {
-	      msg(1, "Lamp A IR is low");
-	      warn_a &= ~4;
-	    }
-	  }
+          { if ((warn_a&1) && convert(ARFFW) < 1.0) {
+              msg(1, "Lamp A forward power is low"); 
+              warn_a &= ~1;
+            }
+            if ((warn_a&2) && convert(ARFBW) > 4.0) {
+              msg(1, "Lamp A reflected power is high");
+              warn_a &= ~2;
+            }
+            if ((warn_a&4) && convert(A_IRV) < 0.4) {
+              msg(1, "Lamp A IR is low");
+              warn_a &= ~4;
+            }
+          }
 }
 
 State A_OFF {
-      depending on (ABOVE_CLOUDS) {
-	if ( ! (SW_stop & A_STOPPED) )
-	  validate A_START;
-      }
+    depending on (ABOVE_CLOUDS)
+      { if ( ! (SW_stop & A_STOPPED) ) Validate A_START; }
+    depending on (SHUTDOWN) { Validate B_DEAD; }
 
-	"Holding for cycle start";
-	hold until ((HSolS % 10) == 0) or 35;
-    +1  > set sw status 1 to 0
-	> Lamp A IR Setpoint 0
-	"Lamp A Heater Off, cooling down";
- +3:00	> Lamp A off
-        > Lamp A RF Setpoint 1
-	"Lamp A is Off";
+      "Holding for cycle start";
+      hold until ((HSolS % 10) == 0) or 35;
+   +1 > set sw status 1 to 0
+      > Lamp A IR Setpoint 0
+      "Lamp A Heater Off, cooling down";
+      Hold until (convert(A_IRV) < ir0) or 3:00;
+      > Lamp A off
+      > Lamp A RF Setpoint 1
+      "Lamp A is Off";
 }
 
 State A_DEAD {
-    +1  > Lamp A IR Setpoint 0
-    +1  > Lamp A RF Setpoint 1
-    +1  > Lamp A Off
+     +1 > Lamp A IR Setpoint 0
+     +1 > Lamp A RF Setpoint 1
+     +1 > Lamp A Off
     "Lamp A is Dead"; 
 }
 
@@ -164,71 +168,76 @@ PARTITION
 %}
 
 State B_WAIT {
-    +1  > Lamp B off
+        Validate B_DEAD;
+     +1 > Lamp B off
 
-    depending on (BELOW_CLOUDS) { validate B_START; }
-    depending on (ABOVE_CLOUDS) { validate B_START; }
+    depending on (BELOW_CLOUDS) { Validate B_START; }
+    depending on (ABOVE_CLOUDS) { Validate B_START; }
 }
 
 State B_START {
-    +1  > Lamp B IR Setpoint 0
-    +1  > Lamp B off
- +1:00	{ if (++fail_cnt_b>6) {
-	    msg(2, "Lamp B Failed 6 times" );
-	    validate B_DEAD;
-	  }
-	}
-    +1  > Lamp B RF Setpoint 2
-   +10	> Lamp B on
-   +10  hold until (convert(B_IRV) >= ir0)
-	  or 20 else validate B_START;
-    +1  { fail_cnt_b = 0; }
-    +1  > Lamp B IR Setpoint 1025
-	Validate B_ON;
+    depending on (DESCENT) { Validate B_OFF; }
+    depending on (SHUTDOWN) { Validate B_DEAD; }
+
+     +1 > Lamp B IR Setpoint 0
+     +1 > Lamp B off
+  +1:00 { if (++fail_cnt_b>6) {
+            msg(2, "Lamp B Failed 6 times" );
+            Validate B_DEAD;
+          }
+        }
+     +1 > Lamp B RF Setpoint 2
+    +10 > Lamp B on
+    +10 Hold until (convert(B_IRV) >= ir0)
+          or 20 else Validate B_START;
+     +1 { fail_cnt_b = 0; }
+     +1 > Lamp B IR Setpoint 1025
+        Validate B_ON;
 }
 
 State B_ON {
-	{ if (convert(B_IRV) < ir0) validate B_START; }
-	depending on (DESCENT) { validate B_OFF; }
+    { if (convert(B_IRV) < ir0) Validate B_START; }
+    depending on (DESCENT) { Validate B_OFF; }
+    depending on (SHUTDOWN) { Validate B_DEAD; }
 
-	  "Lamp B is On: waiting to assess health";
-	  { warn_b = 7; }
-  +3:00   "Lamp B is On";
-	  { if ((warn_b&1) && convert(BRFFW) < 1.0) {
-	      msg(1, "Lamp B forward power is low"); 
-	      warn_b &= ~1;
-	    }
-	    if ((warn_b&2) && convert(BRFBW) > 4.0) {
-	      msg(1, "Lamp B reflected power is high");
-	      warn_b &= ~2;
-	    }
-	    if ((warn_b&4) && convert(B_IRV) < 0.4) {
-	      msg(1, "Lamp B IR is low");
-	      warn_b &= ~4;
-	    }
-	  }
+        "Lamp B is On: waiting to assess health";
+        { warn_b = 7; }
+  +3:00 "Lamp B is On";
+        { if ((warn_b&1) && convert(BRFFW) < 1.0) {
+            msg(1, "Lamp B forward power is low"); 
+            warn_b &= ~1;
+          }
+          if ((warn_b&2) && convert(BRFBW) > 4.0) {
+            msg(1, "Lamp B reflected power is high");
+            warn_b &= ~2;
+          }
+          if ((warn_b&4) && convert(B_IRV) < 0.4) {
+            msg(1, "Lamp B IR is low");
+            warn_b &= ~4;
+          }
+        }
 }
 
 State B_OFF {
-	depending on (ABOVE_CLOUDS) {
-	  if ( ! (SW_stop & B_STOPPED) )
-		validate B_START;
-	}
+    depending on (ABOVE_CLOUDS)
+      { if ( ! (SW_stop & B_STOPPED) ) Validate B_START; }
+    depending on (SHUTDOWN) { Validate B_DEAD; }
 
-	"Holding for cycle start";
-	Hold until ((HSolS % 10) == 0) or 35;
-    +1  > set sw status 1 to 0
-	> Lamp B IR Setpoint 0
-	"Lamp B Heater Off, cooling down";
- +3:00	> Lamp B off
-        > Lamp B RF Setpoint 1
-	"Lamp B is Off";
+      "Holding for cycle start";
+      Hold until ((HSolS % 10) == 0) or 35;
+   +1 > set sw status 1 to 0
+      > Lamp B IR Setpoint 0
+      "Lamp B Heater Off, cooling down";
+      Hold until (convert(B_IRV) < ir0) or 3:00;
+      > Lamp B off
+      > Lamp B RF Setpoint 1
+      "Lamp B is Off";
 }
 
 State B_DEAD {
-    +1  > Lamp B IR Setpoint 0
-    +1  > Lamp B RF Setpoint 1
-    +1  > Lamp B Off
+     +1 > Lamp B IR Setpoint 0
+     +1 > Lamp B RF Setpoint 1
+     +1 > Lamp B Off
     "Lamp B is Dead"; 
 }
 
@@ -245,74 +254,77 @@ PARTITION
 %}
 
 State C_WAIT {
-  +1  > Lamp C off
+   +1 > Lamp C off
 
-    depending on (BELOW_CLOUDS) { validate C_START; }
-    depending on (ABOVE_CLOUDS) { validate C_START; }
+    depending on (BELOW_CLOUDS) { Validate C_START; }
+    depending on (ABOVE_CLOUDS) { Validate C_START; }
+    depending on (SHUTDOWN) { Validate C_DEAD; }
 }
 
 State C_START {
-	+1  > Lamp C IR Setpoint 0
-	+1  > Lamp C off
- +1:00	{ if (++fail_cnt_c>6) {
-	    msg(2, "Lamp C Failed 6 times" );
-	    validate C_DEAD;
-	  }
-	}
-    +1  > Lamp C RF Setpoint 2
-   +15  > Lamp C on
-   +10  hold until (convert(C_IRV) >= 0.015)
-#  +10  hold until (convert(C_IRV) >= ir0)
-	  or 20 else validate C_START;
-   +10	{ fail_cnt_c = 0; }
-	{ if ( convert( C_IRV) < 1 ) Validate C_ON; }
-    +1  > Lamp C IR Setpoint 225
-	Validate C_ON;
+    depending on (DESCENT) { Validate C_OFF; }
+    depending on (SHUTDOWN) { Validate C_DEAD; }
+
+         +1 > Lamp C IR Setpoint 0
+         +1 > Lamp C off
+  +1:00 { if (++fail_cnt_c>6) {
+            msg(2, "Lamp C Failed 6 times" );
+            Validate C_DEAD;
+          }
+        }
+     +1 > Lamp C RF Setpoint 2
+    +15 > Lamp C on
+    +10 Hold until (convert(C_IRV) >= ir0)
+          or 20 else Validate C_START;
+    +10 { fail_cnt_c = 0; }
+     +1 > Lamp C IR Setpoint 1025
+        Validate C_ON;
 }
 
 State C_ON {
-	{	if (convert(C_IRV) < 0.015) validate C_START; }
-	depending on (DESCENT) { validate C_OFF; }
+    {	if (convert(C_IRV) < 0.015) Validate C_START; }
+    depending on (DESCENT) { Validate C_OFF; }
+    depending on (SHUTDOWN) { Validate C_DEAD; }
 
-	  "Lamp C is On: waiting to assess health";
-	  { warn_c = 7; }
+          "Lamp C is On: waiting to assess health";
+          { warn_c = 7; }
   +3:00   "Lamp C is On";
-	  { if ((warn_c&1) && convert(CRFFW) < 1.0) {
-	      msg(1, "Lamp C forward power is low"); 
-	      warn_c &= ~1;
-	    }
-	    if ((warn_c&2) && convert(CRFBW) > 4.0) {
-	      msg(1, "Lamp C reflected power is high");
-	      warn_c &= ~2;
-	    }
-	    if ((warn_c&4) && convert(C_IRV) < 0.04) {
-	      msg(1, "Lamp C IR is low");
-	      warn_c &= ~4;
-	    }
-	  }
+          { if ((warn_c&1) && convert(CRFFW) < 1.0) {
+              msg(1, "Lamp C forward power is low"); 
+              warn_c &= ~1;
+            }
+            if ((warn_c&2) && convert(CRFBW) > 4.0) {
+              msg(1, "Lamp C reflected power is high");
+              warn_c &= ~2;
+            }
+            if ((warn_c&4) && convert(C_IRV) < 0.04) {
+              msg(1, "Lamp C IR is low");
+              warn_c &= ~4;
+            }
+          }
 }
 
 State C_OFF {
-	depending on (ABOVE_CLOUDS) {
-	  if ( ! (SW_stop & C_STOPPED) )
-		validate C_START;
-	}
+    depending on (ABOVE_CLOUDS)
+      { if ( ! (SW_stop & C_STOPPED) ) Validate C_START; }
+    depending on (SHUTDOWN) { Validate C_DEAD; }
 
-	"Holding for cycle start";
-	hold until ((HSolS % 10) == 0) or 35;
-    +1  > set sw status 1 to 0
-	> Lamp C IR Setpoint 0
-	"Lamp C Heater Off, cooling down";
- +3:00	> Lamp C off
-        > Lamp C RF Setpoint 1
-	"Lamp C is Off";
+      "Holding for cycle start";
+      hold until ((HSolS % 10) == 0) or 35;
+   +1 > set sw status 1 to 0
+      > Lamp C IR Setpoint 0
+      "Lamp C Heater Off, cooling down";
+      Hold until (convert(C_IRV) < ir0) or 3:00;
+      > Lamp C off
+      > Lamp C RF Setpoint 1
+      "Lamp C is Off";
 }
 
 State C_DEAD {
-    +1  > Lamp C IR Setpoint 0
-    +1  > Lamp C RF Setpoint 1
-    +1  > Lamp C Off
-    "Lamp C is Dead"; 
+   +1 > Lamp C IR Setpoint 0
+   +1 > Lamp C RF Setpoint 1
+   +1 > Lamp C Off
+      "Lamp C is Dead"; 
 }
 
 #############################################################################
@@ -328,70 +340,75 @@ PARTITION
 %}
 
 State D_WAIT {
-    +1  > Lamp D off
+     +1 > Lamp D off
 
-    depending on (BELOW_CLOUDS) { validate D_START; }
-    depending on (ABOVE_CLOUDS) { validate D_START; }
+    depending on (BELOW_CLOUDS) { Validate D_START; }
+    depending on (ABOVE_CLOUDS) { Validate D_START; }
+    depending on (SHUTDOWN) { Validate D_DEAD; }
 }
 
 State D_START {
-    +1  > Lamp D IR Setpoint 0
-    +1  > Lamp D off
+    depending on (DESCENT) { Validate D_OFF; }
+    depending on (SHUTDOWN) { Validate D_DEAD; }
+
+     +1 > Lamp D IR Setpoint 0
+     +1 > Lamp D off
  +1:00  { if (++fail_cnt_d>6) {
-	    msg(2, "Lamp D Failed 6 times" );
-	    validate D_DEAD;
-	   }
-	}
-    +1  > Lamp D RF Setpoint 2
+            msg(2, "Lamp D Failed 6 times" );
+            Validate D_DEAD;
+           }
+        }
+     +1 > Lamp D RF Setpoint 2
    +20	> Lamp D on
    +10	hold until (convert(D_IRV) >= ir0)
-	  or 20 else validate D_START;
+          or 20 else Validate D_START;
     +1  { fail_cnt_d = 0; }
-    +1  > Lamp D IR Setpoint 1025
-	Validate D_ON;
+     +1 > Lamp D IR Setpoint 1025
+        Validate D_ON;
 }
 
 State D_ON {
-	{ if (convert(D_IRV) < ir0) validate D_START; }
-	depending on (DESCENT) { validate D_OFF; }
+    { if (convert(D_IRV) < ir0) Validate D_START; }
+    depending on (DESCENT) { Validate D_OFF; }
+    depending on (SHUTDOWN) { Validate D_DEAD; }
 
-	  "Lamp D is On: waiting to assess health";
-	  { warn_d = 7; }
+          "Lamp D is On: waiting to assess health";
+          { warn_d = 7; }
   +3:00   "Lamp D is On";
-	  { if ((warn_d&1) && convert(DRFFW) < 1.0) {
-	      msg(1, "Lamp D forward power is low"); 
-	      warn_d &= ~1;
-	    }
-	    if ((warn_d&2) && convert(DRFBW) > 4.0) {
-	      msg(1, "Lamp D reflected power is high");
-	      warn_d &= ~2;
-	    }
-	    if ((warn_d&4) && convert(D_IRV) < 0.4) {
-	      msg(1, "Lamp D IR is low");
-	      warn_d &= ~4;
-	    }
-	  }
+          { if ((warn_d&1) && convert(DRFFW) < 1.0) {
+              msg(1, "Lamp D forward power is low"); 
+              warn_d &= ~1;
+            }
+            if ((warn_d&2) && convert(DRFBW) > 4.0) {
+              msg(1, "Lamp D reflected power is high");
+              warn_d &= ~2;
+            }
+            if ((warn_d&4) && convert(D_IRV) < 0.4) {
+              msg(1, "Lamp D IR is low");
+              warn_d &= ~4;
+            }
+          }
 }
 
 State D_OFF {
-	depending on (ABOVE_CLOUDS) {
-	  if ( ! (SW_stop & D_STOPPED) )
-	    validate D_START;
-	}
+    depending on (ABOVE_CLOUDS)
+      { if ( ! (SW_stop & D_STOPPED) ) Validate D_START; }
+    depending on (SHUTDOWN) { Validate D_DEAD; }
 
-	"Holding for cycle start";
-	hold until ((HSolS % 10) == 0) or 35;
-    +1  > set sw status 1 to 0
-	> Lamp D IR Setpoint 0
-	"Lamp D Heater Off, cooling down";
- +3:00	> Lamp D off
-        > Lamp D RF Setpoint 1
-	"Lamp D is Off";
+      "Holding for cycle start";
+      hold until ((HSolS % 10) == 0) or 35;
+   +1 > set sw status 1 to 0
+      > Lamp D IR Setpoint 0
+      "Lamp D Heater Off, cooling down";
+      Hold until (convert(D_IRV) < ir0) or 3:00;
+      > Lamp D off
+      > Lamp D RF Setpoint 1
+      "Lamp D is Off";
 }
 
 State D_DEAD {
-  +1  > Lamp D IR Setpoint 0
-  +1  > Lamp D RF Setpoint 1
-  +1  > Lamp D Off
+   +1 > Lamp D IR Setpoint 0
+   +1 > Lamp D RF Setpoint 1
+   +1 > Lamp D Off
      "Lamp D is Dead"; 
 }

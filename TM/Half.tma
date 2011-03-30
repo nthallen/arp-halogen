@@ -8,27 +8,14 @@
 #  RECORD_NO2_ONLY: The record state if no air (<100 psi)
 #  DESCENT: On the way down, with possible restart
 #  SHUTDOWN: On or near the ground. Definitely quitting.
-#    The basic idea is to restrict operations in this partition
-#    to those that affect both Halogen and NO2 systems, e.g.
-#    primary flows, solenoid cycles. Operations specific to
-#    one or the other should appear in another partition,
-#    possibly depending on these states.
 #
 # Partition 2: Pressure/Software Switch
 #  ON_GROUND: High pressure, either turning on or shutting down
 #  BELOW_CLOUDS: Intermediate altitude
 #  ABOVE_CLOUDS: High altitude, main data taking
 #
-# Partition 3: APD control 
-#  was ClONO2 addition (totally obsolete)
-#  
 #----------------------------------------------------------------
-# See also: Hal.sol, NO2.sol, NO2.tma, Halog.tma, DHtr.tma, TRU.tma,
-#           grnpw.tma, linefind.tma
-# Partition #'s: ClNf(1-2), no2 (3-8), Halog(9-12), DHtr(13-19),
-#                TRU(20), calno2(21)
-# grnpw and linefind are in a separate algo.
-#
+# See also: Halog.tma
 #############################################################################
 #############################################################################
 #	This partition controls the execution of the experiment.  It is keyed
@@ -36,65 +23,14 @@
 #############################################################################
 #############################################################################
 
-# Note valves closed is an element of the heater safety protocol
-
 # SW STATUS RULES:
 
 # SW Status 1: Used only to take action, Action on transitions, not
 #		requiring the bit be held at any value
 #	SW# TMA FILE	USE
 #	1-4 ClNf		alt control
-#	5-6 TestFlt		alt control
-#	10	ClN			GasCheck
-#	20	ClN			DSDM
-#	30	ClN			NO_Scan
-#	40	ClN			ClONO2_Scan
-#	50	ClN			Ramp_T1_up
-#	60	ClN			Ramp_T1_down
-#	70	ClN			Valve_test
-#	80	ClN			Slurp_it
-#   90  ClN    		Wait
-#	99  no2lab		initiates orderly shutdown
-#	100 no2lab		initializes all systems for no2 and preps laser
-#						(but doesn't turn on)
-#	101  no2lab		validates cal_wait
-#	102	no2lab		scans etalon
-#	103	no2lab		scans pressure w/ raman filter in
-#	104	no2lab		scans pressure w/ no2 filter in
-#	105	no2lab		no2 calibration
-#	106	no2lab		records zeros
-#	120	grnpw		greenpeakup on
-#	121  grnpw		greenpeakup off
-#	122 grnpw       greenpeakup scan
-#	130	no2		enable cal on the ground
-#	131  no2		validate NO2_ADD_IDLE
-#	132	no2		validate NO2_ADD_DUMP
-#	133	no2		validate NO2_ADD_OPEN
-#	134	no2		validate NO2_ADD_FULL1
-#	135	no2		validate NO2_ADD_FULL2
-#	136	no2		validate NO2_ADD_CAL1
-#	137	no2		validate NO2_ADD_CAL2
-#	140	no2		start laser on the ground
-#	141  no2		validate NO2_CAL_IDLE
-#	142	no2		validate NO2_CAL_DUMP
-#	143	no2		validate NO2_CAL_OPEN
-#	144	no2		validate NO2_CAL_FULL1
-#	145	no2		validate NO2_CAL_FULL2
-#	146	no2		validate NO2_CAL_CAL1
-#	147	no2		validate NO2_CAL_CAL2
-#       150     APD             validate NO2INIT
-#       152     APD             validate APD2_INIT
-#       190     etalon          validate SCAN_IDLE
-#       191     etalon          validate SCAN_STANDARD
-#       192     etalon          validate SCAN_HIGHRES 
-#       193     etalon          validate SCAN_LONG 
-#       197     etalon          validate ALL_SCANS
-#       198     etalon          validate ALL_SCANS1 
-#       199     etalon          validate ALL_SCANS2 
-#       200                     validate Lab_read
-#	203	linefind	triggers recording of a new base scan
 #	211-214 Halog	off lamps (A-D)
-#   221-224 Halog	on lamps (A-D)
+# 221-224 Halog	on lamps (A-D)
 #	244             Time-Warp
 #	255             QUICK_SHUTDOWN
 
@@ -132,7 +68,7 @@
 { depending on (QUICK_SHUTDOWN) {
   } else {
     if ( (IOSwS & 3) == 0 || SW1_S == SWS_SHUTDOWN )
-      validate QUICK_SHUTDOWN;
+      Validate QUICK_SHUTDOWN;
   }
 }
 
@@ -140,8 +76,8 @@ State INITIALIZE {
       > telemetry start
   +1  > fail lamp 0 off
 
-  depending on (BELOW_CLOUDS) { validate ASCENT; }
-  depending on (ABOVE_CLOUDS) { validate ASCENT; }
+  depending on (BELOW_CLOUDS) { Validate ASCENT; }
+  depending on (ABOVE_CLOUDS) { Validate ASCENT; }
 }
 
 ###################################################################
@@ -149,8 +85,8 @@ State INITIALIZE {
 ###################################################################
 
 State ASCENT {
-  depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
-  depending on (ON_GROUND) { validate SHUTDOWN; }
+  depending on (ABOVE_CLOUDS) { Validate RECORD_INIT; }
+  depending on (ON_GROUND) { Validate SHUTDOWN; }
 }
 
 ###################################################################
@@ -161,46 +97,40 @@ State ASCENT {
 %}
 
 State RECORD_INIT {
-  depending on (BELOW_CLOUDS) { validate DESCENT; }
-  depending on (ON_GROUND) { validate DESCENT; }
-### check for AirHP; if below threshold, validate Record_NO2_ONLY ###
-### check for N22HP; if below threshold, validate Record_NO2_ONLY ###
-    { if  ( convert(N22HP) < 100 ) validate RECORD_NO2_ONLY; }
-    +1  > Gasdeck N2 to Bromine On
+  depending on (BELOW_CLOUDS) { Validate DESCENT; }
+  depending on (ON_GROUND) { Validate DESCENT; }
+### check for N2_HP; if below threshold, Validate Record_NO2_ONLY ###
+    { if  ( convert(N2_HP) < 100 ) Validate RECORD_NO2_ONLY; }
 
 ##### Initialize Secondary Throttle #####
-    +1  > Drive Secondary Throttle 2 out 5000
-	> Drive Secondary Throttle 2 in 65535
-	> Drive Secondary Throttle 2 out 0
-
-
+   +1 > Drive Secondary Throttle 2 out 5000
+   +1 Hold until (!(SV2St&8)) or 2;
+      > Drive Secondary Throttle 2 in 65535
+   +1 Hold until (!(SV2St&8)) or 8;
+      > Drive Secondary Throttle 2 out 0
 # aiming for 15 m/s, step 10000/8500 duct 1/2, for the rest of this state
 # guessing that new obstructions in duct 1 require slightly more open
 # valve
-    +1  > Drive Secondary Throttle 2 to 8500
+   +1 > Drive Secondary Throttle 2 to 8500
 
     Validate RECORD;
 }
 
 State Record {
-  depending on (BELOW_CLOUDS) { validate DESCENT; }
-  depending on (ON_GROUND) { validate DESCENT; }
+  depending on (BELOW_CLOUDS) { Validate DESCENT; }
+  depending on (ON_GROUND) { Validate DESCENT; }
 
-### check for AirHP; if below threshold, validate Record_NO2_ONLY ###
-
-  { if  ( convert(N22HP) < 100 ) validate RECORD_NO2_ONLY; }
+### check for N2_HP; if below threshold, Validate Record_NO2_ONLY ###
+  { if  ( convert(N2_HP) < 100 ) Validate RECORD_NO2_ONLY; }
 
   +1  > Soldrv NO Addition
 }
 
 State RECORD_NO2_ONLY {
-	depending on (BELOW_CLOUDS) { validate DESCENT; }
-	depending on (ON_GROUND) { validate DESCENT; }
+	depending on (BELOW_CLOUDS) { Validate DESCENT; }
+	depending on (ON_GROUND) { Validate DESCENT; }
 
-# Modified 4-29-97 for no NO2 sampling of duct 1
-
-    +1  > Soldrv NO Off
-    +1  > Gasdeck N2 to Bromine Off
+  +1 > Soldrv NO Off
 }
 
 ###################################################################
@@ -213,9 +143,8 @@ State DESCENT {
       hold until (HSolS == 0) or 35;
 
       > Drive Secondary Throttle 2 In 65535
-  +1  > Gasdeck N2 to Bromine Off
-      depending on (ON_GROUND) { validate SHUTDOWN; }
-      depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
+      depending on (ON_GROUND) { Validate SHUTDOWN; }
+      depending on (ABOVE_CLOUDS) { Validate RECORD_INIT; }
 }
 
 ###################################################################
@@ -223,19 +152,16 @@ State DESCENT {
 ###################################################################
 
 State SHUTDOWN {
-    +60  > Fail Lamp 0 On
-         > Quit
+  +60 > Fail Lamp 0 On
+      > Quit
 }
 
 State QUICK_SHUTDOWN {
   # Halogen Lamps key off QUICK_SHUTDOWN
-  +1  > Soldrv Select Halogen Mode 0
-  +1  Validate A_DEAD;
-  +1  Validate B_DEAD;
-  +1  Validate C_DEAD;
-  +1  Validate D_DEAD;
-  +1  > Drive Secondary Throttle 2 in 65000
- +10  > Fail Lamp 0 On
+   +1 > Soldrv Select Halogen Mode 0
+   +1 > Drive Secondary Throttle 2 in 65000
+      Hold until valid (A_DEAD, B_DEAD, C_DEAD, D_DEAD) OR 10;
+      > Fail Lamp 0 On
       > Quit
 }
 	
@@ -264,33 +190,93 @@ PARTITION
 State ON_GROUND {
   { using_swp = 0; }
 
-  >   Set SW Status 1 to 0
+  > Set SW Status 1 to 0
 
-  { if ( SW1_S == 1 ) {
+  { if ( SW1_S == SWS_TAKEOFF ) {
     using_swp = 1;
-    validate BELOW_CLOUDS;
-  } else if (convert(SD1_P) < P_ground_up)
-    validate BELOW_CLOUDS;
+    Validate BELOW_CLOUDS;
+  } else if (convert(SD2_P) < P_ground_up)
+    Validate BELOW_CLOUDS;
   }
 }
 
 State BELOW_CLOUDS {
-    >   Set SW Status 1 to 0
+    > Set SW Status 1 to 0
 
-  { if ((using_swp && SW1_S == 2) ||
-	(!using_swp && convert(SD1_P) < P_clouds_up))
-      validate ABOVE_CLOUDS;
-    else if ((using_swp && SW1_S == 4) ||
-	(!using_swp && convert(SD1_P) > P_ground_dn))
-      validate ON_GROUND;
+  { if ((using_swp && SW1_S == SWS_CLIMB) ||
+        (!using_swp && convert(SD2_P) < P_clouds_up))
+      Validate ABOVE_CLOUDS;
+    else if ((using_swp && SW1_S == SWS_LAND) ||
+            (!using_swp && convert(SD2_P) > P_ground_dn))
+      Validate ON_GROUND;
   }
 }
 
 State ABOVE_CLOUDS {
   >   Set SW Status 1 to 0
 
-  { if ( (using_swp && SW1_S == 3) ||
-	(!using_swp && convert(SD1_P) > P_clouds_dn))
-      validate BELOW_CLOUDS;
+  { if ( (using_swp && SW1_S == SWS_DESCEND) ||
+	(!using_swp && convert(SD2_P) > P_clouds_dn))
+      Validate BELOW_CLOUDS;
   }
+}
+
+#############################################################################
+#############################################################################
+## Partition for Pump Control
+#############################################################################
+#############################################################################
+
+PARTITION
+
+State Pump_Init {
+    depending on (BELOW_CLOUDS) { Validate Pump_On; }
+    depending on (ABOVE_CLOUDS) { Validate Pump_On; }
+    depending on (SHUTDOWN) { Validate Pump_Off; }
+    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
+
+ +3 > Pump Off
+
+    Hold until (convert(PumpT) < 10.);
+    Hold until (convert(PumpT) > 12.) OR 3:00
+    else Validate Pump_On_Low_Temp;
+    Validate Pump_Init; # Loop
+}
+
+State Pump_On_Low_Temp {
+    depending on (BELOW_CLOUDS) { Validate Pump_On; }
+    depending on (ABOVE_CLOUDS) { Validate Pump_On; }
+    depending on (SHUTDOWN) { Validate Pump_Off; }
+    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
+    > Pump On
+    { if (convert(PumpT) > 90. || convert(PmotT) > 90.) {
+        msg(2, "Pump Over Temperature: Pump: %.1lf Motor: %.1lf",
+          convert(PumpT), convert(PmotT) );
+        Validate Pump_Over_Temp;
+      }
+    }
+}
+
+State Pump_On {
+    depending on (SHUTDOWN) { Validate Pump_Off; }
+    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
+    > Pump On
+    { if (convert(PumpT) > 90. || convert(PmotT) > 90.) {
+        msg(2, "Pump Over Temperature: Pump: %.1lf Motor: %.1lf",
+          convert(PumpT), convert(PmotT) );
+        Validate Pump_Over_Temp;
+      }
+    }
+}
+    
+State Pump_Over_Temp {
+    depending on (SHUTDOWN) { Validate Pump_Off; }
+    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
+    > Pump Off
+    Hold until (convert(PumpT) < 50. && convert(PmotT) < 50.);
+    Validate Pump_On;
+}
+
+State Pump_Off {
+    > Pump Off
 }
