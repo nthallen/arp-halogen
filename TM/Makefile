@@ -1,15 +1,15 @@
-# Makefile Generated Tue Mar 29 22:57:42 CDT 2011
+# Makefile Generated Thu Mar 31 06:33:13 CDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
 SRC=idx.idx NOTitr_4.cyc HAL1.edf HAL2.edf HAL3.edf INST1.edf
-SRC+=INST2.edf INST6.edf NOTitr_4.edf STAT.edf tlookup*.dat scdc.cmd
-SRC+=daspt.cmd idxdrv.cmd Hal.cmd rfd.cmd types.tmc base.tmc mux.tmc
-SRC+=status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc
-SRC+=Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c muxctrl.oui rfd.cc
-SRC+=rfd.oui Hal.sol idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc
-SRC+=rfdbits.tmc haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl H.doit
-SRC+=Half.tma Halog.tma Hal.tma NOTitr_4.tmc
+SRC+=INST2.edf INST6.edf NOTitr_4.edf STAT.edf haleng.edf
+SRC+=tlookup*.dat scdc.cmd daspt.cmd idxdrv.cmd Hal.cmd rfd.cmd
+SRC+=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc
+SRC+=nav.tmc T30K1MU.tmc Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c
+SRC+=muxctrl.oui rfd.cc rfd.oui Hal.sol idxflag.tmc VT.tmc dstat.tmc
+SRC+=SlowCnts.tmc rfdbits.tmc haldiag.tbl therm.tbl gasdiag.tbl
+SRC+=Rover.tbl H.doit Half.tma Halog.tma Hal.tma NOTitr_4.tmc
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config runfile.FF
 OBJ=NOTitr_4.tmc Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c
@@ -36,12 +36,13 @@ OBJ+=INST2ext.tmc INST2ext.cc INST2extoui.c INST2extoui.o INST2ext.o
 OBJ+=INST6extedf.oui INST6ext.tmc INST6ext.cc INST6extoui.c
 OBJ+=INST6extoui.o INST6ext.o NOTitr_4extedf.oui NOTitr_4ext.tmc
 OBJ+=NOTitr_4ext.cc NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o
-OBJ+=Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c
-OBJ+=Halcltncoui.o
+OBJ+=halengextedf.oui halengext.tmc halengext.cc halengextoui.c
+OBJ+=halengextoui.o halengext.o Halclt.o Halcltoui.c Halcltoui.o
+OBJ+=Halcltnc.o Halcltncoui.c Halcltncoui.o
 TGT=Halsrvr Halcol muxctrl rfd Hal.sft hddisp hddispnc thdisp
 TGT+=thdispnc gddisp gddispnc rvdisp rvdispnc Hdoit Halfalgo Halalgo
 TGT+=STAText HAL1ext HAL2ext HAL3ext INST1ext INST2ext INST6ext
-TGT+=NOTitr_4ext Halclt Halcltnc
+TGT+=NOTitr_4ext halengext Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION Hdoit
 SRCDIST=Hal.sol haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Half.tma
@@ -145,6 +146,9 @@ INST6ext : INST6ext.o INST6extoui.o
 NOTitr_4ext : NOTitr_4ext.o NOTitr_4extoui.o
 	$(LINK.normCXX) NOTitr_4ext.o NOTitr_4extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
 	$(OUIUSE) NOTitr_4extoui.c
+halengext : halengext.o halengextoui.o
+	$(LINK.normCXX) halengext.o halengextoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) halengextoui.c
 Halclt : Halclt.o Halcltoui.o
 	$(LINK.normCXX) Halclt.o Halcltoui.o -ltmph -lph -ltmpp -ltm -lnort
 	$(OUIUSE) Halcltoui.c
@@ -337,6 +341,16 @@ NOTitr_4extoui.c : NOTitr_4extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) NOTitr_4extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 NOTitr_4extoui.o : NOTitr_4extoui.c
 NOTitr_4ext.o : NOTitr_4ext.cc
+halengextedf.oui : haleng.edf
+	$(EDF2OUI) haleng.edf
+halengext.tmc : haleng.edf
+	$(EDF2EXT) haleng.edf
+halengext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc halengext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc halengext.tmc
+halengextoui.c : halengextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) halengextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+halengextoui.o : halengextoui.c
+halengext.o : halengext.cc
 Halclt.o : Halcmd.cc
 	$(COMPILE.clt) Halcmd.cc
 Halcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui
