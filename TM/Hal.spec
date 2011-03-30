@@ -52,6 +52,7 @@ INST6ext : INST6.edf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.edf
 #HEng1ext : VI.tmc VT.tmc HEng1.edf
 #HEng1txtext : VI.tmc VT.tmc HEng1txt.tmc
+halengext : haleng.edf
 %%
 NOTitr_4.tmc : NOTitr_4.cyc
 	cycle NOTitr_4.cyc >NOTitr_4.tmc
