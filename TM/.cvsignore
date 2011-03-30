@@ -115,6 +115,12 @@ NOTitr_4ext.cc
 NOTitr_4extoui.c
 NOTitr_4extoui.o
 NOTitr_4ext.o
+halengextedf.oui
+halengext.tmc
+halengext.cc
+halengextoui.c
+halengextoui.o
+halengext.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -146,5 +152,6 @@ INST1ext
 INST2ext
 INST6ext
 NOTitr_4ext
+halengext
 Halclt
 Halcltnc
