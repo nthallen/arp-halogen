@@ -100,12 +100,12 @@ State A_START {
             Validate A_DEAD;
           }
         }
-     +1 > Lamp A RF Setpoint 2
+     +1 > Lamp A RF Setpoint 1
      +5 > Lamp A on
     +10 Hold until (convert(A_IRV) >= ir0)
           or 20 else Validate A_START;
      +1 {	fail_cnt_a = 0; }
-     +1 > Lamp A IR Setpoint 1025
+     +1 > Lamp A IR Setpoint 0
         Validate A_ON;
 }
 
@@ -277,7 +277,7 @@ State C_START {
     +10 Hold until (convert(C_IRV) >= ir0)
           or 20 else Validate C_START;
     +10 { fail_cnt_c = 0; }
-     +1 > Lamp C IR Setpoint 1025
+     +1 > Lamp C IR Setpoint 0
         Validate C_ON;
 }
 
@@ -358,17 +358,17 @@ State D_START {
             Validate D_DEAD;
            }
         }
-     +1 > Lamp D RF Setpoint 2
+     +1 > Lamp D RF Setpoint 1
    +20	> Lamp D on
-   +10	hold until (convert(D_IRV) >= ir0)
+   +10	hold until (DetD > 50)
           or 20 else Validate D_START;
     +1  { fail_cnt_d = 0; }
-     +1 > Lamp D IR Setpoint 1025
+     +1 > Lamp D IR Setpoint 0
         Validate D_ON;
 }
 
 State D_ON {
-    { if (convert(D_IRV) < ir0) Validate D_START; }
+    { if (DetD < 50) Validate D_START; }
     depending on (DESCENT) { Validate D_OFF; }
     depending on (SHUTDOWN) { Validate D_DEAD; }
 
@@ -400,7 +400,7 @@ State D_OFF {
    +1 > set sw status 1 to 0
       > Lamp D IR Setpoint 0
       "Lamp D Heater Off, cooling down";
-      Hold until (convert(D_IRV) < ir0) or 3:00;
+      Hold until (DetD < 50) or 3:00;
       > Lamp D off
       > Lamp D RF Setpoint 1
       "Lamp D is Off";
