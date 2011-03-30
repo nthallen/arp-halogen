@@ -1,4 +1,4 @@
-# Makefile Generated Sun Mar 27 17:29:38 EDT 2011
+# Makefile Generated Tue Mar 29 14:12:00 CDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
@@ -11,7 +11,7 @@ SRC+=rfd.oui Hal.sol idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc
 SRC+=rfdbits.tmc haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl H.doit
 SRC+=Half.tma Halog.tma Hal.tma NOTitr_4.tmc
 TOOL=Hal.spec Makefile
-SCRIPT=dccc.dccc idx.idx64 interact Experiment.config
+SCRIPT=dccc.dccc idx.idx64 interact Experiment.config runfile.FF
 OBJ=NOTitr_4.tmc Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c
 OBJ+=Halsrvroui.o Halcol.cc Hal.pcm tm.dac Halcoloui.c Halcoloui.o
 OBJ+=Halcol.o muxctrloui.c muxctrl.o muxctrloui.o rfdoui.c rfdoui.o

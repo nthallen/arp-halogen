@@ -15,7 +15,7 @@ SRC = idx.idx NOTitr_4.cyc *.edf tlookup*.dat
 # TOOL = README
 
 SCRIPT = dccc.dccc idx.idx64 interact Experiment.config
-SCRIPT = runfile.F
+SCRIPT = runfile.FF
 
 # SCRIPT = RoverT.txt
 
