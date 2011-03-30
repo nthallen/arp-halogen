@@ -1,4 +1,4 @@
-# Makefile Generated Tue Mar 29 14:12:00 CDT 2011
+# Makefile Generated Tue Mar 29 22:57:42 CDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec

@@ -633,14 +633,14 @@ TM typedef double TORR { text "%5.1lf"; }
 
 TM typedef AD12 AD12_P1 { convert TORR; text "%5.1lf"; }
 Calibration ( AD12_P1, TORR ) {
-      0,  -7.57,
-  65536, 784.8
+      0,  -6.079,
+  65536, 789.9
 }
 
 TM typedef AD12 AD12_P2 { convert TORR; text "%5.1lf"; }
 Calibration ( AD12_P2, TORR ) {
-      0,  -9.53,
-  65536, 775.4
+      0,  4.8,
+  65536, 804.3
 }
 
 TM typedef AD12 AD12_PP { convert TORR; text "%5.1lf"; }
@@ -651,14 +651,14 @@ Calibration ( AD12_PP, TORR ) {
 
 TM typedef AD12 AD12_DP1 { convert TORR; text "%6.2lf"; }
 Calibration ( AD12_DP1, TORR ) {
-      0,  0.0,
-  65536,  1011.9
+      0,  -0.01,
+  65536,  1.045
 }
 
 TM typedef AD12 AD12_DP2 { convert TORR; text "%6.3lf"; }
 Calibration ( AD12_DP2, TORR ) {
-      0,  0.0,
-  65536,  1.013
+      0,  0.0465,
+  65536,  1.00
 }
 
 TM typedef AD12 AD12_DPP { convert TORR; text "%6.3lf"; }
