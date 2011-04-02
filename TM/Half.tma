@@ -190,7 +190,7 @@ PARTITION
 State ON_GROUND {
   { using_swp = 0; }
 
-  > Set SW Status 1 to 0
+  > SW Status Set 1 to 0
 
   { if ( SW1_S == SWS_TAKEOFF ) {
     using_swp = 1;
@@ -201,7 +201,7 @@ State ON_GROUND {
 }
 
 State BELOW_CLOUDS {
-    > Set SW Status 1 to 0
+    > SW Status Set 1 to 0
 
   { if ((using_swp && SW1_S == SWS_CLIMB) ||
         (!using_swp && convert(SD2_P) < P_clouds_up))
@@ -213,7 +213,7 @@ State BELOW_CLOUDS {
 }
 
 State ABOVE_CLOUDS {
-  >   Set SW Status 1 to 0
+  >   SW Status Set 1 to 0
 
   { if ( (using_swp && SW1_S == SWS_DESCEND) ||
 	(!using_swp && convert(SD2_P) > P_clouds_dn))

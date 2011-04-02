@@ -43,10 +43,10 @@
     : Off { $0 = 0; }
     ;
 &CmdData
-    : Set SW Status &swstat to %d ( Enter value from 0-255 ) {
+    : SW Status Set &swstat to %d ( Enter value from 0-255 ) {
         *$4 = $6;
       }
-    : Set SW Command &swcommand { SWData.SW1_S = $4; }
+    : SW Status &swcommand { SWData.SW1_S = $3; }
     ;
 &swstat <unsigned char *>
     : 1 { $0 = &SWData.SW1_S; }
@@ -58,6 +58,14 @@
     : Altitude Cruise { $0 = SWS_CLIMB; }
     : Altitude Descend { $0 = SWS_DESCEND; }
     : Altitude Land { $0 = SWS_LAND; }
+    : Lamp A On { $0 = SWS_LAMP_A_ON; }
+    : Lamp B On { $0 = SWS_LAMP_B_ON; }
+    : Lamp C On { $0 = SWS_LAMP_C_ON; }
+    : Lamp D On { $0 = SWS_LAMP_D_ON; }
+    : Lamp A Off { $0 = SWS_LAMP_A_OFF; }
+    : Lamp B Off { $0 = SWS_LAMP_B_OFF; }
+    : Lamp C Off { $0 = SWS_LAMP_C_OFF; }
+    : Lamp D Off { $0 = SWS_LAMP_D_OFF; }
     : TimeWarp { $0 = SWS_TIME_WARP; }
     : Shutdown { $0 = SWS_SHUTDOWN; }
     ;

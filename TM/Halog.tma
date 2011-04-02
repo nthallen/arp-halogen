@@ -46,7 +46,7 @@
         }
       }
     }
-    if ( rv ) ci_sendcmd( "Set SW Status 1 to 0\n", 0 );
+    if ( rv ) ci_sendcmd( "SW Status Set 1 to 0\n", 0 );
     return rv;
   }
 %}
@@ -139,7 +139,7 @@ State A_OFF {
 
       "Holding for cycle start";
       hold until ((HSolS % 10) == 0) or 35;
-   +1 > set sw status 1 to 0
+   +1 > SW Status Set 1 to 0
       > Lamp A IR Setpoint 0
       "Lamp A Heater Off, cooling down";
       Hold until (convert(A_IRV) < ir0) or 3:00;
@@ -224,7 +224,7 @@ State B_OFF {
 
       "Holding for cycle start";
       Hold until ((HSolS % 10) == 0) or 35;
-   +1 > set sw status 1 to 0
+   +1 > SW Status Set 1 to 0
       > Lamp B IR Setpoint 0
       "Lamp B Heater Off, cooling down";
       Hold until (convert(B_IRV) < ir0) or 3:00;
@@ -310,7 +310,7 @@ State C_OFF {
 
       "Holding for cycle start";
       hold until ((HSolS % 10) == 0) or 35;
-   +1 > set sw status 1 to 0
+   +1 > SW Status Set 1 to 0
       > Lamp C IR Setpoint 0
       "Lamp C Heater Off, cooling down";
       Hold until (convert(C_IRV) < ir0) or 3:00;
@@ -396,7 +396,7 @@ State D_OFF {
 
       "Holding for cycle start";
       hold until ((HSolS % 10) == 0) or 35;
-   +1 > set sw status 1 to 0
+   +1 > SW Status Set 1 to 0
       > Lamp D IR Setpoint 0
       "Lamp D Heater Off, cooling down";
       Hold until (DetD < 10) or 3:00;
