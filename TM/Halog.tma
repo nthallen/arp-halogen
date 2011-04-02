@@ -168,7 +168,6 @@ PARTITION
 %}
 
 State B_WAIT {
-        Validate B_DEAD;
      +1 > Lamp B off
 
     depending on (BELOW_CLOUDS) { Validate B_START; }
@@ -191,7 +190,7 @@ State B_START {
     +10 Hold until (convert(B_IRV) >= ir0)
           or 20 else Validate B_START;
      +1 { fail_cnt_b = 0; }
-     +1 > Lamp B IR Setpoint 1025
+     +1 > Lamp B IR Setpoint 0
         Validate B_ON;
 }
 
