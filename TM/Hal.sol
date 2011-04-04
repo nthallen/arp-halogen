@@ -48,8 +48,8 @@ Command_Set = 'A'
 ; TM name       : NOH1Set NOH2Set ClONO2Set NO2FlSet
 
 
-dtoa  NOxH1F  0xCEE   {Z:0 A:431  B:401  C:358  D:351 E:340}
-dtoa  NOxH2F  0xD60   {Z:0 A:1134 B:737	 C:533  D:455 E:340}
+dtoa  NOxH1F  0xCEE   {Z:0 A:460  B:305  C:260  D:220 E:340}
+dtoa  NOxH2F  0xD60   {Z:0 A:780  B:462	 C:377  D:320 E:340}
 dtoa  CNxHF   0xCEC   {Z:0 A:2047 B:1639 C:1229 D:819 E:409}
 dtoa  NO2xNF  0xC60   {Z:0 A:2047 B:1639 C:1024 D:819 E:409}
 
