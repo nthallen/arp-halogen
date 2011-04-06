@@ -102,7 +102,7 @@ State A_START {
         }
      +1 > Lamp A RF Setpoint 1
      +5 > Lamp A on
-    +10 Hold until (DetA >= 10) # (convert(A_IRV) >= ir0)
+    +10 Hold until (convert(A_IRV) >= ir0)
           or 20 else Validate A_START;
      +1 {	fail_cnt_a = 0; }
      +1 > Lamp A IR Setpoint 500
@@ -111,26 +111,14 @@ State A_START {
 
 State A_ON {
     #{ if (convert(A_IRV) < ir0) Validate A_START; }
-    { if (DetA < 10) Validate A_START; }
+    #{ if (convert(A_IRV) < 10) Validate A_START; }
     depending on (DESCENT) { Validate A_OFF; }
     depending on (SHUTDOWN) { Validate A_DEAD; }
-
-          "Lamp A is On: waiting to assess health";
-          { warn_a = 7; }
-  +3:00   "Lamp A is On";
-          { if ((warn_a&1) && convert(ARFFW) < 1.0) {
-              msg(1, "Lamp A forward power is low"); 
-              warn_a &= ~1;
-            }
-            if ((warn_a&2) && convert(ARFBW) > 4.0) {
-              msg(1, "Lamp A reflected power is high");
-              warn_a &= ~2;
-            }
-            if ((warn_a&4) && convert(A_IRV) < 0.4) {
-              msg(1, "Lamp A IR is low");
-              warn_a &= ~4;
-            }
-          }
+    
+    Hold until (convert(A_IRV) < ir0);
+    Hold until (convert(A_IRV) >= ir0) OR 20
+    else Validate A_START;
+    Validate A_ON;
 }
 
 State A_OFF {
@@ -143,7 +131,7 @@ State A_OFF {
    +1 > SW Status Set 1 to 0
       > Lamp A IR Setpoint 0
       "Lamp A Heater Off, cooling down";
-      Hold until (DetA < 10) or 3:00;
+      Hold until (convert(A_IRV) < ir0) or 3:00;
       > Lamp A off
       > Lamp A RF Setpoint 1
       "Lamp A is Off";
@@ -155,6 +143,34 @@ State A_DEAD {
      +1 > Lamp A Off
     "Lamp A is Dead"; 
 }
+
+PARTITION
+
+State A_WATCH_WAIT {
+  Depending on (A_ON) { Validate A_WATCH; }
+}
+
+State A_WATCH {
+  Depending on (A_OFF) { Validate A_WATCH_WAIT; }
+  Depending on (SHUTDOWN) { Validate A_WATCH_WAIT; }
+    { warn_a = 7; }
+  +3:00
+    { if ((warn_a&1) && convert(ARFFW) < 1.0) {
+        msg(1, "Lamp A forward power is low"); 
+        warn_a &= ~1;
+      }
+      if ((warn_a&2) && convert(ARFBW) > 4.0) {
+        msg(1, "Lamp A reflected power is high");
+        warn_a &= ~2;
+      }
+      if ((warn_a&4) && convert(A_IRV) < 0.4) {
+        msg(1, "Lamp A IR is low");
+        warn_a &= ~4;
+      }
+    }
+}
+  
+  
 
 #############################################################################
 #############################################################################
@@ -196,26 +212,13 @@ State B_START {
 }
 
 State B_ON {
-    { if (DetB < 10) Validate B_START; }
     depending on (DESCENT) { Validate B_OFF; }
     depending on (SHUTDOWN) { Validate B_DEAD; }
-
-        "Lamp B is On: waiting to assess health";
-        { warn_b = 7; }
-  +3:00 "Lamp B is On";
-        { if ((warn_b&1) && convert(BRFFW) < 1.0) {
-            msg(1, "Lamp B forward power is low"); 
-            warn_b &= ~1;
-          }
-          if ((warn_b&2) && convert(BRFBW) > 4.0) {
-            msg(1, "Lamp B reflected power is high");
-            warn_b &= ~2;
-          }
-          if ((warn_b&4) && convert(B_IRV) < 0.4) {
-            msg(1, "Lamp B IR is low");
-            warn_b &= ~4;
-          }
-        }
+    
+    Hold until (convert(B_IRV) < ir0);
+    Hold until (convert(B_IRV) >= ir0) OR 20
+    else Validate B_START;
+    Validate B_ON;
 }
 
 State B_OFF {
@@ -239,6 +242,32 @@ State B_DEAD {
      +1 > Lamp B RF Setpoint 1
      +1 > Lamp B Off
     "Lamp B is Dead"; 
+}
+
+PARTITION
+
+State B_WATCH_WAIT {
+  Depending on (B_ON) { Validate B_WATCH; }
+}
+
+State B_WATCH {
+  Depending on (B_OFF) { Validate B_WATCH_WAIT; }
+  Depending on (SHUTDOWN) { Validate B_WATCH_WAIT; }
+    { warn_b = 7; }
+  +3:00
+    { if ((warn_b&1) && convert(BRFFW) < 1.0) {
+        msg(1, "Lamp B forward power is low"); 
+        warn_b &= ~1;
+      }
+      if ((warn_b&2) && convert(BRFBW) > 4.0) {
+        msg(1, "Lamp B reflected power is high");
+        warn_b &= ~2;
+      }
+      if ((warn_b&4) && convert(B_IRV) < 0.4) {
+        msg(1, "Lamp B IR is low");
+        warn_b &= ~4;
+      }
+    }
 }
 
 #############################################################################
@@ -282,26 +311,13 @@ State C_START {
 }
 
 State C_ON {
-    {	if (DetC < 10) Validate C_START; }
     depending on (DESCENT) { Validate C_OFF; }
     depending on (SHUTDOWN) { Validate C_DEAD; }
-
-          "Lamp C is On: waiting to assess health";
-          { warn_c = 7; }
-  +3:00   "Lamp C is On";
-          { if ((warn_c&1) && convert(CRFFW) < 1.0) {
-              msg(1, "Lamp C forward power is low"); 
-              warn_c &= ~1;
-            }
-            if ((warn_c&2) && convert(CRFBW) > 4.0) {
-              msg(1, "Lamp C reflected power is high");
-              warn_c &= ~2;
-            }
-            if ((warn_c&4) && convert(C_IRV) < 0.04) {
-              msg(1, "Lamp C IR is low");
-              warn_c &= ~4;
-            }
-          }
+    
+    Hold until (convert(C_IRV) < ir0);
+    Hold until (convert(C_IRV) >= ir0) OR 20
+    else Validate C_START;
+    Validate C_ON;
 }
 
 State C_OFF {
@@ -327,6 +343,32 @@ State C_DEAD {
       "Lamp C is Dead"; 
 }
 
+PARTITION
+
+State C_WATCH_WAIT {
+  Depending on (C_ON) { Validate C_WATCH; }
+}
+
+State C_WATCH {
+  Depending on (C_OFF) { Validate C_WATCH_WAIT; }
+  Depending on (SHUTDOWN) { Validate C_WATCH_WAIT; }
+    { warn_c = 7; }
+  +3:00
+    { if ((warn_c&1) && convert(CRFFW) < 1.0) {
+        msg(1, "Lamp C forward power is low"); 
+        warn_c &= ~1;
+      }
+      if ((warn_c&2) && convert(CRFBW) > 4.0) {
+        msg(1, "Lamp C reflected power is high");
+        warn_c &= ~2;
+      }
+      if ((warn_c&4) && convert(C_IRV) < 0.4) {
+        msg(1, "Lamp C IR is low");
+        warn_c &= ~4;
+      }
+    }
+}
+
 #############################################################################
 #############################################################################
 # Partition 12: Lamp D Control (Assuming ClNf.tma and no2.tma)
@@ -342,8 +384,8 @@ PARTITION
 State D_WAIT {
      +1 > Lamp D off
 
-    # depending on (BELOW_CLOUDS) { Validate D_START; }
-    # depending on (ABOVE_CLOUDS) { Validate D_START; }
+    depending on (BELOW_CLOUDS) { Validate D_START; }
+    depending on (ABOVE_CLOUDS) { Validate D_START; }
     depending on (SHUTDOWN) { Validate D_DEAD; }
 }
 
@@ -368,26 +410,13 @@ State D_START {
 }
 
 State D_ON {
-    { if (DetD < 10) Validate D_START; }
     depending on (DESCENT) { Validate D_OFF; }
     depending on (SHUTDOWN) { Validate D_DEAD; }
-
-          "Lamp D is On: waiting to assess health";
-          { warn_d = 7; }
-  +3:00   "Lamp D is On";
-          { if ((warn_d&1) && convert(DRFFW) < 1.0) {
-              msg(1, "Lamp D forward power is low"); 
-              warn_d &= ~1;
-            }
-            if ((warn_d&2) && convert(DRFBW) > 4.0) {
-              msg(1, "Lamp D reflected power is high");
-              warn_d &= ~2;
-            }
-            if ((warn_d&4) && convert(D_IRV) < 0.4) {
-              msg(1, "Lamp D IR is low");
-              warn_d &= ~4;
-            }
-          }
+    
+    Hold until (convert(D_IRV) < ir0);
+    Hold until (convert(D_IRV) >= ir0) OR 20
+    else Validate D_START;
+    Validate D_ON;
 }
 
 State D_OFF {
@@ -411,4 +440,30 @@ State D_DEAD {
    +1 > Lamp D RF Setpoint 1
    +1 > Lamp D Off
      "Lamp D is Dead"; 
+}
+
+PARTITION
+
+State D_WATCH_WAIT {
+  Depending on (D_ON) { Validate D_WATCH; }
+}
+
+State D_WATCH {
+  Depending on (D_OFF) { Validate D_WATCH_WAIT; }
+  Depending on (SHUTDOWN) { Validate D_WATCH_WAIT; }
+    { warn_d = 7; }
+  +3:00
+    { if ((warn_d&1) && convert(DRFFW) < 1.0) {
+        msg(1, "Lamp D forward power is low"); 
+        warn_d &= ~1;
+      }
+      if ((warn_d&2) && convert(DRFBW) > 4.0) {
+        msg(1, "Lamp D reflected power is high");
+        warn_d &= ~2;
+      }
+      if ((warn_d&4) && convert(D_IRV) < 0.4) {
+        msg(1, "Lamp D IR is low");
+        warn_d &= ~4;
+      }
+    }
 }
