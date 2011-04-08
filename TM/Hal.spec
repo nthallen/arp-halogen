@@ -40,15 +40,16 @@ Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
 Halalgo : Hal.tma
 # Hlabalgo : Hlab.tma
 
-STAText : STAT.edf
-HAL1ext : HAL1.edf
-HAL2ext : HAL2.edf
-HAL3ext : HAL3.edf
-INST1ext : VT.tmc INST1.edf
-INST2ext : INST2.edf
+#STAText : STAT.edf
+#HAL1ext : HAL1.edf
+#HAL2ext : HAL2.edf
+#HAL3ext : HAL3.edf
+#INST1ext : VT.tmc INST1.edf
+Calcext : VT.tmc Calc.edf
+#INST2ext : INST2.edf
 #INST4ext : VI.tmc INST4.edf
 #INST5ext : VI.tmc INST5.edf
-INST6ext : INST6.edf
+#INST6ext : INST6.edf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.edf
 #HEng1ext : VI.tmc VT.tmc HEng1.edf
 #HEng1txtext : VI.tmc VT.tmc HEng1txt.tmc

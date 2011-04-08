@@ -1,9 +1,9 @@
-# Makefile Generated Thu Mar 31 06:33:13 CDT 2011
+# Makefile Generated Fri Apr 08 10:10:41 CDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
-SRC=idx.idx NOTitr_4.cyc HAL1.edf HAL2.edf HAL3.edf INST1.edf
-SRC+=INST2.edf INST6.edf NOTitr_4.edf STAT.edf haleng.edf
+SRC=idx.idx NOTitr_4.cyc Calc.edf HAL1.edf HAL2.edf HAL3.edf
+SRC+=INST1.edf INST2.edf INST6.edf NOTitr_4.edf STAT.edf haleng.edf
 SRC+=tlookup*.dat scdc.cmd daspt.cmd idxdrv.cmd Hal.cmd rfd.cmd
 SRC+=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc
 SRC+=nav.tmc T30K1MU.tmc Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c
@@ -25,24 +25,16 @@ OBJ+=gddispncoui.o gddispnc.o Rovertbl.tmc rvdisp.cc rvdispoui.c
 OBJ+=rvdispoui.o rvdisp.o Rovertblnc.tmc rvdispnc.cc rvdispncoui.c
 OBJ+=rvdispncoui.o rvdispnc.o Hdoit.dep Halfalgoa.tmc Halfalgo.cc
 OBJ+=Halfalgooui.c Halfalgooui.o Halfalgo.o Halalgoa.tmc Halalgo.cc
-OBJ+=Halalgooui.c Halalgooui.o Halalgo.o STATextedf.oui STAText.tmc
-OBJ+=STAText.cc STATextoui.c STATextoui.o STAText.o HAL1extedf.oui
-OBJ+=HAL1ext.tmc HAL1ext.cc HAL1extoui.c HAL1extoui.o HAL1ext.o
-OBJ+=HAL2extedf.oui HAL2ext.tmc HAL2ext.cc HAL2extoui.c HAL2extoui.o
-OBJ+=HAL2ext.o HAL3extedf.oui HAL3ext.tmc HAL3ext.cc HAL3extoui.c
-OBJ+=HAL3extoui.o HAL3ext.o INST1extedf.oui INST1ext.tmc INST1ext.cc
-OBJ+=INST1extoui.c INST1extoui.o INST1ext.o INST2extedf.oui
-OBJ+=INST2ext.tmc INST2ext.cc INST2extoui.c INST2extoui.o INST2ext.o
-OBJ+=INST6extedf.oui INST6ext.tmc INST6ext.cc INST6extoui.c
-OBJ+=INST6extoui.o INST6ext.o NOTitr_4extedf.oui NOTitr_4ext.tmc
-OBJ+=NOTitr_4ext.cc NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o
-OBJ+=halengextedf.oui halengext.tmc halengext.cc halengextoui.c
-OBJ+=halengextoui.o halengext.o Halclt.o Halcltoui.c Halcltoui.o
-OBJ+=Halcltnc.o Halcltncoui.c Halcltncoui.o
+OBJ+=Halalgooui.c Halalgooui.o Halalgo.o Calcextedf.oui Calcext.tmc
+OBJ+=Calcext.cc Calcextoui.c Calcextoui.o Calcext.o
+OBJ+=NOTitr_4extedf.oui NOTitr_4ext.tmc NOTitr_4ext.cc
+OBJ+=NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o halengextedf.oui
+OBJ+=halengext.tmc halengext.cc halengextoui.c halengextoui.o
+OBJ+=halengext.o Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o
+OBJ+=Halcltncoui.c Halcltncoui.o
 TGT=Halsrvr Halcol muxctrl rfd Hal.sft hddisp hddispnc thdisp
 TGT+=thdispnc gddisp gddispnc rvdisp rvdispnc Hdoit Halfalgo Halalgo
-TGT+=STAText HAL1ext HAL2ext HAL3ext INST1ext INST2ext INST6ext
-TGT+=NOTitr_4ext halengext Halclt Halcltnc
+TGT+=Calcext NOTitr_4ext halengext Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION Hdoit
 SRCDIST=Hal.sol haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Half.tma
@@ -122,27 +114,9 @@ Halfalgo : Halfalgo.o Halfalgooui.o
 Halalgo : Halalgo.o Halalgooui.o
 	$(LINK.normCXX) Halalgo.o Halalgooui.o -ltmpp -ltm -lnort
 	$(OUIUSE) Halalgooui.c
-STAText : STAText.o STATextoui.o
-	$(LINK.normCXX) STAText.o STATextoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
-	$(OUIUSE) STATextoui.c
-HAL1ext : HAL1ext.o HAL1extoui.o
-	$(LINK.normCXX) HAL1ext.o HAL1extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
-	$(OUIUSE) HAL1extoui.c
-HAL2ext : HAL2ext.o HAL2extoui.o
-	$(LINK.normCXX) HAL2ext.o HAL2extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
-	$(OUIUSE) HAL2extoui.c
-HAL3ext : HAL3ext.o HAL3extoui.o
-	$(LINK.normCXX) HAL3ext.o HAL3extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
-	$(OUIUSE) HAL3extoui.c
-INST1ext : INST1ext.o INST1extoui.o
-	$(LINK.normCXX) INST1ext.o INST1extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
-	$(OUIUSE) INST1extoui.c
-INST2ext : INST2ext.o INST2extoui.o
-	$(LINK.normCXX) INST2ext.o INST2extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
-	$(OUIUSE) INST2extoui.c
-INST6ext : INST6ext.o INST6extoui.o
-	$(LINK.normCXX) INST6ext.o INST6extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
-	$(OUIUSE) INST6extoui.c
+Calcext : Calcext.o Calcextoui.o
+	$(LINK.normCXX) Calcext.o Calcextoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(OUIUSE) Calcextoui.c
 NOTitr_4ext : NOTitr_4ext.o NOTitr_4extoui.o
 	$(LINK.normCXX) NOTitr_4ext.o NOTitr_4extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
 	$(OUIUSE) NOTitr_4extoui.c
@@ -261,76 +235,16 @@ Halalgooui.c : $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/tma.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 Halalgooui.o : Halalgooui.c
 Halalgo.o : Halalgo.cc
-STATextedf.oui : STAT.edf
-	$(EDF2OUI) STAT.edf
-STAText.tmc : STAT.edf
-	$(EDF2EXT) STAT.edf
-STAText.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc STAText.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc STAText.tmc
-STATextoui.c : STATextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) STATextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-STATextoui.o : STATextoui.c
-STAText.o : STAText.cc
-HAL1extedf.oui : HAL1.edf
-	$(EDF2OUI) HAL1.edf
-HAL1ext.tmc : HAL1.edf
-	$(EDF2EXT) HAL1.edf
-HAL1ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL1ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL1ext.tmc
-HAL1extoui.c : HAL1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) HAL1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-HAL1extoui.o : HAL1extoui.c
-HAL1ext.o : HAL1ext.cc
-HAL2extedf.oui : HAL2.edf
-	$(EDF2OUI) HAL2.edf
-HAL2ext.tmc : HAL2.edf
-	$(EDF2EXT) HAL2.edf
-HAL2ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL2ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL2ext.tmc
-HAL2extoui.c : HAL2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) HAL2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-HAL2extoui.o : HAL2extoui.c
-HAL2ext.o : HAL2ext.cc
-HAL3extedf.oui : HAL3.edf
-	$(EDF2OUI) HAL3.edf
-HAL3ext.tmc : HAL3.edf
-	$(EDF2EXT) HAL3.edf
-HAL3ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL3ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc HAL3ext.tmc
-HAL3extoui.c : HAL3extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) HAL3extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-HAL3extoui.o : HAL3extoui.c
-HAL3ext.o : HAL3ext.cc
-INST1extedf.oui : INST1.edf
-	$(EDF2OUI) INST1.edf
-INST1ext.tmc : INST1.edf
-	$(EDF2EXT) INST1.edf
-INST1ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc VT.tmc INST1ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc VT.tmc INST1ext.tmc
-INST1extoui.c : INST1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) INST1extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-INST1extoui.o : INST1extoui.c
-INST1ext.o : INST1ext.cc
-INST2extedf.oui : INST2.edf
-	$(EDF2OUI) INST2.edf
-INST2ext.tmc : INST2.edf
-	$(EDF2EXT) INST2.edf
-INST2ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc INST2ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc INST2ext.tmc
-INST2extoui.c : INST2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) INST2extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-INST2extoui.o : INST2extoui.c
-INST2ext.o : INST2ext.cc
-INST6extedf.oui : INST6.edf
-	$(EDF2OUI) INST6.edf
-INST6ext.tmc : INST6.edf
-	$(EDF2EXT) INST6.edf
-INST6ext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc INST6ext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc INST6ext.tmc
-INST6extoui.c : INST6extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) INST6extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-INST6extoui.o : INST6extoui.c
-INST6ext.o : INST6ext.cc
+Calcextedf.oui : Calc.edf
+	$(EDF2OUI) Calc.edf
+Calcext.tmc : Calc.edf
+	$(EDF2EXT) Calc.edf
+Calcext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc VT.tmc Calcext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc VT.tmc Calcext.tmc
+Calcextoui.c : Calcextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) Calcextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+Calcextoui.o : Calcextoui.c
+Calcext.o : Calcext.cc
 NOTitr_4extedf.oui : NOTitr_4.edf
 	$(EDF2OUI) NOTitr_4.edf
 NOTitr_4ext.tmc : NOTitr_4.edf
