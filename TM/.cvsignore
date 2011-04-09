@@ -85,6 +85,10 @@ halengext.cc
 halengextoui.c
 halengextoui.o
 halengext.o
+checkext.cc
+checkextoui.c
+checkextoui.o
+checkext.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -111,5 +115,6 @@ Halalgo
 Calcext
 NOTitr_4ext
 halengext
+checkext
 Halclt
 Halcltnc
