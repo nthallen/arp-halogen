@@ -1,7 +1,19 @@
 %{
-  double last_ft = 0.;
+  flttime_t last_ft = 0.;
+  flttime_t diff_ft;
 %}
 
-if ( last_ft > 0. && flttime - last_ft > 1.01 ) {
-  nl_error(1, "flttime gap: %.1lf - %.1lf", last_ft, flttime );
+{
+  if ( last_ft > 0 ) {
+    diff_ft = flttime - last_ft;
+    if (diff_ft > 1) {
+      int tt, h, m, s;
+      tt = flttime % (24*3600);
+      h = tt/3600;
+      m = (tt/60)%60;
+      s = tt%60;
+      nl_error(1, "flttime gap %d secs @ %02d:%02d:%02d", diff_ft, h, m, s);
+    }
+  }
+  last_ft = flttime;
 }

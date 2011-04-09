@@ -1,4 +1,4 @@
-# Makefile Generated Fri Apr 08 14:42:07 CDT 2011
+# Makefile Generated Sun Apr 10 02:51:01 CDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
@@ -264,8 +264,8 @@ halengextedf.oui : haleng.edf
 	$(EDF2OUI) haleng.edf
 halengext.tmc : haleng.edf
 	$(EDF2EXT) haleng.edf
-halengext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc halengext.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc halengext.tmc
+halengext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc /usr/local/share/huarp/flttime.tmc check.tmc halengext.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc /usr/local/share/huarp/flttime.tmc check.tmc halengext.tmc
 halengextoui.c : halengextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) halengextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 halengextoui.o : halengextoui.c
@@ -293,5 +293,7 @@ clean : tidy
 	rm -f $(TARGET)
 .cvsignore :
 	@for i in Makefile '.B4*' $(OBJECT) $(TARGET); do echo "$$i"; done >.cvsignore
+CFLAGS=-Wall -g
+CXXFLAGS=-Wall -g
 NOTitr_4.tmc : NOTitr_4.cyc
 	cycle NOTitr_4.cyc >NOTitr_4.tmc
