@@ -1,4 +1,4 @@
-# Makefile Generated Fri Apr 08 10:10:41 CDT 2011
+# Makefile Generated Fri Apr 08 14:42:07 CDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
@@ -10,6 +10,7 @@ SRC+=nav.tmc T30K1MU.tmc Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c
 SRC+=muxctrl.oui rfd.cc rfd.oui Hal.sol idxflag.tmc VT.tmc dstat.tmc
 SRC+=SlowCnts.tmc rfdbits.tmc haldiag.tbl therm.tbl gasdiag.tbl
 SRC+=Rover.tbl H.doit Half.tma Halog.tma Hal.tma NOTitr_4.tmc
+SRC+=check.tmc
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config runfile.FF
 OBJ=NOTitr_4.tmc Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c
@@ -30,11 +31,12 @@ OBJ+=Calcext.cc Calcextoui.c Calcextoui.o Calcext.o
 OBJ+=NOTitr_4extedf.oui NOTitr_4ext.tmc NOTitr_4ext.cc
 OBJ+=NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o halengextedf.oui
 OBJ+=halengext.tmc halengext.cc halengextoui.c halengextoui.o
-OBJ+=halengext.o Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o
-OBJ+=Halcltncoui.c Halcltncoui.o
+OBJ+=halengext.o checkext.cc checkextoui.c checkextoui.o checkext.o
+OBJ+=Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c
+OBJ+=Halcltncoui.o
 TGT=Halsrvr Halcol muxctrl rfd Hal.sft hddisp hddispnc thdisp
 TGT+=thdispnc gddisp gddispnc rvdisp rvdispnc Hdoit Halfalgo Halalgo
-TGT+=Calcext NOTitr_4ext halengext Halclt Halcltnc
+TGT+=Calcext NOTitr_4ext halengext checkext Halclt Halcltnc
 DISTRIB=Hal.pcm tm.dac
 IDISTRIB=Experiment.config VERSION Hdoit
 SRCDIST=Hal.sol haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Half.tma
@@ -123,6 +125,9 @@ NOTitr_4ext : NOTitr_4ext.o NOTitr_4extoui.o
 halengext : halengext.o halengextoui.o
 	$(LINK.normCXX) halengext.o halengextoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
 	$(OUIUSE) halengextoui.c
+checkext : checkext.o checkextoui.o
+	$(LINK.normCXX) checkext.o checkextoui.o -ltmpp -ltm -lnort
+	$(OUIUSE) checkextoui.c
 Halclt : Halclt.o Halcltoui.o
 	$(LINK.normCXX) Halclt.o Halcltoui.o -ltmph -lph -ltmpp -ltm -lnort
 	$(OUIUSE) Halcltoui.c
@@ -265,6 +270,12 @@ halengextoui.c : halengextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) halengextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 halengextoui.o : halengextoui.c
 halengext.o : halengext.cc
+checkext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc /usr/local/share/huarp/flttime.tmc check.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc /usr/local/share/huarp/flttime.tmc check.tmc
+checkextoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+checkextoui.o : checkextoui.c
+checkext.o : checkext.cc
 Halclt.o : Halcmd.cc
 	$(COMPILE.clt) Halcmd.cc
 Halcltoui.c : $(OUIDIR)/kbdclt.oui $(OUIDIR)/msg.oui

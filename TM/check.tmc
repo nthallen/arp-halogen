@@ -1,0 +1,7 @@
+%{
+  double last_ft = 0.;
+%}
+
+if ( last_ft > 0. && flttime - last_ft > 1.01 ) {
+  nl_error(1, "flttime gap: %.1lf - %.1lf", last_ft, flttime );
+}
