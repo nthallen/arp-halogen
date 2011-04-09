@@ -65,13 +65,13 @@ condition depending on ( 4 Hz, DetC_Z once )
 spreadsheet SolAd12 24
 condition depending on ( 4 Hz, SD1DP_Z once )
 	1 SD1DP_Z %8.2lf /**/
-	2 SF1BTemp_Z %8.2lf /**/
-	3 SF1BTemp_A %8.2lf /**/
-	4 SF1BTemp_B %8.2lf /**/
-	5 SF1BTemp_C %8.2lf /**/
-	6 SF1BTemp_D  %8.2lf /**/
-	7 SF1BTemp_AB  %8.2lf /**/
-	8 SF1BTemp_CD  %8.2lf /**/
+	2 SF1FTemp_Z %8.2lf /**/
+	3 SF1FTemp_A %8.2lf /**/
+	4 SF1FTemp_B %8.2lf /**/
+	5 SF1FTemp_C %8.2lf /**/
+	6 SF1FTemp_D  %8.2lf /**/
+	7 SF1FTemp_AB  %8.2lf /**/
+	8 SF1FTemp_CD  %8.2lf /**/
 	9 SF1F5_Z %8.2lf /**/
 	10 SF1F5_A %8.2lf /**/
 	11 SF1F5_B %8.2lf /**/
@@ -91,13 +91,13 @@ condition depending on ( 4 Hz, SD1DP_Z once )
 spreadsheet SolAd22 24
 condition depending on ( 4 Hz, SD2DP_Z once )
 	1 SD2DP_Z %8.2lf /**/
-	2 SF2BTemp_Z %8.2lf /**/
-	3 SF2BTemp_A %8.2lf /**/
-	4 SF2BTemp_B %8.2lf /**/
-	5 SF2BTemp_C %8.2lf /**/
-	6 SF2BTemp_D  %8.2lf /**/
-	7 SF2BTemp_AB  %8.2lf /**/
-	8 SF2BTemp_CD  %8.2lf /**/
+	2 SF2FTemp_Z %8.2lf /**/
+	3 SF2FTemp_A %8.2lf /**/
+	4 SF2FTemp_B %8.2lf /**/
+	5 SF2FTemp_C %8.2lf /**/
+	6 SF2FTemp_D  %8.2lf /**/
+	7 SF2FTemp_AB  %8.2lf /**/
+	8 SF2FTemp_CD  %8.2lf /**/
 	9 SF2F5_Z %8.2lf /**/
 	10 SF2F5_A %8.2lf /**/
 	11 SF2F5_B %8.2lf /**/

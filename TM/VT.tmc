@@ -3,14 +3,14 @@
 */
 %{
 /* filter temps
-  Look at all 7 thermistors SF1B<n>. Eliminate any shorts or 
+  Look at all 7 thermistors SF1F<n>. Eliminate any shorts or 
   opens. Shorts are pretty easy, but opens are ambiguous, since 
   we might actually see temps around -50C in the flow. So we will 
   only through out opens if we see a max temp greater than -30C.
   Then throw out min and max if we have enough good therms left.
   Note that comparisons on the raw data have the opposite sense, 
   since the conversion always has a negative slope. i.e. if 
-  SF1B0 < SF1B1, then convert(SF1B0) > convert(SF1B1).
+  SF1F0 < SF1F1, then convert(SF1F0) > convert(SF1F1).
   For the present case, a short is defined as any reading below 
   100, open as any reading above 65520 and the "warm enough" temp 
   is anything below 65472. These values could be made parameters 
@@ -50,7 +50,7 @@
   }
 %}
 
-CELCIUS_I SF1BTemp; invalidate SF1BTemp;
+CELCIUS_I SF1FTemp; invalidate SF1FTemp;
 { AD12_T10M Ts[7];
   CELCIUS TsC[7];
   int i, npts;
@@ -60,14 +60,14 @@ CELCIUS_I SF1BTemp; invalidate SF1BTemp;
      here with a 0: e.g.
        Ts[1] = 0;
   */
-  Ts[0] = SF1B0; Ts[1] = SF1B1; Ts[2] = SF1B2;
-  Ts[3] = SF1B3; Ts[4] = SF1B4; Ts[5] = SF1B5;
-  Ts[6] = SF1B6;
+  Ts[0] = SF1F0; Ts[1] = SF1F1; Ts[2] = SF1F2;
+  Ts[3] = SF1F3; Ts[4] = SF1F4; Ts[5] = SF1F5;
+  Ts[6] = SF1F6;
 
   /* Leave this stuff alone */
-  TsC[0] = convert(SF1B0); TsC[1] = convert(SF1B1); TsC[2] = convert(SF1B2);
-  TsC[3] = convert(SF1B3); TsC[4] = convert(SF1B4); TsC[5] = convert(SF1B5);
-  TsC[6] = convert(SF1B6);
+  TsC[0] = convert(SF1F0); TsC[1] = convert(SF1F1); TsC[2] = convert(SF1F2);
+  TsC[3] = convert(SF1F3); TsC[4] = convert(SF1F4); TsC[5] = convert(SF1F5);
+  TsC[6] = convert(SF1F6);
   filter_temps( Ts );
   Td = 0.; npts = 0;
   for (i=0;i<7;i++) {
@@ -78,11 +78,11 @@ CELCIUS_I SF1BTemp; invalidate SF1BTemp;
   }
   if ( npts > 0 ) Td /= npts;
   else Td = 1000.;
-  SF1BTemp = floor( Td * 10 + .5 );
-  Validate SF1BTemp;
+  SF1FTemp = floor( Td * 10 + .5 );
+  Validate SF1FTemp;
 }
 
-CELCIUS_I SF2BTemp; invalidate SF2BTemp;
+CELCIUS_I SF2FTemp; invalidate SF2FTemp;
 { AD12_T10M Ts[7];
   CELCIUS TsC[7];
   int i, npts;
@@ -91,15 +91,17 @@ CELCIUS_I SF2BTemp; invalidate SF2BTemp;
   /* If a thermistor is known to be bad, replace it's reference
      here with a 0: e.g.
        Ts[1] = 0;
+
+     NTA: SF2F2 bad as of 110409
   */
-  Ts[0] = SF2B0; Ts[1] = SF2B1; Ts[2] = SF2B2;
-  Ts[3] = SF2B3; Ts[4] = SF2B4; Ts[5] = SF2B5;
-  Ts[6] = SF2B6;
+  Ts[0] = SF2F0; Ts[1] = SF2F1; Ts[2] = 0;
+  Ts[3] = SF2F3; Ts[4] = SF2F4; Ts[5] = SF2F5;
+  Ts[6] = SF2F6;
 
   /* Leave this stuff alone */
-  TsC[0] = convert(SF2B0); TsC[1] = convert(SF2B1); TsC[2] = convert(SF2B2);
-  TsC[3] = convert(SF2B3); TsC[4] = convert(SF2B4); TsC[5] = convert(SF2B5);
-  TsC[6] = convert(SF2B6);
+  TsC[0] = convert(SF2F0); TsC[1] = convert(SF2F1); TsC[2] = convert(SF2F2);
+  TsC[3] = convert(SF2F3); TsC[4] = convert(SF2F4); TsC[5] = convert(SF2F5);
+  TsC[6] = convert(SF2F6);
   filter_temps( Ts );
   Td = 0.; npts = 0;
   for (i=0;i<7;i++) {
@@ -110,8 +112,8 @@ CELCIUS_I SF2BTemp; invalidate SF2BTemp;
   }
   if ( npts > 0 ) Td /= npts;
   else Td = 1000.;
-  SF2BTemp = floor( Td * 10 + .5 );
-  Validate SF2BTemp;
+  SF2FTemp = floor( Td * 10 + .5 );
+  Validate SF2FTemp;
 }
 
 %{
@@ -131,11 +133,11 @@ CELCIUS_I SF2BTemp; invalidate SF2BTemp;
 %}
 
 VELOCITY_I SD1Vel; invalidate SD1Vel;
-{ SD1Vel = calc_velocity( convert(SD1_P), convert(SD1DP), SF1BTemp );
+{ SD1Vel = calc_velocity( convert(SD1_P), convert(SD1DP), SF1FTemp );
   Validate SD1Vel;
 }
 
 VELOCITY_I SD2Vel; invalidate SD2Vel;
-{ SD2Vel = calc_velocity( convert(SD2_P), convert(SD2DP), SF2BTemp );
+{ SD2Vel = calc_velocity( convert(SD2_P), convert(SD2DP), SF2FTemp );
   Validate SD2Vel;
 }

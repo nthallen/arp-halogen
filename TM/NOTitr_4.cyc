@@ -17,14 +17,14 @@ Region CD [17.75, 30.0] ;
 
 Average DetA, DetB, DetC, DetD, 
 		NOH1F, NOH2F, NOH1Set, NOH2Set,
-		SF1BTemp, SF2BTemp, SF1B5, SF2B5, SF1F5, SF2F5,
+		SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
 		SD1_P, SD2_P, SD1DP, SD2DP,
 		SD2Vel, SD1Vel Over Z;
 Average DetA, DetB, DetC, DetD, 
 		NOH1F, NOH2F, NOH1Set, NOH2Set,
-		SF1BTemp, SF2BTemp, SF1B5, SF2B5, SF1F5, SF2F5,
+		SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
 		SD1_P, SD2_P, SD1DP, SD2DP Over A, B, C, D;
 Average DetA, DetB, DetC, DetD, 
-		SF1BTemp, SF2BTemp, SF1B5, SF2B5, SF1F5, SF2F5,
+		SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
 		SD1_P, SD2_P Over AB, CD;
 

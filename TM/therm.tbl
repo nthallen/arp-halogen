@@ -9,7 +9,7 @@ FlowT {
   "4:"  (SF1B4,6) (SF1F4,6) (SF2B4,6) (SF2F4,6) C;
   "5:"  (SF1B5,6) (SF1F5,6) (SF2B5,6) (SF2F5,6) C;
   "6:"  (SF1B6,6) (SF1F6,6) (SF2B6,6) (SF2F6,6) C;
-  Temp: (SF1BTemp,6) ""     (SF2BTemp,6) ""     C;
+  Temp: ""        (SF1FTemp,6) ""     (SF2FTemp,6) C;
 }
 Exhaust {
   HBox { +-+; Title: Exhaust; +-+ };
