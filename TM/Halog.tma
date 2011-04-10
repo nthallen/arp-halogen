@@ -113,6 +113,7 @@ State A_START {
 State A_ON {
     #{ if (convert(A_IRV) < ir0) Validate A_START; }
     #{ if (convert(A_IRV) < 10) Validate A_START; }
+    { if (!Lmp_A) Validate A_TRIPPED; }
     depending on (DESCENT) { Validate A_OFF; }
     depending on (SHUTDOWN) { Validate A_DEAD; }
     
@@ -120,6 +121,11 @@ State A_ON {
     Hold until (convert(A_IRV) >= ir0) OR 20
     else Validate A_START;
     Validate A_ON;
+}
+
+State A_TRIPPED {
+  > Lamp A On
+  Validate A_ON;
 }
 
 State A_OFF {
@@ -213,6 +219,7 @@ State B_START {
 }
 
 State B_ON {
+    { if (!Lmp_B) Validate B_TRIPPED; }
     depending on (DESCENT) { Validate B_OFF; }
     depending on (SHUTDOWN) { Validate B_DEAD; }
     
@@ -220,6 +227,11 @@ State B_ON {
     Hold until (convert(B_IRV) >= ir0) OR 20
     else Validate B_START;
     Validate B_ON;
+}
+
+State B_TRIPPED {
+  > Lamp B On
+  Validate B_ON;
 }
 
 State B_OFF {
@@ -312,6 +324,7 @@ State C_START {
 }
 
 State C_ON {
+    { if (!Lmp_C) Validate C_TRIPPED; }
     depending on (DESCENT) { Validate C_OFF; }
     depending on (SHUTDOWN) { Validate C_DEAD; }
     
@@ -319,6 +332,11 @@ State C_ON {
     Hold until (convert(C_IRV) >= ir0) OR 20
     else Validate C_START;
     Validate C_ON;
+}
+
+State C_TRIPPED {
+  > Lamp C On
+  Validate C_ON;
 }
 
 State C_OFF {
@@ -411,6 +429,7 @@ State D_START {
 }
 
 State D_ON {
+    { if (!Lmp_D) Validate D_TRIPPED; }
     depending on (DESCENT) { Validate D_OFF; }
     depending on (SHUTDOWN) { Validate D_DEAD; }
     
@@ -418,6 +437,11 @@ State D_ON {
     Hold until (convert(D_IRV) >= ir0d) OR 20
     else Validate D_START;
     Validate D_ON;
+}
+
+State D_TRIPPED {
+  > Lamp D On
+  Validate D_ON;
 }
 
 State D_OFF {
