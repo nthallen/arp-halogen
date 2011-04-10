@@ -124,8 +124,8 @@ State A_ON {
 }
 
 State A_TRIPPED {
-  > Lamp A On
-  Validate A_ON;
+    > Lamp A On
+ +1 Validate A_ON;
 }
 
 State A_OFF {
@@ -230,8 +230,8 @@ State B_ON {
 }
 
 State B_TRIPPED {
-  > Lamp B On
-  Validate B_ON;
+    > Lamp B On
+ +1 Validate B_ON;
 }
 
 State B_OFF {
@@ -335,8 +335,8 @@ State C_ON {
 }
 
 State C_TRIPPED {
-  > Lamp C On
-  Validate C_ON;
+    > Lamp C On
+ +1 Validate C_ON;
 }
 
 State C_OFF {
@@ -440,8 +440,8 @@ State D_ON {
 }
 
 State D_TRIPPED {
-  > Lamp D On
-  Validate D_ON;
+    > Lamp D On
+ +1 Validate D_ON;
 }
 
 State D_OFF {
