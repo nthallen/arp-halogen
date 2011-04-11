@@ -85,6 +85,20 @@ State INITIALIZE {
 ###################################################################
 
 State ASCENT {
+
+  ##### Initialize Secondary Throttle #####
+   +1 > Drive Secondary Throttle 2 out 5000
+   +1 Hold until (!(SV2St&8)) or 2;
+      > Drive Secondary Throttle 2 in 65535
+   +1 Hold until (!(SV2St&8)) or 8;
+      > Drive Secondary Throttle 2 out 0
+  # aiming for 15 m/s, step 10000/8500 duct 1/2, for the rest of this state
+  # guessing that new obstructions in duct 1 require slightly more open
+  # valve
+   +1 > Drive Secondary Throttle 2 to 8500
+   +1 > Soldrv NO Addition
+
+  { if  ( convert(N2_HP) < 100 ) Validate RECORD_NO2_ONLY; }
   depending on (ABOVE_CLOUDS) { Validate RECORD_INIT; }
   depending on (ON_GROUND) { Validate SHUTDOWN; }
 }
@@ -99,36 +113,24 @@ State ASCENT {
 State RECORD_INIT {
   depending on (BELOW_CLOUDS) { Validate DESCENT; }
   depending on (ON_GROUND) { Validate DESCENT; }
-### check for N2_HP; if below threshold, Validate Record_NO2_ONLY ###
-    { if  ( convert(N2_HP) < 100 ) Validate RECORD_NO2_ONLY; }
+  ### check for N2_HP; if below threshold, Validate Record_NO2_ONLY ###
+  { if ( convert(N2_HP) < 100 ) Validate RECORD_NO2_ONLY; }
 
-##### Initialize Secondary Throttle #####
-   +1 > Drive Secondary Throttle 2 out 5000
-   +1 Hold until (!(SV2St&8)) or 2;
-      > Drive Secondary Throttle 2 in 65535
-   +1 Hold until (!(SV2St&8)) or 8;
-      > Drive Secondary Throttle 2 out 0
-# aiming for 15 m/s, step 10000/8500 duct 1/2, for the rest of this state
-# guessing that new obstructions in duct 1 require slightly more open
-# valve
-   +1 > Drive Secondary Throttle 2 to 8500
 
-    Validate RECORD;
+  Validate RECORD;
 }
 
 State Record {
   depending on (BELOW_CLOUDS) { Validate DESCENT; }
   depending on (ON_GROUND) { Validate DESCENT; }
 
-### check for N2_HP; if below threshold, Validate Record_NO2_ONLY ###
-  { if  ( convert(N2_HP) < 100 ) Validate RECORD_NO2_ONLY; }
-
-  +1  > Soldrv NO Addition
+  ### check for N2_HP; if below threshold, Validate Record_NO2_ONLY ###
+  { if ( convert(N2_HP) < 100 ) Validate RECORD_NO2_ONLY; }
 }
 
 State RECORD_NO2_ONLY {
-	depending on (BELOW_CLOUDS) { Validate DESCENT; }
-	depending on (ON_GROUND) { Validate DESCENT; }
+  depending on (BELOW_CLOUDS) { Validate DESCENT; }
+  depending on (ON_GROUND) { Validate DESCENT; }
 
   +1 > Soldrv NO Off
 }
@@ -144,7 +146,8 @@ State DESCENT {
 
       > Drive Secondary Throttle 2 In 65535
       depending on (ON_GROUND) { Validate SHUTDOWN; }
-      depending on (ABOVE_CLOUDS) { Validate RECORD_INIT; }
+      # depending on (ABOVE_CLOUDS) { Validate RECORD_INIT; }
+      depending on (ABOVE_CLOUDS) { Validate ASCENT; }
 }
 
 ###################################################################
