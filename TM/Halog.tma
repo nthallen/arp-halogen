@@ -106,7 +106,7 @@ State A_START {
     +10 Hold until (convert(A_IRV) >= ir0)
           or 20 else Validate A_START;
      +1 {	fail_cnt_a = 0; }
-     +1 > Lamp A IR Setpoint 850
+     +1 > Lamp A IR Setpoint 250
         Validate A_ON;
 }
 
@@ -214,7 +214,7 @@ State B_START {
     +10 Hold until (convert(B_IRV) >= ir0)
           or 20 else Validate B_START;
      +1 { fail_cnt_b = 0; }
-     +1 > Lamp B IR Setpoint 150
+     +1 > Lamp B IR Setpoint 1000
         Validate B_ON;
 }
 
