@@ -1,4 +1,4 @@
-/* rfd.c
+/* rfd.cc
    Driver for new RF Power supplies with RS-232 interfaces
    Assumption will be that there are 4 amplifiers
    connected to /dev/ser[1-4].
@@ -128,6 +128,12 @@ rfamp::rfamp(int n) {
   if ( tcsetattr(fd, TCSANOW, &io) == -1 )
     nl_error( 2, "RF%d: Error from tcsetattr: %s",
       rf_num, strerror(errno));
+
+  // Flush the input buffer
+  do {
+    nb = ::read(fd, buf, bsz);
+  } while (nb > 0);
+  nb = 0;
 }
 
 rfamp::~rfamp() {
@@ -214,10 +220,17 @@ void rfamp::read() {
 	     isdigit(buf[i+3]) && isdigit(buf[i+4]) &&
 	     isdigit(buf[i+5]) && buf[i+6] == 'C' &&
 	     (buf[i+7] == '\r' || buf[i+7] == '\n') ) {
-	  ctrl->report_temp(rf_num, atoi(buf+3));
+	  ctrl->report_temp(rf_num, atoi(buf+i+3));
 	  i += 8;
 	  if (report_suc())
 	    nl_error(0,"RF%d recovered reading T", rf_num);
+	} else if (
+	    buf[i+1] == '=' && isdigit(buf[i+2]) &&
+	    buf[i+3] == 'C' ) {
+	  ctrl->report_temp(rf_num, buf[i+2] - '0');
+	  i += 4;
+	  if (report_suc())
+	    nl_error(0,"RF%d recovered reading cold T", rf_num);
 	} else {
 	  i = synt_err("Error reading T", i);
 	}
@@ -283,7 +296,7 @@ int rfamp::synt_err(const char *desc, int bp) {
     for ( j = 0, i = bp; i < nb; i++ ) {
       if ( isprint(buf[i]) ) fbuf[j++] = buf[i++];
       else {
-	int nc = snprintf(fbuf+j,4,"<%02X>", buf[i++] & 0xFF);
+	int nc = snprintf(fbuf+j,5,"<%02X>", buf[i++] & 0xFF);
 	if ( nc > 4 ) nc = 4;
 	j += nc;
       }
