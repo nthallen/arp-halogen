@@ -10,7 +10,7 @@
   echo "Running script interact" >$memo
  
   Launch -              dccc -f $TMBINDIR/dccc.dccc
-  Launch DG/cmd         Halcol
+  Launch DG/cmd         nice -n-1 Halcol
   Launch cmd/server     Halsrvr
   Launch -              lgr -N `mlf_find LOG`
   Launch -              idx64 `cat $TMBINDIR/idx.idx64`

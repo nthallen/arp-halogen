@@ -186,7 +186,7 @@ void rfamp::poll() {
  *   RT=nnnC\r
  */
 void rfamp::read() {
-  int rv, i, j;
+  int rv, i;
   nl_assert( fd != -1);
   rv = ::read(fd,buf+nb, bsz-nb);
   if ( rv == 0 || (rv == -1 && errno == EAGAIN) )
@@ -263,7 +263,6 @@ void rfamp::set_power(int n) {
   }
   pwr_requested = n;
   if ( ! req_pending ) {
-    int rv;
     obuf[2] = n + '0';
     write(obuf,4);
   }

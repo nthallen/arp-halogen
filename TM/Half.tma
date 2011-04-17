@@ -126,6 +126,22 @@ State Record {
 
   ### check for N2_HP; if below threshold, Validate Record_NO2_ONLY ###
   { if ( convert(N2_HP) < 100 ) Validate RECORD_NO2_ONLY; }
+
+  # We start at 8500 as set in ASCENT
+
+  Hold until (SW1_S == SWS_TIME_WARP) or 5:00;
+  > SW Status Set 1 to 0
+  Hold until (HSolS == 20) or 35;
+  > Drive Secondary Throttle 2 out 8500
+  Hold until (SW1_S == SWS_TIME_WARP) or 5:00;
+  > SW Status Set 1 to 0
+  Hold until (HSolS == 20) or 35;
+  > Drive Secondary Throttle 2 out 8500
+  Hold until (SW1_S == SWS_TIME_WARP) or 5:00;
+  > SW Status Set 1 to 0
+  Hold until (HSolS == 20) or 35;
+  > Drive Secondary Throttle 2 in 17000
+  Validate Record;
 }
 
 State RECORD_NO2_ONLY {
