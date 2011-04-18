@@ -16,17 +16,17 @@ Exhaust {
   "1:" (Exh1T,5) C;
   "2:" (Exh2T,5) C;
 }
-MFCtr {
-  HBox { +-+; Title: MFCtr; +-+ };
-  >(MFCtr,5)<;
+SW {
+  Time: (flttime,9) MFCtr: (MFCtr,5);
 }
+
 {
   HBox {
-	|+; [FlowT]; |+;
-	{ [Exhaust];
-	  VGlue 0+1;
-	  [MFCtr];
-	}; |+;
+    |+; {
+      [FlowT];
+      +-+;
+      >[SW]
+    }; |+;
   };
   -;
 }

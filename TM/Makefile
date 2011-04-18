@@ -1,4 +1,4 @@
-# Makefile Generated Sun Apr 10 02:51:01 CDT 2011
+# Makefile Generated Tue Apr 19 03:28:06 CDT 2011
 MNC=Hal
 HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
@@ -173,16 +173,16 @@ hddispncoui.o : hddispncoui.c
 hddispnc.o : hddispnc.cc
 thermtbl.tmc : therm.tbl
 	$(TABLE) therm.tbl
-thdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc thermtbl.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc thermtbl.tmc
+thdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc thermtbl.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc thermtbl.tmc
 thdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 thdispoui.o : thdispoui.c
 thdisp.o : thdisp.cc
 thermtblnc.tmc : therm.tbl
 	$(NCTABLE) therm.tbl
-thdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc thermtblnc.tmc
-	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc thermtblnc.tmc
+thdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc thermtblnc.tmc
+	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc thermtblnc.tmc
 thdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 thdispncoui.o : thdispncoui.c

@@ -29,7 +29,7 @@ rfd : rfd.cc rfd.oui
 Hal.sft : Hal.sol
 
 hddisp : idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
-thdisp : dstat.tmc VT.tmc therm.tbl
+thdisp : dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc therm.tbl
 gddisp : dstat.tmc gasdiag.tbl
 rvdisp : Rover.tbl
 
