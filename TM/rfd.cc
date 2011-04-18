@@ -215,27 +215,27 @@ void rfamp::read() {
 	req_pending = 0;
       }
     } else if ( buf[i] == 'R' ) {
-      if ( nb - i >= 8 ) {
-	if ( buf[i+1] == 'T' && buf[i+2] == '=' &&
-	     isdigit(buf[i+3]) && isdigit(buf[i+4]) &&
-	     isdigit(buf[i+5]) && buf[i+6] == 'C' &&
-	     (buf[i+7] == '\r' || buf[i+7] == '\n') ) {
-	  ctrl->report_temp(rf_num, atoi(buf+i+3));
-	  i += 8;
-	  if (report_suc())
-	    nl_error(0,"RF%d recovered reading T", rf_num);
-	} else if (
-	    buf[i+1] == '=' && isdigit(buf[i+2]) &&
-	    buf[i+3] == 'C' ) {
-	  ctrl->report_temp(rf_num, buf[i+2] - '0');
-	  i += 4;
-	  if (report_suc())
-	    nl_error(0,"RF%d recovered reading cold T", rf_num);
-	} else {
-	  i = synt_err("Error reading T", i);
-	}
-	req_pending = 0;
+      if ( nb - i >= 8 && buf[i+1] == 'T' && buf[i+2] == '=' &&
+	   isdigit(buf[i+3]) && isdigit(buf[i+4]) &&
+	   isdigit(buf[i+5]) && buf[i+6] == 'C' &&
+	   (buf[i+7] == '\r' || buf[i+7] == '\n') ) {
+	ctrl->report_temp(rf_num, atoi(buf+i+3));
+	i += 8;
+	if (report_suc())
+	  nl_error(0,"RF%d recovered reading T", rf_num);
+      } else if ( nb - i >= 8 && buf[i+1] == 'T' &&
+	  buf[i+2] == '=' && buf[i+3] == '-' &&
+	  isdigit(buf[i+4]) && isdigit(buf[i+5]) &&
+	  buf[i+6] == 'C' &&
+	   (buf[i+7] == '\r' || buf[i+7] == '\n') ) {
+	ctrl->report_temp(rf_num, -atoi(buf+i+4));
+	i += 8;
+	if (report_suc())
+	  nl_error(0,"RF%d recovered reading cold T", rf_num);
+      } else {
+	i = synt_err("Error reading T", i);
       }
+      req_pending = 0;
     } else {
       i = synt_err("Unexpected start char", i);
     }
@@ -292,10 +292,10 @@ int rfamp::synt_err(const char *desc, int bp) {
   if ( report_err() ) {
     char fbuf[4*bsz+1];
     int i,j ;
-    for ( j = 0, i = bp; i < nb; i++ ) {
-      if ( isprint(buf[i]) ) fbuf[j++] = buf[i++];
+    for ( j = 0, i = bp; i < nb; ++i ) {
+      if ( isprint(buf[i]) ) fbuf[j++] = buf[i];
       else {
-	int nc = snprintf(fbuf+j,5,"<%02X>", buf[i++] & 0xFF);
+	int nc = snprintf(fbuf+j,5,"<%02X>", buf[i] & 0xFF);
 	if ( nc > 4 ) nc = 4;
 	j += nc;
       }
