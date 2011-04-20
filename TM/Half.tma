@@ -132,15 +132,11 @@ State Record {
   Hold until (SW1_S == SWS_TIME_WARP) or 5:00;
   > SW Status Set 1 to 0
   Hold until (HSolS == 20) or 35;
-  > Drive Secondary Throttle 2 out 8500
+  > Drive Secondary Throttle 2 out 4000
   Hold until (SW1_S == SWS_TIME_WARP) or 5:00;
   > SW Status Set 1 to 0
   Hold until (HSolS == 20) or 35;
-  > Drive Secondary Throttle 2 out 8500
-  Hold until (SW1_S == SWS_TIME_WARP) or 5:00;
-  > SW Status Set 1 to 0
-  Hold until (HSolS == 20) or 35;
-  > Drive Secondary Throttle 2 in 17000
+  > Drive Secondary Throttle 2 in 4000
   Validate Record;
 }
 
