@@ -101,7 +101,7 @@ State A_START {
             Validate A_DEAD;
           }
         }
-     +1 > Lamp A RF Setpoint 3
+     +1 > Lamp A RF Setpoint 1
      +5 > Lamp A on
     +10 Hold until (convert(A_IRV) >= ir0)
           or 20 else Validate A_START;
