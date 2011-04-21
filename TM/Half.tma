@@ -197,6 +197,7 @@ PARTITION
   double P_clouds_up = 280.;
   double P_clouds_dn = 370.;
   int using_swp = 0;
+  #define C1TO2(x) (3.1037*x-9.3062)
 %}
 
 # note on 960718 it was 10 min to below the clouds
@@ -207,22 +208,30 @@ State ON_GROUND {
 
   > SW Status Set 1 to 0
 
+  +5 # Wait to make sure pump is off
   { if ( SW1_S == SWS_TAKEOFF ) {
-    using_swp = 1;
-    Validate BELOW_CLOUDS;
-  } else if (convert(SD2_P) < P_ground_up)
-    Validate BELOW_CLOUDS;
+      using_swp = 1;
+      Validate BELOW_CLOUDS;
+    } else if (convert(SD2_P) < P_ground_up &&
+	       convert(SD1_P) < P_ground_up)
+      Validate BELOW_CLOUDS;
   }
 }
 
 State BELOW_CLOUDS {
-    > SW Status Set 1 to 0
+  > SW Status Set 1 to 0
 
+  +10  # wait for pump to kick in before using converted SD1_P
   { if ((using_swp && SW1_S == SWS_CLIMB) ||
-        (!using_swp && convert(SD2_P) < P_clouds_up))
+        (!using_swp &&
+          convert(SD2_P) < P_clouds_up &&
+          C1TO2(convert(SD1_P)) < P_clouds_up))
       Validate ABOVE_CLOUDS;
     else if ((using_swp && SW1_S == SWS_LAND) ||
-            (!using_swp && convert(SD2_P) > P_ground_dn))
+            (!using_swp &&
+	      ( convert(SD2_P) > P_ground_dn ||
+		C1TO2(convert(SD1_P) > P_ground_dn )
+	    )))
       Validate ON_GROUND;
   }
 }
@@ -231,7 +240,9 @@ State ABOVE_CLOUDS {
   >   SW Status Set 1 to 0
 
   { if ( (using_swp && SW1_S == SWS_DESCEND) ||
-	(!using_swp && convert(SD2_P) > P_clouds_dn))
+	(!using_swp &&
+	  (convert(SD2_P) > P_clouds_dn ||
+	   C1TO2(convert(SD1_P)) > P_clouds_dn)))
       Validate BELOW_CLOUDS;
   }
 }
@@ -261,6 +272,7 @@ State Pump_Init {
 State Pump_On_Low_Temp {
     depending on (BELOW_CLOUDS) { Validate Pump_On; }
     depending on (ABOVE_CLOUDS) { Validate Pump_On; }
+    depending on (ON_GROUND) { Validate Pump_Off; }
     depending on (SHUTDOWN) { Validate Pump_Off; }
     depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
     > Pump On
@@ -273,6 +285,7 @@ State Pump_On_Low_Temp {
 }
 
 State Pump_On {
+    depending on (ON_GROUND) { Validate Pump_Off; }
     depending on (SHUTDOWN) { Validate Pump_Off; }
     depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
     > Pump On
@@ -285,6 +298,7 @@ State Pump_On {
 }
     
 State Pump_Over_Temp {
+    depending on (ON_GROUND) { Validate Pump_Off; }
     depending on (SHUTDOWN) { Validate Pump_Off; }
     depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
     > Pump Off
