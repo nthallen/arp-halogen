@@ -28,6 +28,7 @@ Calibration ( AD16, VOLTS ) {
 }
 
 TM typedef unsigned char UCHAR { text "%3u"; }
+TM typedef signed char SCHAR { text "%4d"; }
 TM typedef UCHAR DStat {
   collect x = sbrba(x.address);
   text "%08b";
