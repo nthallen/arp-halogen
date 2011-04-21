@@ -88,6 +88,7 @@ State A_WAIT {
 
   depending on (BELOW_CLOUDS) { Validate A_START; }
   depending on (ABOVE_CLOUDS) { Validate A_START; }
+  depending on (SHUTDOWN) { Validate A_DEAD; }
 }
 
 State A_START {
@@ -105,7 +106,7 @@ State A_START {
      +5 > Lamp A on
     +10 Hold until (convert(A_IRV) >= ir0)
           or 20 else Validate A_START;
-     +1 {	fail_cnt_a = 0; }
+     +1 { fail_cnt_a = 0; }
      +1 > Lamp A IR Setpoint 250
         Validate A_ON;
 }
@@ -129,7 +130,7 @@ State A_TRIPPED {
 }
 
 State A_OFF {
-    depending on (ABOVE_CLOUDS)
+    depending on (ASCENT)
       { if ( ! (SW_stop & A_STOPPED) ) Validate A_START; }
     depending on (SHUTDOWN) { Validate A_DEAD; }
 
@@ -192,10 +193,11 @@ PARTITION
 %}
 
 State B_WAIT {
-     +1 > Lamp B off
+   +1 > Lamp B off
 
-    depending on (BELOW_CLOUDS) { Validate B_START; }
-    depending on (ABOVE_CLOUDS) { Validate B_START; }
+  depending on (BELOW_CLOUDS) { Validate B_START; }
+  depending on (ABOVE_CLOUDS) { Validate B_START; }
+  depending on (SHUTDOWN) { Validate B_DEAD; }
 }
 
 State B_START {
@@ -235,7 +237,7 @@ State B_TRIPPED {
 }
 
 State B_OFF {
-    depending on (ABOVE_CLOUDS)
+    depending on (ASCENT)
       { if ( ! (SW_stop & B_STOPPED) ) Validate B_START; }
     depending on (SHUTDOWN) { Validate B_DEAD; }
 
@@ -298,9 +300,9 @@ PARTITION
 State C_WAIT {
    +1 > Lamp C off
 
-    depending on (BELOW_CLOUDS) { Validate C_START; }
-    depending on (ABOVE_CLOUDS) { Validate C_START; }
-    depending on (SHUTDOWN) { Validate C_DEAD; }
+  depending on (BELOW_CLOUDS) { Validate C_START; }
+  depending on (ABOVE_CLOUDS) { Validate C_START; }
+  depending on (SHUTDOWN) { Validate C_DEAD; }
 }
 
 State C_START {
@@ -318,7 +320,7 @@ State C_START {
     +15 > Lamp C on
     +10 Hold until (convert(C_IRV) > ir0)
           or 20 else Validate C_START;
-    +10 { fail_cnt_c = 0; }
+     +1 { fail_cnt_c = 0; }
      +1 > Lamp C IR Setpoint 500
         Validate C_ON;
 }
@@ -340,7 +342,7 @@ State C_TRIPPED {
 }
 
 State C_OFF {
-    depending on (ABOVE_CLOUDS)
+    depending on (ASCENT)
       { if ( ! (SW_stop & C_STOPPED) ) Validate C_START; }
     depending on (SHUTDOWN) { Validate C_DEAD; }
 
@@ -401,11 +403,11 @@ PARTITION
 %}
 
 State D_WAIT {
-     +1 > Lamp D off
+   +1 > Lamp D off
 
-    depending on (BELOW_CLOUDS) { Validate D_START; }
-    depending on (ABOVE_CLOUDS) { Validate D_START; }
-    depending on (SHUTDOWN) { Validate D_DEAD; }
+  depending on (BELOW_CLOUDS) { Validate D_START; }
+  depending on (ABOVE_CLOUDS) { Validate D_START; }
+  depending on (SHUTDOWN) { Validate D_DEAD; }
 }
 
 State D_START {
@@ -420,10 +422,10 @@ State D_START {
            }
         }
      +1 > Lamp D RF Setpoint 3
-   +20	> Lamp D on
-   +10	hold until (DetD > 5)
+    +20 > Lamp D on
+    +10 hold until (DetD > 5)
           or 20 else Validate D_START;
-    +1  { fail_cnt_d = 0; }
+     +1 { fail_cnt_d = 0; }
      +1 > Lamp D IR Setpoint 125
         Validate D_ON;
 }
@@ -445,7 +447,7 @@ State D_TRIPPED {
 }
 
 State D_OFF {
-    depending on (ABOVE_CLOUDS)
+    depending on (ASCENT)
       { if ( ! (SW_stop & D_STOPPED) ) Validate D_START; }
     depending on (SHUTDOWN) { Validate D_DEAD; }
 
