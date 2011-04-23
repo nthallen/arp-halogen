@@ -421,12 +421,12 @@ State D_START {
             Validate D_DEAD;
            }
         }
-     +1 > Lamp D RF Setpoint 3
+     +1 > Lamp D RF Setpoint 2
     +20 > Lamp D on
     +10 hold until (DetD > 5)
           or 20 else Validate D_START;
      +1 { fail_cnt_d = 0; }
-     +1 > Lamp D IR Setpoint 125
+     +1 > Lamp D IR Setpoint 150
         Validate D_ON;
 }
 
