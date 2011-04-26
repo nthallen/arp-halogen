@@ -19,6 +19,7 @@
   };
 %}
 TM typedef unsigned char IxDriveStat { text "%5d" IxDrive_text[]; }
+IxDriveStat SV1Stat; invalidate SV1Stat; { SV1Stat = SV1St & 0xF; Validate SV1Stat; }
 IxDriveStat SV2Stat; invalidate SV2Stat; { SV2Stat = SV2St & 0xF; Validate SV2Stat; }
 %{
   const char *IxKillStat_text[] = {
@@ -41,6 +42,7 @@ IxDriveStat SV2Stat; invalidate SV2Stat; { SV2Stat = SV2St & 0xF; Validate SV2St
   };
 %}
 TM typedef unsigned char IxKillStat { text "%4d" IxKillStat_text[]; }
+IxKillStat SV1CZBA; invalidate SV1CZBA; { SV1CZBA = (SV1St >> 4) & 0xF; Validate SV1CZBA; }
 IxKillStat SV2CZBA; invalidate SV2CZBA; { SV2CZBA = (SV2St >> 4) & 0xF; Validate SV2CZBA; }
 %{
   const char *IdxFlgTxt[8] = {
@@ -58,5 +60,7 @@ TM typedef unsigned short IndxrFlag {
   text "%4d" IdxFlgTxt[];
 }
 
+IndxrFlag SV1Flg; invalidate SV1Flg;
+{ SV1Flg = ( IXStt ) & 1; validate SV1Flg; }
 IndxrFlag SV2Flg; invalidate SV2Flg;
-{ SV2Flg = ( IXStt ) & 1; validate SV2Flg; }
+{ SV2Flg = ( IXStt >> 1 ) & 1; validate SV2Flg; }

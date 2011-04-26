@@ -21,7 +21,7 @@ Axes {
 Indexers {
   HBox { +-+; Title: "Flow Indexers"; +-+ };
   ""      Step        Flag      >Pot<   CZBA  Status;
-# SV1: (SV1Step,5) (SV1Flg,4) (SV1Ps,6) (SV1CZBA,4) (SV1Stat,5);
+  SV1: (SV1Step,5) (SV1Flg,4) ""        (SV1CZBA,4) (SV1Stat,5);
   SV2: (SV2Step,5) (SV2Flg,4) (SV2Ps,6) (SV2CZBA,4) (SV2Stat,5);
 # GV1: (GV1Step,5) (GV1Flg,4) ""        (GV1CZBA,4) (GV1Stat,5);
 # GV2: (GV2Step,5) (GV2Flg,4) ""        (GV2CZBA,4) (GV2Stat,5);
