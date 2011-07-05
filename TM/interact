@@ -33,4 +33,4 @@
 #                         namewait -p $! -t 20 nav
 #                       fi
 
-  Launch -              Halfalgo -v
+# Launch -              Halfalgo -v
