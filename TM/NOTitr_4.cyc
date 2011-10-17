@@ -3,28 +3,33 @@
 */
 
 Rate 4 Hz;
-Trigger Cycles {
-Start: ( HSolS==20 );
+Discard DetA, DetB, DetC, DetD if (HCtStat & 0x8000);
 
-Region Z [0.25, 4.75], [31.5, 34.75] ; 
-Region A [6.0, 10.0] ;
-Region B [11.0, 16.75] ;
-Region C [17.75, 24.25] ;
-Region D [25.0, 30.0] ;
-Region AB [6.0, 16.75] ;
-Region CD [17.75, 30.0] ;
+Trigger Cycles {
+  Start: ( HSolS==20 );
+
+  Region Z [0.25, 4.75], [31.5, 34.75] ; 
+  Region A [6.0, 10.0] ;
+  Region B [11.0, 16.75] ;
+  Region C [17.75, 24.25] ;
+  Region D [25.0, 30.0] ;
+  Region AB [6.0, 16.75] ;
+  Region CD [17.75, 30.0] ;
 }
 
 Average DetA, DetB, DetC, DetD, 
-		NOH1F, NOH2F, NOH1Set, NOH2Set,
-		SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
-		SD1_P, SD2_P, SD1DP, SD2DP,
-		SD2Vel, SD1Vel Over Z;
+  NOH1F, NOH2F, NOH1Set, NOH2Set,
+  SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
+  SD1_P, SD2_P, SD1DP, SD2DP,
+  SD2Vel, SD1Vel
+    Over Z;
 Average DetA, DetB, DetC, DetD, 
-		NOH1F, NOH2F, NOH1Set, NOH2Set,
-		SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
-		SD1_P, SD2_P, SD1DP, SD2DP Over A, B, C, D;
+  NOH1F, NOH2F, NOH1Set, NOH2Set,
+  SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
+  SD1_P, SD2_P, SD1DP, SD2DP
+    Over A, B, C, D;
 Average DetA, DetB, DetC, DetD, 
-		SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
-		SD1_P, SD2_P Over AB, CD;
+  SF1FTemp, SF2FTemp, SF1B5, SF2B5, SF1F5, SF2F5,
+  SD1_P, SD2_P
+    Over AB, CD;
 

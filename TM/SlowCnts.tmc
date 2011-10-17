@@ -5,34 +5,26 @@
 
 TM typedef unsigned long CT32 { text "%6ld"; }
 
-CT32 DetA_S, DetA_Sum; invalidate DetA_S;
-DetA_Sum += DetA;
-depending on ( 4 Hz ) {
-  DetA_S = DetA_Sum * 4;
-  DetA_Sum = 0;
+CT32 DetA_S; invalidate DetA_S;
+if ( ! (HCtStat & 0x8000) ) {
+  DetA_S = DetA * 4UL;
   Validate DetA_S;
 }
 
-CT32 DetB_S, DetB_Sum; invalidate DetB_S;
-DetB_Sum += DetB;
-depending on ( 4 Hz ) {
-  DetB_S = DetB_Sum * 4;
-  DetB_Sum = 0;
+CT32 DetB_S; invalidate DetB_S;
+if ( ! (HCtStat & 0x8000) ) {
+  DetB_S = DetB * 4UL;
   Validate DetB_S;
 }
 
-CT32 DetC_S, DetC_Sum; invalidate DetC_S;
-DetC_Sum += DetC;
-depending on ( 4 Hz ) {
-  DetC_S = DetC_Sum * 4;
-  DetC_Sum = 0;
+CT32 DetC_S; invalidate DetC_S;
+if ( ! (HCtStat & 0x8000) ) {
+  DetC_S = DetC * 4UL;
   Validate DetC_S;
 }
 
-CT32 DetD_S, DetD_Sum; invalidate DetD_S;
-DetD_Sum += DetD;
-depending on ( 4 Hz ) {
-  DetD_S = DetD_Sum * 4;
-  DetD_Sum = 0;
+CT32 DetD_S; invalidate DetD_S;
+if ( ! (HCtStat & 0x8000) ) {
+  DetD_S = DetD * 4UL;
   Validate DetD_S;
 }

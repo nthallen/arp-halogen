@@ -18,11 +18,11 @@
 %}
 
 TM typedef UINT Ct16 { collect x = sbrwa( x.address ); }
-TM 16 Hz Ct16 HCtStat; Address HCtStat 0x600;
-TM 16 Hz Ct16 DetA; Address DetA 0x610;
-TM 16 Hz Ct16 DetB; Address DetB 0x614;
-TM 16 Hz Ct16 DetC; Address DetC 0x618;
-TM 16 Hz Ct16 DetD; Address DetD 0x61C;
+TM 4 Hz Ct16 HCtStat; Address HCtStat 0x600;
+TM 4 Hz Ct16 DetA; Address DetA 0x610;
+TM 4 Hz Ct16 DetB; Address DetB 0x614;
+TM 4 Hz Ct16 DetC; Address DetC 0x618;
+TM 4 Hz Ct16 DetD; Address DetD 0x61C;
 Group HCt ( HCtStat, DetA, DetB, DetC, DetD ) {
   HCtStat = sbrwa( HCtStat.address );
   DetA = sbrwa( DetA.address );
