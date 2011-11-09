@@ -47,6 +47,7 @@
         *$4 = $6;
       }
     : SW Status &swcommand { SWData.SW1_S = $3; }
+    : SWS Clear { SWData.SW2_S = 0; }
     ;
 &swstat <unsigned char *>
     : 1 { $0 = &SWData.SW1_S; }
