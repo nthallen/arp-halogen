@@ -48,8 +48,8 @@ Calibration (NAV_Angle, Angle) {
    32768, 180
 }
 
-TM 1/16 Hz NAV_Angle Lattd;
-TM 1/16 Hz NAV_Angle Lngtd;
+TM 1/4 Hz NAV_Angle Lattd;
+TM 1/4 Hz NAV_Angle Lngtd;
 
 TM typedef signed short SINT { text "%6d"; }
-TM 1/16 Hz SINT TDrft;
+TM 1/4 Hz SINT TDrft;
