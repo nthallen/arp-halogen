@@ -1,7 +1,7 @@
 %INTERFACE <RF>
 
 &command
-    : &RFid Setpoint &RFlvl * { if_RF.Turf("S%d=%d\n", $1, $3); }
+    : External &RFid Setpoint &RFlvl * { if_RF.Turf("S%d=%d\n", $2, $4); }
     ;
 &RFid <int>
     : Lamp A RF { $0 = 1; }

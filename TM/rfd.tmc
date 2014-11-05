@@ -1,9 +1,9 @@
 TM "Receive" RFD 1;
 
-TM 1 Hz UCHAR RFASet;
-TM 1 Hz UCHAR RFBSet;
-TM 1 Hz UCHAR RFCSet;
-TM 1 Hz UCHAR RFDSet;
+TM 1 Hz UCHAR xRFASet;
+TM 1 Hz UCHAR xRFBSet;
+TM 1 Hz UCHAR xRFCSet;
+TM 1 Hz UCHAR xRFDSet;
 TM 1 Hz SCHAR RFATemp;
 TM 1 Hz SCHAR RFBTemp;
 TM 1 Hz SCHAR RFCTemp;
@@ -11,11 +11,11 @@ TM 1 Hz SCHAR RFDTemp;
 TM 1 Hz UCHAR RFDalive;
 TM 1 Hz UCHAR RFDstale;
 
-Group RFSet (RFASet, RFBSet, RFCSet, RFDSet) {
-  RFASet = RFD.power[0];
-  RFBSet = RFD.power[1];
-  RFCSet = RFD.power[2];
-  RFDSet = RFD.power[3];
+Group RFSet (xRFASet, xRFBSet, xRFCSet, xRFDSet) {
+  xRFASet = RFD.power[0];
+  xRFBSet = RFD.power[1];
+  xRFCSet = RFD.power[2];
+  xRFDSet = RFD.power[3];
   RFATemp = RFD.temp[0];
   RFBTemp = RFD.temp[1];
   RFCTemp = RFD.temp[2];

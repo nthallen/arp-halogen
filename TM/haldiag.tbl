@@ -7,7 +7,8 @@ Axes {
  "IR Set:" (A_IRSet,4) (B_IRSet,4) (C_IRSet,4) (D_IRSet,4);
  "Status:" (Lmp_A,3) (Lmp_B,3) (Lmp_C,3) (Lmp_D,3) "";
  "RF Fwd:" (ARFFW,6) (BRFFW,6) (CRFFW,6) (DRFFW,6) "V";
- "RF Set:" (RFASet,3) (RFBSet,3) (RFCSet,3) (RFDSet,3);
+ "RF Set:" (RFASet,4) (RFBSet,4) (RFCSet,4) (RFDSet,4);
+ "xRFSet:" (xRFASet,3) (xRFBSet,3) (xRFCSet,3) (xRFDSet,3);
  "RF Bwd:" (ARFBW,6) (BRFBW,6) (CRFBW,6) (DRFBW,6) "V";
  "RF T:"   >HBox{ (RFA_S,1); (RFATemp,3)}
 	   >HBox{ (RFB_S,1); (RFBTemp,3)}

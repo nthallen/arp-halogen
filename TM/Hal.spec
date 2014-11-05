@@ -53,10 +53,12 @@ Calcext : VT.tmc Calc.edf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.edf
 #HEng1ext : VI.tmc VT.tmc HEng1.edf
 #HEng1txtext : VI.tmc VT.tmc HEng1txt.tmc
-halengext : /usr/local/share/huarp/flttime.tmc check.tmc haleng.edf
+halengext : /usr/local/share/huarp/flttime.tmc check.tmc haleng.cdf
 checkext : /usr/local/share/huarp/flttime.tmc check.tmc
 %%
 CFLAGS=-Wall -g
 CXXFLAGS=-Wall -g
 NOTitr_4.tmc : NOTitr_4.cyc
 	cycle NOTitr_4.cyc >NOTitr_4.tmc
+haleng.cdf : genui.txt
+	genui -d ../eng -c genui.txt

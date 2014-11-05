@@ -1,7 +1,7 @@
-# Makefile Generated Tue Apr 19 03:28:06 CDT 2011
+# Makefile Generated Wed Nov 05 11:52:43 EST 2014
 MNC=Hal
-HOMEDIR=/home/Hal/src/TM
 SPECFILE=Hal.spec
+PCMFILE=Hal.pcm
 SRC=idx.idx NOTitr_4.cyc Calc.edf HAL1.edf HAL2.edf HAL3.edf
 SRC+=INST1.edf INST2.edf INST6.edf NOTitr_4.edf STAT.edf haleng.edf
 SRC+=tlookup*.dat scdc.cmd daspt.cmd idxdrv.cmd Hal.cmd rfd.cmd
@@ -10,7 +10,7 @@ SRC+=nav.tmc T30K1MU.tmc Halcol.tmc idxcol.tmc navcol.tmc muxctrl.c
 SRC+=muxctrl.oui rfd.cc rfd.oui Hal.sol idxflag.tmc VT.tmc dstat.tmc
 SRC+=SlowCnts.tmc rfdbits.tmc haldiag.tbl therm.tbl gasdiag.tbl
 SRC+=Rover.tbl H.doit Half.tma Halog.tma Hal.tma NOTitr_4.tmc
-SRC+=check.tmc
+SRC+=check.tmc haleng.cdf
 TOOL=Hal.spec Makefile
 SCRIPT=dccc.dccc idx.idx64 interact Experiment.config runfile.FF
 OBJ=NOTitr_4.tmc Halcmd.cc Halcmd.dat Halsrvr.o Halsrvroui.c
@@ -29,7 +29,7 @@ OBJ+=Halfalgooui.c Halfalgooui.o Halfalgo.o Halalgoa.tmc Halalgo.cc
 OBJ+=Halalgooui.c Halalgooui.o Halalgo.o Calcextedf.oui Calcext.tmc
 OBJ+=Calcext.cc Calcextoui.c Calcextoui.o Calcext.o
 OBJ+=NOTitr_4extedf.oui NOTitr_4ext.tmc NOTitr_4ext.cc
-OBJ+=NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o halengextedf.oui
+OBJ+=NOTitr_4extoui.c NOTitr_4extoui.o NOTitr_4ext.o halengextcdf.oui
 OBJ+=halengext.tmc halengext.cc halengextoui.c halengextoui.o
 OBJ+=halengext.o checkext.cc checkextoui.c checkextoui.o checkext.o
 OBJ+=Halclt.o Halcltoui.c Halcltoui.o Halcltnc.o Halcltncoui.c
@@ -42,12 +42,15 @@ IDISTRIB=Experiment.config VERSION Hdoit
 SRCDIST=Hal.sol haldiag.tbl therm.tbl gasdiag.tbl Rover.tbl Half.tma
 SRCDIST+=Halog.tma Hal.tma types.tmc base.tmc mux.tmc status.tmc
 SRCDIST+=cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc
-NONRCS=
 TMCBASE=types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 TMCBASE+=rfd.tmc nav.tmc T30K1MU.tmc
 CMDBASE=/usr/local/share/huarp/root.cmd
 CMDBASE+=/usr/local/share/huarp/getcon.cmd scdc.cmd daspt.cmd
 CMDBASE+=/usr/local/share/huarp/idx64.cmd idxdrv.cmd Hal.cmd rfd.cmd
+COLBASE=
+SWSBASE=
+QCLIBASE=
+PHTGT=haldiagtbl.tmc thermtbl.tmc gasdiagtbl.tmc Rovertbl.tmc
 RCS=$(SRC) $(TOOL) $(SCRIPT)
 SOURCE=$(RCS) $(NONRCS)
 OBJECT=$(OBJ) *.err
@@ -56,18 +59,29 @@ DSTRB=$(TGT) $(DISTRIB) $(SCRIPT)
 TGTDIR= $(TGTNODE)/home/Hal
 include /usr/local/share/huarp/appgen.mk
 
-all : Makefile $(TGT)
+.PHONY : all extdistribution distribution clean check_photon
+
+all : Makefile check_photon $(TGT) .cvsignore
 Makefile : Hal.spec
 	appgen Hal.spec
 VERSION=`cat VERSION`
-extdistribution : $(DSTRB) $(SRCDIST)
+extdistribution : $(DSTRB) $(SRCDIST) VERSION
 	@[ -d $(TGTDIR)/bin ] || mkdir $(TGTDIR)/bin
 	@[ -d $(TGTDIR)/bin/$(VERSION) ] || mkdir $(TGTDIR)/bin/$(VERSION)
-	@[ -d  $(TGTDIR)/bin/$(VERSION)/Base ] || mkdir $(TGTDIR)/bin/$(VERSION)/Base
+	@[ -d $(TGTDIR)/bin/$(VERSION)/Base ] || mkdir $(TGTDIR)/bin/$(VERSION)/Base
+	@[ ! -f $(TGTDIR)/bin/$(VERSION)/$(PCMFILE) ] || \
+	  cmp -s $(TGTDIR)/bin/$(VERSION)/$(PCMFILE) $(PCMFILE) || \
+	  ( echo "$(PCMFILE) changed without VERSION update"; false )
 	@distribute $(FORCE) $(TGTDIR)/bin/$(VERSION) $(DSTRB)
 	@distribute $(FORCE) $(TGTDIR)/bin/$(VERSION)/Base $(SRCDIST)
 distribution : extdistribution
 	@distribute $(FORCE) $(TGTDIR) $(IDISTRIB)
+check_photon :
+ifeq ($(WPHOTON),YES)
+	@for tgt in $(PHTGT); do \
+	  cmp -s $$tgt /usr/local/share/huarp/nulltbl.tmc && echo Remaking $$tgt && rm -f $$tgt; \
+	done; true
+endif
 Halsrvr : Halsrvr.o Halsrvroui.o
 	$(LINK.privCXX) Halsrvr.o Halsrvroui.o -lsubbus -ltmpp -ltm -lnort
 	$(OUIUSE) Halsrvroui.c
@@ -123,7 +137,7 @@ NOTitr_4ext : NOTitr_4ext.o NOTitr_4extoui.o
 	$(LINK.normCXX) NOTitr_4ext.o NOTitr_4extoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
 	$(OUIUSE) NOTitr_4extoui.c
 halengext : halengext.o halengextoui.o
-	$(LINK.normCXX) halengext.o halengextoui.o -ltmpp -ltm -lssp -lmem -lm -lnort
+	$(LINK.normCXX) halengext.o halengextoui.o -ltmpp -ltm -lnort
 	$(OUIUSE) halengextoui.c
 checkext : checkext.o checkextoui.o
 	$(LINK.normCXX) checkext.o checkextoui.o -ltmpp -ltm -lnort
@@ -156,7 +170,6 @@ rfdoui.c : rfd.oui $(OUIDIR)/msg.oui
 rfdoui.o : rfdoui.c
 rfd.o : rfd.cc
 haldiagtbl.tmc : haldiag.tbl
-	$(TABLE) haldiag.tbl
 hddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtbl.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtbl.tmc
 hddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -164,7 +177,6 @@ hddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 hddispoui.o : hddispoui.c
 hddisp.o : hddisp.cc
 haldiagtblnc.tmc : haldiag.tbl
-	$(NCTABLE) haldiag.tbl
 hddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtblnc.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiagtblnc.tmc
 hddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -172,7 +184,6 @@ hddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 hddispncoui.o : hddispncoui.c
 hddispnc.o : hddispnc.cc
 thermtbl.tmc : therm.tbl
-	$(TABLE) therm.tbl
 thdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc thermtbl.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc thermtbl.tmc
 thdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -180,7 +191,6 @@ thdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 thdispoui.o : thdispoui.c
 thdisp.o : thdisp.cc
 thermtblnc.tmc : therm.tbl
-	$(NCTABLE) therm.tbl
 thdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc thermtblnc.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc VT.tmc /usr/local/share/huarp/flttime.tmc thermtblnc.tmc
 thdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -188,7 +198,6 @@ thdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 thdispncoui.o : thdispncoui.c
 thdispnc.o : thdispnc.cc
 gasdiagtbl.tmc : gasdiag.tbl
-	$(TABLE) gasdiag.tbl
 gddisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc gasdiagtbl.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc gasdiagtbl.tmc
 gddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -196,7 +205,6 @@ gddispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 gddispoui.o : gddispoui.c
 gddisp.o : gddisp.cc
 gasdiagtblnc.tmc : gasdiag.tbl
-	$(NCTABLE) gasdiag.tbl
 gddispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc gasdiagtblnc.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc dstat.tmc gasdiagtblnc.tmc
 gddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -204,7 +212,6 @@ gddispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 gddispncoui.o : gddispncoui.c
 gddispnc.o : gddispnc.cc
 Rovertbl.tmc : Rover.tbl
-	$(TABLE) Rover.tbl
 rvdisp.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Rovertbl.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Rovertbl.tmc
 rvdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -212,7 +219,6 @@ rvdispoui.c : $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 rvdispoui.o : rvdispoui.c
 rvdisp.o : rvdisp.cc
 Rovertblnc.tmc : Rover.tbl
-	$(NCTABLE) Rover.tbl
 rvdispnc.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Rovertblnc.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc Rovertblnc.tmc
 rvdispncoui.c : $(OUIDIR)/nctable.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
@@ -260,14 +266,14 @@ NOTitr_4extoui.c : NOTitr_4extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 	$(OUI) NOTitr_4extedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 NOTitr_4extoui.o : NOTitr_4extoui.c
 NOTitr_4ext.o : NOTitr_4ext.cc
-halengextedf.oui : haleng.edf
-	$(EDF2OUI) haleng.edf
-halengext.tmc : haleng.edf
-	$(EDF2EXT) haleng.edf
+halengextcdf.oui : haleng.cdf
+	$(EDF2OUI) haleng.cdf
+halengext.tmc : haleng.cdf
+	$(EDF2EXT) haleng.cdf
 halengext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc /usr/local/share/huarp/flttime.tmc check.tmc halengext.tmc
 	$(TMC) types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc /usr/local/share/huarp/flttime.tmc check.tmc halengext.tmc
-halengextoui.c : halengextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
-	$(OUI) halengextedf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+halengextoui.c : halengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
+	$(OUI) halengextcdf.oui $(OUIDIR)/dc.oui $(OUIDIR)/msg.oui
 halengextoui.o : halengextoui.c
 halengext.o : halengext.cc
 checkext.cc : types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc rfd.tmc nav.tmc T30K1MU.tmc /usr/local/share/huarp/flttime.tmc check.tmc
@@ -291,9 +297,11 @@ tidy :
 	rm -f $(OBJECT)
 clean : tidy
 	rm -f $(TARGET)
-.cvsignore :
-	@for i in Makefile '.B4*' $(OBJECT) $(TARGET); do echo "$$i"; done >.cvsignore
+.cvsignore : Makefile
+	@for i in $(OBJECT) $(TARGET); do echo "$$i"; done >.cvsignore
 CFLAGS=-Wall -g
 CXXFLAGS=-Wall -g
 NOTitr_4.tmc : NOTitr_4.cyc
 	cycle NOTitr_4.cyc >NOTitr_4.tmc
+haleng.cdf : genui.txt
+	genui -d ../eng -c genui.txt

@@ -14,10 +14,10 @@
 	: Laser Diode 1 Setpoint { $0 = 0xDEE; }
 	: Laser Diode 2 Setpoint { $0 = 0xDEC; }
 	: Lab 1 Setpoint { $0 = 0xE64; }
-#       : Lamp A RF Setpoint { $0 = 0xDE4; }
-#       : Lamp B RF Setpoint { $0 = 0xDE0; }
-#       : Lamp C RF Setpoint { $0 = 0xCE4; }
-#       : Lamp D RF Setpoint { $0 = 0xCE0; }
+        : Lamp A RF Setpoint { $0 = 0xDE4; }
+        : Lamp B RF Setpoint { $0 = 0xDE0; }
+        : Lamp C RF Setpoint { $0 = 0xCE4; }
+        : Lamp D RF Setpoint { $0 = 0xCE0; }
 	: Spare AO 35 { $0 = 0xE66; }
 	: Spare AO 36 { $0 = 0xE68; }
 	: Spare AO 37 { $0 = 0xE6A; }

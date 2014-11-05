@@ -143,10 +143,10 @@ TM 1 Hz DASPt NOH2Set; Address NOH2Set 0xD60;
 /*   PsMn2D = sbwa(PsMn2D.address) & 0x0FFF; */
 /*   DigSelect( 94, (1-(PsMnC & 1)) * 0xFFFF ); */
 /* } */
-/* TM 1 Hz DASPt RFASet; Address RFASet 0xDE4; */
-/* TM 1 Hz DASPt RFBSet; Address RFBSet 0xDE0; */
-/* TM 1 Hz DASPt RFCSet; Address RFCSet 0xCE4; */
-/* TM 1 Hz DASPt RFDSet; Address RFDSet 0xCE0; */
+TM 1 Hz DASPt RFASet; Address RFASet 0xDE4;
+TM 1 Hz DASPt RFBSet; Address RFBSet 0xDE0;
+TM 1 Hz DASPt RFCSet; Address RFCSet 0xCE4;
+TM 1 Hz DASPt RFDSet; Address RFDSet 0xCE0;
 /* TM 1 Hz AD12_T30K RefCT; Address RefCT 0xC9C; */
 /* TM 4 Hz AD12 RefPw; Address RefPw 0xCAE; */
 TM 4 Hz AD12_DP1 SD1DP; Address SD1DP 0xCD4;
