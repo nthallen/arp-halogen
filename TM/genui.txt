@@ -2,57 +2,57 @@ HEADER Harvard Halogens
 MNEMONIC hal
 HOMEDIR Hal_Data_Dir
 ROWS 18
-16 DetA Counts A 
-16 DetB Counts B 
-16 DetC Counts C 
-16 DetD Counts D 
-16 L2Stat:HCtStat:14 CtStat HCt 
-16 Ovf16_A:HCtStat:4 CtStat HCt 
-16 Ovf16_B:HCtStat:5 CtStat HCt 
-16 Ovf16_C:HCtStat:6 CtStat HCt 
-16 Ovf16_D:HCtStat:7 CtStat HCt 
-16 Ovf20_A:HCtStat:0 CtStat HCt 
-16 Ovf20_B:HCtStat:1 CtStat HCt 
-16 Ovf20_C:HCtStat:2 CtStat HCt 
-16 Ovf20_D:HCtStat:3 CtStat HCt 
-16 Resynch:HCtStat:15 CtStat HCt 
+4 DetA Counts A 
+4 DetB Counts B 
+4 DetC Counts C 
+4 DetD Counts D 
+4 L2Stat:HCtStat:14 CtStat HCt 
+4 Ovf16_A:HCtStat:4 CtStat HCt 
+4 Ovf16_B:HCtStat:5 CtStat HCt 
+4 Ovf16_C:HCtStat:6 CtStat HCt 
+4 Ovf16_D:HCtStat:7 CtStat HCt 
+4 Ovf20_A:HCtStat:0 CtStat HCt 
+4 Ovf20_B:HCtStat:1 CtStat HCt 
+4 Ovf20_C:HCtStat:2 CtStat HCt 
+4 Ovf20_D:HCtStat:3 CtStat HCt 
+4 Resynch:HCtStat:15 CtStat HCt 
 1 NOH1Set Flows SetPt 
 1 NOH2Set Flows SetPt 
 4 NOH1F GasDeck Flows 
 4 NOH2F GasDeck Flows 
-1/16 AirHP GasDeck HP 
-1/16 N2_HP GasDeck HP 
-1/16 N22HP GasDeck HP 
-1/16 NO_HP GasDeck HP 
-1/16 AirLP GasDeck LP 
-1/16 N2_LP GasDeck LP 
-1/16 N22LP GasDeck LP 
-1/16 NO_LP GasDeck LP 
-1/16 Air_T GasDeck T %-
-1/16 Gas1T GasDeck T 1
-1/16 Gas2T GasDeck T 2
-1/16 Gas3T GasDeck T 3
-1/16 Gas4T GasDeck T 4
-1/16 Gas5T GasDeck T 5
+1/4 AirHP GasDeck HP 
+1/4 N2_HP GasDeck HP 
+1/4 N22HP GasDeck HP 
+1/4 NO_HP GasDeck HP 
+1/4 AirLP GasDeck LP 
+1/4 N2_LP GasDeck LP 
+1/4 N22LP GasDeck LP 
+1/4 NO_LP GasDeck LP 
+1/4 Air_T GasDeck T %-
+1/4 Gas1T GasDeck T 1
+1/4 Gas2T GasDeck T 2
+1/4 Gas3T GasDeck T 3
+1/4 Gas4T GasDeck T 4
+1/4 Gas5T GasDeck T 5
 1 CpSw0:IOSwS:4 HK Switches 
 1 CpSw1:IOSwS:5 HK Switches 
-1/16 Fail0:FailS:0 HK Switches 
-1/16 Fail1:FailS:1 HK Switches 
+1/4 Fail0:FailS:0 HK Switches 
+1/4 Fail1:FailS:1 HK Switches 
 1 IOSw0:IOSwS:0 HK Switches 
 1 IOSw1:IOSwS:1 HK Switches 
-1/16 Aux_T HK T %-
-1/16 Cvr1T HK T %-
-1/16 Cvr2T HK T %-
-1/16 Cvr3T HK T %-
-1/16 PC_1T HK T 
-1/16 PC_2T HK T 
-1/16 PS_1T HK T 
-1/16 PS_2T HK T 
-1/16 VicrT HK T 
-1/16 ADetT Lamps DetT A
-1/16 BDetT Lamps DetT B
-1/16 CDetT Lamps DetT C
-1/16 DDetT Lamps DetT D
+1/4 Aux_T HK T %-
+1/4 Cvr1T HK T %-
+1/4 Cvr2T HK T %-
+1/4 Cvr3T HK T %-
+1/4 PC_1T HK T 
+1/4 PC_2T HK T 
+1/4 PS_1T HK T 
+1/4 PS_2T HK T 
+1/4 VicrT HK T 
+1/4 ADetT Lamps DetT A
+1/4 BDetT Lamps DetT B
+1/4 CDetT Lamps DetT C
+1/4 DDetT Lamps DetT D
 1 A_IRV Lamps IR A
 1 B_IRV Lamps IR B
 1 C_IRV Lamps IR C
@@ -61,14 +61,14 @@ ROWS 18
 1 B_IRSet Lamps IRSet B
 1 C_IRSet Lamps IRSet C
 1 D_IRSet Lamps IRSet D
-1/16 A_LMT Lamps LMT A
-1/16 B_LMT Lamps LMT B
-1/16 C_LMT Lamps LMT C
-1/16 D_LMT Lamps LMT D
-1/16 AModP Lamps P A
-1/16 BModP Lamps P B
-1/16 CModP Lamps P C
-1/16 DModP Lamps P D
+1/4 A_LMT Lamps LMT A
+1/4 B_LMT Lamps LMT B
+1/4 C_LMT Lamps LMT C
+1/4 D_LMT Lamps LMT D
+1/4 AModP Lamps P A
+1/4 BModP Lamps P B
+1/4 CModP Lamps P C
+1/4 DModP Lamps P D
 1 ARFBW Lamps RFBW A
 1 BRFBW Lamps RFBW B
 1 CRFBW Lamps RFBW C
@@ -97,10 +97,10 @@ ROWS 18
 4 SD2DP Pressure DP 
 4 SD1_P Pressure P 
 4 SD2_P Pressure P 
-1/16 SDP1T Pressure T 
-1/16 SDP2T Pressure T 
+1/4 SDP1T Pressure T 
+1/4 SDP2T Pressure T 
 1 PumpS Pump Status 
-1/16 PmotT Pump T 
+1/4 PmotT Pump T 
 1 PumpT Pump T 
 1 A_ok:RFDalive:0 RF Alive 
 1 B_ok:RFDalive:0 RF Alive 
@@ -111,22 +111,22 @@ ROWS 18
 1 RFBTemp RF T 
 1 RFCTemp RF T 
 1 RFDTemp RF T 
-1/16 Rv_1T Rovers T 1
-1/16 Rv_2T Rovers T 2
-1/16 Rv_3T Rovers T 3
-1/16 Rv_4T Rovers T 4
-1/16 Rv_5T Rovers T 5
-1/16 Rv_6T Rovers T 6
-1/16 Rv_7T Rovers T 7
-1/16 Rv_8T Rovers T 8
-1/16 Rv_9T Rovers T 9
-1/16 Rv10T Rovers T 10
-1/16 Rv11T Rovers T 11
-1/16 Rv12T Rovers T 12
-1/16 Rv13T Rovers T 13
-1/16 Rv14T Rovers T 14
-1/16 Rv15T Rovers T 15
-1/16 Rv16T Rovers T 16
+1/4 Rv_1T Rovers T 1
+1/4 Rv_2T Rovers T 2
+1/4 Rv_3T Rovers T 3
+1/4 Rv_4T Rovers T 4
+1/4 Rv_5T Rovers T 5
+1/4 Rv_6T Rovers T 6
+1/4 Rv_7T Rovers T 7
+1/4 Rv_8T Rovers T 8
+1/4 Rv_9T Rovers T 9
+1/4 Rv10T Rovers T 10
+1/4 Rv11T Rovers T 11
+1/4 Rv12T Rovers T 12
+1/4 Rv13T Rovers T 13
+1/4 Rv14T Rovers T 14
+1/4 Rv15T Rovers T 15
+1/4 Rv16T Rovers T 16
 1 SW1_S Software SW1 
 1 SW2_S Software SW2 
 1 AirHS:DS86A:2 Soldrv Solenoids 
@@ -149,13 +149,13 @@ ROWS 18
 1 NOH1S:DS80A:4 Soldrv Solenoids 
 1 NOH2S:DS815:5 Soldrv Solenoids 
 4 HSolS Soldrv SolStat 
-1/16 Air1T Temps Air 1 %-
-1/16 Air2T Temps Air 2 %-
-1/16 Air3T Temps Air 3 %-
-1/16 Exh1T Temps Exh 
-1/16 Exh2T Temps Exh 
-1/16 Exh3T Temps Exh 
-1/16 Exh4T Temps Exh 
+1/4 Air1T Temps Air 1 %-
+1/4 Air2T Temps Air 2 %-
+1/4 Air3T Temps Air 3 %-
+1/4 Exh1T Temps Exh 
+1/4 Exh2T Temps Exh 
+1/4 Exh3T Temps Exh 
+1/4 Exh4T Temps Exh 
 1 SF1B0 Temps SF1B 0
 1 SF1B1 Temps SF1B 1
 1 SF1B2 Temps SF1B 2
@@ -193,5 +193,5 @@ ROWS 18
 1 R:SV2St:3 Throttle Bits 
 4 Scan:IXStt:0 Throttle Bits 
 1 Z:SV2St:6 Throttle Bits 
-1/4 SV2Ps Throttle Pot 
+1 SV2Ps Throttle Pot 
 1 SV2Step Throttle Step 

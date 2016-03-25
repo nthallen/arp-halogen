@@ -1,4 +1,4 @@
-csv haleng_1 77
+csv haleng_1 78
   0 Thaleng_1 %.3lf
   1 ARFBW 
   2 ARFFW 
@@ -64,20 +64,21 @@ csv haleng_1 77
   62 SF2F4 
   63 SF2F5 
   64 SF2F6 
-  65 SV2St 
-  66 SV2Step 
-  67 SW1_S 
-  68 SW2_S 
-  69 V28I1 
-  70 V28I2 
-  71 V28I3 
-  72 V28I4 
-  73 V28V1 
-  74 V28V2 
-  75 V28V3 
-  76 V28V4 
-csv haleng_1_16 55
-  0 Thaleng_1_16 %.3lf
+  65 SV2Ps 
+  66 SV2St 
+  67 SV2Step 
+  68 SW1_S 
+  69 SW2_S 
+  70 V28I1 
+  71 V28I2 
+  72 V28I3 
+  73 V28I4 
+  74 V28V1 
+  75 V28V2 
+  76 V28V3 
+  77 V28V4 
+csv haleng_1_4 55
+  0 Thaleng_1_4 %.3lf
   1 ADetT 
   2 AModP 
   3 A_LMT 
@@ -132,23 +133,18 @@ csv haleng_1_16 55
   52 SDP1T 
   53 SDP2T 
   54 VicrT 
-csv haleng_1_4 2
-  0 Thaleng_1_4 %.3lf
-  1 SV2Ps 
-csv haleng_16 6
-  0 Thaleng_16 %.3lf
+csv haleng_4 14
+  0 Thaleng_4 %.3lf
   1 DetA 
   2 DetB 
   3 DetC 
   4 DetD 
   5 HCtStat 
-csv haleng_4 9
-  0 Thaleng_4 %.3lf
-  1 HSolS 
-  2 IXStt 
-  3 NOH1F 
-  4 NOH2F 
-  5 SD1DP 
-  6 SD1_P 
-  7 SD2DP 
-  8 SD2_P 
+  6 HSolS 
+  7 IXStt 
+  8 NOH1F 
+  9 NOH2F 
+  10 SD1DP 
+  11 SD1_P 
+  12 SD2DP 
+  13 SD2_P 
