@@ -59,6 +59,12 @@
     : Altitude Cruise { $0 = SWS_CLIMB; }
     : Altitude Descend { $0 = SWS_DESCEND; }
     : Altitude Land { $0 = SWS_LAND; }
+    : Flow 1 High { $0 = SWS_FLOW1HI; }
+    : Flow 1 Medium { $0 = SWS_FLOW1MED; }
+    : Flow 1 Low { $0 = SWS_FLOW1LOW; }
+    : Flow 2 High { $0 = SWS_FLOW2HI; }
+    : Flow 2 Medium { $0 = SWS_FLOW2MED; }
+    : Flow 2 Low { $0 = SWS_FLOW2LOW; }
     : Lamp A On { $0 = SWS_LAMP_A_ON; }
     : Lamp B On { $0 = SWS_LAMP_B_ON; }
     : Lamp C On { $0 = SWS_LAMP_C_ON; }

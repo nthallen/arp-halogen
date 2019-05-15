@@ -5,7 +5,6 @@ Halsrvr.o
 Halsrvroui.c
 Halsrvroui.o
 Halcol.cc
-Hal.pcm
 tm.dac
 Halcoloui.c
 Halcoloui.o
@@ -80,7 +79,7 @@ NOTitr_4extoui.c
 NOTitr_4extoui.o
 NOTitr_4ext.o
 halengextcdf.oui
-halengext.tmc
+halengcdf.tmc
 halengext.cc
 halengextoui.c
 halengextoui.o
@@ -95,6 +94,14 @@ Halcltoui.o
 Halcltnc.o
 Halcltncoui.c
 Halcltncoui.o
+haldiagtbl.tmc.dep
+haldiagtblnc.tmc.dep
+thermtbl.tmc.dep
+thermtblnc.tmc.dep
+gasdiagtbl.tmc.dep
+gasdiagtblnc.tmc.dep
+Rovertbl.tmc.dep
+Rovertblnc.tmc.dep
 *.err
 Halsrvr
 Halcol
