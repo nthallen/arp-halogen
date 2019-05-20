@@ -1,0 +1,184 @@
+/* VI.tmc will calculate P, R for each of 14 DHeater segments 
+	plus total power for each heater and overall.
+*/
+%{
+  #include <math.h>
+%}
+TM typedef unsigned short OHMS_I { text "%5.3lf"; }
+TM typedef signed short WATTS_I { text "%4d"; }
+
+OHMS_I DH1R0; Invalidate DH1R0;
+WATTS_I DH1P0; Invalidate DH1P0;
+VOLTS Vbus; Invalidate Vbus;
+
+{ Vbus = convert(V28V3); validate Vbus; }
+
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH1V0 ); I = convert( DH1I0 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH1R0 = R; Validate DH1R0;
+  DH1P0 = floor( Vbus * I + .5 ); Validate DH1P0;
+}
+
+OHMS_I DH1R1; Invalidate DH1R1;
+WATTS_I DH1P1; Invalidate DH1P1;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH1V1 ); I = convert( DH1I1 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH1R1 = R; Validate DH1R1;
+  DH1P1 = floor( Vbus * I + .5 ); Validate DH1P1;
+}
+
+OHMS_I DH1R2; Invalidate DH1R2;
+WATTS_I DH1P2; Invalidate DH1P2;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH1V2 ); I = convert( DH1I2 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH1R2 = R; Validate DH1R2;
+  DH1P2 = floor( Vbus * I + .5 ); Validate DH1P2;
+}
+
+OHMS_I DH1R3; Invalidate DH1R3;
+WATTS_I DH1P3; Invalidate DH1P3;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH1V3 ); I = convert( DH1I3 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH1R3 = R; Validate DH1R3;
+  DH1P3 = floor( Vbus * I + .5 ); Validate DH1P3;
+}
+
+OHMS_I DH1R4; Invalidate DH1R4;
+WATTS_I DH1P4; Invalidate DH1P4;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH1V4 ); I = convert( DH1I4 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH1R4 = R; Validate DH1R4;
+  DH1P4 = floor( Vbus * I + .5 ); Validate DH1P4;
+}
+
+OHMS_I DH1R5; Invalidate DH1R5;
+WATTS_I DH1P5; Invalidate DH1P5;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH1V5 ); I = convert( DH1I5 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH1R5 = R; Validate DH1R5;
+  DH1P5 = floor( Vbus * I + .5 ); Validate DH1P5;
+}
+
+OHMS_I DH1R6; Invalidate DH1R6;
+WATTS_I DH1P6; Invalidate DH1P6;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH1V6 ); I = convert( DH1I6 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH1R6 = R; Validate DH1R6;
+  DH1P6 = floor( Vbus * I + .5 ); Validate DH1P6;
+}
+
+OHMS_I DH2R0; Invalidate DH2R0;
+WATTS_I DH2P0; Invalidate DH2P0;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH2V0 ); I = convert( DH2I0 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH2R0 = R; Validate DH2R0;
+  DH2P0 = floor( Vbus * I + .5 ); Validate DH2P0;
+}
+
+OHMS_I DH2R1; Invalidate DH2R1;
+WATTS_I DH2P1; Invalidate DH2P1;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH2V1 ); I = convert( DH2I1 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH2R1 = R; Validate DH2R1;
+  DH2P1 = floor( Vbus * I + .5 ); Validate DH2P1;
+}
+
+OHMS_I DH2R2; Invalidate DH2R2;
+WATTS_I DH2P2; Invalidate DH2P2;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH2V2 ); I = convert( DH2I2 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH2R2 = R; Validate DH2R2;
+  DH2P2 = floor( Vbus * I + .5 ); Validate DH2P2;
+}
+
+OHMS_I DH2R3; Invalidate DH2R3;
+WATTS_I DH2P3; Invalidate DH2P3;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH2V3 ); I = convert( DH2I3 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH2R3 = R; Validate DH2R3;
+  DH2P3 = floor( Vbus * I + .5 ); Validate DH2P3;
+}
+
+OHMS_I DH2R4; Invalidate DH2R4;
+WATTS_I DH2P4; Invalidate DH2P4;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH2V4 ); I = convert( DH2I4 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH2R4 = R; Validate DH2R4;
+  DH2P4 = floor( Vbus * I + .5 ); Validate DH2P4;
+}
+
+OHMS_I DH2R5; Invalidate DH2R5;
+WATTS_I DH2P5; Invalidate DH2P5;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH2V5 ); I = convert( DH2I5 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH2R5 = R; Validate DH2R5;
+  DH2P5 = floor( Vbus * I + .5 ); Validate DH2P5;
+}
+
+OHMS_I DH2R6; Invalidate DH2R6;
+WATTS_I DH2P6; Invalidate DH2P6;
+{ AMPS I; VOLTS Vavg; OHMS_I R;
+  Vavg = convert( DH2V6 ); I = convert( DH2I6 );
+  if ( I > 0 && Vavg > .5 ) {
+	R = floor( 1000. * Vavg / I + .5 );
+  } else R = 0;
+  DH2R6 = R; Validate DH2R6;
+  DH2P6 = floor( Vbus * I + .5 ); Validate DH2P6;
+}
+
+WATTS_I DH1P; Invalidate DH1P;
+depending on ( 1 Hz ) {
+  DH1P = DH1P0 + DH1P1 + DH1P2 + DH1P3 + DH1P4 + DH1P5 + DH1P6;
+  Validate DH1P;
+}
+
+WATTS_I DH2P; Invalidate DH2P;
+depending on ( 1 Hz ) {
+  DH2P = DH2P0 + DH2P1 + DH2P2 + DH2P3 + DH2P4 + DH2P5 + DH2P6;
+  Validate DH2P;
+}
+
+WATTS_I DHP; Invalidate DHP;
+depending on ( 1 Hz ) {
+  DHP = DH1P + DH2P;
+  Validate DHP;
+}

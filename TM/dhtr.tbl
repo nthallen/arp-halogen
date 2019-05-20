@@ -1,0 +1,71 @@
+DHtr1 {
+  HBox { +=+; Title: "Diss Heater 1"; +=+ };
+  {
+	"" Header: >I<    >V<       >R<       >P<            >SetPt<;
+	"0:" (DH1I0,4) (DH1V0,4) (DH1R0,5) (DH1P0,4) (DH10Set,6);
+	"1:" (DH1I1,4) (DH1V1,4) (DH1R1,5) (DH1P1,4) (DH11Set,6);
+	"2:" (DH1I2,4) (DH1V2,4) (DH1R2,5) (DH1P2,4) (DH12Set,6);
+	"3:" (DH1I3,4) (DH1V3,4) (DH1R3,5) (DH1P3,4) (DH13Set,6);
+	"4:" (DH1I4,4) (DH1V4,4) (DH1R4,5) (DH1P4,4) (DH14Set,6);
+	"5:" (DH1I5,4) (DH1V5,4) (DH1R5,5) (DH1P5,4) (DH15Set,6);
+	"6:" (DH1I6,4) (DH1V6,4) (DH1R6,5) (DH1P6,4) (DH16Set,6);
+	""     >A<       >V<       >Ohms<     >W<;
+  };
+  HBox {
+    {
+      Housing: (DHA1T,5)  C;
+	  Flow:    (SF1BTemp) C;
+	  FlowSet: (SD1TSP)   C;
+	};
+	HGlue 5+1;
+	{
+	  Status: (DH1_S,3);
+	  Ilock:  (DH1_I,4);
+	  Power:  (DH1P,4) W;
+	}
+  }
+}
+DHtr2 {
+  HBox { +=+; Title: "Diss Heater 2"; +=+ };
+  {
+	"" Header: >I<    >V<       >R<       >P<            >SetPt<;
+	"0:" (DH2I0,4) (DH2V0,4) (DH2R0,5) (DH2P0,4) (DH20Set,6);
+	"1:" (DH2I1,4) (DH2V1,4) (DH2R1,5) (DH2P1,4) (DH21Set,6);
+	"2:" (DH2I2,4) (DH2V2,4) (DH2R2,5) (DH2P2,4) (DH22Set,6);
+	"3:" (DH2I3,4) (DH2V3,4) (DH2R3,5) (DH2P3,4) (DH23Set,6);
+	"4:" (DH2I4,4) (DH2V4,4) (DH2R4,5) (DH2P4,4) (DH24Set,6);
+	"5:" (DH2I5,4) (DH2V5,4) (DH2R5,5) (DH2P5,4) (DH25Set,6);
+	"6:" (DH2I6,4) (DH2V6,4) (DH2R6,5) (DH2P6,4) (DH26Set,6);
+	""     >A<       >V<       >Ohms<     >W<;
+  };
+  HBox {
+    {
+      Housing: (DHA2T,5)  C;
+	  Flow:    (SF2BTemp) C;
+	  FlowSet: (SD2TSP)   C;
+	};
+	HGlue 5+1;
+	{
+	  Status: (DH2_S,3);
+	  Ilock:  (DH2_I,4);
+	  Power:  (DH2P,4) W;
+	}
+  }
+}
+
+Status {
+  HBox { { TRU: (Fail1,3) }; HGlue 2+1;
+         { V28V3: (V28V3,5) V }; HGlue 2+1;
+		 { "Total Power:" (DHP,5) W }; HGlue 2+1;
+		 { MFCtr: (MFCtr,5) }
+	   }
+}
+
+{ HBox { ||+; [DHtr1]; ||+; [DHtr2]; ||+ };
+  =;
+  HBox { +||+; [Status]; +||+ };
+  =;
+  (%TMA:ClNfalgo:15,0+1,2);
+  (%TMA:ClNfalgo:16,0+1,2);
+  (%CLIENT,0+1,1);
+}
