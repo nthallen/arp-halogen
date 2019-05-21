@@ -14,6 +14,14 @@ extern swstat_t SWData;
 #define SWS_DESCEND 3
 #define SWS_LAND 4
 
+#define SWS_FLOW1HI  20
+#define SWS_FLOW1MED 30
+#define SWS_FLOW1LOW 40
+#define SWS_FLOW2HI  50
+#define SWS_FLOW2MED 60
+#define SWS_FLOW2LOW 70
+
+
 #define SWS_LAMP_A_OFF 211
 #define SWS_LAMP_B_OFF 212
 #define SWS_LAMP_C_OFF 213

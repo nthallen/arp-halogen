@@ -1,14 +1,77 @@
 State Init {
     > Telemetry Start
-#+2 > Set Secondary Throttle 1 Speed 1600 Hz
-#   > Preset Secondary Throttle 1 Position to 0
-#   Hold until (SV1Step == 0) or 2
-#   else { nl_error( 2, "SV1Step did not clear on preset" ); }
-#+2 > Drive Secondary Throttle 1 out 16000
-#   Hold until (SV1Step > 0) or 2
-#   else { nl_error( 2, "SV1Step did not move on drive" ); }
-#+2 > Drive Secondary Throttle 1 in 16000
-#   Hold until (SV1Step == 0) or 22
-#   else { nl_error( 2, "SV1 apparently did not get interrupt" ); }
+      Validate SW_Watch;
+}
+
+State SW_Watch {
+  { switch (SW1_S) {
+      case SWS_FLOW1HI: Validate Flow1_High; break;
+      case SWS_FLOW1MED: Validate Flow1_Medium; break;
+      case SWS_FLOW1LOW: Validate Flow1_Low; break;
+      case SWS_FLOW2HI: Validate Flow2_High; break;
+      case SWS_FLOW2MED: Validate Flow2_Medium; break;
+      case SWS_FLOW2LOW: Validate Flow2_Low; break;
+    }
+  }
+}
+
+State Flow1_High {
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 2000
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 500
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 1500
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 1000
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 0
+  +30 > SW Status Clear
+      Validate SW_Watch;
+}
+
+State Flow1_Medium {
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 1000
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 250
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 750
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 500
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 0
+  +30 > SW Status Clear
+      Validate SW_Watch;
+}
+
+State Flow1_Low {
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 500
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 125
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 375
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 250
+  +30 > Gasdeck NO Flow to Duct 1 SetPoint 0
+  +30 > SW Status Clear
+      Validate SW_Watch;
+}
+
+State Flow2_High {
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 2000
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 500
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 1500
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 1000
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 0
+  +30 > SW Status Clear
+      Validate SW_Watch;
+}
+
+State Flow2_Medium {
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 1000
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 250
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 750
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 500
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 0
+  +30 > SW Status Clear
+      Validate SW_Watch;
+}
+
+State Flow2_Low {
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 500
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 125
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 375
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 250
+  +30 > Gasdeck NO Flow to Duct 2 SetPoint 0
+  +30 > SW Status Clear
+      Validate SW_Watch;
 }
 
