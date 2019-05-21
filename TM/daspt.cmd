@@ -18,10 +18,6 @@
     { 0xC6E, 0xC6C, 0xC6A, 0xC68, 0xC66, 0xC64, 0xC62 },
     {   100,   100,   100,   100,   100,   100,   100 }
   };
-  dhdef dh3 = { 3, 2, 88, 89, 0xFFFF, 0,
-    { 0xCEA, 0xCE8,     0,     0,     0,     0,     0 },
-    {   100,   100,     0,     0,     0,     0,     0 }
-  };
 %}
 &command
   : &daspt_cmd &setpt *
@@ -95,7 +91,6 @@
 &dhtr <dhdef *>
   : 1 { $0 = &dh1; }
   : 2 { $0 = &dh2; }
-  : 3 { $0 = &dh3; }
   ;
 &dhzone <dhzone>
   : DHeater &dhtr Zone %d (Enter Zone Number 0-6)
