@@ -62,10 +62,7 @@ Status {
 }
 
 { HBox { ||+; [DHtr1]; ||+; [DHtr2]; ||+ };
-  =;
+  -;
   HBox { +||+; [Status]; +||+ };
-  =;
-  (%TMA:ClNfalgo:15,0+1,2);
-  (%TMA:ClNfalgo:16,0+1,2);
-  (%CLIENT,0+1,1);
+  -;
 }
