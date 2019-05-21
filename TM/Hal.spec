@@ -13,6 +13,7 @@ cmdbase = rfd.cmd
 
 SRC = idx.idx NOTitr_4.cyc *.edf tlookup*.dat
 # TOOL = README
+IGNORE = Makefile
 
 SCRIPT = dccc.dccc idx.idx64 interact Experiment.config
 SCRIPT = runfile.FF
