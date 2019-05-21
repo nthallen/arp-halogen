@@ -48,6 +48,20 @@
       }
     : SW Status &swcommand { SWData.SW1_S = $3; }
     : SWS Clear { SWData.SW2_S = 0; }
+    : Duct &duct_sp Temperature &SetAdd &duct_sp_val {
+        int setpt, convsetpt;
+        if ( $4 ) { /* increment */
+          setpt = cache_read($2) * 2 - 74;
+          setpt += $5;
+        } else setpt = $5;
+        convsetpt = (setpt + 74)/2;
+        if ( convsetpt < 0 || convsetpt > 255 ) {
+          nl_error( 1, "Duct Set Point %d is out of range", setpt );
+          if ( convsetpt < 0 ) convsetpt = 0;
+          else if ( convsetpt > 255 ) convsetpt = 255;
+        }
+        cache_write($2, convsetpt);
+      }
     ;
 &swstat <unsigned char *>
     : 1 { $0 = &SWData.SW1_S; }
@@ -70,3 +84,14 @@
     : TimeWarp { $0 = SWS_TIME_WARP; }
     : Shutdown { $0 = SWS_SHUTDOWN; }
     ;
+&SetAdd <int>
+	: Set { $0 = 0; }
+	: Add { $0 = 1; }
+	;
+&duct_sp <unsigned short>
+	: 1 { $0 = 0x1002; }
+	: 2 { $0 = 0x1003; }
+	;
+&duct_sp_val <int>
+	: %d ( Enter Temperature in C ) C { $0 = $1; }
+	;

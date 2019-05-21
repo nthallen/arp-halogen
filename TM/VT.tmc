@@ -50,6 +50,70 @@
   }
 %}
 
+CELCIUS_I SF1BTemp; invalidate SF1BTemp;
+{ AD12_T10M Ts[7];
+  CELCIUS TsC[7];
+  int i, npts;
+  CELCIUS Td;
+
+  /* If a thermistor is known to be bad, replace it's reference
+     here with a 0: e.g.
+       Ts[1] = 0;
+  */
+  Ts[0] = SF1B0; Ts[1] = SF1B1; Ts[2] = SF1B2;
+  Ts[3] = SF1B3; Ts[4] = SF1B4; Ts[5] = SF1B5;
+  Ts[6] = SF1B6;
+
+  /* Leave this stuff alone */
+  TsC[0] = convert(SF1B0); TsC[1] = convert(SF1B1); TsC[2] = convert(SF1B2);
+  TsC[3] = convert(SF1B3); TsC[4] = convert(SF1B4); TsC[5] = convert(SF1B5);
+  TsC[6] = convert(SF1B6);
+  filter_temps( Ts );
+  Td = 0.; npts = 0;
+  for (i=0;i<7;i++) {
+	if ( Ts[i] > 0 ) {
+	  npts++;
+	  Td += TsC[i];
+	}
+  }
+  if ( npts > 0 ) Td /= npts;
+  else Td = 1000.;
+  SF1BTemp = floor( Td * 10 + .5 );
+  Validate SF1BTemp;
+}
+
+CELCIUS_I SF2BTemp; invalidate SF2BTemp;
+{ AD12_T10M Ts[7];
+  CELCIUS TsC[7];
+  int i, npts;
+  CELCIUS Td;
+
+  /* If a thermistor is known to be bad, replace it's reference
+     here with a 0: e.g.
+       Ts[1] = 0;
+  */
+  Ts[0] = SF2B0; Ts[1] = SF2B1; Ts[2] = SF2B2;
+  Ts[3] = SF2B3; Ts[4] = SF2B4; Ts[5] = SF2B5;
+  Ts[6] = SF2B6;
+
+  /* Leave this stuff alone */
+  TsC[0] = convert(SF2B0); TsC[1] = convert(SF2B1); TsC[2] = convert(SF2B2);
+  TsC[3] = convert(SF2B3); TsC[4] = convert(SF2B4); TsC[5] = convert(SF2B5);
+  TsC[6] = convert(SF2B6);
+  filter_temps( Ts );
+  Td = 0.; npts = 0;
+  for (i=0;i<7;i++) {
+	if ( Ts[i] > 0 ) {
+	  npts++;
+	  Td += TsC[i];
+	}
+  }
+  if ( npts > 0 ) Td /= npts;
+  else Td = 1000.;
+  SF2BTemp = floor( Td * 10 + .5 );
+  Validate SF2BTemp;
+}
+
 CELCIUS_I SF1FTemp; invalidate SF1FTemp;
 { AD12_T10M Ts[7];
   CELCIUS TsC[7];

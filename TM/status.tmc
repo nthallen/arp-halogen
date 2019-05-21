@@ -13,7 +13,7 @@ Group SWS (SW1_S,SW2_S) {
   SW2_S = SWData.SW2_S;
 }
 
-/* TM 1 Hz DUCT_SP SD1TSP; Address SD1TSP 0x1002; */
-/* TM 1 Hz DUCT_SP SD2TSP; Address SD2TSP 0x1003; */
+TM 1 Hz DUCT_SP SD1TSP; Address SD1TSP 0x1002;
+TM 1 Hz DUCT_SP SD2TSP; Address SD2TSP 0x1003;
 TM "Receive" SolStatA 0;
 TM 4 Hz SWStat HSolS;
