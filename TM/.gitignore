@@ -10,8 +10,8 @@ Halcoloui.c
 Halcoloui.o
 Halcol.o
 muxctrloui.c
-muxctrl.o
 muxctrloui.o
+muxctrl.o
 rfdoui.c
 rfdoui.o
 rfd.o
