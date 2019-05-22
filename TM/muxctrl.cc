@@ -4,7 +4,9 @@
  */
 #include "oui.h"
 #include "nortlib.h"
-#include "collect.h"
+//#include "collect.h"
+#include "Selector.h"
+#include "SerSelector.h"
 #include "tm.h"
 
 unsigned short MUXCtrl;
@@ -12,7 +14,7 @@ unsigned short MUXCtrl;
 class muxctrlr : public Selectee {
   public:
     muxctrlr();
-    ProcessData(int flag);
+    int ProcessData(int flag);
   private:
     unsigned short MuxAddr;
 };
