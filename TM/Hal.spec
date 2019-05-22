@@ -25,7 +25,7 @@ TGTDIR = $(TGTNODE)/home/Hal
 
 Halsrvr : -lsubbus
 Halcol : Halcol.tmc idxcol.tmc navcol.tmc -lsubbus
-muxctrl : muxctrl.c muxctrl.oui
+muxctrl : muxctrl.cc muxctrl.oui
 rfd : rfd.cc rfd.oui
 Hal.sft : Hal.sol
 
