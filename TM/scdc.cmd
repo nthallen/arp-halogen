@@ -79,17 +79,17 @@
     : Lamp D Off * { $0 = 79; }
 #   : AUX Heater On * { $0 = 80; }
 #   : AUX Heater Off * { $0 = 81; }
-#   : DHeater &dhtr On * { $0 = $2->on; }
-#   : DHeater &dhtr Off * { $0 = $2->off; }
-#   : DHeater &dhtr Interlock Reset *
-#     { $0 = $2->reset;
-#       if ( $0 == 0xFFFF ) {
-#         nl_error( 2,
-#           "DHeater %d does not support Interlock Reset",
-#           $2->htr_num );
-#         CANCEL_LINE;
-#       }
-#     }
+    : DHeater &dhtr On * { $0 = $2->on; }
+    : DHeater &dhtr Off * { $0 = $2->off; }
+    : DHeater &dhtr Interlock Reset *
+      { $0 = $2->reset;
+        if ( $0 == 0xFFFF ) {
+          nl_error( 2,
+            "DHeater %d does not support Interlock Reset",
+            $2->htr_num );
+          CANCEL_LINE;
+        }
+      }
 #   : 3WAY Valve On * { $0 = 90; }
 #   : 3WAY Valve Off * { $0 = 91; }
     : Lab Connector cmd On * { $0 = 96; }
