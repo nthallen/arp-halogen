@@ -1,0 +1,14 @@
+Input "Rover.tbl";
+Input "therm.tbl";
+Input "bmm.tbl";
+Input "TMbase.tbl";
+
+{ HBox {
+    |+;
+    { HBox { [therm]; |+; [BMM] };
+      HBox { [Rover]; |+; [TMbaseB] };
+    };
+    |+;
+  };
+  -;
+}
