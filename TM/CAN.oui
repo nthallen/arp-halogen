@@ -1,0 +1,14 @@
+<package> CAN
+<comment>
+  This package provides the necessary initialization for using the CAN
+  interface in command files. It is currently not appropriate for use
+  with telemetry files, since bmm_col.tmc handles the initialization
+  there.
+  
+<include> "bmm.h"
+
+<defs>
+  subbuspp *CAN;
+<init>
+  CAN = new subbuspp("CAN");
+  CAN->load();

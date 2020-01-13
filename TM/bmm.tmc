@@ -1,0 +1,64 @@
+%{
+  #include "subbuspp.h"
+  // #define disarm_sic()
+  // #define tick_sic()
+%}
+TM typedef double BMM_VOLTS_t { text "%6.3lf"; }
+TM typedef double BMM_AMPS_t { text "%6.3lf"; }
+TM typedef double BMM_CELCIUS_t { text "%6.2lf"; }
+
+TM typedef uint16_t BMM_PMI_28_t { text "%6.3lf"; Convert BMM_AMPS_t; }
+  Calibration (BMM_PMI_28_t, BMM_AMPS_t) {
+    0, 0,
+    65536, 11.7029
+  }
+TM typedef uint16_t BMM_PMI_50_t { text "%6.3lf"; Convert BMM_AMPS_t; }
+  Calibration (BMM_PMI_50_t, BMM_AMPS_t) {
+    0, 0,
+    65536, 27.3067
+  }
+TM typedef uint16_t BMM_PMV1_t { text "%6.2lf"; Convert BMM_VOLTS_t; }
+  Calibration (BMM_PMV1_t, BMM_VOLTS_t) {
+    0, 0,
+    65536, 102.4
+  }
+TM typedef uint16_t BMM_PMV2_28_t { text "%6.3lf"; Convert BMM_VOLTS_t; }
+  Calibration (BMM_PMV2_28_t, BMM_VOLTS_t) {
+    0, 0,
+    65536, 32.1536
+  }
+TM typedef uint16_t BMM_PMV2_50_t { text "%6.3lf"; Convert BMM_VOLTS_t; }
+  Calibration (BMM_PMV2_50_t, BMM_VOLTS_t) {
+    0, 0,
+    65536, 62.464
+  }
+TM typedef uint16_t BMM_PM_N_t { text "%5u"; }
+TM typedef uint16_t BMM_PM_Status_t { text "%4d"; }
+TM typedef uint16_t BMM_T30K75KU { text "%6.2lf"; Convert BMM_CELCIUS_t; }
+TM typedef uint16_t BMM_ADS_N_t { text "%5u"; }
+TM typedef uint16_t BMM_cmds_t { text "%04X"; }
+
+TM 1 Hz BMM_PMI_28_t    PM28I;
+TM 1 Hz BMM_PMV1_t      PM28V1;
+TM 1 Hz BMM_PMV2_28_t   PM28V2;
+TM 1 Hz BMM_PM_N_t      PM28N;
+TM 1 Hz BMM_PM_Status_t PM28_Status;
+TM 1 Hz BMM_T30K75KU    BMM28T1;
+TM 1 Hz BMM_T30K75KU    BMM28T2;
+TM 1 Hz BMM_ADS_N_t     BMM28_ADS_N;
+
+Group BMM1 (PM28I, PM28V1, PM28V2, PM28N, PM28_Status,
+            BMM28T1, BMM28T2, BMM28_ADS_N, BMM_cmds) {
+  if (bmm_mread(BMM_mreq1)) {
+    PM28I = BMM_rvals[0];
+    PM28V1 = BMM_rvals[1];
+    PM28V2 = BMM_rvals[2];
+    PM28N = BMM_rvals[3];
+    PM28_Status = BMM_rvals[4];
+    BMM28T1 = BMM_rvals[5];
+    BMM28T2 = BMM_rvals[6];
+    BMM28_ADS_N = BMM_rvals[7];
+    BMM_cmds = BMM_rvals[8];
+  }
+}
+

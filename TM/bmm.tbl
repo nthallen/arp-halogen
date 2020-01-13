@@ -1,0 +1,18 @@
+V28 {
+  HBox { +-; Title: "28.8V"; -+ };
+
+  TRU:    (TRU_cmd,3);
+  I:      (PM28I,6)    A;
+  V1:     (PM28V1,7)   V;
+  V2:     (PM28V2,6)   V;
+  N:      (PM28N,5);
+  Status: (PM28_Status,4);
+  T1:     (BMM28T1,6)  C;
+  T2:     (BMM28T2,6)  C;
+  ADS_N:  (BMM28_ADS_N,5);
+  Cmds:   (BMM_cmds,4);
+}
+
+BMM {
+  HBox { [V28] };
+}

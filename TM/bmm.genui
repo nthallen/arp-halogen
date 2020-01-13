@@ -1,0 +1,13 @@
+ 1 PM28I BMM I
+ 1 PM28V1 BMM V
+ 1 PM28V2 BMM V
+ 1 PM28N  BMM N
+ 1 BMM28T1 BMM T
+ 1 BMM28T2 BMM T
+ 1 BMM28_ADS_N BMM N
+ 1 PM28_Status
+ 1 S_LED:BMM_cmds:0 BMM Status
+ 1 F_LED:BMM_cmds:1 BMM Status
+ 1 TRU_cmd:BMM_cmds:2 BMM Status
+ 1 VDD2SENSE:BMM_cmds:3 BMM Status
+ 1 ALRT:BMM_cmds:4 BMM Status
