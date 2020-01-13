@@ -46,6 +46,7 @@ TM 1 Hz BMM_PM_Status_t PM28_Status;
 TM 1 Hz BMM_T30K75KU    BMM28T1;
 TM 1 Hz BMM_T30K75KU    BMM28T2;
 TM 1 Hz BMM_ADS_N_t     BMM28_ADS_N;
+TM 1 Hz BMM_cmds_t      BMM_cmds;
 
 Group BMM1 (PM28I, PM28V1, PM28V2, PM28N, PM28_Status,
             BMM28T1, BMM28T2, BMM28_ADS_N, BMM_cmds) {

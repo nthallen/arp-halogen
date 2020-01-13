@@ -2,6 +2,7 @@ tmcbase = types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 tmcbase = rfd.tmc
 tmcbase = nav.tmc
 tmcbase = T30K1MU.tmc
+tmcbase = bmm.tmc
 
 colbase = Halcol.tmc
 colbase = idxcol.tmc
@@ -13,6 +14,7 @@ cmdbase = /usr/local/share/huarp/idx64.cmd
 cmdbase = idxdrv.cmd
 cmdbase = Hal.cmd
 cmdbase = rfd.cmd
+cmdbase = bmm.cmd
 
 genuibase = Hal.genui
 extbase = check.tmc bmm_conv.tmc
@@ -28,14 +30,14 @@ SCRIPT = runfile.FF
 OBJ = NOTitr_4.tmc
 TGTDIR = $(TGTNODE)/home/Hal
 
-Halsrvr : -lsubbus CAN.oui
-Halcol : -lsubbus
+Halsrvr : -lsubbus -lsubbuspp CAN.oui
+Halcol : -lsubbus -lsubbuspp
 muxctrl : muxctrl.cc muxctrl.oui -ltmpp
 rfd : rfd.cc rfd.oui
 Hal.sft : Hal.sol
 
-hddisp : idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
-thdisp : dstat.tmc VT.tmc VI.tmc /usr/local/share/huarp/flttime.tmc therm.tbl dhtr.tbl
+hddisp : idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
+thdisp : dstat.tmc VT.tmc VI.tmc therm.tbl dhtr.tbl
 gddisp : dstat.tmc gasdiag.tbl
 rvdisp : Rover.tbl
 

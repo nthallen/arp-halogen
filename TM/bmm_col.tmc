@@ -1,4 +1,6 @@
 %{
+  #include "msg.h"
+
   subbuspp *CAN;
   typedef struct {
     subbus_mread_req *req;
@@ -17,9 +19,18 @@
             uint16_t cmd_stat_addr) {
     uint16_t bdid_hi = bdid<<8;
     char mreqstr[30];
-    snprintf(mreqstr, 30, "%X:1:%X,%X", bdid_hi | start, bdid_hi | (start+n_reads-1),
-              bdid_hi | cmd_stat_addr);
-    subbus_mread_req *mreq = P->pack_mread_request(n_reads+1, mreqstr);
+    if (cmd_stat_addr) {
+      snprintf(mreqstr, 30, "%X:1:%X,%X",
+          bdid_hi | start,
+          bdid_hi | (start+n_reads-1),
+          bdid_hi | cmd_stat_addr);
+      ++n_reads;
+    } else {
+      snprintf(mreqstr, 30, "%X:1:%X",
+          bdid_hi | start,
+          bdid_hi | (start+n_reads-1));
+    }
+    subbus_mread_req *mreq = P->pack_mread_request(n_reads, mreqstr);
     return mreq;
   }
   
@@ -85,7 +96,7 @@
     // msg(0,"read_ack(0x%02X03)", bdid);
     uint16_t values[4];
     uint16_t nread;
-    subbus_mread_req *mreq = CAN_sequential_mread(CAN, bdid, 0x05, 4);
+    subbus_mread_req *mreq = CAN_sequential_mread(CAN, bdid, 0x05, 4, 0);
     CAN->mread_subbus_nw(mreq, values, &nread);
     msg(0, "  Board ID:%d Build:%d S/N:%d Instrument:%d", values[0], values[1], values[2], values[3]);
     free_memory(mreq);

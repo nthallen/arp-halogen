@@ -80,12 +80,6 @@ NOTitr_4ext.cc
 NOTitr_4extoui.c
 NOTitr_4extoui.o
 NOTitr_4ext.o
-halengextcdf.oui
-halengcdf.tmc
-halengext.cc
-halengextoui.c
-halengextoui.o
-halengext.o
 checkext.cc
 checkextoui.c
 checkextoui.o
@@ -96,6 +90,13 @@ Halcltoui.o
 Halcltnc.o
 Halcltncoui.c
 Halcltncoui.o
+Halengext.cdf
+Halengextcdf.oui
+Halengextcdf.tmc
+Halengext.cc
+Halengextoui.c
+Halengextoui.o
+Halengext.o
 haldiagtbl.tmc.dep
 haldiagtblnc.tmc.dep
 thermtbl.tmc.dep
@@ -126,7 +127,7 @@ Halfalgo
 Halalgo
 Calcext
 NOTitr_4ext
-halengext
 checkext
 Halclt
 Halcltnc
+Halengext
