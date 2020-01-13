@@ -26,12 +26,16 @@ MF {
   VGlue 0+1;
   MF: (MFCtr,5);
 }
-{ HBox { |; {
+RoverB { HBox { |; {
   { HBox { +-; Title: "Roving Thermistors"; -+ };
     HBox { [R1]; |; [R2]; |; [R3]; |; [R4] };
     +-+;
     >[MF];
     +-+;
   } }; | }
+}
+Rover {
+  HBox { +-; Title: "Roving Thermistors"; -+ };
+  HBox { [R1]; |; [R2]; |; [R3]; |; [R4] };
 }
 

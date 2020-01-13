@@ -20,7 +20,7 @@ SW {
   Time: (flttime,9) MFCtr: (MFCtr,5);
 }
 
-{
+thermB {
   HBox {
     |+; {
       [FlowT];
@@ -29,4 +29,8 @@ SW {
     }; |+;
   };
   -;
+}
+
+therm {
+  [FlowT];
 }

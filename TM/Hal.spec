@@ -3,6 +3,7 @@ tmcbase = rfd.tmc
 tmcbase = nav.tmc
 tmcbase = T30K1MU.tmc
 tmcbase = bmm.tmc
+tmcbase = BMM_T30K75KU.tmc
 
 colbase = Halcol.tmc
 colbase = idxcol.tmc
@@ -37,9 +38,10 @@ rfd : rfd.cc rfd.oui
 Hal.sft : Hal.sol
 
 hddisp : idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
-thdisp : dstat.tmc VT.tmc VI.tmc therm.tbl dhtr.tbl
+dhdisp : dstat.tmc VT.tmc VI.tmc dhtr.tbl
 gddisp : dstat.tmc gasdiag.tbl
-rvdisp : Rover.tbl
+# thdisp : dstat.tmc VT.tmc VI.tmc therm.tbl dhtr.tbl
+hkdisp : VT.tmc bmm_conv.tmc Housekeeping.tbl
 
 Hdoit : H.doit
 Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
