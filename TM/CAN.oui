@@ -7,8 +7,5 @@
   
 <include> "bmm.h"
 
-<defs>
-  subbuspp *CAN;
 <init>
-  CAN = new subbuspp("CAN");
-  CAN->load();
+  CAN_init();

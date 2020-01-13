@@ -2,12 +2,14 @@
   #include "bmm.h"
 
   #ifdef SERVER
-    int subbus_quit() {
-      return CAN->subbus_quit();
+    subbuspp *CAN;
+    
+    void CAN_init() {
+      CAN = new subbuspp("CAN");
+      CAN->load();
     }
   #endif
 %}
-# %INTERFACE <subbus>
 
 &command
  : BMM &BMM_ID &BMM_Switch &BMM_On_Off * {
