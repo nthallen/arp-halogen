@@ -256,12 +256,12 @@ State ABOVE_CLOUDS {
 PARTITION
 
 State Pump_Init {
-    depending on (BELOW_CLOUDS) { Validate Pump_On; }
-    depending on (ABOVE_CLOUDS) { Validate Pump_On; }
-    depending on (SHUTDOWN) { Validate Pump_Off; }
-    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
+#    depending on (BELOW_CLOUDS) { Validate Pump_On; }
+#    depending on (ABOVE_CLOUDS) { Validate Pump_On; }
+#    depending on (SHUTDOWN) { Validate Pump_Off; }
+#    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
 
- +3 > Pump Off
+# +3 > Pump Off
 
     # Hold until (convert(PmotT) < 10.);
     # Hold until (convert(PmotT) > 12.) OR 3:00
@@ -284,28 +284,28 @@ State Pump_Init {
 #     }
 # }
 
-State Pump_On {
-    depending on (ON_GROUND) { Validate Pump_Off; }
-    depending on (SHUTDOWN) { Validate Pump_Off; }
-    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
-    > Pump On
-    { if (convert(PmotT) > 65.) {
-        msg(2, "Pump Over Temperature: Motor: %.1lf",
-          convert(PmotT) );
-        Validate Pump_Over_Temp;
-      }
-    }
-}
+#State Pump_On {
+#    depending on (ON_GROUND) { Validate Pump_Off; }
+#    depending on (SHUTDOWN) { Validate Pump_Off; }
+#    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
+#    > Pump On
+#    { if (convert(PmotT) > 65.) {
+#        msg(2, "Pump Over Temperature: Motor: %.1lf",
+#          convert(PmotT) );
+#        Validate Pump_Over_Temp;
+#      }
+#    }
+#}
     
-State Pump_Over_Temp {
-    depending on (ON_GROUND) { Validate Pump_Off; }
-    depending on (SHUTDOWN) { Validate Pump_Off; }
-    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
-    > Pump Off
-    Hold until (convert(PmotT) < 35.);
-    Validate Pump_On;
-}
+#State Pump_Over_Temp {
+#    depending on (ON_GROUND) { Validate Pump_Off; }
+#    depending on (SHUTDOWN) { Validate Pump_Off; }
+#    depending on (QUICK_SHUTDOWN) { Validate Pump_Off; }
+#    > Pump Off
+#    Hold until (convert(PmotT) < 35.);
+#    Validate Pump_On;
+#}
 
-State Pump_Off {
-    > Pump Off
-}
+#State Pump_Off {
+#    > Pump Off
+#}

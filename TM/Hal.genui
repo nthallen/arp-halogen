@@ -100,8 +100,8 @@ ROWS 18
 1/4 SDP1T Pressure T 
 1/4 SDP2T Pressure T 
 1 PumpS Pump Status 
-1/4 PmotT Pump T 
-1 PumpT Pump T 
+# 1 PmotT Pump T 
+# 1 PumpT Pump T 
 1 A_ok:RFDalive:0 RF Alive 
 1 B_ok:RFDalive:0 RF Alive 
 1 C_ok:RFDalive:0 RF Alive 
@@ -149,9 +149,9 @@ ROWS 18
 1 NOH1S:DS80A:4 Soldrv Solenoids 
 1 NOH2S:DS815:5 Soldrv Solenoids 
 4 HSolS Soldrv SolStat 
-1/4 Air1T Temps Air 1 %-
-1/4 Air2T Temps Air 2 %-
-1/4 Air3T Temps Air 3 %-
+1/4 Air1T Temps Air %- 1
+1/4 Air2T Temps Air %- 2
+1/4 Air3T Temps Air %- 3
 1/4 Exh1T Temps Exh 
 1/4 Exh2T Temps Exh 
 1/4 Exh3T Temps Exh 
@@ -184,14 +184,24 @@ ROWS 18
 1 SF2F4 Temps SF2F 4
 1 SF2F5 Temps SF2F 5
 1 SF2F6 Temps SF2F 6
-1 A:SV2St:4 Throttle Bits 
-1 B:SV2St:5 Throttle Bits 
-1 C:SV2St:7 Throttle Bits 
-1 D:SV2St:2 Throttle Bits 
-1 I:SV2St:0 Throttle Bits 
-1 O:SV2St:1 Throttle Bits 
-1 R:SV2St:3 Throttle Bits 
+1 A:SV1St:4 Throttle Bits1 
+1 B:SV1St:5 Throttle Bits1 
+1 C:SV1St:7 Throttle Bits1 
+1 D:SV1St:2 Throttle Bits1 
+1 I:SV1St:0 Throttle Bits1 
+1 O:SV1St:1 Throttle Bits1 
+1 R:SV1St:3 Throttle Bits1 
+1 Z:SV1St:6 Throttle Bits1
+1 A:SV2St:4 Throttle Bits2 
+1 B:SV2St:5 Throttle Bits2 
+1 C:SV2St:7 Throttle Bits2 
+1 D:SV2St:2 Throttle Bits2 
+1 I:SV2St:0 Throttle Bits2 
+1 O:SV2St:1 Throttle Bits2 
+1 R:SV2St:3 Throttle Bits2 
+1 Z:SV2St:6 Throttle Bits2
 4 Scan:IXStt:0 Throttle Bits 
-1 Z:SV2St:6 Throttle Bits 
+1 SV1Ps Throttle Pot 
+1 SV1Step Throttle Step 
 1 SV2Ps Throttle Pot 
 1 SV2Step Throttle Step 

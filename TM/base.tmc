@@ -91,7 +91,7 @@ TM 1 Hz AD12 D_IRV; Address D_IRV 0xC54;
 /* TM 1 Hz AD12 D_UVV; Address D_UVV 0xC4E; */
 /* TM 1 Hz PRES_MXP4250 DewrP; Address DewrP 0xDA8; */
 /* TM 1 Hz AD12 Dwr1T; Address Dwr1T 0xCC2; */
-TM 1 Hz AD12_T30K1MU PumpT; Address PumpT 0xCC4; /* Dwr2T */
+/* TM 1 Hz AD12_T30K1MU PumpT; Address PumpT 0xCC4; */ /* Dwr2T */
 /* TM 1 Hz AD12_10V DyFlw; Address DyFlw 0xCBC; */
 /* TM 4 Hz AD12 EtPos; Address EtPos 0xCBA; */
 /* TM 4 Hz AD12 Et_LW; Address Et_LW 0xCB0; */
@@ -181,7 +181,7 @@ TM 1 Hz AD12_T10K23 SF2F3; Address SF2F3 0xC42;
 TM 1 Hz AD12_T10K24 SF2F4; Address SF2F4 0xC40;
 TM 1 Hz AD12_T10K25 SF2F5; Address SF2F5 0xC3E;
 TM 1 Hz AD12_T10K26 SF2F6; Address SF2F6 0xC3C;
-/* TM 1/4 Hz AD12 SV1Ps; Address SV1Ps 0xD2C; */
+TM 1 Hz AD12 SV1Ps; Address SV1Ps 0xD2C;
 TM 1 Hz AD12 SV2Ps; Address SV2Ps 0xC2C;
 /* TM 1 Hz AD12 Sp_NitrP; Address Sp_NitrP 0xCC0; */
 /* TM 1 Hz AD12 TVPos; Address TVPos 0xCCA; */
