@@ -658,12 +658,11 @@ Calibration ( AD12_DP1, TORR ) {
 
 /* AD12_DP2: Modified to report 0-1000 Torr for lab. Was 0-1 Torr */
 /* Original offset was 0.0465 */
-/* TM typedef AD12 AD12_DP2 { convert TORR; text "%6.2lf"; }
+/* TM typedef AD12 AD12_DP2 { convert TORR; text "%6.2lf"; } */
+TM typedef AD12 AD12_DP2 { convert TORR; text "%6.4lf"; }
 Calibration ( AD12_DP2, TORR ) {
-      0,  0.,
-  65536,  1011.9
-} */
-Calibration ( AD12_DP2, TORR ) {
+/*    0,  0.,
+  65536,  1011.9 */
       0,  0.0465,
   65536,  1.00
 }
