@@ -5,7 +5,8 @@ tmcbase = T30K1MU.tmc
 tmcbase = /usr/local/share/huarp/flttime.tmc 
 
 genuibase = Hal.genui
-extbase = check.tmc
+genuibase = dhtr.genui
+extbase = check.tmc VT.tmc VI.tmc
 
 cmdbase = /usr/local/share/huarp/root.cmd
 cmdbase = /usr/local/share/huarp/getcon.cmd
