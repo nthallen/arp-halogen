@@ -66,6 +66,18 @@ Halalgo.cc
 Halalgooui.c
 Halalgooui.o
 Halalgo.o
+Calcextcdf.oui
+Calcextcdf.tmc
+Calcext.cc
+Calcextoui.c
+Calcextoui.o
+Calcext.o
+NOTitr_4extcdf.oui
+NOTitr_4extcdf.tmc
+NOTitr_4ext.cc
+NOTitr_4extoui.c
+NOTitr_4extoui.o
+NOTitr_4ext.o
 checkext.cc
 checkextoui.c
 checkextoui.o
@@ -109,6 +121,8 @@ hkdispnc
 Hdoit
 Halfalgo
 Halalgo
+Calcext
+NOTitr_4ext
 checkext
 Halclt
 Halcltnc

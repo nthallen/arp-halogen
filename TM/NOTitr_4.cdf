@@ -1,5 +1,6 @@
-spreadsheet SolAd11 30
+csv SolAd11 30
 condition depending on ( 4 Hz, DetA_Z once )
+        0 TSolAd11 %.3lf
 	1 DetA_Z %6.0lf /**/
 	2 DetA_A %6.0lf /**/
 	3 DetA_B %6.0lf /**/
@@ -30,8 +31,9 @@ condition depending on ( 4 Hz, DetA_Z once )
 	28 SD1_P_C  %8.2lf /**/
 	29 SD1_P_D  %8.2lf /**/
 	
-spreadsheet SolAd21 30
+csv SolAd21 30
 condition depending on ( 4 Hz, DetC_Z once )
+        0 TSolAd21 %.3lf
 	1 DetC_Z %6.0lf /**/
 	2 DetC_A %6.0lf /**/
 	3 DetC_B %6.0lf /**/
@@ -62,8 +64,9 @@ condition depending on ( 4 Hz, DetC_Z once )
 	28 SD2_P_C  %8.2lf /**/
 	29 SD2_P_D  %8.2lf /**/
 
-spreadsheet SolAd12 24
+csv SolAd12 24
 condition depending on ( 4 Hz, SD1DP_Z once )
+        0 TSolAd12 %.3lf
 	1 SD1DP_Z %8.2lf /**/
 	2 SF1FTemp_Z %8.2lf /**/
 	3 SF1FTemp_A %8.2lf /**/
@@ -88,8 +91,9 @@ condition depending on ( 4 Hz, SD1DP_Z once )
 	22 SF1B5_CD  %8.2lf /**/
 	23 SD1Vel_Z %8.2lf /**/
 
-spreadsheet SolAd22 24
+csv SolAd22 24
 condition depending on ( 4 Hz, SD2DP_Z once )
+        0 TSolAd24 %.3lf
 	1 SD2DP_Z %8.2lf /**/
 	2 SF2FTemp_Z %8.2lf /**/
 	3 SF2FTemp_A %8.2lf /**/

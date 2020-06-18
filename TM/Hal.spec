@@ -47,8 +47,8 @@ Hdoit : H.doit
 Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
 Halalgo : Hal.tma
 
-# Calcext : VT.tmc Calc.edf
-# NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.edf
+Calcext : VT.tmc Calc.cdf
+NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.cdf
 # halengext : check.tmc haleng.cdf
 checkext : check.tmc
 
