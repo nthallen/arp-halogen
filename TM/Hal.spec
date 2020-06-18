@@ -2,6 +2,7 @@ tmcbase = types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 tmcbase = rfd.tmc
 tmcbase = nav.tmc
 tmcbase = T30K1MU.tmc
+tmcbase = /usr/local/share/huarp/flttime.tmc 
 
 cmdbase = /usr/local/share/huarp/root.cmd
 cmdbase = /usr/local/share/huarp/getcon.cmd
@@ -29,8 +30,8 @@ muxctrl : muxctrl.cc muxctrl.oui -ltmpp
 rfd : rfd.cc rfd.oui
 Hal.sft : Hal.sol
 
-hddisp : idxflag.tmc VT.tmc dstat.tmc /usr/local/share/huarp/flttime.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
-thdisp : dstat.tmc VT.tmc VI.tmc /usr/local/share/huarp/flttime.tmc therm.tbl dhtr.tbl
+hddisp : idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
+thdisp : dstat.tmc VT.tmc VI.tmc therm.tbl dhtr.tbl
 gddisp : dstat.tmc gasdiag.tbl
 rvdisp : Rover.tbl
 
@@ -54,8 +55,8 @@ Calcext : VT.tmc Calc.edf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.edf
 #HEng1ext : VI.tmc VT.tmc HEng1.edf
 #HEng1txtext : VI.tmc VT.tmc HEng1txt.tmc
-halengext : /usr/local/share/huarp/flttime.tmc check.tmc haleng.cdf
-checkext : /usr/local/share/huarp/flttime.tmc check.tmc
+halengext : check.tmc haleng.cdf
+checkext : check.tmc
 %%
 CFLAGS=-Wall -g
 CXXFLAGS=-Wall -g
