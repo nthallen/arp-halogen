@@ -1,7 +1,7 @@
 %{
   #include "subbus.h"
 %}
-TM typedef double VOLTS;
+TM typedef double VOLTS { text "%6.4lf"; }
 
 TM typedef unsigned short AD12 {
   collect x = (sbrwa(x.address) & 0x0FFF)<<4;

@@ -2,6 +2,7 @@ tmcbase = types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
 tmcbase = rfd.tmc
 tmcbase = nav.tmc
 tmcbase = T30K1MU.tmc
+tmcbase = /usr/local/share/huarp/flttime.tmc 
 tmcbase = bmm.tmc
 tmcbase = BMM_T30K75KU.tmc
 
@@ -9,6 +10,10 @@ colbase = Halcol.tmc
 colbase = idxcol.tmc
 colbase = navcol.tmc
 colbase = bmm_col.tmc
+
+genuibase = Hal.genui
+genuibase = dhtr.genui
+extbase = check.tmc VT.tmc VI.tmc
 
 cmdbase = scdc.cmd daspt.cmd
 cmdbase = /usr/local/share/huarp/idx64.cmd
@@ -40,7 +45,6 @@ Hal.sft : Hal.sol
 hddisp : idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
 dhdisp : dstat.tmc VT.tmc VI.tmc dhtr.tbl
 gddisp : dstat.tmc gasdiag.tbl
-# thdisp : dstat.tmc VT.tmc VI.tmc therm.tbl dhtr.tbl
 hkdisp : VT.tmc bmm_conv.tmc Housekeeping.tbl
 
 Hdoit : H.doit
@@ -49,7 +53,6 @@ Halalgo : Hal.tma
 
 Calcext : VT.tmc Calc.cdf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.cdf
-# halengext : check.tmc haleng.cdf
 checkext : check.tmc
 
 #STAText : STAT.edf
@@ -68,5 +71,3 @@ CFLAGS=-Wall -g
 CXXFLAGS=-Wall -g
 NOTitr_4.tmc : NOTitr_4.cyc
 	cycle NOTitr_4.cyc >NOTitr_4.tmc
-#haleng.cdf : genui.txt
-#	genui -d ../eng -c genui.txt
