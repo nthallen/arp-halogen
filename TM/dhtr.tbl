@@ -54,7 +54,7 @@ DHtr2 {
 }
 
 Status {
-  HBox { { TRU: (Fail1,3) }; HGlue 2+1;
+  HBox { { TRU: (TRU_cmd,3) }; HGlue 2+1;
          { V28V3: (V28V3,5) V }; HGlue 2+1;
 		 { "Total Power:" (DHP,5) W }; HGlue 2+1;
 		 { MFCtr: (MFCtr,5) }

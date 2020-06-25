@@ -43,7 +43,7 @@ rfd : rfd.cc rfd.oui
 Hal.sft : Hal.sol
 
 hddisp : idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc rfdbits.tmc haldiag.tbl
-dhdisp : dstat.tmc VT.tmc VI.tmc dhtr.tbl
+dhdisp : dstat.tmc VT.tmc VI.tmc bmm_conv.tmc dhtr.tbl
 gddisp : dstat.tmc gasdiag.tbl
 hkdisp : VT.tmc bmm_conv.tmc Housekeeping.tbl
 

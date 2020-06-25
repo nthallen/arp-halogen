@@ -22,7 +22,7 @@
     if (cmd_stat_addr) {
       snprintf(mreqstr, 30, "%X:1:%X,%X",
           bdid_hi | start,
-          bdid_hi | (start+n_reads-1),
+          bdid_hi | (start+n_reads-2),
           bdid_hi | cmd_stat_addr);
       ++n_reads;
     } else {
@@ -120,7 +120,7 @@
     identify_board(1);
     // identify_board(2);
     // identify_board(3);
-    BMM_mreq1 = BMM_mread_init(1, 0x21, 8, 0x30);
+    BMM_mreq1 = BMM_mread_init(1, 0x21, 9, 0x30);
     // BMM_mreq2 = BMM_mread_init(2, 0x21, 8);
     // BMM_mreq3 = BMM_mread_init(3, 0x21, 8);
   }

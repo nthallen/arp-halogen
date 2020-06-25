@@ -13,6 +13,7 @@
   Launch -              dccc -f $TMBINDIR/dccc.dccc
   Launch DG/cmd         nice -n-1 Halcol
   Launch cmd/server     Halsrvr
+  Launch -              tmdf
   Launch -              lgr -N `mlf_find LOG`
   Launch -              idx64 `cat $TMBINDIR/idx.idx64`
 

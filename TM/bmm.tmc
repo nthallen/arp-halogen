@@ -59,7 +59,7 @@ Group BMM1 (PM28I, PM28V1, PM28V2, PM28N, PM28_Status,
     BMM28T1 = BMM_rvals[5];
     BMM28T2 = BMM_rvals[6];
     BMM28_ADS_N = BMM_rvals[7];
-    BMM_cmds = BMM_rvals[8];
+    BMM_cmds = BMM_rvals[8] ^ 0x04;
   }
 }
 
