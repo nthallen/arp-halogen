@@ -21,6 +21,7 @@ cmdbase = idxdrv.cmd
 cmdbase = Hal.cmd
 cmdbase = rfd.cmd
 cmdbase = bmm.cmd
+cmdbase = mux.cmd
 
 genuibase = Hal.genui
 extbase = check.tmc bmm_conv.tmc

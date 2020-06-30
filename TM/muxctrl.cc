@@ -44,14 +44,23 @@ void muxctrlr::set_mode(unsigned length, uint8_t *addrs) {
   mode_length = length;
   mode_addrs = addrs;
   mode_idx = 0;
-  if (mode_length > 0)
+  if (mode_length > 0) {
     MuxAddr = mode_addrs[mode_idx++]; // prep for next address
+    if (mode_idx >= mode_length)
+      mode_idx = 0;
+  }
 }
 
 int muxctrlr::ProcessData(int flag) {
   int rv = ci_sendfcmd(2, "Mux address set %d\n", MuxAddr );
   if (rv != 0) return 1;
-  MuxAddr = (MuxAddr + 1) & 0xF;
+  if (mode_length > 0) {
+    MuxAddr = mode_addrs[mode_idx++];
+    if (mode_idx >= mode_length)
+      mode_idx = 0;
+  } else {
+    MuxAddr = (MuxAddr + 1) & 0xF;
+  }
   return 0;
 }
 
@@ -63,10 +72,12 @@ class muxcmd : public Cmd_Selectee {
     int ProcessData(int flag);
   private:
     muxctrlr *mux;
+    uint8_t fixed_addr;
 };
 
 /**
  * Command format: M\d+ = Select mode #
+ *                 A\d+ = Select single mux address
  *                 Q = Quit
  */
 int muxcmd::ProcessData(int flag) {
@@ -78,8 +89,19 @@ int muxcmd::ProcessData(int flag) {
       consume(nc);
       return 1;
     }
-    if (not_str("M") ||
-        not_int(mode)) {
+    if (buf[cp] == 'A') {
+      ++cp;
+      if (not_int(mode)) {
+        if (cp >= nc)
+          report_err("Expected address after 'A'");
+      } else if (mode < 0 || mode > 15) {
+        report_err("Invalid mux address %d", mode);
+      } else {
+        fixed_addr = mode;
+        mux->set_mode(1, &fixed_addr);
+      }
+    } else if (not_str("M") ||
+               not_int(mode)) {
       if (cp >= nc)
         report_err("Expected M<mode>");
     } else {
