@@ -2,6 +2,7 @@
   Alternately talks to collection and cmdsrvr, updating
   mux address.
  */
+#include <stdint.h>
 #include "oui.h"
 #include "nortlib.h"
 //#include "collect.h"
@@ -39,7 +40,7 @@ muxctrlr::muxctrlr() : Selectee() {
   mode_idx = 0;
 }
 
-muxctrlr::set_mode(unsigned length, uint8_t *addrs) {
+void muxctrlr::set_mode(unsigned length, uint8_t *addrs) {
   mode_length = length;
   mode_addrs = addrs;
   mode_idx = 0;
@@ -113,7 +114,7 @@ int main( int argc, char **argv ) {
   // Cmd_Selectee *Quit = new Cmd_Selectee();
   // S.add_child(Quit);
   muxcmd *cmd = new muxcmd(mux);
-  S.add_chile(cmd);
+  S.add_child(cmd);
 
   nl_error(0, "Installed" );
   S.event_loop();
