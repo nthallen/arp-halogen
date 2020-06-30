@@ -1,12 +1,12 @@
-TM 4 Hz AD12  MUX01;   Address MUX01 0xDC2;
-TM 4 Hz AD12  MUX02;   Address MUX02 0xDC4;
-TM 4 Hz AD12  MUX03;   Address MUX03 0xDC6;
-TM 4 Hz AD12  MUX04;   Address MUX04 0xDC8;
-TM 4 Hz AD12  MUX05;   Address MUX05 0xDCA;
-TM 4 Hz AD12  MUX06;   Address MUX06 0xDCC;
-TM 4 Hz AD12  MUX07;   Address MUX07 0xDCE;
-TM 4 Hz UCHAR MUXAddr; Address MUXAddr 0x868;
-TM 4 Hz UCHAR MUXStale;
+TM 1 Hz AD12  MUX01;   Address MUX01 0xDC2;
+TM 1 Hz AD12  MUX02;   Address MUX02 0xDC4;
+TM 1 Hz AD12  MUX03;   Address MUX03 0xDC6;
+TM 1 Hz AD12  MUX04;   Address MUX04 0xDC8;
+TM 1 Hz AD12  MUX05;   Address MUX05 0xDCA;
+TM 1 Hz AD12  MUX06;   Address MUX06 0xDCC;
+TM 1 Hz AD12  MUX07;   Address MUX07 0xDCE;
+TM 1 Hz UCHAR MUXAddr; Address MUXAddr 0x868;
+TM 1 Hz UCHAR MUXStale;
 
 TM "Receive" MUXCtrl 1;
 
