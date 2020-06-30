@@ -12,10 +12,13 @@
 
 unsigned short MUXCtrl;
 
-uint8_t mode_NO[] = {0, 11};
-uint8_t mode_N2[] = {1, 12};
-uint8_t mode_N22[] = {2, 9};
-uint8_t mode_Air[] = {4, 13};
+/* NO_HP  0  NO_LP 11
+   N2_HP  1  N2_LP 12
+   Air_HP 4  Air_LP 13
+ */
+uint8_t mode_NO[] = {0, 11, 1, 0, 11, 12, 0, 11, 4, 0, 11, 13};
+uint8_t mode_N2[] = {1, 12, 0, 1, 12, 11, 1, 12, 4, 1, 12, 13};
+uint8_t mode_Air[] = {4, 13, 0, 4, 13, 11, 4, 13, 1, 4, 13, 12};
 
 class muxctrlr : public Selectee {
   public:
