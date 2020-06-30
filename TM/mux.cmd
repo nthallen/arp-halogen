@@ -1,4 +1,4 @@
-%IINTERFACE <Mux>
+%INTERFACE <Mux>
 
 &command
   : muxctrl Mode &muxmode * { if_Mux.Turf("M%d\n", $3); }
