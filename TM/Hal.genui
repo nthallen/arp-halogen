@@ -36,8 +36,8 @@ ROWS 18
 1/16 Gas5T GasDeck T 5
 1 CpSw0:IOSwS:4 HK Switches 
 1 CpSw1:IOSwS:5 HK Switches 
-1/16 Fail0:FailS:0 HK Switches 
-1/16 Fail1:FailS:1 HK Switches 
+1/4 Fail0:FailS:0 HK Switches 
+1/4 Fail1:FailS:1 HK Switches 
 1 IOSw0:IOSwS:0 HK Switches 
 1 IOSw1:IOSwS:1 HK Switches 
 1/16 Aux_T HK T %-
