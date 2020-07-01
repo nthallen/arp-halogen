@@ -2,6 +2,8 @@
   #include "msg.h"
 
   subbuspp *CAN;
+  bool bmm_is_present = false;
+  
   typedef struct {
     subbus_mread_req *req;
     uint16_t bdid;
@@ -47,6 +49,7 @@
   
   bool bmm_mread(bmm_mread_t *bmm) {
     uint16_t nwords;
+    if (!bmm_is_present) return false;
     int rv = CAN->mread_subbus_nw(bmm->req, &BMM_rvals[0], &nwords);
     if (rv < 0) {
       msg(2, "mread_subbus_nw(bmm%d) returned error %d", bmm->bdid, rv);
@@ -116,13 +119,14 @@
   
   void CAN_init() {
     CAN = new subbuspp("CAN");
-    CAN->load();
-    identify_board(1);
-    // identify_board(2);
-    // identify_board(3);
-    BMM_mreq1 = BMM_mread_init(1, 0x21, 9, 0x30);
-    // BMM_mreq2 = BMM_mread_init(2, 0x21, 8);
-    // BMM_mreq3 = BMM_mread_init(3, 0x21, 8);
+    int subfunc = CAN->load();
+    if (subfunc == 0) {
+      msg(2, "subbusd_slcan Not Found, no TRU functions");
+    } else {
+      bmm_is_present = true;
+      identify_board(1);
+      BMM_mreq1 = BMM_mread_init(1, 0x21, 9, 0x30);
+    }
   }
 %}
 TM INITFUNC CAN_init();
