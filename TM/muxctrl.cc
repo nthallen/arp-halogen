@@ -70,7 +70,7 @@ int muxctrlr::ProcessData(int flag) {
 class muxcmd : public Cmd_Selectee {
   public:
     inline muxcmd(muxctrlr *mux)
-      : Cmd_Selectee("cmd/Mux"),
+      : Cmd_Selectee("cmd/Mux",80),
         mux(mux) {}
     int ProcessData(int flag);
   private:
