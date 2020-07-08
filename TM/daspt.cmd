@@ -64,8 +64,8 @@
   : Spare AO APD 2 HV Setpoint { $0 = 0xE62; }
   ;
 &flowspt_cmd <int>
-  : GasDeck ClONO2 Flow SetPoint { $0 = 0xCEC; }
-  : GasDeck NO2 Flow SetPoint { $0 = 0xC60; }
+# : GasDeck ClONO2 Flow SetPoint { $0 = 0xCEC; }
+# : GasDeck NO2 Flow SetPoint { $0 = 0xC60; }
   : GasDeck NO Flow to Duct 1 SetPoint { $0 = 0xCEE; }
   : GasDeck NO Flow to Duct 2 SetPoint { $0 = 0xD60; }
   ;

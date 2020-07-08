@@ -25,7 +25,7 @@
                         # updated accordingly.
                         #------------------------------------
   Launch -              soldrv -h HalSol -d 1 $TMBINDIR/Hal.sft
-  Launch -              rfd
+# Launch -              rfd
   Launch -              muxctrl
 
                         #------------------------------------

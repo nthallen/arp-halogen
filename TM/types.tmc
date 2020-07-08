@@ -673,6 +673,14 @@ Calibration ( AD12_DPP, TORR ) {
   65536,  10.00
 }
 
+/* Conversion for LabDuctP. 0-1000 Torr = 0-10 V.
+   Divider is 12K/8K, so * 0.4 */
+TM typedef AD12 AD12_1000Torr { convert TORR; text "%7.2lf"; }
+Calibration ( AD12_1000Torr, TORR ) {
+      0,    0.00,
+  64000, 1000.00
+}
+
 TM typedef AD12 AD12_PWRV { convert VOLTS; text "%4.1lf"; }
 Calibration ( AD12_PWRV, VOLTS ) {
      0,    0,

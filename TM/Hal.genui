@@ -2,53 +2,53 @@ HEADER Harvard Halogens
 MNEMONIC hal
 HOMEDIR Hal_Data_Dir
 ROWS 18
-4 DetA Counts A 
-4 DetB Counts B 
-4 DetC Counts C 
-4 DetD Counts D 
-4 L2Stat:HCtStat:14 CtStat HCt 
-4 Ovf16_A:HCtStat:4 CtStat HCt 
-4 Ovf16_B:HCtStat:5 CtStat HCt 
-4 Ovf16_C:HCtStat:6 CtStat HCt 
-4 Ovf16_D:HCtStat:7 CtStat HCt 
-4 Ovf20_A:HCtStat:0 CtStat HCt 
-4 Ovf20_B:HCtStat:1 CtStat HCt 
-4 Ovf20_C:HCtStat:2 CtStat HCt 
-4 Ovf20_D:HCtStat:3 CtStat HCt 
-4 Resynch:HCtStat:15 CtStat HCt 
-1 NOH1Set Flows SetPt 
-1 NOH2Set Flows SetPt 
-4 NOH1F GasDeck Flows 
-4 NOH2F GasDeck Flows 
-1/16 AirHP GasDeck HP 
-1/16 N2_HP GasDeck HP 
-1/16 N22HP GasDeck HP 
-1/16 NO_HP GasDeck HP 
-1/16 AirLP GasDeck LP 
-1/16 N2_LP GasDeck LP 
-1/16 N22LP GasDeck LP 
-1/16 NO_LP GasDeck LP 
+4 DetA Counts A
+4 DetB Counts B
+4 DetC Counts C
+4 DetD Counts D
+4 L2Stat:HCtStat:14 CtStat HCt
+4 Ovf16_A:HCtStat:4 CtStat HCt
+4 Ovf16_B:HCtStat:5 CtStat HCt
+4 Ovf16_C:HCtStat:6 CtStat HCt
+4 Ovf16_D:HCtStat:7 CtStat HCt
+4 Ovf20_A:HCtStat:0 CtStat HCt
+4 Ovf20_B:HCtStat:1 CtStat HCt
+4 Ovf20_C:HCtStat:2 CtStat HCt
+4 Ovf20_D:HCtStat:3 CtStat HCt
+4 Resynch:HCtStat:15 CtStat HCt
+1 NOH1Set Flows SetPt
+1 NOH2Set Flows SetPt
+4 NOH1F GasDeck Flows
+4 NOH2F GasDeck Flows
+1/16 AirHP GasDeck HP
+1/16 N2_HP GasDeck HP
+1/16 N22HP GasDeck HP
+1/16 NO_HP GasDeck HP
+1/16 AirLP GasDeck LP
+1/16 N2_LP GasDeck LP
+1/16 N22LP GasDeck LP
+1/16 NO_LP GasDeck LP
 1/16 Air_T GasDeck T %-
 1/16 Gas1T GasDeck T 1
 1/16 Gas2T GasDeck T 2
 1/16 Gas3T GasDeck T 3
 1/16 Gas4T GasDeck T 4
 1/16 Gas5T GasDeck T 5
-1 CpSw0:IOSwS:4 HK Switches 
-1 CpSw1:IOSwS:5 HK Switches 
-1/4 Fail0:FailS:0 HK Switches 
-1/4 Fail1:FailS:1 HK Switches 
-1 IOSw0:IOSwS:0 HK Switches 
-1 IOSw1:IOSwS:1 HK Switches 
+1 CpSw0:IOSwS:4 HK Switches
+1 CpSw1:IOSwS:5 HK Switches
+1/4 Fail0:FailS:0 HK Switches
+1/4 Fail1:FailS:1 HK Switches
+1 IOSw0:IOSwS:0 HK Switches
+1 IOSw1:IOSwS:1 HK Switches
 1/16 Aux_T HK T %-
 1/16 Cvr1T HK T %-
 1/16 Cvr2T HK T %-
 1/16 Cvr3T HK T %-
-1/16 PC_1T HK T 
-1/16 PC_2T HK T 
-1/16 PS_1T HK T 
-1/16 PS_2T HK T 
-1/16 VicrT HK T 
+1/16 PC_1T HK T
+1/16 PC_2T HK T
+1/16 PS_1T HK T
+1/16 PS_2T HK T
+1/16 VicrT HK T
 1/16 ADetT Lamps DetT A
 1/16 BDetT Lamps DetT B
 1/16 CDetT Lamps DetT C
@@ -77,40 +77,28 @@ ROWS 18
 1 BRFFW Lamps RFFW B
 1 CRFFW Lamps RFFW C
 1 DRFFW Lamps RFFW D
-1 RFASet Lamps RFSet 
-1 RFBSet Lamps RFSet 
-1 RFCSet Lamps RFSet 
-1 RFDSet Lamps RFSet 
-1 Lmp_A:DS84A:4 Lamps Status 
-1 Lmp_B:DS84A:5 Lamps Status 
-1 Lmp_C:DS84A:6 Lamps Status 
-1 Lmp_D:DS84A:7 Lamps Status 
-1 V28I1 Power V28I 
-1 V28I2 Power V28I 
-1 V28I3 Power V28I 
-1 V28I4 Power V28I 
-1 V28V1 Power V28V 
-1 V28V2 Power V28V 
-1 V28V3 Power V28V 
-1 V28V4 Power V28V 
-4 SD1DP Pressure DP 
-4 SD2DP Pressure DP 
-4 SD1_P Pressure P 
-4 SD2_P Pressure P 
-1/16 SDP1T Pressure T 
-1/16 SDP2T Pressure T 
-1 PumpS Pump Status 
-# 1 PmotT Pump T 
-# 1 PumpT Pump T 
-1 A_ok:RFDalive:0 RF Alive 
-1 B_ok:RFDalive:0 RF Alive 
-1 C_ok:RFDalive:0 RF Alive 
-1 D_ok:RFDalive:0 RF Alive 
-1 RFDstale RF Stale 
-1 RFATemp RF T 
-1 RFBTemp RF T 
-1 RFCTemp RF T 
-1 RFDTemp RF T 
+1 Lmp_A:DS84A:4 Lamps Status
+1 Lmp_B:DS84A:5 Lamps Status
+1 Lmp_C:DS84A:6 Lamps Status
+1 Lmp_D:DS84A:7 Lamps Status
+1 V28I1 Power V28I
+1 V28I2 Power V28I
+1 V28I3 Power V28I
+1 V28I4 Power V28I
+1 V28V1 Power V28V
+1 V28V2 Power V28V
+1 V28V3 Power V28V
+1 V28V4 Power V28V
+4 SD1DP Pressure DP
+4 SD2DP Pressure DP
+4 SD1_P Pressure P
+4 SD2_P Pressure P
+4 LabDuctP Pressure P
+1/16 SDP1T Pressure T
+1/16 SDP2T Pressure T
+1 PumpS Pump Status
+# 1 PmotT Pump T
+# 1 PumpT Pump T
 1/16 Rv_1T Rovers T 1
 1/16 Rv_2T Rovers T 2
 1/16 Rv_3T Rovers T 3
@@ -127,35 +115,35 @@ ROWS 18
 1/16 Rv14T Rovers T 14
 1/16 Rv15T Rovers T 15
 1/16 Rv16T Rovers T 16
-1 SW1_S Software SW1 
-1 SW2_S Software SW2 
-1 AirHS:DS86A:2 Soldrv Solenoids 
-1 ArH1S:DS815:3 Soldrv Solenoids 
-1 ArH2S:DS80A:0 Soldrv Solenoids 
-1 ClNFlC:DS82A:3 Soldrv Solenoids 
-1 ClNFlO:DS82A:2 Soldrv Solenoids 
-1 ClNH1:DS80A:5 Soldrv Solenoids 
-1 ClNH2:DS80A:6 Soldrv Solenoids 
-1 H1_SS:DS815:6 Soldrv Solenoids 
-1 H2_SS:DS815:2 Soldrv Solenoids 
-1 NO2FC:DS82A:7 Soldrv Solenoids 
-1 NO2FO:DS82A:6 Soldrv Solenoids 
-1 NO2N1:DS80A:7 Soldrv Solenoids 
-1 NO2N2:DS815:0 Soldrv Solenoids 
-1 NOF1C:DS82A:1 Soldrv Solenoids 
-1 NOF1O:DS82A:0 Soldrv Solenoids 
-1 NOF2C:DS82A:5 Soldrv Solenoids 
-1 NOF2O:DS82A:4 Soldrv Solenoids 
-1 NOH1S:DS80A:4 Soldrv Solenoids 
-1 NOH2S:DS815:5 Soldrv Solenoids 
-4 HSolS Soldrv SolStat 
+1 SW1_S Software SW1
+1 SW2_S Software SW2
+1 AirHS:DS86A:2 Soldrv Solenoids
+1 ArH1S:DS815:3 Soldrv Solenoids
+1 ArH2S:DS80A:0 Soldrv Solenoids
+1 ClNFlC:DS82A:3 Soldrv Solenoids
+1 ClNFlO:DS82A:2 Soldrv Solenoids
+1 ClNH1:DS80A:5 Soldrv Solenoids
+1 ClNH2:DS80A:6 Soldrv Solenoids
+1 H1_SS:DS815:6 Soldrv Solenoids
+1 H2_SS:DS815:2 Soldrv Solenoids
+1 NO2FC:DS82A:7 Soldrv Solenoids
+1 NO2FO:DS82A:6 Soldrv Solenoids
+1 NO2N1:DS80A:7 Soldrv Solenoids
+1 NO2N2:DS815:0 Soldrv Solenoids
+1 NOF1C:DS82A:1 Soldrv Solenoids
+1 NOF1O:DS82A:0 Soldrv Solenoids
+1 NOF2C:DS82A:5 Soldrv Solenoids
+1 NOF2O:DS82A:4 Soldrv Solenoids
+1 NOH1S:DS80A:4 Soldrv Solenoids
+1 NOH2S:DS815:5 Soldrv Solenoids
+4 HSolS Soldrv SolStat
 1/16 Air1T Temps Air %- 1
 1/16 Air2T Temps Air %- 2
 1/16 Air3T Temps Air %- 3
-1/16 Exh1T Temps Exh 
-1/16 Exh2T Temps Exh 
-1/16 Exh3T Temps Exh 
-1/16 Exh4T Temps Exh 
+1/16 Exh1T Temps Exh
+1/16 Exh2T Temps Exh
+1/16 Exh3T Temps Exh
+1/16 Exh4T Temps Exh
 1 SF1B0 Temps SF1B 0
 1 SF1B1 Temps SF1B 1
 1 SF1B2 Temps SF1B 2
@@ -188,24 +176,24 @@ ROWS 18
 1 SF2F5 Temps SF2F 5
 1 SF2F6 Temps SF2F 6
 1 SF2FTemp Temps SF2F T
-1 A:SV1St:4 Throttle Bits1 
-1 B:SV1St:5 Throttle Bits1 
-1 C:SV1St:7 Throttle Bits1 
-1 D:SV1St:2 Throttle Bits1 
-1 I:SV1St:0 Throttle Bits1 
-1 O:SV1St:1 Throttle Bits1 
-1 R:SV1St:3 Throttle Bits1 
+1 A:SV1St:4 Throttle Bits1
+1 B:SV1St:5 Throttle Bits1
+1 C:SV1St:7 Throttle Bits1
+1 D:SV1St:2 Throttle Bits1
+1 I:SV1St:0 Throttle Bits1
+1 O:SV1St:1 Throttle Bits1
+1 R:SV1St:3 Throttle Bits1
 1 Z:SV1St:6 Throttle Bits1
-1 A:SV2St:4 Throttle Bits2 
-1 B:SV2St:5 Throttle Bits2 
-1 C:SV2St:7 Throttle Bits2 
-1 D:SV2St:2 Throttle Bits2 
-1 I:SV2St:0 Throttle Bits2 
-1 O:SV2St:1 Throttle Bits2 
-1 R:SV2St:3 Throttle Bits2 
+1 A:SV2St:4 Throttle Bits2
+1 B:SV2St:5 Throttle Bits2
+1 C:SV2St:7 Throttle Bits2
+1 D:SV2St:2 Throttle Bits2
+1 I:SV2St:0 Throttle Bits2
+1 O:SV2St:1 Throttle Bits2
+1 R:SV2St:3 Throttle Bits2
 1 Z:SV2St:6 Throttle Bits2
-4 Scan:IXStt:0 Throttle Bits 
-1 SV1Ps Throttle Pot 
-1 SV1Step Throttle Step 
-1 SV2Ps Throttle Pot 
-1 SV2Step Throttle Step 
+4 Scan:IXStt:0 Throttle Bits
+1 SV1Ps Throttle Pot
+1 SV1Step Throttle Step
+1 SV2Ps Throttle Pot
+1 SV2Step Throttle Step
