@@ -68,10 +68,10 @@ TM 1 Hz AD12_DHV DH2V3; Address DH2V3 0xC24;
 TM 1 Hz AD12_DHV DH2V4; Address DH2V4 0xC22;
 TM 1 Hz AD12_DHV DH2V5; Address DH2V5 0xC20;
 TM 1 Hz AD12_DHV DH2V6; Address DH2V6 0xC1E;
-TM 1 Hz DASPt DH30Set; Address DH30Set 0xCEA;
-TM 1 Hz DASPt DH31Set; Address DH31Set 0xCE8;
-TM 1 Hz AD12_DHI DH3I0; Address DH3I0 0xCC8;
-TM 1 Hz AD12_DHI DH3I1; Address DH3I1 0xCC6;
+/* TM 1 Hz DASPt DH30Set; Address DH30Set 0xCEA; */
+/* TM 1 Hz DASPt DH31Set; Address DH31Set 0xCE8; */
+/* TM 1 Hz AD12_DHI DH3I0; Address DH3I0 0xCC8; */
+/* TM 1 Hz AD12_DHI DH3I1; Address DH3I1 0xCC6; */
 /* TM 1 Hz AD12 DLH_P; Address DLH_P 0xCB2; */
 TM 1/4 Hz AD12 DModP; Address DModP 0xC4A;
 /* TM 1 Hz DASPt DPSet; Address DPSet 0xDE8; */
@@ -118,9 +118,9 @@ TM 1 Hz AD12 D_IRV; Address D_IRV 0xC54;
 /* TM 4 Hz AD12 NO2Fl; Address NO2Fl 0xC96; */
 /* TM 4 Hz DASPt NO2FlSet; Address NO2FlSet 0xC60; */
 TM 4 Hz AD12 NOH1F; Address NOH1F 0xCD0;
-TM 1 Hz DASPt NOH1Set; Address NOH1Set 0xCEE;
+TM 4 Hz DASPt NOH1Set; Address NOH1Set 0xCEE;
 TM 4 Hz AD12 NOH2F; Address NOH2F 0xCD2;
-TM 1 Hz DASPt NOH2Set; Address NOH2Set 0xD60;
+TM 4 Hz DASPt NOH2Set; Address NOH2Set 0xD60;
 /* TM 8 Hz DStat_PsMn PsMnC; Address PsMnC 0x84C; */
 /* TM 8 Hz AD12_PsMn PsMn1A; Address PsMn1A 0xDA6; */
 /* TM 8 Hz AD12_PsMn PsMn1B; Address PsMn1B 0xD9C; */

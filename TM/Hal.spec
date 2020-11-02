@@ -1,5 +1,5 @@
 tmcbase = types.tmc base.tmc mux.tmc status.tmc cts.tmc idx.tmc
-tmcbase = nav.tmc
+# tmcbase = nav.tmc
 tmcbase = T30K1MU.tmc
 tmcbase = /usr/local/share/huarp/flttime.tmc 
 tmcbase = bmm.tmc
@@ -7,7 +7,7 @@ tmcbase = BMM_T30K75KU.tmc
 
 colbase = Halcol.tmc
 colbase = idxcol.tmc
-colbase = navcol.tmc
+# colbase = navcol.tmc
 colbase = bmm_col.tmc
 
 genuibase = Hal.genui
@@ -26,6 +26,7 @@ genuibase = Hal.genui
 extbase = check.tmc bmm_conv.tmc
 
 Module TMbase
+Module IWG1
 
 # Module RFD:
 #   Also need to:
