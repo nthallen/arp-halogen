@@ -197,11 +197,11 @@ CELCIUS_I SF2FTemp; invalidate SF2FTemp;
 %}
 
 VELOCITY_I SD1Vel; invalidate SD1Vel;
-{ SD1Vel = calc_velocity( convert(SD1_P), convert(SD1DP), SF1FTemp );
+{ SD1Vel = calc_velocity( convert(SD1_P), convert(SD1DP), SF1BTemp );
   Validate SD1Vel;
 }
 
 VELOCITY_I SD2Vel; invalidate SD2Vel;
-{ SD2Vel = calc_velocity( convert(SD2_P), convert(SD2DP), SF2FTemp );
+{ SD2Vel = calc_velocity( convert(SD2_P), convert(SD2DP), SF2BTemp );
   Validate SD2Vel;
 }
