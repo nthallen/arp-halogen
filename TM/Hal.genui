@@ -77,6 +77,10 @@ ROWS 18
 1 BRFFW Lamps RFFW B
 1 CRFFW Lamps RFFW C
 1 DRFFW Lamps RFFW D
+1 RFASet Lamps RFSet
+1 RFBSet Lamps RFSet
+1 RFCSet Lamps RFSet
+1 RFDSet Lamps RFSet
 1 Lmp_A:DS84A:4 Lamps Status
 1 Lmp_B:DS84A:5 Lamps Status
 1 Lmp_C:DS84A:6 Lamps Status
