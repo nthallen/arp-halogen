@@ -40,10 +40,10 @@
   1 DH2V4 DH2 V
   1 DH2V5 DH2 V
   1 DH2V6 DH2 V
-  1 DH30Set DH3 Set
-  1 DH31Set DH3 Set
-  1 DH3I0 DH3 I
-  1 DH3I1 DH3 I
+# 1 DH30Set DH3 Set
+# 1 DH31Set DH3 Set
+# 1 DH3I0 DH3 I
+# 1 DH3I1 DH3 I
   1 Vbus DHtr V  %.4lf
   1 DH1P DHtr Pwr
   1 DH2P DHtr Pwr
