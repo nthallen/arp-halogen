@@ -18,21 +18,15 @@
 #  ON_GROUND: High pressure, either turning on or shutting down
 #  BELOW_CLOUDS: Intermediate altitude
 #  ABOVE_CLOUDS: High altitude, main data taking
-#
-# Partition 3: APD control 
-#  was ClONO2 addition (totally obsolete)
 #  
 #----------------------------------------------------------------
-# See also: Hal.sol, NO2.sol, NO2.tma, Halog.tma, DHtr.tma, TRU.tma,
-#           grnpw.tma, linefind.tma
-# Partition #'s: ClNf(1-2), no2 (3-8), Halog(9-12), DHtr(13-19),
-#                TRU(20), calno2(21)
-# grnpw and linefind are in a separate algo.
+# See also: Hal.sol, Halog.tma, DHtr.tma, TRU.tma,
+# Partition #'s: ClNf(1-2), no2 (3-8), Halog(9-12), DHtr(13-19), TRU(20)
 #
 #############################################################################
 #############################################################################
-#	This partition controls the execution of the experiment.  It is keyed
-#	off of the altitude states (ON_GROUND, BELOW_CLOUDS, ABOVE_CLOUDS).
+# This partition controls the execution of the experiment.  It is keyed
+# off of the altitude states (ON_GROUND, BELOW_CLOUDS, ABOVE_CLOUDS).
 #############################################################################
 #############################################################################
 
@@ -41,327 +35,293 @@
 # SW STATUS RULES:
 
 # SW Status 1: Used only to take action, Action on transitions, not
-#		requiring the bit be held at any value
-#	SW# TMA FILE	USE
-#	1-4 ClNf		alt control
-#	5-6 TestFlt		alt control
-#	10	ClN			GasCheck
-#	20	ClN			DSDM
-#	30	ClN			NO_Scan
-#	40	ClN			ClONO2_Scan
-#	50	ClN			Ramp_T1_up
-#	60	ClN			Ramp_T1_down
-#	70	ClN			Valve_test
-#	80	ClN			Slurp_it
-#   90  ClN    		Wait
-#	99  no2lab		initiates orderly shutdown
-#	100 no2lab		initializes all systems for no2 and preps laser
-#						(but doesn't turn on)
-#	101	no2lab		validates cal_wait
-#	102	no2lab		scans etalon
-#	103	no2lab		scans pressure w/ raman filter in
-#	104	no2lab		scans pressure w/ no2 filter in
-#	105	no2lab		no2 calibration
-#	106	no2lab		records zeros
-#	120	grnpw		greenpeakup on
-#	121	grnpw		greenpeakup off
-#	122 grnpw       greenpeakup scan
-#	130	no2		enable cal on the ground
-#	131	no2		validate NO2_ADD_IDLE
-#	132	no2		validate NO2_ADD_DUMP
-#	133	no2		validate NO2_ADD_OPEN
-#	134	no2		validate NO2_ADD_FULL1
-#	135	no2		validate NO2_ADD_FULL2
-#	136	no2		validate NO2_ADD_CAL1
-#	137	no2		validate NO2_ADD_CAL2
-#	140	no2		start laser on the ground
-#	141	no2		validate NO2_CAL_IDLE
-#	142	no2		validate NO2_CAL_DUMP
-#	143	no2		validate NO2_CAL_OPEN
-#	144	no2		validate NO2_CAL_FULL1
-#	145	no2		validate NO2_CAL_FULL2
-#	146	no2		validate NO2_CAL_CAL1
-#	147	no2		validate NO2_CAL_CAL2
-#	203	linefind	triggers recording of a new base scan
-#	211-214 Halog	off lamps (A-D)
-#   221-224 Halog	on lamps (A-D)
-#	244             Time-Warp
-#	255             QUICK_SHUTDOWN
+#  requiring the bit be held at any value
+# SW# TMA FILE USE
+#  1-4 ClNf    alt control
+#  5-6 TestFlt    alt control
+#  10  ClN      GasCheck
+#  20  ClN      DSDM
+#  30  ClN      NO_Scan
+#  40  ClN      ClONO2_Scan
+#  50  ClN      Ramp_T1_up
+#  60  ClN      Ramp_T1_down
+#  70  ClN      Valve_test
+#  80  ClN      Slurp_it
+# 90  ClN     Wait
+#  211-214 Halog  off lamps (A-D)
+# 221-224 Halog  on lamps (A-D)
+#  244             Time-Warp
+#  255             QUICK_SHUTDOWN
 
 # SW Status 2: Used only to mark data
-#	SW #	TMA FILE	USE
-#	10-19   ClNf	velocity markers
-#	20-29 	ClNf	temp scan duct 1
-#	30-39 	ClNf	dither duct 1
-#	50-59 	ClNf	temp scan duct 2
-#	60-69 	ClNf	dither duct 2
+#  SW #  TMA FILE  USE
+#  10-19   ClNf  velocity markers
+#  20-29   ClNf  temp scan duct 1
+#  30-39   ClNf  dither duct 1
+#  50-59   ClNf  temp scan duct 2
+#  60-69   ClNf  dither duct 2
 #
-#	11		ClN		GasCheck
-#	21		ClN		DSDM
-#	31		ClN		NO_Scan
-#	41		ClN		ClONO2_SCAN
-#	51		ClN		Ramp_T1_Up
-#	61		ClN		Ramp_T1_Down
-#	71		ClN		Valve_test
+#  11    ClN    GasCheck
+#  21    ClN    DSDM
+#  31    ClN    NO_Scan
+#  41    ClN    ClONO2_SCAN
+#  51    ClN    Ramp_T1_Up
+#  61    ClN    Ramp_T1_Down
+#  71    ClN    Valve_test
 #----------------------------------------------------------------
 # Halogen Soldrv Modes
 # 0 Immediate shutdown to default condition
 # 1 Orderly shutdown: NO Off
 # 2 NO Addition (both ducts)
-#----------------------------------------------------------------
-# NO2 Soldrv Modes
-# 0 Immediate shutdown
-# 1 Orderly shutdown to mode 0
-# 2 Orderly shutdown and hold with flows on
-# 3 Chopping with filters
-# 4 Chopping Raman
 ###################################################################
 
 ###################################################################
-#  Initialize 																
+#  Initialize
 ###################################################################
 
 
 { tma_hold( (IOSwS & 3) == 1 ); }
 { depending on (QUICK_SHUTDOWN) {
   } else {
-	if ( (IOSwS & 3) == 0 || SW1_S == 255 )
-	  validate QUICK_SHUTDOWN;
+  if ( (IOSwS & 3) == 0 || SW1_S == 255 )
+    validate QUICK_SHUTDOWN;
   }
 }
 
 State INITIALIZE {
-	   	>	telemetry start
- 	+1 	>	fail lamp 0 off
-	+1	>	TRU on
-	+1	>	Gasdeck Air Flow to Laser On
+     > telemetry start
+  +1 > fail lamp 0 off
+  +1 > TRU on
+# +1 > Gasdeck Air Flow to Laser On
 
-	depending on (BELOW_CLOUDS) { validate ASCENT; }
-	depending on (ABOVE_CLOUDS) { validate ASCENT; }
+  depending on (BELOW_CLOUDS) { validate ASCENT; }
+  depending on (ABOVE_CLOUDS) { validate ASCENT; }
 }
 
 ###################################################################
-#	Aircraft is Ascending - Prepare to Take Data
+# Aircraft is Ascending - Prepare to Take Data
 ###################################################################
 
 State ASCENT {
-	depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
-	depending on (ON_GROUND) { validate SHUTDOWN; }
+  depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
+  depending on (ON_GROUND) { validate SHUTDOWN; }
 }
 
 ###################################################################
-#	Aircraft is Above the Clouds - Take Data
+# Aircraft is Above the Clouds - Take Data
 ###################################################################
 %{
   int Done_Record_Once = 0;
 %}
 
 State RECORD_INIT {
-	depending on (BELOW_CLOUDS) { validate DESCENT; }
-	depending on (ON_GROUND) { validate DESCENT; }
+  depending on (BELOW_CLOUDS) { validate DESCENT; }
+  depending on (ON_GROUND) { validate DESCENT; }
 ### check for AirHP; if below threshold, validate Record_NO2_ONLY ###
 ### check for ClNHP; if below threshold, validate Record_NO2_ONLY ###
-	{ if  ( convert(ClNHP) < 100 ) validate RECORD_NO2_ONLY;}
-	+1	>	Gasdeck N2 to Bromine On
+## { if  ( convert(ClNHP) < 100 ) validate RECORD_NO2_ONLY;}
+  +1 > Gasdeck N2 to Bromine On
 
 ##### Initialize Secondary Throttles and Open Gate Valves #####
-	+1  >	Drive Secondary Throttle 1 out 5000
-	    >	Drive Secondary Throttle 1 in 65535
-	    >	Drive Secondary Throttle 1 out 0
+  +1  > Drive Secondary Throttle 1 out 5000
+      > Drive Secondary Throttle 1 in 65535
+      > Drive Secondary Throttle 1 out 0
 
-	+1  >	Drive Secondary Throttle 2 out 5000
-	    >	Drive Secondary Throttle 2 in 65535
-	    >	Drive Secondary Throttle 2 out 0
+  +1  > Drive Secondary Throttle 2 out 5000
+      > Drive Secondary Throttle 2 in 65535
+      > Drive Secondary Throttle 2 out 0
 
-	+1  >   Scan Gate Valve 1 Out 25000 by 100
-	    >   Scan Gate Valve 2 Out 25000 by 100
-	+20 >   Scan Gate Valve 1 Out 25000 by 100
-	    >   Scan Gate Valve 2 Out 25000 by 100
-		Validate DHTR1_START;
-		Validate DHTR2_START;
+# +1  > Scan Gate Valve 1 Out 25000 by 100
+#     > Scan Gate Valve 2 Out 25000 by 100
+# +20 > Scan Gate Valve 1 Out 25000 by 100
+#     > Scan Gate Valve 2 Out 25000 by 100
+    Validate DHTR1_START;
+    Validate DHTR2_START;
 
 
 # aiming for 15 m/s, step 10000/8500 duct 1/2, for the rest of this state
 # guessing that new obstructions in duct 1 require slightly more open
 # valve
-	+1	>   Drive Secondary Throttle 1 to 10000
-	+1	>   Drive Secondary Throttle 2 to 8500
-
-		Validate RECORD;
+   +1 > Drive Secondary Throttle 1 to 10000
+   +1 > Drive Secondary Throttle 2 to 8500
+      Validate RECORD;
 }
 
 State Record {
-	depending on (BELOW_CLOUDS) { validate DESCENT; }
-	depending on (ON_GROUND) { validate DESCENT; }
+  depending on (BELOW_CLOUDS) { validate DESCENT; }
+  depending on (ON_GROUND) { validate DESCENT; }
 ### check for AirHP; if below threshold, validate Record_NO2_ONLY ###
-	{ if  ( convert(ClNHP) < 100 ) validate RECORD_NO2_ONLY;}
+  { if  ( convert(ClNHP) < 100 ) validate RECORD_NO2_ONLY;}
 
-	+1  >	Soldrv NO Addition
+     +1 > Soldrv NO Addition
 
- +1:00 	"Holding for Soldrv ";
-	    hold until (HSolS == 0) or 35;
-	+1	>	Duct 1 Temperature Set 0 C
-	+1	Validate TEMP1_DITHER;
-		"Dithering in 1";
- +2:00	>	Duct 2 Temperature Set 0 C
-	+1	Validate TEMP2_SCAN;
-		"Scanning in 2";
+  +1:00 "Holding for Soldrv ";
+        hold until (HSolS == 0) or 35;
+     +1 > Duct 1 Temperature Set 0 C
+     +1 Validate TEMP1_DITHER;
+       "Dithering in 1";
+ +2:00 > Duct 2 Temperature Set 0 C
+    +1 Validate TEMP2_SCAN;
+       "Scanning in 2";
 }
 
 State RECORD_NO2_ONLY {
-	depending on (BELOW_CLOUDS) { validate DESCENT; }
-	depending on (ON_GROUND) { validate DESCENT; }
+  depending on (BELOW_CLOUDS) { validate DESCENT; }
+  depending on (ON_GROUND) { validate DESCENT; }
 # Modified 4-29-97 for no NO2 sampling of duct 1
 
-    +1  >   Soldrv NO Off
-	+1	>	Gasdeck N2 to Bromine Off
-	+1	Validate DHTR2_COOLDOWN;
-	+1	Validate DHTR1_COOLDOWN;
-	+1	>	Duct 1 Temperature Set -70 C
-		>	Duct 2 Temperature Set -70 C
- 		Validate TEMP2_IDLE;
-		Validate TEMP1_IDLE;
-	+1	Validate DHTR2_COOLDOWN;
-	+1	Validate DHTR1_COOLDOWN;
+  +1 > Soldrv NO Off
+  +1 > Gasdeck N2 to Bromine Off
+  +1 Validate DHTR2_COOLDOWN;
+  +1 Validate DHTR1_COOLDOWN;
+  +1 > Duct 1 Temperature Set -70 C
+     > Duct 2 Temperature Set -70 C
+     Validate TEMP2_IDLE;
+     Validate TEMP1_IDLE;
+  +1 Validate DHTR2_COOLDOWN;
+  +1 Validate DHTR1_COOLDOWN;
 }
 
 ###################################################################
-#	Aircraft is Descending Below the Clouds
+# Aircraft is Descending Below the Clouds
 ###################################################################
 
 State DESCENT {
 
 # start purging the laser system
-	+1	>   gasdeck Air Flow to Laser on
-  	+1	>	soldrv NO off
-        "Holding for Soldrv Cycle Start";
-	    hold until (HSolS == 0) or 35;
-	+1	Validate TEMP1_IDLE;
-	+1	Validate TEMP2_IDLE;
-	+1	Validate DHTR1_COOLDOWN;
-	+1	Validate DHTR2_COOLDOWN;
+    +1 > gasdeck Air Flow to Laser on
+    +1 > soldrv NO off
+       "Holding for Soldrv Cycle Start";
+       Hold until (HSolS == 0) or 35;
+    +1 Validate TEMP1_IDLE;
+    +1 Validate TEMP2_IDLE;
+    +1 Validate DHTR1_COOLDOWN;
+    +1 Validate DHTR2_COOLDOWN;
 
-		"Holding for DHeater COOLDOWN";
-		hold until valid (DHTR1_IDLE, DHTR2_IDLE) or 3:00;
+       "Holding for DHeater COOLDOWN";
+       Hold until valid (DHTR1_IDLE, DHTR2_IDLE) or 3:00;
 
- +1:00	Validate DHTR1_OFF;
-		Validate DHTR2_OFF;
- 		>	Drive Secondary Throttle 1 in 65535
-	  	>	Drive Secondary Throttle 2 In 65535
-	+1  >   Scan Gate Valve 1 In 25000 by 100
-	    >   Scan Gate Valve 2 In 25000 by 100
-   +20  >   Scan Gate Valve 1 In 25000 by 100
-	    >   Scan Gate Valve 2 In 25000 by 100
-	+1	>	Gasdeck N2 to Bromine Off
-		depending on (ON_GROUND) { validate SHUTDOWN; }
-		depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
+ +1:00 Validate DHTR1_OFF;
+       Validate DHTR2_OFF;
+       > Drive Secondary Throttle 1 in 65535
+       > Drive Secondary Throttle 2 In 65535
+    +1 > Scan Gate Valve 1 In 25000 by 100
+       > Scan Gate Valve 2 In 25000 by 100
+   +20 > Scan Gate Valve 1 In 25000 by 100
+       > Scan Gate Valve 2 In 25000 by 100
+    +1 > Gasdeck N2 to Bromine Off
+       depending on (ON_GROUND) { validate SHUTDOWN; }
+       depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
 }
 
 ###################################################################
-#	Shutdown
+# Shutdown
 ###################################################################
 
 State SHUTDOWN {
-	+1  Validate NO2_WAIT_IDLE;
-  	+1	> Soldrv Select NO2 Mode 1
-		hold until ( NSolS == 0 ) or 35;
-	+1	Validate NO2_ADD_IDLE;
-	+1	> Drive NO2 Throttle out 14000
-	+1	Validate DHTR1_OFF;
-	+1	Validate DHTR2_OFF;
-	+1	Validate DIODES_OFF;
-	+5	>	Laser Power Off
-	+1	Validate APD1_OFF;
-	+1	Validate APD2_OFF;
-#	+1	>	TRU Off
-	+1	Validate TRU_OFF;
-#   +10	>	Fail Lamp 0 On
-	+60	>	Quit
+   +1 Validate NO2_WAIT_IDLE;
+   +1 > Soldrv Select NO2 Mode 1
+      Hold until ( NSolS == 0 ) or 35;
+   +1 Validate NO2_ADD_IDLE;
+   +1 > Drive NO2 Throttle out 14000
+   +1 Validate DHTR1_OFF;
+   +1 Validate DHTR2_OFF;
+   +1 Validate DIODES_OFF;
+   +5 > Laser Power Off
+   +1 Validate APD1_OFF;
+   +1 Validate APD2_OFF;
+#  +1 > TRU Off
+   +1 Validate TRU_OFF;
+# +10 > Fail Lamp 0 On
+  +60 > Quit
 }
 
 State QUICK_SHUTDOWN {
-	# Halogen Lamps key off QUICK_SHUTDOWN to begin cooling
-	# immediately.
-	+1	>	Soldrv Select NO2 Mode 0
-	+1	>	Soldrv Select Halogen Mode 0
-	+1	Validate TEMP1_IDLE;
-	+1	Validate TEMP2_IDLE;
-	+1	Validate DHTR1_COOLDOWN;
-		Validate DHTR2_COOLDOWN;
-	+1	Validate DIODES_OFF;
+  # Halogen Lamps key off QUICK_SHUTDOWN to begin cooling
+  # immediately.
+  +1 > Soldrv Select NO2 Mode 0
+  +1 > Soldrv Select Halogen Mode 0
+  +1 Validate TEMP1_IDLE;
+  +1 Validate TEMP2_IDLE;
+  +1 Validate DHTR1_COOLDOWN;
+     Validate DHTR2_COOLDOWN;
+  +1 Validate DIODES_OFF;
 
-		"Holding for DHeater COOLDOWN";
-		hold until valid (DHTR1_OFF, DHTR2_OFF) or 3:00;
-	+1	Validate DHTR1_OFF;
-	+1	Validate DHTR2_OFF;
-	+1	Validate A_DEAD;
-	+1	Validate B_DEAD;
-	+1	Validate C_DEAD;
-	+1	Validate D_DEAD;
-	+1	>	Laser Power Off
-	+1	>	GasDeck Air Flow to Laser On
-	+1	>	Drive Secondary Throttle 1 in 65000
-	+1	>	Drive Secondary Throttle 2 in 65000
-	+1	>	Scan Gate Valve 1 in 50000 by 100
-	+1	>	Scan Gate Valve 2 in 50000 by 100
-	+1  Validate APD1_OFF;
-	+1	Validate APD2_OFF;
-#	+1	>	TRU Off
-	+1	Validate TRU_OFF;
-    +10	>	Fail Lamp 0 On
-		>	Quit
+     "Holding for DHeater COOLDOWN";
+     Hold until valid (DHTR1_OFF, DHTR2_OFF) or 3:00;
+  +1 Validate DHTR1_OFF;
+  +1 Validate DHTR2_OFF;
+  +1 Validate A_DEAD;
+  +1 Validate B_DEAD;
+  +1 Validate C_DEAD;
+  +1 Validate D_DEAD;
+  +1 > Laser Power Off
+  +1 > GasDeck Air Flow to Laser On
+  +1 > Drive Secondary Throttle 1 in 65000
+  +1 > Drive Secondary Throttle 2 in 65000
+  +1 > Scan Gate Valve 1 in 50000 by 100
+  +1 > Scan Gate Valve 2 in 50000 by 100
+  +1 Validate APD1_OFF;
+  +1 Validate APD2_OFF;
+# +1 > TRU Off
+  +1 Validate TRU_OFF;
+ +10 > Fail Lamp 0 On
+     > Quit
 }
-	
+  
 #############################################################################
 #############################################################################
-#	This partition converts pressure (altitude) into states (ON_GROUND,
-#	BELOW_CLOUDS, ABOVE_CLOUDS). The threshold pressures each have two
-#	values - one for the flight up and the other for the flight down.
-#	This provides hysteresis and prevents bouncing.
+# This partition converts pressure (altitude) into states (ON_GROUND,
+# BELOW_CLOUDS, ABOVE_CLOUDS). The threshold pressures each have two
+# values - one for the flight up and the other for the flight down.
+# This provides hysteresis and prevents bouncing.
 #############################################################################
 #############################################################################
 
 PARTITION
 
 %{ /* Altitude definitions */
-	double P_ground_up = 500.;
-	double P_ground_dn = 550.;
-	double P_clouds_up = 280.;
-	double P_clouds_dn = 370.;
-	int using_swp = 0;
+  double P_ground_up = 500.;
+  double P_ground_dn = 550.;
+  double P_clouds_up = 280.;
+  double P_clouds_dn = 370.;
+  int using_swp = 0;
 %}
 
 # note on 960718 it was 10 min to below the clouds
 # and +7 min to above the clouds
 
 State ON_GROUND {
-	{ using_swp = 0; }
-    >   Set SW Status 1 to 0
-    { if ( SW1_S == 1 ) {
-		using_swp = 1;
-		validate BELOW_CLOUDS;
-	} else if (convert(SD1_P) < P_ground_up)
-		validate BELOW_CLOUDS;
-	}
+  { using_swp = 0; }
+
+  > Set SW Status 1 to 0
+  { if ( SW1_S == SWS_TAKEOFF ) {
+      using_swp = 1;
+      validate BELOW_CLOUDS;
+    } else if (convert(SD1_P) < P_ground_up &&
+               convert(SD2_P) < P_ground_up) {
+      validate BELOW_CLOUDS;
+    }
+  }
 }
 
 State BELOW_CLOUDS {
-    >   Set SW Status 1 to 0
+  > Set SW Status 1 to 0
 
-	{ if ((using_swp && SW1_S == 2) ||
-		  (!using_swp && convert(SD1_P) < P_clouds_up))
-		validate ABOVE_CLOUDS;
-	  else if ((using_swp && SW1_S == 4) ||
-		  (!using_swp && convert(SD1_P) > P_ground_dn))
-		validate ON_GROUND;
-	}
+  { if ((using_swp && SW1_S == 2) ||
+      (!using_swp && convert(SD1_P) < P_clouds_up))
+    validate ABOVE_CLOUDS;
+    else if ((using_swp && SW1_S == 4) ||
+      (!using_swp && convert(SD1_P) > P_ground_dn))
+    validate ON_GROUND;
+  }
 }
 
 State ABOVE_CLOUDS {
-	>   Set SW Status 1 to 0
+  > Set SW Status 1 to 0
 
-	{ if ( (using_swp && SW1_S == 3) ||
-		  (!using_swp && convert(SD1_P) > P_clouds_dn))
-		validate BELOW_CLOUDS;
-	}
+  { if ( (using_swp && SW1_S == 3) ||
+      (!using_swp && convert(SD1_P) > P_clouds_dn))
+    validate BELOW_CLOUDS;
+  }
 }
