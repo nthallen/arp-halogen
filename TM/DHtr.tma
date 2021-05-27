@@ -3,41 +3,41 @@
 #
 # Rules for using low-level controls:
 #   DHTRn_OFF is the initial state. It may be validated at any
-#				time to shutdown the DHtr.
-#	DHTRn_START is the method for getting from _OFF to _START
+#               time to shutdown the DHtr.
+#   DHTRn_START is the method for getting from _OFF to _START
 #               External validation of _START should be qualified
-#				with _OFF:
-#		 depending on ( DHTR1_OFF ) Validate DHTR1_START
-#	DHTRn_ON indicates that the DHeater is on and ready to be
-#				controlled.
-#	DHTRn_FAILED is called from _START if the DHeater can't get
-#				get started after 6 attempts. After 10 minutes,
-#				it attempts to start again.
+#               with _OFF:
+#        depending on ( DHTR1_OFF ) Validate DHTR1_START
+#   DHTRn_ON indicates that the DHeater is on and ready to be
+#               controlled.
+#   DHTRn_FAILED is called from _START if the DHeater can't get
+#               get started after 6 attempts. After 10 minutes,
+#               it attempts to start again.
 #################################################################
 #   DHTRn_IDLE is the default state in the intermediate control
-#			partition. It does absolutely nothing
-#			and can be validated safely at any time.
+#           partition. It does absolutely nothing
+#           and can be validated safely at any time.
 #   DHTRn_TEMP_HOLD continuously adjusts the dheater setpoint
-#			in order to track the duct temperature setpoint.
-#			Adjustments are only made if DHTRn_ON is valid,
-#			but this state does not return to _IDLE unless
-#			DHTRn_OFF becomes valid.
+#           in order to track the duct temperature setpoint.
+#           Adjustments are only made if DHTRn_ON is valid,
+#           but this state does not return to _IDLE unless
+#           DHTRn_OFF becomes valid.
 #   DHTRn_COOLDOWN ramps down controller power quickly
-#	DHTRn_COOL_ONCE lowers the setpoint once and returns to
-#			_IDLE
+#   DHTRn_COOL_ONCE lowers the setpoint once and returns to
+#           _IDLE
 #################################################################
-#	TEMPn_IDLE does nothing and doesn't affect other states
-#			in this file
-#	TEMPn_SCAN makes sure DHTRn_TEMP_HOLD is validated, then
-#			scans temperatures up from the current setpoint to
-#			the limit (currently 270C). The initial duct 
-#			temperature setpoint must be set prior to validating
-#			TEMPn_SCAN.
-#	TEMPn_DITHER alternates between two temperatures 95C apart.
-#			The lower temperature setpoint must be set prior to
-#			validating TEMPn_DITHER. Like _SCAN, _DITHER makes
-#			sure that DHTRn_TEMP_HOLD is validated to do the
-#			hard part.
+#   TEMPn_IDLE does nothing and doesn't affect other states
+#           in this file
+#   TEMPn_SCAN makes sure DHTRn_TEMP_HOLD is validated, then
+#           scans temperatures up from the current setpoint to
+#           the limit (currently 270C). The initial duct 
+#           temperature setpoint must be set prior to validating
+#           TEMPn_SCAN.
+#   TEMPn_DITHER alternates between two temperatures 95C apart.
+#           The lower temperature setpoint must be set prior to
+#           validating TEMPn_DITHER. Like _SCAN, _DITHER makes
+#           sure that DHTRn_TEMP_HOLD is validated to do the
+#           hard part.
 #################################################################
 #
 # Low level controls unchanged from summer 1996, except that a check on V28V3
@@ -63,10 +63,10 @@
 ############################################################################
 
 %{
-	int		max_power_soft = 4250;	/*	watts		*/
-	int		max_power_hard = 4500;	/*  watts		*/
-	int		max_temperature = 2800;	/*  (deg C)*10	*/
-	int		max_setpoint = 2100;
+    int     max_power_soft = 4250;  /*  watts       */
+    int     max_power_hard = 4500;  /*  watts       */
+    int     max_temperature = 2800; /*  (deg C)*10  */
+    int     max_setpoint = 2100;
 %}
 
 PARTITION
@@ -74,69 +74,69 @@ PARTITION
 #############################################################################
 #############################################################################
 # Partition 13: Dheater 1 On/Off Control
-#	This Partition Controls Dissociation Heater 1 On/Off and safeguards
+#   This Partition Controls Dissociation Heater 1 On/Off and safeguards
 #############################################################################
 #############################################################################
 
 %{
-	int		fail_cnt_dhtr1 = 0;
+    int     fail_cnt_dhtr1 = 0;
 %}
 
 State DHTR1_OFF {
-		Validate TEMP1_IDLE;
-		>	DHeater 1 Off
-		>	DHeater 1 Setpoint to 0
+        Validate TEMP1_IDLE;
+        >   DHeater 1 Off
+        >   DHeater 1 Setpoint to 0
 }
 
-# sits in the inactive state while valves are closed		
+# sits in the inactive state while valves are closed        
 State DHTR1_START {
-		>	DHeater 1 off
-		>	DHeater 1 Setpoint to 0
-		hold until ( (SV1St&1) == 0 && (GV1St&1) == 0 );
+        >   DHeater 1 off
+        >   DHeater 1 Setpoint to 0
+        hold until ( (SV1St&1) == 0 && (GV1St&1) == 0 );
 
-	+1	>	dheater 1 interlock reset
-    +1	{ 	if (++fail_cnt_dhtr1>6) {
-				msg(2, "DHeater 1 failed 6 times" );
-				validate DHTR1_FAILED;
-		 	}
-		}
- 	+1	> 	dheater 1 on
-    +5	{	if ((DH1_I==0)||(DH1_S==0)) validate DHTR1_START; }
-	+1	{	fail_cnt_dhtr1 = 0; }
-	+1      Validate DHTR1_ON;
+    +1  >   dheater 1 interlock reset
+    +1  {   if (++fail_cnt_dhtr1>6) {
+                msg(2, "DHeater 1 failed 6 times" );
+                validate DHTR1_FAILED;
+            }
+        }
+    +1  >   dheater 1 on
+    +5  {   if ((DH1_I==0)||(DH1_S==0)) validate DHTR1_START; }
+    +1  {   fail_cnt_dhtr1 = 0; }
+    +1      Validate DHTR1_ON;
 }
 
 State DHTR1_ON {
-	{ if ( SF1BTemp > max_temperature ) {
-		msg(2, "Flow reached temperature limit in duct 1" );
-		validate DHTR1_COOL_ONCE;
-	  }
-	}
-	{ if ((DH1_I==0)||(DH1_S==0)) {
-		msg(2, "DHeater 1 failed");
-		depending on ( QUICK_SHUTDOWN )
-		  Validate DHTR1_OFF;
-		else validate DHTR1_START;
-	  }
-	}
-	{ if ((SV1St&1) != 0 || (GV1St&1) != 0 ) {
-		msg(2, "Duct 1 valves closed" );
-		validate DHTR1_START;
-	  }
-	}
+    { if ( SF1BTemp > max_temperature ) {
+        msg(2, "Flow reached temperature limit in duct 1" );
+        validate DHTR1_COOL_ONCE;
+      }
+    }
+    { if ((DH1_I==0)||(DH1_S==0)) {
+        msg(2, "DHeater 1 failed");
+        depending on ( QUICK_SHUTDOWN )
+          Validate DHTR1_OFF;
+        else validate DHTR1_START;
+      }
+    }
+    { if ((SV1St&1) != 0 || (GV1St&1) != 0 ) {
+        msg(2, "Duct 1 valves closed" );
+        validate DHTR1_START;
+      }
+    }
 
-	"DHeater 1 On";
+    "DHeater 1 On";
 }
 
 State DHTR1_FAILED {
-		>	DHeater 1 Off
- 10:00	Validate DHTR1_START;
+        >   DHeater 1 Off
+ 10:00  Validate DHTR1_START;
 }
 
 #############################################################################
 #############################################################################
 # Partition 14: DHeater 1 low-level Control
-#	This Partition Runs Dissociation Heater 1 Power Ramping
+#   This Partition Runs Dissociation Heater 1 Power Ramping
 #############################################################################
 #############################################################################
 
@@ -148,89 +148,89 @@ State DHTR1_IDLE {}
 State DHTR1_TEMP_HOLD {
   depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
   depending on ( DHTR1_ON ) {
-	  if ( convert(SF1BTemp) > convert(SD1TSP)+50 &&
-		 DH10Set > 0 ) {
-	  ci_sendcmd( "DHeater 1 Setpoint Add -30\n", 2 );
-	} else if ( convert(SF1BTemp) < convert(SD1TSP)-50 &&
-		 DH10Set < max_setpoint ) {
-	  ci_sendcmd( "DHeater 1 Setpoint Add 30\n", 2 );
-	} else if ( convert(SF1BTemp) > convert(SD1TSP)+20 &&
-		 DH10Set > 0 ) {
-	  ci_sendcmd( "DHeater 1 Setpoint Add -8\n", 2 );
-	} else if ( convert(SF1BTemp) < convert(SD1TSP)-20 &&
-		 DH10Set < max_setpoint ) {
-	  ci_sendcmd( "DHeater 1 Setpoint Add 8\n", 2 );
-	} else if ( convert(SF1BTemp) < convert(SD1TSP)-2 &&
-		 DH10Set < max_setpoint ) {
-	  ci_sendcmd( "DHeater 1 Setpoint Add 3\n", 2 );
-	} else if ( convert(SF1BTemp) > convert(SD1TSP)+2 &&
-		 DH10Set > 0 ) {
-	  ci_sendcmd( "DHeater 1 Setpoint Add -3\n", 2 );
-	}
+      if ( convert(SF1BTemp) > convert(SD1TSP)+50 &&
+         DH10Set > 0 ) {
+      ci_sendcmd( "DHeater 1 Setpoint Add -30\n", 2 );
+    } else if ( convert(SF1BTemp) < convert(SD1TSP)-50 &&
+         DH10Set < max_setpoint ) {
+      ci_sendcmd( "DHeater 1 Setpoint Add 30\n", 2 );
+    } else if ( convert(SF1BTemp) > convert(SD1TSP)+20 &&
+         DH10Set > 0 ) {
+      ci_sendcmd( "DHeater 1 Setpoint Add -8\n", 2 );
+    } else if ( convert(SF1BTemp) < convert(SD1TSP)-20 &&
+         DH10Set < max_setpoint ) {
+      ci_sendcmd( "DHeater 1 Setpoint Add 8\n", 2 );
+    } else if ( convert(SF1BTemp) < convert(SD1TSP)-2 &&
+         DH10Set < max_setpoint ) {
+      ci_sendcmd( "DHeater 1 Setpoint Add 3\n", 2 );
+    } else if ( convert(SF1BTemp) > convert(SD1TSP)+2 &&
+         DH10Set > 0 ) {
+      ci_sendcmd( "DHeater 1 Setpoint Add -3\n", 2 );
+    }
   }
 }
 
 # repetitively steps down the heater set point
 State DHTR1_COOLDOWN {
-	depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
-	depending on ( DHTR1_START ) { Validate DHTR1_IDLE; }
-	depending on ( DHTR1_FAILED ) { Validate DHTR1_IDLE; }
-	{ if ( DH10Set +
-		   DH11Set +
-		   DH12Set +
-		   DH13Set +
-		   DH14Set +
-		   DH15Set +
-		   DH16Set == 0 ) {
-		depending on (QUICK_SHUTDOWN)
-		  Validate DHTR1_OFF;
-		else Validate DHTR1_IDLE;
-	  }
-	}
+    depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
+    depending on ( DHTR1_START ) { Validate DHTR1_IDLE; }
+    depending on ( DHTR1_FAILED ) { Validate DHTR1_IDLE; }
+    { if ( DH10Set +
+           DH11Set +
+           DH12Set +
+           DH13Set +
+           DH14Set +
+           DH15Set +
+           DH16Set == 0 ) {
+        depending on (QUICK_SHUTDOWN)
+          Validate DHTR1_OFF;
+        else Validate DHTR1_IDLE;
+      }
+    }
 
-		>   dheater 1 setpoint add -100
-    +3	Validate DHTR1_COOLDOWN;
+        >   dheater 1 setpoint add -100
+    +3  Validate DHTR1_COOLDOWN;
 }
 
 State DHTR1_COOL_ONCE {
-	depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
-	depending on ( DHTR1_START ) { Validate DHTR1_IDLE; }
-	depending on ( DHTR1_FAILED ) { Validate DHTR1_IDLE; }
-    +1	>   dheater 1 setpoint add -50
-	+1	Validate DHTR1_IDLE;
+    depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
+    depending on ( DHTR1_START ) { Validate DHTR1_IDLE; }
+    depending on ( DHTR1_FAILED ) { Validate DHTR1_IDLE; }
+    +1  >   dheater 1 setpoint add -50
+    +1  Validate DHTR1_IDLE;
 }
 
 # repetitively steps down the heater set point
 # This state is probably obsolete
 State DHTR1_COOL {
-	depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
-	depending on ( DHTR1_START ) { Validate DHTR1_IDLE; }
-	depending on ( DHTR1_FAILED ) { Validate DHTR1_IDLE; }
-	{	if ( DH10Set +
-			 DH11Set +
-			 DH12Set +
-			 DH13Set +
-			 DH14Set +
-			 DH15Set +
-			 DH16Set == 0 )
-		  Validate DHTR1_IDLE;
-	}
-    +1	>   dheater 1 setpoint add -25
-	+1	Validate DHTR1_COOL;
+    depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
+    depending on ( DHTR1_START ) { Validate DHTR1_IDLE; }
+    depending on ( DHTR1_FAILED ) { Validate DHTR1_IDLE; }
+    {   if ( DH10Set +
+             DH11Set +
+             DH12Set +
+             DH13Set +
+             DH14Set +
+             DH15Set +
+             DH16Set == 0 )
+          Validate DHTR1_IDLE;
+    }
+    +1  >   dheater 1 setpoint add -25
+    +1  Validate DHTR1_COOL;
 }
 
 # repetitively steps up the heater set point
 # This state is probably obsolete
 State DHTR1_HEAT {
-	depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
-	depending on ( DHTR1_START ) { Validate DHTR1_IDLE; }
-	depending on ( DHTR1_FAILED ) { Validate DHTR1_IDLE; }
-	{ if ( DH10Set >= max_setpoint )
-		Validate DHTR1_IDLE;
-	}
+    depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
+    depending on ( DHTR1_START ) { Validate DHTR1_IDLE; }
+    depending on ( DHTR1_FAILED ) { Validate DHTR1_IDLE; }
+    { if ( DH10Set >= max_setpoint )
+        Validate DHTR1_IDLE;
+    }
 
-    +1	>   dheater 1 setpoint add 25
-	+1		Validate DHTR1_HEAT;
+    +1  >   dheater 1 setpoint add 25
+    +1      Validate DHTR1_HEAT;
 }
 
 PARTITION
@@ -238,69 +238,69 @@ PARTITION
 #############################################################################
 #############################################################################
 # Partition 15: Dheater 2 On/Off Control
-#	This Partition Controls Dissociation Heater 2 On/Off and safeguards
+#   This Partition Controls Dissociation Heater 2 On/Off and safeguards
 #############################################################################
 #############################################################################
 
 %{
-	int		fail_cnt_dhtr2 = 0;
+    int     fail_cnt_dhtr2 = 0;
 %}
 
 State DHTR2_OFF {
-		Validate TEMP2_IDLE;
-		>	DHeater 2 Off
-		>	DHeater 2 Setpoint to 0
+        Validate TEMP2_IDLE;
+        >   DHeater 2 Off
+        >   DHeater 2 Setpoint to 0
 }
 
-# sits in the inactive state while valves are closed		
+# sits in the inactive state while valves are closed        
 State DHTR2_START {
-		>	DHeater 2 off
-		>	DHeater 2 Setpoint to 0
-		hold until ( (SV2St&1) == 0 && (GV2St&1) == 0 );
+        >   DHeater 2 off
+        >   DHeater 2 Setpoint to 0
+        hold until ( (SV2St&1) == 0 && (GV2St&1) == 0 );
 
-	+1	>	dheater 2 interlock reset
-    +1	{ 	if (++fail_cnt_dhtr2>6) {
-				msg(2, "DHeater 2 failed 6 times" );
-				validate DHTR2_FAILED;
-		 	}
-		}
- 	+1	> 	dheater 2 on
-    +5	{	if ((DH2_I==0)||(DH2_S==0)) validate DHTR2_START; }
-	+1	{	fail_cnt_dhtr2 = 0; }
-	+1      Validate DHTR2_ON;
+    +1  >   dheater 2 interlock reset
+    +1  {   if (++fail_cnt_dhtr2>6) {
+                msg(2, "DHeater 2 failed 6 times" );
+                validate DHTR2_FAILED;
+            }
+        }
+    +1  >   dheater 2 on
+    +5  {   if ((DH2_I==0)||(DH2_S==0)) validate DHTR2_START; }
+    +1  {   fail_cnt_dhtr2 = 0; }
+    +1      Validate DHTR2_ON;
 }
 
 State DHTR2_ON {
-	{ if ( SF2BTemp > max_temperature ) {
-		msg(2, "Flow reached temperature limit in duct 2" );
-		validate DHTR2_COOL_ONCE;
-	  }
-	}
-	{ if ((DH2_I==0)||(DH2_S==0)) {
-		msg(2, "DHeater 2 failed");
-		depending on ( QUICK_SHUTDOWN )
-		  Validate DHTR2_OFF;
-		else validate DHTR2_START;
-	  }
-	}
-	{ if ((SV2St&1) != 0 || (GV2St&1) != 0 ) {
-		msg(2, "Duct 2 valves closed" );
-		validate DHTR2_START;
-	  }
-	}
+    { if ( SF2BTemp > max_temperature ) {
+        msg(2, "Flow reached temperature limit in duct 2" );
+        validate DHTR2_COOL_ONCE;
+      }
+    }
+    { if ((DH2_I==0)||(DH2_S==0)) {
+        msg(2, "DHeater 2 failed");
+        depending on ( QUICK_SHUTDOWN )
+          Validate DHTR2_OFF;
+        else validate DHTR2_START;
+      }
+    }
+    { if ((SV2St&1) != 0 || (GV2St&1) != 0 ) {
+        msg(2, "Duct 2 valves closed" );
+        validate DHTR2_START;
+      }
+    }
 
-	"DHeater 2 On";
+    "DHeater 2 On";
 }
 
 State DHTR2_FAILED {
-		>	DHeater 2 Off
- 10:00	Validate DHTR2_START;
+        >   DHeater 2 Off
+ 10:00  Validate DHTR2_START;
 }
 
 #############################################################################
 #############################################################################
 # Partition 16: DHeater 2 low-level Control
-#	This Partition Runs Dissociation Heater 2 Power Ramping
+#   This Partition Runs Dissociation Heater 2 Power Ramping
 #############################################################################
 #############################################################################
 
@@ -312,107 +312,107 @@ State DHTR2_IDLE {}
 State DHTR2_TEMP_HOLD {
   depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
   depending on ( DHTR2_ON ) {
-	if ( convert(SF2BTemp) > convert(SD2TSP)+50 &&
-		 DH20Set > 0 ) {
-	  ci_sendcmd( "DHeater 2 Setpoint Add -30\n", 2 );
-	} else if ( convert(SF2BTemp) < convert(SD2TSP)-50 &&
-		 DH20Set < max_setpoint ) {
-	  ci_sendcmd( "DHeater 2 Setpoint Add 30\n", 2 );
-	} else if ( convert(SF2BTemp) > convert(SD2TSP)+20 &&
-		 DH20Set > 0 ) {
-	  ci_sendcmd( "DHeater 2 Setpoint Add -8\n", 2 );
-	} else if ( convert(SF2BTemp) < convert(SD2TSP)-20 &&
-		 DH20Set < max_setpoint ) {
-	  ci_sendcmd( "DHeater 2 Setpoint Add 8\n", 2 );
-	} else if ( convert(SF2BTemp) < convert(SD2TSP)-2 &&
-		 DH20Set < max_setpoint ) {
-	  ci_sendcmd( "DHeater 2 Setpoint Add 3\n", 2 );
-	} else if ( convert(SF2BTemp) > convert(SD2TSP)+2 &&
-		 DH20Set > 0 ) {
-	  ci_sendcmd( "DHeater 2 Setpoint Add -3\n", 2 );
-	}
+    if ( convert(SF2BTemp) > convert(SD2TSP)+50 &&
+         DH20Set > 0 ) {
+      ci_sendcmd( "DHeater 2 Setpoint Add -30\n", 2 );
+    } else if ( convert(SF2BTemp) < convert(SD2TSP)-50 &&
+         DH20Set < max_setpoint ) {
+      ci_sendcmd( "DHeater 2 Setpoint Add 30\n", 2 );
+    } else if ( convert(SF2BTemp) > convert(SD2TSP)+20 &&
+         DH20Set > 0 ) {
+      ci_sendcmd( "DHeater 2 Setpoint Add -8\n", 2 );
+    } else if ( convert(SF2BTemp) < convert(SD2TSP)-20 &&
+         DH20Set < max_setpoint ) {
+      ci_sendcmd( "DHeater 2 Setpoint Add 8\n", 2 );
+    } else if ( convert(SF2BTemp) < convert(SD2TSP)-2 &&
+         DH20Set < max_setpoint ) {
+      ci_sendcmd( "DHeater 2 Setpoint Add 3\n", 2 );
+    } else if ( convert(SF2BTemp) > convert(SD2TSP)+2 &&
+         DH20Set > 0 ) {
+      ci_sendcmd( "DHeater 2 Setpoint Add -3\n", 2 );
+    }
   }
 }
 
 # repetitively steps down the heater set point
 State DHTR2_COOLDOWN {
-	depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
-	depending on ( DHTR2_START ) { Validate DHTR2_IDLE; }
-	depending on ( DHTR2_FAILED ) { Validate DHTR2_IDLE; }
-	{ if ( DH20Set +
-		   DH21Set +
-		   DH22Set +
-		   DH23Set +
-		   DH24Set +
-		   DH25Set +
-		   DH26Set == 0 ) {
-		depending on (QUICK_SHUTDOWN)
-		  Validate DHTR2_OFF;
-		else Validate DHTR2_IDLE;
-	  }
-	}
+    depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
+    depending on ( DHTR2_START ) { Validate DHTR2_IDLE; }
+    depending on ( DHTR2_FAILED ) { Validate DHTR2_IDLE; }
+    { if ( DH20Set +
+           DH21Set +
+           DH22Set +
+           DH23Set +
+           DH24Set +
+           DH25Set +
+           DH26Set == 0 ) {
+        depending on (QUICK_SHUTDOWN)
+          Validate DHTR2_OFF;
+        else Validate DHTR2_IDLE;
+      }
+    }
 
-		>   dheater 2 setpoint add -100
-    +3	Validate DHTR2_COOLDOWN;
+        >   dheater 2 setpoint add -100
+    +3  Validate DHTR2_COOLDOWN;
 }
 
 State DHTR2_COOL_ONCE {
-	depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
-	depending on ( DHTR2_START ) { Validate DHTR2_IDLE; }
-	depending on ( DHTR2_FAILED ) { Validate DHTR2_IDLE; }
-    +1	>   dheater 2 setpoint add -50
-	+1	Validate DHTR2_IDLE;
+    depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
+    depending on ( DHTR2_START ) { Validate DHTR2_IDLE; }
+    depending on ( DHTR2_FAILED ) { Validate DHTR2_IDLE; }
+    +1  >   dheater 2 setpoint add -50
+    +1  Validate DHTR2_IDLE;
 }
 
 # repetitively steps down the heater set point
 # This state is probably obsolete
 State DHTR2_COOL {
-	depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
-	depending on ( DHTR2_START ) { Validate DHTR2_IDLE; }
-	depending on ( DHTR2_FAILED ) { Validate DHTR2_IDLE; }
-	{	if ( DH20Set +
-			 DH21Set +
-			 DH22Set +
-			 DH23Set +
-			 DH24Set +
-			 DH25Set +
-			 DH26Set == 0 )
-		  Validate DHTR2_IDLE;
-	}
-    +1	>   dheater 2 setpoint add -25
-	+1	Validate DHTR2_COOL;
+    depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
+    depending on ( DHTR2_START ) { Validate DHTR2_IDLE; }
+    depending on ( DHTR2_FAILED ) { Validate DHTR2_IDLE; }
+    {   if ( DH20Set +
+             DH21Set +
+             DH22Set +
+             DH23Set +
+             DH24Set +
+             DH25Set +
+             DH26Set == 0 )
+          Validate DHTR2_IDLE;
+    }
+    +1  >   dheater 2 setpoint add -25
+    +1  Validate DHTR2_COOL;
 }
 
 # repetitively steps up the heater set point
 # This state is probably obsolete
 State DHTR2_HEAT {
-	depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
-	depending on ( DHTR2_START ) { Validate DHTR2_IDLE; }
-	depending on ( DHTR2_FAILED ) { Validate DHTR2_IDLE; }
-	{ if ( DH20Set >= max_setpoint )
-		Validate DHTR2_IDLE;
-	}
+    depending on ( DHTR2_OFF ) { Validate DHTR2_IDLE; }
+    depending on ( DHTR2_START ) { Validate DHTR2_IDLE; }
+    depending on ( DHTR2_FAILED ) { Validate DHTR2_IDLE; }
+    { if ( DH20Set >= max_setpoint )
+        Validate DHTR2_IDLE;
+    }
 
-    +1	>   dheater 2 setpoint add 25
-	+1		Validate DHTR2_HEAT;
+    +1  >   dheater 2 setpoint add 25
+    +1      Validate DHTR2_HEAT;
 }
 
 #############################################################################
 #
 #  High level DHeater contol functions: temp scan, dither, idle
-#				
+#               
 #############################################################################
 #############################################################################
 # Partition 17: DHeater 1 high-level controls
-#	This partition ramps and dithers the heater in duct 1 
-# 	Expecting an NO Sol cycle that is 35 seconds
+#   This partition ramps and dithers the heater in duct 1 
+#   Expecting an NO Sol cycle that is 35 seconds
 #############################################################################
 #############################################################################
 
 PARTITION
 
 State TEMP1_IDLE {
-	"Idle";
+    "Idle";
 }
 
 %{
@@ -420,40 +420,40 @@ State TEMP1_IDLE {
   int scan1_tmin = 0;
 %}
 State TEMP1_SCAN {
-	+1	{ depending on ( DHTR1_TEMP_HOLD ) {}
-		  else Validate DHTR1_TEMP_HOLD;
-		}
-		"Waiting to Loop (going up)";
-   +50 	{ if ( convert(SD1TSP)+26 > scan1_tmax || SW1_S == 244 ||
+    +1  { depending on ( DHTR1_TEMP_HOLD ) {}
+          else Validate DHTR1_TEMP_HOLD;
+        }
+        "Waiting to Loop (going up)";
+   +50  { if ( convert(SD1TSP)+26 > scan1_tmax || SW1_S == 244 ||
                ( convert(SD1TSP) - convert(SF1BTemp)) > 35 )
-		    Validate TEMP1_SCAN_DOWN; 
-		}
-	+2	"Holding for Soldrv";
-		hold until ( (HSolS % 10) == 0 ) or 35;
-		>	Duct 1 Temperature Add 26 C
-		Validate TEMP1_SCAN;
+            Validate TEMP1_SCAN_DOWN; 
+        }
+    +2  "Holding for Soldrv";
+        hold until ( (HSolS % 10) == 0 ) or 35;
+        >   Duct 1 Temperature Add 26 C
+        Validate TEMP1_SCAN;
 }
 
 State TEMP1_SCAN_DOWN {
-	+1	{ depending on ( DHTR1_TEMP_HOLD ) {}
-		  else Validate DHTR1_TEMP_HOLD;
-		}
-		"Waiting to Loop (going down)";
-   +50 	{ if ( convert(SD1TSP)-50 < scan1_tmin || SW1_S == 244 )
-		    Validate TEMP1_SCAN_PAUSE; 
-		}
-	+2	"Holding for Soldrv";
-		hold until ( (HSolS % 10) == 0 ) or 35;
-		>	Duct 1 Temperature Add -50 C
-		Validate TEMP1_SCAN_DOWN;
+    +1  { depending on ( DHTR1_TEMP_HOLD ) {}
+          else Validate DHTR1_TEMP_HOLD;
+        }
+        "Waiting to Loop (going down)";
+   +50  { if ( convert(SD1TSP)-50 < scan1_tmin || SW1_S == 244 )
+            Validate TEMP1_SCAN_PAUSE; 
+        }
+    +2  "Holding for Soldrv";
+        hold until ( (HSolS % 10) == 0 ) or 35;
+        >   Duct 1 Temperature Add -50 C
+        Validate TEMP1_SCAN_DOWN;
 }
 
 State TEMP1_SCAN_PAUSE {
-		"Cooling Down";
-		Validate DHTR1_COOLDOWN;
-		"Holding with heater off";
-  +1:30	>Duct 1 Temperature Set 0 C	
-    +10	 Validate TEMP1_SCAN;
+        "Cooling Down";
+        Validate DHTR1_COOLDOWN;
+        "Holding with heater off";
+  +1:30 > Duct 1 Temperature Set 0 C 
+    +10  Validate TEMP1_SCAN;
 }
 
 
@@ -463,75 +463,75 @@ State TEMP1_SCAN_PAUSE {
   int t1dither_count = 0;
 %}
 State TEMP1_DITHER {
-		{ depending on ( DHTR1_TEMP_HOLD ) {}
-		  else Validate DHTR1_TEMP_HOLD;
-		}
-		{ if ( convert(TRU2T) > 80. ) Validate TEMP1_STOP; }
+        { depending on ( DHTR1_TEMP_HOLD ) {}
+          else Validate DHTR1_TEMP_HOLD;
+        }
+        { if ( convert(TRU2T) > 80. ) Validate TEMP1_STOP; }
 
-  +1	>   Duct 1 Temperature Set 0 C
-		"Holding at lowest temp";
-  +85 	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-		>	Duct 1 Temperature Add 88 C
-		"Holding at middle temp (up)";
-  +85 	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-   +1	{ if (convert(SD1_P) > 150)
-			Validate TEMP1_DITHER;
-		}
-   +2 	>	Duct 1 Temperature Add 132 C
-		"Holding at highest temp";
-  +85	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-		>	Duct 1 Temperature Add -132 C
-		"Holding at middle temp (down)";
-  +85	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-		>	Duct 1 Temperature Add -88 C
+  +1    >   Duct 1 Temperature Set 0 C
+        "Holding at lowest temp";
+  +85   "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+        >   Duct 1 Temperature Add 88 C
+        "Holding at middle temp (up)";
+  +85   "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+   +1   { if (convert(SD1_P) > 150)
+            Validate TEMP1_DITHER;
+        }
+   +2   >   Duct 1 Temperature Add 132 C
+        "Holding at highest temp";
+  +85   "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+        >   Duct 1 Temperature Add -132 C
+        "Holding at middle temp (down)";
+  +85   "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+        >   Duct 1 Temperature Add -88 C
     +1  { if ( ++t1dither_count < 3 )
-			Validate TEMP1_DITHER;
-		}
-	+1  { t1dither_count = 0; }
-		"Holding at lowest temp (off next)";
-  +120	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-		Validate TEMP1_DITHER_PAUSE;
+            Validate TEMP1_DITHER;
+        }
+    +1  { t1dither_count = 0; }
+        "Holding at lowest temp (off next)";
+  +120  "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+        Validate TEMP1_DITHER_PAUSE;
 }
 
 State TEMP1_DITHER_PAUSE {
-		"Cooling Down";
-		Validate DHTR1_COOLDOWN;
-		"Holding with heater off";
+        "Cooling Down";
+        Validate DHTR1_COOLDOWN;
+        "Holding with heater off";
   +2:00 Validate TEMP1_DITHER;
 }
 
 State TEMP1_STOP {
-		"Cooling Down";
-		Validate DHTR1_COOLDOWN;
-		"Holding with heater off";
+        "Cooling Down";
+        Validate DHTR1_COOLDOWN;
+        "Holding with heater off";
 }
 
 # Basically just makes sure we're in DHTR1_TEMP_HOLD
 State TEMP1_HOLD {
-		{ depending on ( DHTR1_TEMP_HOLD ) {}
-		  else Validate DHTR1_TEMP_HOLD;
-		}
-		"Holding Temp...";
-		depending on ( DHTR1_IDLE ) { Validate TEMP1_IDLE; }
+        { depending on ( DHTR1_TEMP_HOLD ) {}
+          else Validate DHTR1_TEMP_HOLD;
+        }
+        "Holding Temp...";
+        depending on ( DHTR1_IDLE ) { Validate TEMP1_IDLE; }
 }
 
 #############################################################################
 #############################################################################
 # Partition 18: DHeater 2 high-level controls
-#	This partition ramps and dithers the heater in duct 2 
-# 	Expecting an NO Sol cycle that is 35 seconds
+#   This partition ramps and dithers the heater in duct 2 
+#   Expecting an NO Sol cycle that is 35 seconds
 #############################################################################
 #############################################################################
 
 PARTITION
 
 State TEMP2_IDLE {
-	"Idle";
+    "Idle";
 }
 
 
@@ -540,40 +540,40 @@ State TEMP2_IDLE {
   int scan2_tmin = 0;
 %}
 State TEMP2_SCAN {
-	+1	{ depending on ( DHTR2_TEMP_HOLD ) {}
-		  else Validate DHTR2_TEMP_HOLD;
-		}
-		"Waiting to Loop (going up)";
-   +50 	{ if ( convert(SD2TSP)+26 > scan2_tmax || SW1_S == 244 ||
+    +1  { depending on ( DHTR2_TEMP_HOLD ) {}
+          else Validate DHTR2_TEMP_HOLD;
+        }
+        "Waiting to Loop (going up)";
+   +50  { if ( convert(SD2TSP)+26 > scan2_tmax || SW1_S == 244 ||
                ( convert(SD2TSP) - convert(SF2BTemp)) > 35 )
-		    Validate TEMP2_SCAN_DOWN; 
-		}
-	+2	"Holding for Soldrv";
-		hold until ( (HSolS % 10) == 0 ) or 35;
-		>	Duct 2 Temperature Add 26 C
-		Validate TEMP2_SCAN;
+            Validate TEMP2_SCAN_DOWN; 
+        }
+    +2  "Holding for Soldrv";
+        hold until ( (HSolS % 10) == 0 ) or 35;
+        >   Duct 2 Temperature Add 26 C
+        Validate TEMP2_SCAN;
 }
 
 State TEMP2_SCAN_DOWN {
-	+1	{ depending on ( DHTR2_TEMP_HOLD ) {}
-		  else Validate DHTR2_TEMP_HOLD;
-		}
-		"Waiting to Loop (going down)";
-   +50 	{ if ( convert(SD2TSP)-50 < scan2_tmin || SW1_S == 244 )
-		    Validate TEMP2_SCAN_PAUSE; 
-		}
-	+2	"Holding for Soldrv";
-		hold until ( (HSolS % 10) == 0 ) or 35;
-		>	Duct 2 Temperature Add -50 C
-		Validate TEMP2_SCAN_DOWN;
+    +1  { depending on ( DHTR2_TEMP_HOLD ) {}
+          else Validate DHTR2_TEMP_HOLD;
+        }
+        "Waiting to Loop (going down)";
+   +50  { if ( convert(SD2TSP)-50 < scan2_tmin || SW1_S == 244 )
+            Validate TEMP2_SCAN_PAUSE; 
+        }
+    +2  "Holding for Soldrv";
+        hold until ( (HSolS % 10) == 0 ) or 35;
+        >   Duct 2 Temperature Add -50 C
+        Validate TEMP2_SCAN_DOWN;
 }
 
 State TEMP2_SCAN_PAUSE {
-		"Cooling Down";
-		Validate DHTR2_COOLDOWN;
-		"Holding with heater off";
-  +1:30	>Duct 2 Temperature Set 0 C	
-    +10	 Validate TEMP2_SCAN;
+        "Cooling Down";
+        Validate DHTR2_COOLDOWN;
+        "Holding with heater off";
+  +1:30 > Duct 2 Temperature Set 0 C 
+    +10  Validate TEMP2_SCAN;
 }
 
 # Set Duct 2 Temperature to the lower setpoint, then
@@ -582,53 +582,53 @@ State TEMP2_SCAN_PAUSE {
   int t2dither_count = 0;
 %}
 State TEMP2_DITHER {
-		{ depending on ( DHTR2_TEMP_HOLD ) {}
-		  else Validate DHTR2_TEMP_HOLD;
-		}
-  +1	>   Duct 2 Temperature Set 0 C
-		"Holding at lowest temp";
-  +85 	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-		>	Duct 2 Temperature Add 88 C
-		"Holding at middle temp (up)";
-  +85 	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-   +1	{ if (convert(SD1_P) > 150)
-			Validate TEMP2_DITHER;
-		}
-   +2 	>	Duct 2 Temperature Add 132 C
-		"Holding at highest temp";
-  +85	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-		>	Duct 2 Temperature Add -132 C
-		"Holding at middle temp (down)";
-  +85	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-		>	Duct 2 Temperature Add -88 C
+        { depending on ( DHTR2_TEMP_HOLD ) {}
+          else Validate DHTR2_TEMP_HOLD;
+        }
+  +1    >   Duct 2 Temperature Set 0 C
+        "Holding at lowest temp";
+  +85   "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+        >   Duct 2 Temperature Add 88 C
+        "Holding at middle temp (up)";
+  +85   "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+   +1   { if (convert(SD1_P) > 150)
+            Validate TEMP2_DITHER;
+        }
+   +2   >   Duct 2 Temperature Add 132 C
+        "Holding at highest temp";
+  +85   "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+        >   Duct 2 Temperature Add -132 C
+        "Holding at middle temp (down)";
+  +85   "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+        >   Duct 2 Temperature Add -88 C
     +1  { if ( ++t2dither_count < 3 )
-			Validate TEMP2_DITHER;
-		}
-	+1  { t2dither_count = 0; }
-		"Holding at lowest temp (off next)";
-  +120	"Holding for beginning of soldrv cycle";
-		hold until ( (HSolS % 10 ) == 0) or 35;
-		Validate TEMP2_DITHER_PAUSE;
+            Validate TEMP2_DITHER;
+        }
+    +1  { t2dither_count = 0; }
+        "Holding at lowest temp (off next)";
+  +120  "Holding for beginning of soldrv cycle";
+        hold until ( (HSolS % 10 ) == 0) or 35;
+        Validate TEMP2_DITHER_PAUSE;
 }
 
 State TEMP2_DITHER_PAUSE {
-		"Cooling Down";
-		Validate DHTR2_COOLDOWN;
-		"Holding with heater off";
+        "Cooling Down";
+        Validate DHTR2_COOLDOWN;
+        "Holding with heater off";
   +2:00 Validate TEMP2_DITHER;
 }
 
 # Basically just makes sure we're in DHTR2_TEMP_HOLD
 State TEMP2_HOLD {
-		{ depending on ( DHTR2_TEMP_HOLD ) {}
-		  else Validate DHTR2_TEMP_HOLD;
-		}
-		"Holding Temp...";
-		depending on ( DHTR2_IDLE ) { Validate TEMP2_IDLE; }
+        { depending on ( DHTR2_TEMP_HOLD ) {}
+          else Validate DHTR2_TEMP_HOLD;
+        }
+        "Holding Temp...";
+        depending on ( DHTR2_IDLE ) { Validate TEMP2_IDLE; }
 }
 
 #----------------------------------------------------------------
@@ -637,43 +637,43 @@ State TEMP2_HOLD {
 Partition
 
 State DHTRS_CHK_OFF {
-	depending on ( DHTR1_ON ) { Validate DHTRS_CHK_ON; }
-	depending on ( DHTR2_ON ) { Validate DHTRS_CHK_ON; }
+    depending on ( DHTR1_ON ) { Validate DHTRS_CHK_ON; }
+    depending on ( DHTR2_ON ) { Validate DHTRS_CHK_ON; }
 }
 
 State DHTRS_CHK_ON {
-	{ if ( convert(V28V3) < 20 ) {
-		msg(2, "V28V3 low or off" );
-		Validate DHTRS_FAIL_HARD;
-	  }
-	}
-	{ if ( DHP > max_power_hard ) {
-		msg(2, "DHeaters reached hard power limit" );
-		max_power_soft -= 250;
-		Validate DHTRS_FAIL_HARD;
-	  } else if ( DHP > max_power_soft ) {
-		msg(2, "DHeaters reached soft power limit" );
-		validate DHTR1_COOL_ONCE;
-		validate DHTR2_COOL_ONCE;
-	  }
-	}
-	{ if ( convert( TRU2T ) > 100 ) {
-		msg( 2, "Shutting down DHeaters due to a hot TRU" );
-		Validate DHTR1_FAILED;
-		Validate DHTR2_FAILED;
-		Validate DHTRS_CHK_OFF;
-	  }
-	}
-	depending on ( DHTR1_OFF, DHTR2_OFF ) {
-	  Validate DHTRS_CHK_OFF;
-	}
+    { if ( convert(V28V3) < 20 ) {
+        msg(2, "V28V3 low or off" );
+        Validate DHTRS_FAIL_HARD;
+      }
+    }
+    { if ( DHP > max_power_hard ) {
+        msg(2, "DHeaters reached hard power limit" );
+        max_power_soft -= 250;
+        Validate DHTRS_FAIL_HARD;
+      } else if ( DHP > max_power_soft ) {
+        msg(2, "DHeaters reached soft power limit" );
+        validate DHTR1_COOL_ONCE;
+        validate DHTR2_COOL_ONCE;
+      }
+    }
+    { if ( convert( TRU2T ) > 100 ) {
+        msg( 2, "Shutting down DHeaters due to a hot TRU" );
+        Validate DHTR1_FAILED;
+        Validate DHTR2_FAILED;
+        Validate DHTRS_CHK_OFF;
+      }
+    }
+    depending on ( DHTR1_OFF, DHTR2_OFF ) {
+      Validate DHTRS_CHK_OFF;
+    }
 }
 
 State DHTRS_FAIL_HARD {
   Validate DHTR1_OFF;
   Validate DHTR2_OFF;
   hold until ( DHP < 500 ) or 10
-	else Validate SHUTDOWN;
+    else Validate SHUTDOWN;
   Validate DHTR1_START;
   Validate DHTR2_START;
   Validate DHTRS_CHK_OFF;
