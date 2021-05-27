@@ -1,0 +1,54 @@
+# Partition 20: TRU Watchdog
+# This partition observes V28V3 and the TRU status to
+# detect shutdown of the TRU due to overtemperature.
+# Additional failure modes could be detected, specifically
+# failure of the TRU to turn off on command (V28V3 doesn't go
+# low) but this is difficult since that is often the case in
+# the lab when not using the TRU.
+%{
+	#define TRU_FAIL_FILE "TRU_OVERTEMP.log"
+	int TRU_failed( void ) {
+	  FILE *fp = fopen( TRU_FAIL_FILE, "r" );
+	  if ( fp == NULL ) return 0;
+	  fclose(fp);
+	  return 1;
+	}
+	void TRU_fail( void ) {
+	  FILE *fp = fopen( TRU_FAIL_FILE, "w" );
+	  fprintf( fp, "TRU Failed\n" );
+	  fclose(fp);
+	  msg( 2, "TRU Overtemp Failure Assumed" );
+	}
+%}
+
+Partition
+State TRU_INIT {
+   +1	{ if ( TRU_failed() ) {
+			msg( 2, "TRU Failed Previously" );
+			Validate QUICK_SHUTDOWN;
+		  } else Validate TRU_IDLE;
+		}
+}
+
+State TRU_IDLE {
+   +1	{ if ( Fail1 ) Validate TRU_START; }
+}
+
+State TRU_START {
+	+5	{ if ( convert(V28V3) < 5 && Fail1 ) Validate TRU_SHUTDOWN; }
+		{ if ( ! Fail1 ) Validate TRU_IDLE; }
+}
+
+State TRU_OFF {
+  +1 > TRU Off
+	 hold until ( ! Fail1 ) or 18;
+  +1 Validate TRU_IDLE;
+}
+
+State TRU_SHUTDOWN {
+		> TRU Off
+		Validate DHTR1_OFF;
+		Validate DHTR2_OFF;
+		{ TRU_fail(); }
+		Validate QUICK_SHUTDOWN;
+}
