@@ -92,7 +92,7 @@ State DHTR1_OFF {
 State DHTR1_START {
         >   DHeater 1 off
         >   DHeater 1 Setpoint to 0
-        hold until ( (SV1St&1) == 0 && (GV1St&1) == 0 );
+        hold until ( (SV1St&1) == 0 /* && (GV1St&1) == 0 */ );
 
     +1  >   dheater 1 interlock reset
     +1  {   if (++fail_cnt_dhtr1>6) {
@@ -119,7 +119,7 @@ State DHTR1_ON {
         else validate DHTR1_START;
       }
     }
-    { if ((SV1St&1) != 0 || (GV1St&1) != 0 ) {
+    { if ((SV1St&1) != 0 /* || (GV1St&1) != 0 */ ) {
         msg(2, "Duct 1 valves closed" );
         validate DHTR1_START;
       }
@@ -256,7 +256,7 @@ State DHTR2_OFF {
 State DHTR2_START {
         >   DHeater 2 off
         >   DHeater 2 Setpoint to 0
-        hold until ( (SV2St&1) == 0 && (GV2St&1) == 0 );
+        hold until ( (SV2St&1) == 0 /* && (GV2St&1) == 0 */ );
 
     +1  >   dheater 2 interlock reset
     +1  {   if (++fail_cnt_dhtr2>6) {
@@ -283,7 +283,7 @@ State DHTR2_ON {
         else validate DHTR2_START;
       }
     }
-    { if ((SV2St&1) != 0 || (GV2St&1) != 0 ) {
+    { if ((SV2St&1) != 0 /* || (GV2St&1) != 0 */ ) {
         msg(2, "Duct 2 valves closed" );
         validate DHTR2_START;
       }

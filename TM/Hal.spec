@@ -59,7 +59,7 @@ gddisp : dstat.tmc gasdiag.tbl
 hkdisp : VT.tmc bmm_conv.tmc Housekeeping.tbl
 
 Hdoit : H.doit
-Halfalgo : dstat.tmc idxflag.tmc VT.tmc Half.tma Halog.tma
+Halfalgo : dstat.tmc idxflag.tmc VT.tmc VI.tmc Half.tma Halog.tma DHtr.tma TRU.tma
 Halalgo : Hal.tma
 
 Calcext : VT.tmc Calc.cdf

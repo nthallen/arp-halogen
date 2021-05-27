@@ -78,7 +78,9 @@
 ###################################################################
 #  Initialize
 ###################################################################
-
+%{
+  #include "msg.h"
+%}
 
 { tma_hold( (IOSwS & 3) == 1 ); }
 { depending on (QUICK_SHUTDOWN) {
@@ -295,7 +297,7 @@ PARTITION
 State ON_GROUND {
   { using_swp = 0; }
 
-  > Set SW Status 1 to 0
+  > SW Status Set 1 to 0
   { if ( SW1_S == SWS_TAKEOFF ) {
       using_swp = 1;
       validate BELOW_CLOUDS;
@@ -307,7 +309,7 @@ State ON_GROUND {
 }
 
 State BELOW_CLOUDS {
-  > Set SW Status 1 to 0
+  > SW Status Set 1 to 0
 
   { if ((using_swp && SW1_S == SWS_CLIMB) ||
       (!using_swp && convert(SD1_P) < P_clouds_up))
@@ -319,7 +321,7 @@ State BELOW_CLOUDS {
 }
 
 State ABOVE_CLOUDS {
-  > Set SW Status 1 to 0
+  > SW Status Set 1 to 0
 
   { if ( (using_swp && SW1_S == SWS_DESCEND) ||
       (!using_swp && convert(SD1_P) > P_clouds_dn))
