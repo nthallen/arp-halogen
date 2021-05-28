@@ -65,18 +65,8 @@ Halalgo : Hal.tma
 Calcext : VT.tmc Calc.cdf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.cdf
 checkext : check.tmc
+udpext : UDP.tmc Status/UDP.cc -lsocket
 
-#STAText : STAT.edf
-#HAL1ext : HAL1.edf
-#HAL2ext : HAL2.edf
-#HAL3ext : HAL3.edf
-#INST1ext : VT.tmc INST1.edf
-#INST2ext : INST2.edf
-#INST4ext : VI.tmc INST4.edf
-#INST5ext : VI.tmc INST5.edf
-#INST6ext : INST6.edf
-#HEng1ext : VI.tmc VT.tmc HEng1.edf
-#HEng1txtext : VI.tmc VT.tmc HEng1txt.tmc
 %%
 CFLAGS=-Wall -g
 CXXFLAGS=-Wall -g
