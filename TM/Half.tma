@@ -5,7 +5,7 @@
 #  ASCENT: After take-off
 #  RECORD_INIT: Record like but done only once
 #  RECORD: Main Data-taking mode
-#  RECORD_NO2_ONLY: The record state if no air (<100 psi)
+#  RECORD_LAMPS_ONLY: The record state if no air (<100 psi)
 #  DESCENT: On the way down, with possible restart
 #  SHUTDOWN: On or near the ground. Definitely quitting.
 #    The basic idea is to restrict operations in this partition
@@ -21,7 +21,7 @@
 #  
 #----------------------------------------------------------------
 # See also: Hal.sol, Halog.tma, DHtr.tma, TRU.tma,
-# Partition #'s: ClNf(1-2), no2 (3-8), Halog(9-12), DHtr(13-19), TRU(20)
+# Partition #'s: ClNf(1-2), Halog(9-12), DHtr(13-19), TRU(20)
 #
 #############################################################################
 #############################################################################
@@ -94,7 +94,6 @@ State INITIALIZE {
      > telemetry start
   +1 > fail lamp 0 off
   +1 > TRU on
-# +1 > Gasdeck Air Flow to Laser On
 
   depending on (BELOW_CLOUDS) { validate ASCENT; }
   depending on (ABOVE_CLOUDS) { validate ASCENT; }
@@ -119,10 +118,6 @@ State ASCENT {
 State RECORD_INIT {
   depending on (BELOW_CLOUDS) { validate DESCENT; }
   depending on (ON_GROUND) { validate DESCENT; }
-### check for AirHP; if below threshold, validate Record_NO2_ONLY ###
-### check for ClNHP; if below threshold, validate Record_NO2_ONLY ###
-## { if  ( convert(ClNHP) < 100 ) validate RECORD_NO2_ONLY;}
-  +1 > Gasdeck N2 to Bromine On
 
 ##### Initialize Secondary Throttles and Open Gate Valves #####
   +1  > Drive Secondary Throttle 1 out 5000
@@ -152,8 +147,8 @@ State RECORD_INIT {
 State Record {
   depending on (BELOW_CLOUDS) { validate DESCENT; }
   depending on (ON_GROUND) { validate DESCENT; }
-### check for AirHP; if below threshold, validate Record_NO2_ONLY ###
-# { if  ( convert(ClNHP) < 100 ) validate RECORD_NO2_ONLY;}
+  { if  ( convert(AirHP) < 30 ) validate RECORD_LAMPS_ONLY;}
+  { if  ( convert(N2_HP) < 30 ) validate RECORD_LAMPS_ONLY;}
 
      +1 > Soldrv NO Addition
 
@@ -162,18 +157,16 @@ State Record {
      +1 > Duct 1 Temperature Set 0 C
      +1 Validate TEMP1_DITHER;
         "Dithering in 1";
-  +2:00 > Duct 2 Temperature Set 0 C
-     +1 Validate TEMP2_SCAN;
-        "Scanning in 2";
+# +2:00 > Duct 2 Temperature Set 0 C
+#    +1 Validate TEMP2_SCAN;
+#       "Scanning in 2";
 }
 
-State RECORD_NO2_ONLY {
+State RECORD_LAMPS_ONLY {
   depending on (BELOW_CLOUDS) { validate DESCENT; }
   depending on (ON_GROUND) { validate DESCENT; }
-# Modified 4-29-97 for no NO2 sampling of duct 1
 
   +1 > Soldrv NO Off
-  +1 > Gasdeck N2 to Bromine Off
   +1 Validate DHTR2_COOLDOWN;
   +1 Validate DHTR1_COOLDOWN;
   +1 > Duct 1 Temperature Set -70 C
@@ -189,9 +182,6 @@ State RECORD_NO2_ONLY {
 ###################################################################
 
 State DESCENT {
-
-# start purging the laser system
-#   +1 > gasdeck Air Flow to Laser on
     +1 > soldrv NO off
        "Holding for Soldrv Cycle Start";
        Hold until (HSolS == 0) or 35;
@@ -211,7 +201,6 @@ State DESCENT {
 #      > Scan Gate Valve 2 In 25000 by 100
 #  +20 > Scan Gate Valve 1 In 25000 by 100
 #      > Scan Gate Valve 2 In 25000 by 100
-    +1 > Gasdeck N2 to Bromine Off
        depending on (ON_GROUND) { validate SHUTDOWN; }
        depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
 }
@@ -221,20 +210,9 @@ State DESCENT {
 ###################################################################
 
 State SHUTDOWN {
-#  +1 Validate NO2_WAIT_IDLE;
-#  +1 > Soldrv Select NO2 Mode 1
-#     Hold until ( NSolS == 0 ) or 35;
-#  +1 Validate NO2_ADD_IDLE;
-#  +1 > Drive NO2 Throttle out 14000
    +1 Validate DHTR1_OFF;
    +1 Validate DHTR2_OFF;
-#  +1 Validate DIODES_OFF;
-#  +5 > Laser Power Off
-#  +1 Validate APD1_OFF;
-#  +1 Validate APD2_OFF;
-#  +1 > TRU Off
    +1 Validate TRU_OFF;
-# +10 > Fail Lamp 0 On
   +60 > Fail Lamp 0 On
       > Quit
 }
@@ -242,31 +220,25 @@ State SHUTDOWN {
 State QUICK_SHUTDOWN {
   # Halogen Lamps key off QUICK_SHUTDOWN to begin cooling
   # immediately.
-# +1 > Soldrv Select NO2 Mode 0
   +1 > Soldrv Select Halogen Mode 0
   +1 Validate TEMP1_IDLE;
   +1 Validate TEMP2_IDLE;
   +1 Validate DHTR1_COOLDOWN;
      Validate DHTR2_COOLDOWN;
-# +1 Validate DIODES_OFF;
 
      "Holding for DHeater COOLDOWN";
      Hold until valid (DHTR1_OFF, DHTR2_OFF) or 3:00;
   +1 Validate DHTR1_OFF;
   +1 Validate DHTR2_OFF;
+###
   +1 Validate A_DEAD;
   +1 Validate B_DEAD;
   +1 Validate C_DEAD;
   +1 Validate D_DEAD;
-# +1 > Laser Power Off
-# +1 > GasDeck Air Flow to Laser On
   +1 > Drive Secondary Throttle 1 in 65000
   +1 > Drive Secondary Throttle 2 in 65000
 # +1 > Scan Gate Valve 1 in 50000 by 100
 # +1 > Scan Gate Valve 2 in 50000 by 100
-# +1 Validate APD1_OFF;
-# +1 Validate APD2_OFF;
-# +1 > TRU Off
   +1 Validate TRU_OFF;
  +10 > Fail Lamp 0 On
      > Quit
@@ -274,7 +246,7 @@ State QUICK_SHUTDOWN {
   
 #############################################################################
 #############################################################################
-# This partition converts pressure (altitude) into states (ON_GROUND,
+# Partition 2: converts pressure (altitude) into states (ON_GROUND,
 # BELOW_CLOUDS, ABOVE_CLOUDS). The threshold pressures each have two
 # values - one for the flight up and the other for the flight down.
 # This provides hysteresis and prevents bouncing.

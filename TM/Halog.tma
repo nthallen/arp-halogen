@@ -7,10 +7,12 @@
 # 		1.	The lamp will not light after 6 attempts
 #		2.	depending on (SHUTDOWN)
 #----------------------------------------------------------------
-#   Set lamp dependent RF and IR setpoints here
-#   Data used: A 961208  B 961208  C 961207  D 961207   
-#                                    970111    970111
-#                9704xx    9704xx    9704xx    9704xx
+# Lamps currently installed
+#   May 29, 2021, AFRC Palmdale
+#     A: 110420 ir0: 0.01 irset: 90
+#     B: 032221 ir0: 0.10 irset: 200
+#     C: 020420 ir0: 0.10 irset: 240
+#     D: 101819 ir0: 0.10 irset: 260
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -25,8 +27,10 @@
 %{
   #include "nortlib.h"
 
-  double ir0=0.15;
-  double ir0d = 0.05;
+  double ir0a = 0.01;
+  double ir0b = 0.10;
+  double ir0c = 0.10;
+  double ir0d = 0.10;
   int SW_stop = 0;
   #define A_STOPPED 1
   #define B_STOPPED 2
@@ -73,7 +77,7 @@ depending on (QUICK_SHUTDOWN) {
 
 #############################################################################
 #############################################################################
-# Partition 9: Lamp A Control (Assuming ClNf.tma and no2.tma)
+# Partition 3: Lamp A Control
 #############################################################################
 #############################################################################
 
@@ -102,24 +106,23 @@ State A_START {
             Validate A_DEAD;
           }
         }
-     +1 > Lamp A RF Setpoint 2
+     +1 > Lamp A RF Setpoint 3000
      +5 > Lamp A on
-    +10 Hold until (convert(A_IRV) >= ir0)
+    +10 Hold until (convert(A_IRV) >= ir0a)
           or 20 else Validate A_START;
      +1 { fail_cnt_a = 0; }
-     +1 > Lamp A IR Setpoint 300
+     +1 > Lamp A IR Setpoint 90
         Validate A_ON;
 }
 
 State A_ON {
-    #{ if (convert(A_IRV) < ir0) Validate A_START; }
-    #{ if (convert(A_IRV) < 10) Validate A_START; }
     { if (!Lmp_A) Validate A_TRIPPED; }
     depending on (DESCENT) { Validate A_OFF; }
     depending on (SHUTDOWN) { Validate A_DEAD; }
+    depending on (QUICK_SHUTDOWN) { Validate A_DEAD; }
     
-    Hold until (convert(A_IRV) < ir0);
-    Hold until (convert(A_IRV) >= ir0) OR 20
+    Hold until (convert(A_IRV) < ir0a);
+    Hold until (convert(A_IRV) >= ir0a) OR 20
     else Validate A_START;
     Validate A_ON;
 }
@@ -139,18 +142,22 @@ State A_OFF {
    +1 > SW Status Set 1 to 0
       > Lamp A IR Setpoint 0
       "Lamp A Heater Off, cooling down";
-      Hold until (convert(A_IRV) < ir0) or 3:00;
+      Hold until (convert(A_IRV) < ir0a) or 3:00;
       > Lamp A off
-      > Lamp A RF Setpoint 1
+      > Lamp A RF Setpoint 0
       "Lamp A is Off";
 }
 
 State A_DEAD {
      +1 > Lamp A IR Setpoint 0
-     +1 > Lamp A RF Setpoint 1
+     +1 > Lamp A RF Setpoint 0
      +1 > Lamp A Off
     "Lamp A is Dead"; 
 }
+
+#############################################################################
+# Partition 4: Lamp A Watch
+#############################################################################
 
 PARTITION
 
@@ -182,7 +189,7 @@ State A_WATCH {
 
 #############################################################################
 #############################################################################
-# Partition 10: Lamp B Control (Assuming ClNf.tma and no2.tma)
+# Partition 5: Lamp B Control
 #############################################################################
 #############################################################################
 
@@ -211,12 +218,12 @@ State B_START {
             Validate B_DEAD;
           }
         }
-     +1 > Lamp B RF Setpoint 1
+     +1 > Lamp B RF Setpoint 3000
     +10 > Lamp B on
-    +10 Hold until (convert(B_IRV) >= ir0)
+    +10 Hold until (convert(B_IRV) >= ir0b)
           or 20 else Validate B_START;
      +1 { fail_cnt_b = 0; }
-     +1 > Lamp B IR Setpoint 250
+     +1 > Lamp B IR Setpoint 200
         Validate B_ON;
 }
 
@@ -225,8 +232,8 @@ State B_ON {
     depending on (DESCENT) { Validate B_OFF; }
     depending on (SHUTDOWN) { Validate B_DEAD; }
     
-    Hold until (convert(B_IRV) < ir0);
-    Hold until (convert(B_IRV) >= ir0) OR 20
+    Hold until (convert(B_IRV) < ir0b);
+    Hold until (convert(B_IRV) >= ir0b) OR 20
     else Validate B_START;
     Validate B_ON;
 }
@@ -246,18 +253,22 @@ State B_OFF {
    +1 > SW Status Set 1 to 0
       > Lamp B IR Setpoint 0
       "Lamp B Heater Off, cooling down";
-      Hold until (convert(B_IRV) < ir0) or 3:00;
+      Hold until (convert(B_IRV) < ir0b) or 3:00;
       > Lamp B off
-      > Lamp B RF Setpoint 1
+      > Lamp B RF Setpoint 0
       "Lamp B is Off";
 }
 
 State B_DEAD {
      +1 > Lamp B IR Setpoint 0
-     +1 > Lamp B RF Setpoint 1
+     +1 > Lamp B RF Setpoint 0
      +1 > Lamp B Off
     "Lamp B is Dead"; 
 }
+
+#############################################################################
+# Partition 6: Lamp B Watch
+#############################################################################
 
 PARTITION
 
@@ -287,7 +298,7 @@ State B_WATCH {
 
 #############################################################################
 #############################################################################
-# Partition 11: Lamp C Control (Assuming ClNf.tma and no2.tma)
+# Partition 7: Lamp C Control
 #############################################################################
 #############################################################################
 
@@ -316,12 +327,12 @@ State C_START {
             Validate C_DEAD;
           }
         }
-     +1 > Lamp C RF Setpoint 3
+     +1 > Lamp C RF Setpoint 3000
     +15 > Lamp C on
-    +10 Hold until (convert(C_IRV) > ir0)
+    +10 Hold until (convert(C_IRV) > ir0c)
           or 20 else Validate C_START;
      +1 { fail_cnt_c = 0; }
-     +1 > Lamp C IR Setpoint 500
+     +1 > Lamp C IR Setpoint 240
         Validate C_ON;
 }
 
@@ -330,8 +341,8 @@ State C_ON {
     depending on (DESCENT) { Validate C_OFF; }
     depending on (SHUTDOWN) { Validate C_DEAD; }
     
-    Hold until (convert(C_IRV) < ir0);
-    Hold until (convert(C_IRV) >= ir0) OR 20
+    Hold until (convert(C_IRV) < ir0c);
+    Hold until (convert(C_IRV) >= ir0c) OR 20
     else Validate C_START;
     Validate C_ON;
 }
@@ -351,18 +362,22 @@ State C_OFF {
    +1 > SW Status Set 1 to 0
       > Lamp C IR Setpoint 0
       "Lamp C Heater Off, cooling down";
-      Hold until (convert(C_IRV) < ir0) or 3:00;
+      Hold until (convert(C_IRV) < ir0c) or 3:00;
       > Lamp C off
-      > Lamp C RF Setpoint 1
+      > Lamp C RF Setpoint 0
       "Lamp C is Off";
 }
 
 State C_DEAD {
    +1 > Lamp C IR Setpoint 0
-   +1 > Lamp C RF Setpoint 1
+   +1 > Lamp C RF Setpoint 0
    +1 > Lamp C Off
       "Lamp C is Dead"; 
 }
+
+#############################################################################
+# Partition 8: Lamp C Watch
+#############################################################################
 
 PARTITION
 
@@ -392,7 +407,7 @@ State C_WATCH {
 
 #############################################################################
 #############################################################################
-# Partition 12: Lamp D Control (Assuming ClNf.tma and no2.tma)
+# Partition 9: Lamp D Control
 #############################################################################
 #############################################################################
 
@@ -421,12 +436,12 @@ State D_START {
             Validate D_DEAD;
            }
         }
-     +1 > Lamp D RF Setpoint 2
+     +1 > Lamp D RF Setpoint 3000
     +20 > Lamp D on
     +10 hold until (DetD > 5)
           or 20 else Validate D_START;
      +1 { fail_cnt_d = 0; }
-     +1 > Lamp D IR Setpoint 150
+     +1 > Lamp D IR Setpoint 260
         Validate D_ON;
 }
 
@@ -458,16 +473,20 @@ State D_OFF {
       "Lamp D Heater Off, cooling down";
       Hold until (DetD < 5) or 3:00;
       > Lamp D off
-      > Lamp D RF Setpoint 1
+      > Lamp D RF Setpoint 0
       "Lamp D is Off";
 }
 
 State D_DEAD {
    +1 > Lamp D IR Setpoint 0
-   +1 > Lamp D RF Setpoint 1
+   +1 > Lamp D RF Setpoint 0
    +1 > Lamp D Off
      "Lamp D is Dead"; 
 }
+
+#############################################################################
+# Partition 10: Lamp D Watch
+#############################################################################
 
 PARTITION
 

@@ -1,5 +1,5 @@
 ############################################################################
-# Partition numbering assumes ClNf.tma no2.tma Halog.tma
+# Partition numbering assumes Half.tma Halog.tma
 #
 # Rules for using low-level controls:
 #   DHTRn_OFF is the initial state. It may be validated at any
@@ -69,14 +69,14 @@
     int     max_setpoint = 2100;
 %}
 
-PARTITION
-
 #############################################################################
 #############################################################################
-# Partition 13: Dheater 1 On/Off Control
+# Partition 11: Dheater 1 On/Off Control
 #   This Partition Controls Dissociation Heater 1 On/Off and safeguards
 #############################################################################
 #############################################################################
+
+PARTITION
 
 %{
     int     fail_cnt_dhtr1 = 0;
@@ -135,7 +135,7 @@ State DHTR1_FAILED {
 
 #############################################################################
 #############################################################################
-# Partition 14: DHeater 1 low-level Control
+# Partition 12: DHeater 1 low-level Control
 #   This Partition Runs Dissociation Heater 1 Power Ramping
 #############################################################################
 #############################################################################
@@ -233,14 +233,14 @@ State DHTR1_HEAT {
     +1      Validate DHTR1_HEAT;
 }
 
-PARTITION
-
 #############################################################################
 #############################################################################
-# Partition 15: Dheater 2 On/Off Control
+# Partition 13: Dheater 2 On/Off Control
 #   This Partition Controls Dissociation Heater 2 On/Off and safeguards
 #############################################################################
 #############################################################################
+
+PARTITION
 
 %{
     int     fail_cnt_dhtr2 = 0;
@@ -299,7 +299,7 @@ State DHTR2_FAILED {
 
 #############################################################################
 #############################################################################
-# Partition 16: DHeater 2 low-level Control
+# Partition 14: DHeater 2 low-level Control
 #   This Partition Runs Dissociation Heater 2 Power Ramping
 #############################################################################
 #############################################################################
@@ -402,8 +402,10 @@ State DHTR2_HEAT {
 #  High level DHeater contol functions: temp scan, dither, idle
 #               
 #############################################################################
+
 #############################################################################
-# Partition 17: DHeater 1 high-level controls
+#############################################################################
+# Partition 15: DHeater 1 high-level controls
 #   This partition ramps and dithers the heater in duct 1 
 #   Expecting an NO Sol cycle that is 35 seconds
 #############################################################################
@@ -522,7 +524,7 @@ State TEMP1_HOLD {
 
 #############################################################################
 #############################################################################
-# Partition 18: DHeater 2 high-level controls
+# Partition 16: DHeater 2 high-level controls
 #   This partition ramps and dithers the heater in duct 2 
 #   Expecting an NO Sol cycle that is 35 seconds
 #############################################################################
@@ -631,9 +633,12 @@ State TEMP2_HOLD {
         depending on ( DHTR2_IDLE ) { Validate TEMP2_IDLE; }
 }
 
-#----------------------------------------------------------------
-# Partition 19: DHTRS_CHK. Checks common to both DHeaters
-#----------------------------------------------------------------
+#############################################################################
+#############################################################################
+# Partition 17: DHTRS_CHK. Checks common to both DHeaters
+#############################################################################
+#############################################################################
+
 Partition
 
 State DHTRS_CHK_OFF {
