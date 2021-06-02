@@ -50,8 +50,8 @@ Command_Set = 'A'
 
 dtoa  NOxH1F  0xCEE   {Z:0 A:1966 B:1147 C:462  D:377 E:340}
 dtoa  NOxH2F  0xD60   {Z:0 A:737  B:533  C:462  D:377 E:340}
-#dtoa  CNxHF   0xCEC   {Z:0 A:2047 B:1639 C:1229 D:819 E:409}
-#dtoa  NO2xNF  0xC60   {Z:0 A:2047 B:1639 C:1024 D:819 E:409}
+;dtoa  CNxHF   0xCEC   {Z:0 A:2047 B:1639 C:1229 D:819 E:409}
+;dtoa  NO2xNF  0xC60   {Z:0 A:2047 B:1639 C:1024 D:819 E:409}
 
 ; Status byte - for communication with ClN.tma algo
 dtoa  Sol1S0  0x0000  {Z:0 }

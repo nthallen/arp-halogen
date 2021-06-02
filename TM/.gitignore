@@ -82,6 +82,11 @@ checkext.cc
 checkextoui.c
 checkextoui.o
 checkext.o
+udpext.cc
+udpextoui.c
+udpextoui.o
+udpext.o
+UDP.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -124,6 +129,7 @@ Halalgo
 Calcext
 NOTitr_4ext
 checkext
+udpext
 Halclt
 Halcltnc
 Halengext
