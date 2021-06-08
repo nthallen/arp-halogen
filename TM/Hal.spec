@@ -41,7 +41,7 @@ SRC = idx.idx NOTitr_4.cyc *.edf tlookup*.dat
 IGNORE = Makefile
 
 SCRIPT = dccc.dccc idx.idx64 interact Experiment.config
-SCRIPT = runfile.FF
+SCRIPT = runfile.FF runfileFF
 
 OBJ = NOTitr_4.tmc
 TGTDIR = $(TGTNODE)/home/Hal
@@ -59,6 +59,7 @@ gddisp : dstat.tmc gasdiag.tbl
 hkdisp : VT.tmc bmm_conv.tmc Housekeeping.tbl
 
 Hdoit : H.doit
+Hlabdoit : Hlab.doit
 Halfalgo : dstat.tmc idxflag.tmc VT.tmc VI.tmc bmm_conv.tmc \
            Half.tma Halog.tma DHtr.tma TRU.tma
 Halalgo : Hal.tma

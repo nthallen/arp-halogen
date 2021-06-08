@@ -36,7 +36,7 @@
 #                         namewait -p $! -t 20 nav
 #                       fi
 
-  Launch -              udpext
+# Launch -              udpext
 
   Launch -              Halfalgo -v
 # Launch -              Halalgo -v

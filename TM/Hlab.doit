@@ -3,5 +3,5 @@ display hddisp
 display dhdisp
 display hkdisp
 client Halclt
-batchfile runfileFF
+batchfile interact
 memo
