@@ -100,7 +100,7 @@ ROWS 18
 4 LabDuctP Pressure P
 1/16 SDP1T Pressure T
 1/16 SDP2T Pressure T
-1 PumpS Pump Status
+# 1 PumpS Pump Status
 # 1 PmotT Pump T
 # 1 PumpT Pump T
 1/16 Rv_1T Rovers T 1
