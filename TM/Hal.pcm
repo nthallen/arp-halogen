@@ -6,9 +6,9 @@ Effective Frame Dimensions:
   64 Rows 29 Columns
   16 rows/sec
   3712 bits/sec
-  Data:  3094 bits/sec  83 %
+  Data:  3086 bits/sec  83 %
   Synch: 512 bits/sec  14 %
-  Empty: 106 bits/sec  3 %
+  Empty: 114 bits/sec  3 %
 -------End of Frame Statistics-----
 
 
@@ -172,20 +172,19 @@ Effective Frame Dimensions:
 1/1 Hz 2 bytes Datum V28I4 (16,14,20,2)
 1/1 Hz 2 bytes Datum V28V1 (16,14,22,2)
 1/1 Hz 2 bytes Datum V28V2 (16,14,24,2)
-1/1 Hz 1 bytes Datum PumpS (16,14,26,1)
+1/1 Hz 1 bytes Datum SD1TSP (16,14,26,1)
 1/1 Hz 2 bytes Datum V28V3 (16,15,2,2)
 1/1 Hz 2 bytes Datum V28V4 (16,15,4,2)
-1/1 Hz 1 bytes Datum SD1TSP (16,15,6,1)
-1/1 Hz 1 bytes Datum SD2TSP (16,15,7,1)
-1/1 Hz 1 bytes Datum SV1St (16,15,8,1)
-1/1 Hz 1 bytes Datum SV2St (16,15,9,1)
-1/4 Hz 2 bytes Datum AModP (64,15,10,2)
-1/4 Hz 2 bytes Datum BModP (64,15,12,2)
-1/4 Hz 2 bytes Datum CModP (64,15,14,2)
-1/4 Hz 2 bytes Datum DModP (64,15,16,2)
-1/4 Hz 2 bytes Datum Lattd (64,15,18,2)
-1/4 Hz 2 bytes Datum Lngtd (64,15,20,2)
-1/4 Hz 2 bytes Datum TDrft (64,15,22,2)
-1/4 Hz 1 bytes Datum FailS (64,15,24,1)
+1/1 Hz 1 bytes Datum SD2TSP (16,15,6,1)
+1/1 Hz 1 bytes Datum SV1St (16,15,7,1)
+1/1 Hz 1 bytes Datum SV2St (16,15,8,1)
+1/4 Hz 2 bytes Datum AModP (64,15,9,2)
+1/4 Hz 2 bytes Datum BModP (64,15,11,2)
+1/4 Hz 2 bytes Datum CModP (64,15,13,2)
+1/4 Hz 2 bytes Datum DModP (64,15,15,2)
+1/4 Hz 2 bytes Datum Lattd (64,15,17,2)
+1/4 Hz 2 bytes Datum Lngtd (64,15,19,2)
+1/4 Hz 2 bytes Datum TDrft (64,15,21,2)
+1/4 Hz 1 bytes Datum FailS (64,15,23,1)
 -------End of PCM Definition-------
 
