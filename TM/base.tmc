@@ -203,7 +203,7 @@ TM 4 Hz AD12_1000Torr LabDuctP; Address LabDuctP 0xCCC; /* Was X1HVP */
 /* TM 1 Hz AD16 APD2HV; Address APD2HV 0xD78; */
 /* TM 1 Hz DASPt16 APD1HVSet; Address APD1HVSet 0xCF0; */
 /* TM 1 Hz DASPt16 APD2HVSet; Address APD2HVSet 0xDF0; */
-TM 1 Hz StBit PumpS; Address PumpS 0x848;
-  Collect PumpS = (sbrba(PumpS.address) & 0x40) ? 0 : 1;
+/* TM 1 Hz StBit PumpS; Address PumpS 0x848;
+  Collect PumpS = (sbrba(PumpS.address) & 0x40) ? 0 : 1; */
 TM MAXCOLS = 120;
 TM 16  Hz UINT  Synch, MFCtr;
