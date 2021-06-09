@@ -9,7 +9,7 @@
   Launch TM/DCo         TMbfr
   
   memo=/dev/huarp/$Experiment/memo
-  echo "Running script interact" >$memo
+  echo "Running script runfile.FF" >$memo
  
   Launch -              dccc -f $TMBINDIR/dccc.dccc
   Launch DG/cmd         nice -n-1 Halcol
@@ -36,7 +36,7 @@
 #                         namewait -p $! -t 20 nav
 #                       fi
 
-  Launch -              udpext
+# Launch -              udpext
 
   Launch -              Halfalgo -v
 # Launch -              Halalgo -v
