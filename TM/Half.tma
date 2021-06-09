@@ -140,7 +140,7 @@ State RECORD_INIT {
 # guessing that new obstructions in duct 1 require slightly more open
 # valve
    +5 > Drive Secondary Throttle 1 to 10000
-   +1 > Drive Secondary Throttle 2 to 8500
+   +5 > Drive Secondary Throttle 2 to 8500
       Validate RECORD;
 }
 
