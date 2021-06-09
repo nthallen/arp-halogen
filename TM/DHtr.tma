@@ -472,12 +472,14 @@ State TEMP1_DITHER {
 
   +1    >   Duct 1 Temperature Set 0 C
         "Holding at lowest temp";
-  +85   "Holding for beginning of soldrv cycle";
-        hold until ( (HSolS % 10 ) == 0) or 35;
+        hold until (SW1_S == SWS_TIME_WARP) or 85;
+        "Holding for beginning of soldrv cycle";
+        hold until ( ((HSolS % 10) == 0) || (SW1_S == SWS_TIME_WARP) ) or 35;
         >   Duct 1 Temperature Add 88 C
         "Holding at middle temp (up)";
-  +85   "Holding for beginning of soldrv cycle";
-        hold until ( (HSolS % 10 ) == 0) or 35;
+        hold until (SW1_S == SWS_TIME_WARP) or 85;
+        "Holding for beginning of soldrv cycle";
+        hold until ( ((HSolS % 10) == 0) || (SW1_S == SWS_TIME_WARP) ) or 35;
    +1   { if (convert(SD1_P) > 150)
             Validate TEMP1_DITHER;
         }
