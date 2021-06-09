@@ -201,7 +201,12 @@ VELOCITY_I SD1Vel; invalidate SD1Vel;
   Validate SD1Vel;
 }
 
+VELOCITY_I SD1VelF; invalidate SD1VelF;
+{ SD1VelF = calc_velocity( convert(SD1_P), convert(SD1DP), SF1FTemp );
+  Validate SD1VelF;
+}
+
 VELOCITY_I SD2Vel; invalidate SD2Vel;
-{ SD2Vel = calc_velocity( convert(SD2_P), convert(SD2DP), SF2BTemp );
+{ SD2Vel = calc_velocity( convert(SD2_P), convert(SD2DP), SF2FTemp );
   Validate SD2Vel;
 }
