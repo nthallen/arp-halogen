@@ -26,6 +26,7 @@ genuibase = Hal.genui
 extbase = check.tmc bmm_conv.tmc
 
 Module TMbase
+Module IWG1
 
 # Module RFD:
 #   Also need to:
@@ -57,6 +58,7 @@ hddisp : idxflag.tmc VT.tmc dstat.tmc SlowCnts.tmc haldiag.tbl
 dhdisp : dstat.tmc VT.tmc VI.tmc bmm_conv.tmc dhtr.tbl
 gddisp : dstat.tmc gasdiag.tbl
 hkdisp : VT.tmc bmm_conv.tmc Housekeeping.tbl
+IWG1disp : IWG1.tbl
 
 Hdoit : H.doit
 Hlabdoit : Hlab.doit

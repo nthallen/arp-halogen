@@ -2,6 +2,7 @@ display gddisp
 display hddisp
 display dhdisp
 display hkdisp
+display IWG1disp
 client Halclt
 batchfile runfileFF
 memo
