@@ -55,6 +55,16 @@ hkdispnc.cc
 hkdispncoui.c
 hkdispncoui.o
 hkdispnc.o
+IWG1tbl.tmc
+IWG1disp.cc
+IWG1dispoui.c
+IWG1dispoui.o
+IWG1disp.o
+IWG1tblnc.tmc
+IWG1dispnc.cc
+IWG1dispncoui.c
+IWG1dispncoui.o
+IWG1dispnc.o
 Hdoit.dep
 Hlabdoit.dep
 Halfalgoa.tmc
@@ -109,6 +119,8 @@ gasdiagtbl.tmc.dep
 gasdiagtblnc.tmc.dep
 Housekeepingtbl.tmc.dep
 Housekeepingtblnc.tmc.dep
+IWG1tbl.tmc.dep
+IWG1tblnc.tmc.dep
 *.err
 Makefile
 Halsrvr
@@ -124,6 +136,8 @@ gddisp
 gddispnc
 hkdisp
 hkdispnc
+IWG1disp
+IWG1dispnc
 Hdoit
 Hlabdoit
 Halfalgo
