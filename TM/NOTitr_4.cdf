@@ -64,7 +64,7 @@ condition depending on ( 4 Hz, DetC_Z once )
 	28 SD2_P_C  %8.2lf /**/
 	29 SD2_P_D  %8.2lf /**/
 
-csv SolAd12 24
+csv SolAd12 31
 condition depending on ( 4 Hz, SD1DP_Z once )
         0 TSolAd12 %.3lf
 	1 SD1DP_Z %8.2lf /**/
@@ -90,10 +90,17 @@ condition depending on ( 4 Hz, SD1DP_Z once )
 	21 SF1B5_AB  %8.2lf /**/
 	22 SF1B5_CD  %8.2lf /**/
 	23 SD1Vel_Z %8.2lf /**/
+	24 SF1BTemp_Z %8.2lf /**/
+	25 SF1BTemp_A %8.2lf /**/
+	26 SF1BTemp_B %8.2lf /**/
+	27 SF1BTemp_C %8.2lf /**/
+	28 SF1BTemp_D  %8.2lf /**/
+	29 SF1BTemp_AB  %8.2lf /**/
+	30 SF1BTemp_CD  %8.2lf /**/
 
-csv SolAd22 24
+csv SolAd22 31
 condition depending on ( 4 Hz, SD2DP_Z once )
-        0 TSolAd24 %.3lf
+        0 TSolAd22 %.3lf
 	1 SD2DP_Z %8.2lf /**/
 	2 SF2FTemp_Z %8.2lf /**/
 	3 SF2FTemp_A %8.2lf /**/
@@ -117,3 +124,10 @@ condition depending on ( 4 Hz, SD2DP_Z once )
 	21 SF2B5_AB  %8.2lf /**/
 	22 SF2B5_CD  %8.2lf /**/
 	23 SD2Vel_Z %8.2lf /**/
+	24 SF2BTemp_Z %8.2lf /**/
+	25 SF2BTemp_A %8.2lf /**/
+	26 SF2BTemp_B %8.2lf /**/
+	27 SF2BTemp_C %8.2lf /**/
+	28 SF2BTemp_D  %8.2lf /**/
+	29 SF2BTemp_AB  %8.2lf /**/
+	30 SF2BTemp_CD  %8.2lf /**/
