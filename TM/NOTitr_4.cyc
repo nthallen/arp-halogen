@@ -15,6 +15,8 @@ Trigger Cycles {
   Region D [24.75, 29.75] ;
   Region AB [5.0, 16.75] ;
   Region CD [17.75, 29.75] ;
+  Region ABC [5.0, 23.75] ;
+  Region BCD [11.0, 29.75] ;
 }
 
 Average DetA, DetB, DetC, DetD, 
@@ -31,5 +33,5 @@ Average DetA, DetB, DetC, DetD,
 Average DetA, DetB, DetC, DetD, 
   SF1FTemp, SF1BTemp, SF2FTemp, SF2BTemp, SF1B5, SF2B5, SF1F5, SF2F5,
   SD1_P, SD2_P
-    Over AB, CD;
+    Over AB, CD, ABC, BCD;
 
