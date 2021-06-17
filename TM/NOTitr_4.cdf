@@ -1,4 +1,4 @@
-csv SolAd11 30
+csv SolAd11 34
 condition depending on ( 4 Hz, DetA_Z once )
         0 TSolAd11 %.3lf
 	1 DetA_Z %6.0lf /**/
@@ -30,8 +30,12 @@ condition depending on ( 4 Hz, DetA_Z once )
 	27 SD1_P_B  %8.2lf /**/
 	28 SD1_P_C  %8.2lf /**/
 	29 SD1_P_D  %8.2lf /**/
+	30 DetA_ABC %6.0lf /**/
+	31 DetA_BCD %6.0lf /**/
+	32 DetB_ABC %6.0lf /**/
+	33 DetB_BCD %6.0lf /**/
 	
-csv SolAd21 30
+csv SolAd21 34
 condition depending on ( 4 Hz, DetC_Z once )
         0 TSolAd21 %.3lf
 	1 DetC_Z %6.0lf /**/
@@ -63,8 +67,12 @@ condition depending on ( 4 Hz, DetC_Z once )
 	27 SD2_P_B  %8.2lf /**/
 	28 SD2_P_C  %8.2lf /**/
 	29 SD2_P_D  %8.2lf /**/
+	30 DetC_ABC %6.0lf /**/
+	31 DetC_BCD %6.0lf /**/
+	32 DetD_ABC %6.0lf /**/
+	33 DetD_BCD %6.0lf /**/
 
-csv SolAd12 31
+csv SolAd12 39
 condition depending on ( 4 Hz, SD1DP_Z once )
         0 TSolAd12 %.3lf
 	1 SD1DP_Z %8.2lf /**/
@@ -97,8 +105,16 @@ condition depending on ( 4 Hz, SD1DP_Z once )
 	28 SF1BTemp_D  %8.2lf /**/
 	29 SF1BTemp_AB  %8.2lf /**/
 	30 SF1BTemp_CD  %8.2lf /**/
+	31 SF1FTemp_ABC  %8.2lf /**/
+	32 SF1FTemp_BCD  %8.2lf /**/
+	33 SF1F5_ABC  %8.2lf /**/
+	34 SF1F5_BCD  %8.2lf /**/
+	35 SF1B5_ABC  %8.2lf /**/
+	36 SF1B5_BCD  %8.2lf /**/
+	37 SF1BTemp_ABC  %8.2lf /**/
+	38 SF1BTemp_BCD  %8.2lf /**/
 
-csv SolAd22 31
+csv SolAd22 39
 condition depending on ( 4 Hz, SD2DP_Z once )
         0 TSolAd22 %.3lf
 	1 SD2DP_Z %8.2lf /**/
@@ -131,3 +147,11 @@ condition depending on ( 4 Hz, SD2DP_Z once )
 	28 SF2BTemp_D  %8.2lf /**/
 	29 SF2BTemp_AB  %8.2lf /**/
 	30 SF2BTemp_CD  %8.2lf /**/
+	31 SF2FTemp_ABC  %8.2lf /**/
+	32 SF2FTemp_BCD  %8.2lf /**/
+	33 SF2F5_ABC  %8.2lf /**/
+	34 SF2F5_BCD  %8.2lf /**/
+	35 SF2B5_ABC  %8.2lf /**/
+	36 SF2B5_BCD  %8.2lf /**/
+	37 SF2BTemp_ABC  %8.2lf /**/
+	38 SF2BTemp_BCD  %8.2lf /**/
