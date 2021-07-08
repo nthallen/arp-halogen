@@ -60,7 +60,7 @@ TM typedef UCHAR SWStat {
   collect x = cache_read(x.address);
 }
 
-TM typedef short CELCIUS_SP { text "%3d"; }
+TM typedef long CELCIUS_SP { text "%3d"; }
 TM typedef SWStat DUCT_SP {
   convert CELCIUS_SP;
   text "%3d";
