@@ -14,7 +14,7 @@ Axes {
 #    >HBox{ (RFB_S,1); (RFBTemp,3)}
 #    >HBox{ (RFC_S,1); (RFCTemp,3)}
 #    >HBox{ (RFD_S,1); (RFDTemp,3)} "C";
- "DetT:" (ADetT,5) (BDetT,5) (CDetT,5) (DDetT,5) "C";
+ "DetT:" (Rv_5T,5) (Rv_6T,5) (Rv13T,5) (Rv14T,5) "C";
 #"DHV:" (A_DHV,6) (B_DHV,6) (C_DHV,6) (D_DHV,6) "V";
  "LMT:" (A_LMT,5) (B_LMT,5) (C_LMT,5) (D_LMT,5) "V";
  "ModP:" (AModP,6) (BModP,6) (CModP,6) (DModP,6) "V";

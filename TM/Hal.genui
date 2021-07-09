@@ -16,9 +16,9 @@ ROWS 18
 4 Ovf20_C:HCtStat:2 CtStat HCt
 4 Ovf20_D:HCtStat:3 CtStat HCt
 4 Resynch:HCtStat:15 CtStat HCt
-1 NOH1Set Flows SetPt
-1 NOH2Set Flows SetPt
+1 NOH1Set GasDeck Flows
 4 NOH1F GasDeck Flows
+1 NOH2Set GasDeck Flows
 4 NOH2F GasDeck Flows
 1/16 AirHP GasDeck HP
 1/16 N2_HP GasDeck HP
@@ -49,10 +49,10 @@ ROWS 18
 1/16 PS_1T HK T
 1/16 PS_2T HK T
 1/16 VicrT HK T
-1/16 ADetT Lamps DetT A
-1/16 BDetT Lamps DetT B
-1/16 CDetT Lamps DetT C
-1/16 DDetT Lamps DetT D
+#1/16 ADetT Lamps DetT A
+#1/16 BDetT Lamps DetT B
+#1/16 CDetT Lamps DetT C
+#1/16 DDetT Lamps DetT D
 1 A_IRV Lamps IR A
 1 B_IRV Lamps IR B
 1 C_IRV Lamps IR C
