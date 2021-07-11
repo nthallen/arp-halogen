@@ -482,7 +482,7 @@ State TEMP1_DITHER {
         "Holding for beginning of soldrv cycle";
         hold until ( ((HSolS % 10) == 0) || (SW1_S == SWS_TIME_WARP) ) or 35;
         > SW Status Set 1 to 0
-   +1   { if (convert(SD1_P) > 140)
+   +1   { if (convert(SD1_P) > 10)
             Validate TEMP1_DITHER;
         }
    +2   > Duct 1 Temperature Add 132 C
