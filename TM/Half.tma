@@ -103,9 +103,9 @@ State INITIALIZE {
 ###################################################################
 
 State ASCENT {
+  +1 > TRU on
   depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
   depending on (ON_GROUND) { validate SHUTDOWN; }
-  +1 > TRU on
 }
 
 ###################################################################
