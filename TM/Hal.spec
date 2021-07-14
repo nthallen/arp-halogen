@@ -22,7 +22,7 @@ cmdbase = Hal.cmd
 cmdbase = bmm.cmd
 cmdbase = mux.cmd
 
-genuibase = Hal.genui
+genuibase = bmm.genui
 extbase = check.tmc bmm_conv.tmc
 
 Module TMbase
