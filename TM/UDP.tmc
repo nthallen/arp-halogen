@@ -11,7 +11,7 @@
 %}
 
 TM typedef double mixing_ratio { text "%12.2lE"; }
-mixing_ration ClO_A; Invalidate ClO_A;
+mixing_ratio ClO_A; Invalidate ClO_A;
 
 depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z once) {
   double Qa, bkA, Sfa, NO_conv_eff_A;
@@ -27,12 +27,12 @@ depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z 
   dsdmA = bkA * exp(7.5*2.0e-20*0.21*MA)/(1/Qa + 0.857 * MA);
   ClO_A = Sfa                    /* Corrected Fluor signal */
      *(2.67e-29*MA + 3.65e-11)   /* M dependent cal in air */
-     *(1.0./dsdmA)               /* 1/dsdm in N2 */
+     *(1.0/dsdmA)               /* 1/dsdm in N2 */
      *(exp(7.5*2.0e-20*0.21*MA)) /* correction for Abs by O2 */
-     *sqrt((500 + 2*TA)./1100)   /* Temp correction */
-     *(1.0./NO_conv_eff_A)       /* NO conversion efficiency */
-     *(1.0./Lyman_A)             /* Lyman-a correction */
-     *(1.0e12./MA);              /* conversion to ppt */
+     *sqrt((500 + 2*TA)/1100)   /* Temp correction */
+     *(1.0/NO_conv_eff_A)       /* NO conversion efficiency */
+     *(1.0/Lyman_A)             /* Lyman-a correction */
+     *(1.0e12/MA);              /* conversion to ppt */
   Validate ClO_A;
 }
 
