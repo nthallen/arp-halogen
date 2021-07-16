@@ -10,7 +10,7 @@ depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z 
   Qa = 0.0184/3.28e16;
   bkA = DetA_Z;
   Sfa = DetA_CD - DetA_Z;
-  NO_conv_eff_A = 0.9;
+  NO_conv_eff_A = 0.75;
   TA = SF1FTemp_Z + 273;
   P = (SD1_P_Z + SD2_P_Z)/2;
   MA = 9.66e18*P/TA;
