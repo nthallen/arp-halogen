@@ -1,20 +1,20 @@
 csv SolAd11 34
 condition depending on ( 4 Hz, DetA_Z once )
         0 TSolAd11 %.3lf
-	1 DetA_Z %6.0lf /**/
-	2 DetA_A %6.0lf /**/
-	3 DetA_B %6.0lf /**/
-	4 DetA_C %6.0lf /**/
-	5 DetA_D %6.0lf /**/
-	6 DetA_AB %6.0lf /**/
-	7 DetA_CD %6.0lf /**/
-	8 DetB_Z %6.0lf /**/
-	9 DetB_A %6.0lf /**/
-	10 DetB_B %6.0lf /**/
-	11 DetB_C %6.0lf /**/
-	12 DetB_D %6.0lf /**/
-	13 DetB_AB %6.0lf /**/
-	14 DetB_CD %6.0lf /**/
+	1 DetA_Z %8.2lf /**/
+	2 DetA_A %8.2lf /**/
+	3 DetA_B %8.2lf /**/
+	4 DetA_C %8.2lf /**/
+	5 DetA_D %8.2lf /**/
+	6 DetA_AB %8.2lf /**/
+	7 DetA_CD %8.2lf /**/
+	8 DetB_Z %8.2lf /**/
+	9 DetB_A %8.2lf /**/
+	10 DetB_B %8.2lf /**/
+	11 DetB_C %8.2lf /**/
+	12 DetB_D %8.2lf /**/
+	13 DetB_AB %8.2lf /**/
+	14 DetB_CD %8.2lf /**/
 	15 NOH1F_Z %8.2lf /**/
 	16 NOH1F_A %8.2lf /**/
 	17 NOH1F_B %8.2lf /**/
@@ -30,28 +30,28 @@ condition depending on ( 4 Hz, DetA_Z once )
 	27 SD1_P_B  %8.2lf /**/
 	28 SD1_P_C  %8.2lf /**/
 	29 SD1_P_D  %8.2lf /**/
-	30 DetA_ABC %6.0lf /**/
-	31 DetA_BCD %6.0lf /**/
-	32 DetB_ABC %6.0lf /**/
-	33 DetB_BCD %6.0lf /**/
+	30 DetA_ABC %8.2lf /**/
+	31 DetA_BCD %8.2lf /**/
+	32 DetB_ABC %8.2lf /**/
+	33 DetB_BCD %8.2lf /**/
 	
 csv SolAd21 34
 condition depending on ( 4 Hz, DetC_Z once )
         0 TSolAd21 %.3lf
-	1 DetC_Z %6.0lf /**/
-	2 DetC_A %6.0lf /**/
-	3 DetC_B %6.0lf /**/
-	4 DetC_C %6.0lf /**/
-	5 DetC_D %6.0lf /**/
-	6 DetC_AB %6.0lf /**/
-	7 DetC_CD %6.0lf /**/
-	8 DetD_Z %6.0lf /**/
-	9 DetD_A %6.0lf /**/
-	10 DetD_B %6.0lf /**/
-	11 DetD_C %6.0lf /**/
-	12 DetD_D %6.0lf /**/
-	13 DetD_AB %6.0lf /**/
-	14 DetD_CD %6.0lf /**/
+	1 DetC_Z %8.2lf /**/
+	2 DetC_A %8.2lf /**/
+	3 DetC_B %8.2lf /**/
+	4 DetC_C %8.2lf /**/
+	5 DetC_D %8.2lf /**/
+	6 DetC_AB %8.2lf /**/
+	7 DetC_CD %8.2lf /**/
+	8 DetD_Z %8.2lf /**/
+	9 DetD_A %8.2lf /**/
+	10 DetD_B %8.2lf /**/
+	11 DetD_C %8.2lf /**/
+	12 DetD_D %8.2lf /**/
+	13 DetD_AB %8.2lf /**/
+	14 DetD_CD %8.2lf /**/
 	15 NOH2F_Z %8.2lf /**/
 	16 NOH2F_A %8.2lf /**/
 	17 NOH2F_B %8.2lf /**/
@@ -67,10 +67,10 @@ condition depending on ( 4 Hz, DetC_Z once )
 	27 SD2_P_B  %8.2lf /**/
 	28 SD2_P_C  %8.2lf /**/
 	29 SD2_P_D  %8.2lf /**/
-	30 DetC_ABC %6.0lf /**/
-	31 DetC_BCD %6.0lf /**/
-	32 DetD_ABC %6.0lf /**/
-	33 DetD_BCD %6.0lf /**/
+	30 DetC_ABC %8.2lf /**/
+	31 DetC_BCD %8.2lf /**/
+	32 DetD_ABC %8.2lf /**/
+	33 DetD_BCD %8.2lf /**/
 
 csv SolAd12 39
 condition depending on ( 4 Hz, SD1DP_Z once )

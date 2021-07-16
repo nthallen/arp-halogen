@@ -69,7 +69,8 @@ Halalgo : Hal.tma
 Calcext : VT.tmc Calc.cdf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.cdf
 checkext : check.tmc
-udpext : VT.tmc NOTitr_4.tmc mixrat.tmc UDP.tmc Status/UDP.cc -lsocket
+udpext : VT.tmc NOTitr_4.tmc mixrat.tmc UDP.tmc Status/UDP.cc \
+         udpext.oui -lsocket
 mixratext : VT.tmc NOTitr_4.tmc mixrat.tmc mixrat.cdf
 
 %%

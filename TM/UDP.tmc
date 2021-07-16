@@ -1,9 +1,11 @@
 %{
   #include "Status/UDP.h"
   #include "tmctime.h"
+  #include "udpext.h"
 
   int status_stale = -1;
   double clo_mr = 0.;
+  bool udpext_debug = false;
 
   UDPbcast UDP("10.9.1.255", "5100"); // ER-2 LAN
   // UDPbcast UDP("10.245.83.127", "5100"); // Link LAN
@@ -23,6 +25,12 @@
 depending on (1 Hz) {
   int status;
   status = 1;
-  UDP.Broadcast("HAL,%s,%d,%.2lf\r\n", UDP.ISO8601(dtime()), status, status_stale, clo_mr);
+  if (udpext_debug) {
+    nl_error(0, "HAL,%s,%d,%d,%.4le\r\n", UDP.ISO8601(dtime()),
+                  status, status_stale, clo_mr);
+  } else {
+    UDP.Broadcast("HAL,%s,%d,%d,%.4le\r\n", UDP.ISO8601(dtime()),
+                  status, status_stale, clo_mr);
+  }
   if (status_stale >= 0) ++status_stale;
 }
