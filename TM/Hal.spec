@@ -69,7 +69,7 @@ Halalgo : Hal.tma
 Calcext : VT.tmc Calc.cdf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.cdf
 checkext : check.tmc
-udpext : UDP.tmc Status/UDP.cc -lsocket
+udpext : NOTitr_4.tmc UDP.tmc Status/UDP.cc -lsocket
 
 %%
 CFLAGS=-Wall -g

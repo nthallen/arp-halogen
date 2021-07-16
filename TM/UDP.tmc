@@ -10,12 +10,35 @@
   // UDPbcast UDP("192.168.237.255", "5100"); // VMware private LAN
 %}
 
-/*
-depending on (h2o_lya_ppm) {
-  lya_stale = 0;
-  cur_h2o_lya_ppm = h2o_lya_ppm;
+TM typedef double mixing_ratio { text "%12.2lE"; }
+mixing_ration ClO_A; Invalidate ClO_A;
+
+depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z once) {
+  double Qa, bkA, Sfa, NO_conv_eff_A;
+  double TA, P, MA, Lyman_A, dsdmA;
+  Qa = 0.0184/3.28e16;
+  bkA = DetA_Z;
+  Sfa = DetA_CD - DetA_Z;
+  NO_conv_eff_A = 0.9;
+  TA = SF1FTemp_Z + 273;
+  P = (SD1_P_Z + SD2_P_Z)/2;
+  MA = 9.66e18*P/TA;
+  Lyman_A = 0.95;
+  dsdmA = bkA * exp(7.5*2.0e-20*0.21*MA)/(1/Qa + 0.857 * MA);
+  ClO_A = Sfa                    /* Corrected Fluor signal */
+     *(2.67e-29*MA + 3.65e-11)   /* M dependent cal in air */
+     *(1.0./dsdmA)               /* 1/dsdm in N2 */
+     *(exp(7.5*2.0e-20*0.21*MA)) /* correction for Abs by O2 */
+     *sqrt((500 + 2*TA)./1100)   /* Temp correction */
+     *(1.0./NO_conv_eff_A)       /* NO conversion efficiency */
+     *(1.0./Lyman_A)             /* Lyman-a correction */
+     *(1.0e12./MA);              /* conversion to ppt */
+  Validate ClO_A;
 }
-*/
+
+{ clo_mr = ClO_A;
+  status_stale = 0;
+}
 
 /* HAL,ISO8601,Status,stale,ClO_ppb
  * status:
