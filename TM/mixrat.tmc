@@ -1,4 +1,7 @@
-TM typedef double mixing_ratio { text "%12.3lE"; }
+%{
+  #include "dtoe.h"
+%}
+TM typedef double mixing_ratio { text "%12.3le"; }
 mixing_ratio ClO_A; Invalidate ClO_A;
 
 depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z once) {
