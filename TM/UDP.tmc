@@ -5,16 +5,32 @@
 
   int clo_mr_stale = -1;
   double clo_mr = 0.;
-<<<<<<< HEAD
   int clono2_mr_stale = -1;
   double clono2_mr = 0.;
-=======
   bool udpext_debug = false;
->>>>>>> fcbf1db671fead880ce256f0f583bfe6e7c00393
+  bool mr_overflow = false;
 
   UDPbcast UDP("10.9.1.255", "5100"); // ER-2 LAN
   // UDPbcast UDP("10.245.83.127", "5100"); // Link LAN
   // UDPbcast UDP("192.168.237.255", "5100"); // VMware private LAN
+  char clo_mr_text[15];
+  char clono2_mr_text[15];
+  void mr_format(char *obuf, int obufsize, double val, int is_nan) {
+    if (is_nan) {
+      obuf[0] = '\0';
+    } else {
+      int rv = snprintf(obuf, obufsize, "%.2lf", val);
+      if (rv >= obufsize) {
+        if (!mr_overflow) {
+          nl_error(2,
+            "mr_format text overflow: %.3le required %d chars",
+            val, rv);
+          mr_overflow = true;
+        }
+        obuf[0] = '\0';
+      }
+    }
+  }
 %}
 
 { clo_mr = ClO_A;
@@ -22,7 +38,9 @@
 }
 
 { clono2_mr = ClONO2_B;
-  clono2_mr_stale = 0;
+  if (clono2_mr > -1000.) {
+    clono2_mr_stale = 0;
+  }
 }
 
 /* HAL,ISO8601,Status,SF1FTemp,SF1BTemp,clo_mr_stale,ClO_ppt,clono2_mr_stale,clono2_mr_ppt
@@ -31,19 +49,22 @@
  *   Are there important diagnostic channels we would like to see (temps, pressure)?
  *   Are there any scientific products we can report?
  */
-depending on (1 Hz) {
+depending on (4 Hz, SF1FTemp, SF1BTemp) {
   int status;
   status = 3;
+  mr_format(clo_mr_text, 15, clo_mr, clo_mr_stale);
+  mr_format(clono2_mr_text, 15, clono2_mr, clono2_mr_stale);
   if (udpext_debug) {
-    nl_error(0, "HAL,%s,%d,%.2lf,%d,%.2lf\r\n", UDP.ISO8601(dtime()),
-      status, SF1FTemp, SF1BTemp,
-      clo_mr_stale, clo_mr,
-      clono2_mr_stale, clono2_mr);
+    nl_error(0, "HAL,%s,%d,%.2lf,%.2lf,%d,%s,%d,%s",
+      UDP.ISO8601(dtime()), status,
+      convert(SF1FTemp), convert(SF1BTemp),
+      clo_mr_stale, clo_mr_text,
+      clono2_mr_stale, clono2_mr_text);
   } else {
-    UDP.Broadcast("HAL,%s,%d,%.2lf,%d,%.2lf\r\n", UDP.ISO8601(dtime()),
-      status, SF1FTemp, SF1BTemp,
-      clo_mr_stale, clo_mr,
-      clono2_mr_stale, clono2_mr);
+    UDP.Broadcast("HAL,%s,%d,%.2lf,%.2lf,%d,%s,%d,%s\r\n",
+      UDP.ISO8601(dtime()), status, SF1FTemp, SF1BTemp,
+      clo_mr_stale, clo_mr_text,
+      clono2_mr_stale, clono2_mr_text);
   }
   if (clo_mr_stale >= 0) ++clo_mr_stale;
   if (clono2_mr_stale >= 0) ++ clono2_mr_stale;

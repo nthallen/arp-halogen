@@ -1,7 +1,8 @@
 %{
+  #include <math.h>
   #include "dtoe.h"
 %}
-TM typedef double mixing_ratio { text "%12.3le"; }
+TM typedef double mixing_ratio { text "%7.2lf"; }
 mixing_ratio ClO_A; Invalidate ClO_A;
 
 depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z once) {
@@ -28,25 +29,12 @@ depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z 
 }
 
 double dsdmB;
-depending on (DetB_Z once, SF1BTemp_Z once) {
-  if (SF1BTemp_Z < 80) {
-    double Qb, P, TB, bkB;
-    Qb = 0.0126/3.28e16;
-    P = (SD1_P_Z + SD2_P_Z)/2;
-    TB = SF1BTemp_Z + 273;
-    MB = 9.66e18*P/TB;
-    bkB = DetB_Z;
-    dsdmB = bkB*exp(7.5*2.0e-20*0.21*MB) / (1/Qb + 0.857*MB);
-
-}
-
-if (SF1BTemp_Z < 80)
 mixing_ratio ClONO2_B; Invalidate ClONO2_B;
 
 depending on (DetB_Z once, DetB_AB once, SF1BTemp_Z once, SD1_P_Z once,
               SD2_P_Z once, SF1B5_Z once) {
   double Qb, bkB, Sfb, NO_conv_eff_B;
-  double TB, MB, Lyman_B, Tx, VAR_B;
+  double P, TB, M_B, Lyman_B, Tx;
   Tx = 210.;
   Qb = 0.0126/3.28e16;
   bkB = DetB_Z;         /* x4 not implemented here */
@@ -54,22 +42,19 @@ depending on (DetB_Z once, DetB_AB once, SF1BTemp_Z once, SD1_P_Z once,
   NO_conv_eff_B = 0.9;
   P = (SD1_P_Z + SD2_P_Z)/2;
   TB = SF1BTemp_Z + 273;
-  MB = 9.66e18*P/TB;
+  M_B = 9.66e18*P/TB;
   Lyman_B = 0.96;
   if (SF1BTemp_Z < 80) {
-    dsdmB = bkB*exp(7.5*2.0e-20*0.21*MB) / (1/Qb + 0.857*MB);
+    dsdmB = bkB*exp(7.5*2.0e-20*0.21*M_B) / (1/Qb + 0.857*M_B);
   }
-  if (SF1B5_Z >= Tx) {
-    VAR_B = Sfb                     /* Corrected Fluor signal */
-       *(2.67e-29*MB + 3.65e-11)    /* M dependent cal in air */
-       *(1.0/dsdmB)                 /* 1/dsdm in N2 */
-       *(exp(7.5*2.0e-20*0.21*MB))  /* correction for Abs by O2 */
-       *sqrt((500 + 2*TB)/1100)     /* Temp correction */
-       *(1.0/NO_conv_eff_B)         /* NO conversion efficiency */
-       *(1.0/Lyman_B)               /* Lyman-a correction */
-       *(1.0e12/MB);                /* conversion to ppt */
-
-    ClONO2_B=VAR_B;         /* ClONO2 mixing ratio in ppt with NaNs where T < T_threshold */
-    Validate ClONO2_B;
-  }
+  ClONO2_B = SF1B5_Z >= Tx ? Sfb   /* Corrected Fluor signal */
+     *(2.67e-29*M_B + 3.65e-11)    /* M dependent cal in air */
+     *(1.0/dsdmB)                  /* 1/dsdm in N2 */
+     *(exp(7.5*2.0e-20*0.21*M_B))  /* correction for Abs by O2 */
+     *sqrt((500 + 2*TB)/1100)      /* Temp correction */
+     *(1.0/NO_conv_eff_B)          /* NO conversion efficiency */
+     *(1.0/Lyman_B)                /* Lyman-a correction */
+     *(1.0e12/M_B) : -99999.;      /* conversion to ppt */
+  /* ClONO2 mixing ratio in ppt with NaNs where T < T_threshold */
+  Validate ClONO2_B;
 }
