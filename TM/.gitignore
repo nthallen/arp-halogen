@@ -98,6 +98,12 @@ udpextoui.c
 udpextoui.o
 udpext.o
 UDP.o
+mixratextcdf.oui
+mixratextcdf.tmc
+mixratext.cc
+mixratextoui.c
+mixratextoui.o
+mixratext.o
 Halclt.o
 Halcltoui.c
 Halcltoui.o
@@ -146,6 +152,7 @@ Calcext
 NOTitr_4ext
 checkext
 udpext
+mixratext
 Halclt
 Halcltnc
 Halengext

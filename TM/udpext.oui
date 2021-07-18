@@ -1,0 +1,9 @@
+<package> udpext
+<include> "udpext.h"
+
+<opts> "D"
+
+<switch>
+  case 'D': udpext_debug = true; break;
+
+

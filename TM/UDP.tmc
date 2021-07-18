@@ -1,11 +1,16 @@
 %{
   #include "Status/UDP.h"
   #include "tmctime.h"
+  #include "udpext.h"
 
   int clo_mr_stale = -1;
   double clo_mr = 0.;
+<<<<<<< HEAD
   int clono2_mr_stale = -1;
   double clono2_mr = 0.;
+=======
+  bool udpext_debug = false;
+>>>>>>> fcbf1db671fead880ce256f0f583bfe6e7c00393
 
   UDPbcast UDP("10.9.1.255", "5100"); // ER-2 LAN
   // UDPbcast UDP("10.245.83.127", "5100"); // Link LAN
@@ -29,7 +34,17 @@
 depending on (1 Hz) {
   int status;
   status = 3;
-  UDP.Broadcast("HAL,%s,%d,%.2lf,%d,%.2lf\r\n", UDP.ISO8601(dtime()), status, SF1FTemp, SF1BTemp, clo_mr_stale, clo_mr, clono2_mr_stale, clono2_mr);
+  if (udpext_debug) {
+    nl_error(0, "HAL,%s,%d,%.2lf,%d,%.2lf\r\n", UDP.ISO8601(dtime()),
+      status, SF1FTemp, SF1BTemp,
+      clo_mr_stale, clo_mr,
+      clono2_mr_stale, clono2_mr);
+  } else {
+    UDP.Broadcast("HAL,%s,%d,%.2lf,%d,%.2lf\r\n", UDP.ISO8601(dtime()),
+      status, SF1FTemp, SF1BTemp,
+      clo_mr_stale, clo_mr,
+      clono2_mr_stale, clono2_mr);
+  }
   if (clo_mr_stale >= 0) ++clo_mr_stale;
   if (clono2_mr_stale >= 0) ++ clono2_mr_stale;
 }
