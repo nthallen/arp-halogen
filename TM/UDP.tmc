@@ -2,8 +2,10 @@
   #include "Status/UDP.h"
   #include "tmctime.h"
 
-  int status_stale = -1;
+  int clo_mr_stale = -1;
   double clo_mr = 0.;
+  int clono2_mr_stale = -1;
+  double clono2_mr = 0.;
 
   UDPbcast UDP("10.9.1.255", "5100"); // ER-2 LAN
   // UDPbcast UDP("10.245.83.127", "5100"); // Link LAN
@@ -11,10 +13,14 @@
 %}
 
 { clo_mr = ClO_A;
-  status_stale = 0;
+  clo_mr_stale = 0;
 }
 
-/* HAL,ISO8601,Status,stale,ClO_ppb
+{ clono2_mr = ClONO2_B;
+  clono2_mr_stale = 0;
+}
+
+/* HAL,ISO8601,Status,SF1FTemp,SF1BTemp,clo_mr_stale,ClO_ppt,clono2_mr_stale,clono2_mr_ppt
  * status:
  *   Is the instrument taking data? If not, what else might it be doing?
  *   Are there important diagnostic channels we would like to see (temps, pressure)?
@@ -22,7 +28,8 @@
  */
 depending on (1 Hz) {
   int status;
-  status = 1;
-  UDP.Broadcast("HAL,%s,%d,%.2lf\r\n", UDP.ISO8601(dtime()), status, status_stale, clo_mr);
-  if (status_stale >= 0) ++status_stale;
+  status = 3;
+  UDP.Broadcast("HAL,%s,%d,%.2lf,%d,%.2lf\r\n", UDP.ISO8601(dtime()), status, SF1FTemp, SF1BTemp, clo_mr_stale, clo_mr, clono2_mr_stale, clono2_mr);
+  if (clo_mr_stale >= 0) ++clo_mr_stale;
+  if (clono2_mr_stale >= 0) ++ clono2_mr_stale;
 }
