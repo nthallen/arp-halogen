@@ -49,7 +49,7 @@
  *   Are there important diagnostic channels we would like to see (temps, pressure)?
  *   Are there any scientific products we can report?
  */
-depending on (4 Hz, SF1FTemp, SF1BTemp) {
+depending on (1 Hz, SF1FTemp, SF1BTemp) {
   int status;
   status = 3;
   mr_format(clo_mr_text, 15, clo_mr, clo_mr_stale);
