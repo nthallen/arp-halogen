@@ -3,11 +3,16 @@
   #include "dtoe.h"
 %}
 TM typedef double mixing_ratio { text "%7.2lf"; }
-mixing_ratio ClO_A; Invalidate ClO_A;
+mixing_ratio ClO_mr; Invalidate ClO_mr;
 
-depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z once) {
+depending on (DetA_CD once, DetA_Z once, SD1_P_Z once,
+              SD2_P_Z once, SF1FTemp_Z once,
+              DetC_CD once, DetC_Z once) {
   double Qa, bkA, Sfa, NO_conv_eff_A;
   double TA, P, MA, Lyman_A, dsdmA;
+  double Qc, bkC, Sfc, NO_conv_eff_C;
+  double TC, P, MC, Lyman_C, dsdmC;
+  double ClO_A, ClO_C;
   Qa = 0.0184/3.28e16;
   bkA = DetA_Z;
   Sfa = DetA_CD - DetA_Z;
@@ -25,7 +30,26 @@ depending on (DetA_CD once, DetA_Z once, SD1_P_Z once, SD2_P_Z once, SF1FTemp_Z 
      *(1.0/NO_conv_eff_A)       /* NO conversion efficiency */
      *(1.0/Lyman_A)             /* Lyman-a correction */
      *(1.0e12/MA);              /* conversion to ppt */
-  Validate ClO_A;
+
+  %********************************
+  % AXIS C: ClO
+  Qc = 0.0198/3.28e16;
+  bkC = DetC_Z;               /* x4 not implemented here */
+  Sfc = DetC_CD - DetC_Z;     /* ClO signal defined for optimal NO before fig 17 */
+  NO_conv_eff_C = 0.75;
+  Lyman_C=0.91;
+  dsdmC = bkC * exp(7.5*2.0e-20*0.21*MC) / (1/Qc + 0.857 * MC);
+  ClO_C = Sfc /* Corrected Fluor signal */
+     *(2.67e-29*MC + 3.65e-11) /* M dependent cal in air */
+     *(1.0/dsdmC) /* 1/dsdm in N2 */
+     *(exp(7.5*2.0e-20*0.21*MC)) /* correction for Abs by O2 */
+     *sqrt((500 + 2*TC)/1100) /* Temp correction */
+     *(1.0/NO_conv_eff_C) /* NO conversion efficiency */
+     *(1.0/Lyman_C) /* Lyman-a correction */
+     *(1.0e12/MC); /* conversion to ppt */
+
+  ClO_mr = (ClO_A + ClO_C)/2;
+  Validate ClO_mr;
 }
 
 double dsdmB;

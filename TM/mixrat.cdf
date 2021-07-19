@@ -1,7 +1,7 @@
 csv mixrat 9
 condition depending on (4 Hz, DetA_Z once)
   0 Tmixrat %.3lf
-  1 ClO_A
+  1 ClO_mr
   2 DetA_CD %6.0lf /**/
   3 DetA_Z  %6.0lf /**/
   4 SD1_P_Z %8.2lf /**/
