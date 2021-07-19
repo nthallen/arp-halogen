@@ -11,7 +11,7 @@ depending on (DetA_CD once, DetA_Z once, SD1_P_Z once,
   double Qa, bkA, Sfa, NO_conv_eff_A;
   double TA, P, MA, Lyman_A, dsdmA;
   double Qc, bkC, Sfc, NO_conv_eff_C;
-  double TC, P, MC, Lyman_C, dsdmC;
+  double TC, MC, Lyman_C, dsdmC;
   double ClO_A, ClO_C;
   Qa = 0.0184/3.28e16;
   bkA = DetA_Z;
@@ -31,8 +31,7 @@ depending on (DetA_CD once, DetA_Z once, SD1_P_Z once,
      *(1.0/Lyman_A)             /* Lyman-a correction */
      *(1.0e12/MA);              /* conversion to ppt */
 
-  %********************************
-  % AXIS C: ClO
+  /* AXIS C: ClO */
   Qc = 0.0198/3.28e16;
   bkC = DetC_Z;               /* x4 not implemented here */
   Sfc = DetC_CD - DetC_Z;     /* ClO signal defined for optimal NO before fig 17 */
