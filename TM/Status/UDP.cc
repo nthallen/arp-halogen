@@ -9,7 +9,7 @@
 #include "nl_assert.h"
 
 UDPbcast::UDPbcast(const char *broadcast_ip,
-                   const char *broadcast_portm,
+                   const char *broadcast_port,
                    int buflen)
     : buf(0),
       buflen(buflen),

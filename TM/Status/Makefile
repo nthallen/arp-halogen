@@ -1,4 +1,5 @@
 CXXFLAGS=-I/usr/local/include -I../ -Wall -g
+LDFLAGS=-g
 include /usr/local/share/huarp/appgen.mk
 .PHONY : clean all
 all : UDPtest

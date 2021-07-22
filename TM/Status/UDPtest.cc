@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
     if (udpext_debug) {
       nl_error(0, "HAL,%s,%d", UDP.ISO8601(dt), status);
     } else {
-      UDP.Broadcast("HAL,%s,%d", UDP.ISO8601(dt), status);
+      UDP.Broadcast("HAL,%s,%d\r\n", UDP.ISO8601(dt), status);
     }
     sleep(1);
   }
