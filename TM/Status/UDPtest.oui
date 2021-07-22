@@ -1,0 +1,12 @@
+<package> udpext
+<include> "UDPtest.h"
+<include> msg
+
+<opts> "D"
+<sort>
+	-D Output to log instead of UDP
+
+<switch>
+  case 'D': udpext_debug = true; break;
+
+

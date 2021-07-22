@@ -1,9 +1,13 @@
+CXXFLAGS=-I/usr/local/include -I../ -Wall -g
+include /usr/local/share/huarp/appgen.mk
 .PHONY : clean all
 all : UDPtest
 clean :
 	rm -f *.o UDPtest UDPtestoui.cc
 
-UDPtest : UDPtest.o UDPtestoui.o
+UDPtest : UDPtest.o UDPtestoui.o UDP.o
+	$(LINK.normCXX) UDPtest.o UDPtestoui.o UDP.o -lsocket -ltmpp -ltm -lnort
+	$(OUIUSE) UDPtestoui.cc
 UDPtestoui.o : UDPtestoui.cc
-UDPtestoui.cc : ../udpext.oui
-	oui -o UDPtestoui.cc ../udpext.oui
+UDPtestoui.cc : UDPtest.oui
+	oui -o UDPtestoui.cc UDPtest.oui
