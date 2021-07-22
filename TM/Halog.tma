@@ -13,6 +13,8 @@
 #     B: 032221 ir0: 0.0500 irset: 200
 #     C: 101819 ir0: 0.0500 irset: 260
 #     D: 020420 ir0: 0.0500 irset: 260
+#   July 22, 2021, Salina Kansas
+#     A: 021721 ir0: 0.0300 irset: 130
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -27,7 +29,7 @@
 %{
   #include "nortlib.h"
 
-  double ir0a = 0.02;
+  double ir0a = 0.03;
   double ir0b = 0.05;
   double ir0c = 0.05;
   double ir0d = 0.05;
@@ -111,7 +113,7 @@ State A_START {
     +10 Hold until (convert(A_IRV) >= ir0a)
           or 20 else Validate A_START;
      +1 { fail_cnt_a = 0; }
-     +1 > Lamp A IR Setpoint 90
+     +1 > Lamp A IR Setpoint 130
         Validate A_ON;
 }
 
