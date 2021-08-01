@@ -148,24 +148,24 @@ State DHTR1_IDLE {}
 State DHTR1_TEMP_HOLD {
   depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
   depending on ( DHTR1_ON ) {
-      if ( convert(SF1BTemp) > convert(SD1TSP)+50 &&
+      if ( convert(SF1BTemp) > convert(SD1TSP)+60 &&
          DH10Set > 0 ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add -30\n", 2 );
-    } else if ( convert(SF1BTemp) < convert(SD1TSP)-50 &&
+      ci_sendcmd( "DHeater 1 Setpoint Add -20\n", 2 );
+    } else if ( convert(SF1BTemp) < convert(SD1TSP)-60 &&
          DH10Set < max_setpoint ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add 30\n", 2 );
-    } else if ( convert(SF1BTemp) > convert(SD1TSP)+20 &&
+      ci_sendcmd( "DHeater 1 Setpoint Add 20\n", 2 );
+    } else if ( convert(SF1BTemp) > convert(SD1TSP)+30 &&
          DH10Set > 0 ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add -8\n", 2 );
-    } else if ( convert(SF1BTemp) < convert(SD1TSP)-20 &&
+      ci_sendcmd( "DHeater 1 Setpoint Add -5\n", 2 );
+    } else if ( convert(SF1BTemp) < convert(SD1TSP)-30 &&
          DH10Set < max_setpoint ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add 8\n", 2 );
+      ci_sendcmd( "DHeater 1 Setpoint Add 5\n", 2 );
     } else if ( convert(SF1BTemp) < convert(SD1TSP)-2 &&
          DH10Set < max_setpoint ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add 3\n", 2 );
+      ci_sendcmd( "DHeater 1 Setpoint Add 1\n", 2 );
     } else if ( convert(SF1BTemp) > convert(SD1TSP)+2 &&
          DH10Set > 0 ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add -3\n", 2 );
+      ci_sendcmd( "DHeater 1 Setpoint Add -1\n", 2 );
     }
   }
 }
@@ -469,30 +469,39 @@ State TEMP1_DITHER {
           else Validate DHTR1_TEMP_HOLD;
         }
         { if ( convert(TRU2T) > 80. ) Validate TEMP1_STOP; }
-
-  +1    > Duct 1 Temperature Set 0 C
+        
+        # 25 C
+  +1    > Duct 1 Temperature Set 25 C
         "Holding at lowest temp";
-        hold until (SW1_S == SWS_TIME_WARP) or 85;
+        hold until (SW1_S == SWS_TIME_WARP) or 120;
         "Holding for beginning of soldrv cycle";
         hold until ( ((HSolS % 10) == 0) || (SW1_S == SWS_TIME_WARP) ) or 35;
         > SW Status Set 1 to 0
-        > Duct 1 Temperature Add 88 C
-        "Holding at middle temp (up)";
-        hold until (SW1_S == SWS_TIME_WARP) or 85;
-        "Holding for beginning of soldrv cycle";
-        hold until ( ((HSolS % 10) == 0) || (SW1_S == SWS_TIME_WARP) ) or 35;
-        > SW Status Set 1 to 0
+        
+#       # 88 C
+#       > Duct 1 Temperature Set 88 C
+#       "Holding at middle temp (up)";
+#       hold until (SW1_S == SWS_TIME_WARP) or 85;
+#       "Holding for beginning of soldrv cycle";
+#       hold until ( ((HSolS % 10) == 0) || (SW1_S == SWS_TIME_WARP) ) or 35;
+#       > SW Status Set 1 to 0
+
    +1   { if (convert(SD1_P) > 140)
             Validate TEMP1_DITHER;
         }
-   +2   > Duct 1 Temperature Add 132 C
+        
+        # 220 C
+   +2   > Duct 1 Temperature Set 220 C
         "Holding at highest temp";
   +190  "Holding for beginning of soldrv cycle";
         hold until ( (HSolS % 10 ) == 0) or 35;
-        > Duct 1 Temperature Add -132 C
+        
+#       > Duct 1 Temperature Set 88 C
 #  +85  "Holding for beginning of soldrv cycle";
 #       hold until ( (HSolS % 10 ) == 0) or 35;
-        > Duct 1 Temperature Add -88 C
+
+        # 25 C
+        > Duct 1 Temperature Set 25 C
     +1  { if ( ++t1dither_count < 3 )
             Validate TEMP1_DITHER;
         }
