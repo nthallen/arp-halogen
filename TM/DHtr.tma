@@ -148,24 +148,24 @@ State DHTR1_IDLE {}
 State DHTR1_TEMP_HOLD {
   depending on ( DHTR1_OFF ) { Validate DHTR1_IDLE; }
   depending on ( DHTR1_ON ) {
-      if ( convert(SF1BTemp) > convert(SD1TSP)+60 &&
+      if ( convert(SF1BTemp) > convert(SD1TSP)+55 &&
          DH10Set > 0 ) {
       ci_sendcmd( "DHeater 1 Setpoint Add -20\n", 2 );
-    } else if ( convert(SF1BTemp) < convert(SD1TSP)-60 &&
+    } else if ( convert(SF1BTemp) < convert(SD1TSP)-50 &&
          DH10Set < max_setpoint ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add 20\n", 2 );
-    } else if ( convert(SF1BTemp) > convert(SD1TSP)+30 &&
+      ci_sendcmd( "DHeater 1 Setpoint Add 25\n", 2 );
+    } else if ( convert(SF1BTemp) > convert(SD1TSP)+25 &&
          DH10Set > 0 ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add -5\n", 2 );
-    } else if ( convert(SF1BTemp) < convert(SD1TSP)-30 &&
+      ci_sendcmd( "DHeater 1 Setpoint Add -6\n", 2 );
+    } else if ( convert(SF1BTemp) < convert(SD1TSP)-20 &&
          DH10Set < max_setpoint ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add 5\n", 2 );
+      ci_sendcmd( "DHeater 1 Setpoint Add 8\n", 2 );
     } else if ( convert(SF1BTemp) < convert(SD1TSP)-2 &&
          DH10Set < max_setpoint ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add 1\n", 2 );
+      ci_sendcmd( "DHeater 1 Setpoint Add 3\n", 2 );
     } else if ( convert(SF1BTemp) > convert(SD1TSP)+2 &&
          DH10Set > 0 ) {
-      ci_sendcmd( "DHeater 1 Setpoint Add -1\n", 2 );
+      ci_sendcmd( "DHeater 1 Setpoint Add -2\n", 2 );
     }
   }
 }
@@ -490,8 +490,8 @@ State TEMP1_DITHER {
             Validate TEMP1_DITHER;
         }
         
-        # 220 C
-   +2   > Duct 1 Temperature Set 220 C
+        # 225 C
+   +2   > Duct 1 Temperature Set 225 C
         "Holding at highest temp";
   +190  "Holding for beginning of soldrv cycle";
         hold until ( (HSolS % 10 ) == 0) or 35;
