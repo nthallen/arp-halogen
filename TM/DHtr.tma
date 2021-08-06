@@ -486,7 +486,7 @@ State TEMP1_DITHER {
 #       hold until ( ((HSolS % 10) == 0) || (SW1_S == SWS_TIME_WARP) ) or 35;
 #       > SW Status Set 1 to 0
 
-   +1   { if (convert(SD1_P) > 125)
+   +1   { if (convert(SD1_P) > 100)
             Validate TEMP1_DITHER;
         }
         

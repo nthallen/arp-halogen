@@ -17,6 +17,8 @@
 #     A: 021721 ir0: 0.0300 irset: 500
 #   August 1, 2021, Salina Kansas
 #     A: 030321 ir0: 0.0500 irset: 300
+#   August 6, 2021, Salina Kansas
+#     A: 030521 ir0: 0.0300 irset: 150
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -115,7 +117,7 @@ State A_START {
     +10 Hold until (convert(A_IRV) >= ir0a)
           or 20 else Validate A_START;
      +1 { fail_cnt_a = 0; }
-     +1 > Lamp A IR Setpoint 300
+     +1 > Lamp A IR Setpoint 150
         Validate A_ON;
 }
 
