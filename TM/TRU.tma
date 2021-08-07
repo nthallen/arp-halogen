@@ -29,7 +29,6 @@
 Partition
 
 State TRU_INIT {
-   +2   > TRU Off
    +1   { if ( TRU_failed() ) {
             msg( 2, "TRU Failed Previously" );
             Validate TRU_SHUTDOWN;

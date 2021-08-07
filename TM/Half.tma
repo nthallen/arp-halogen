@@ -93,6 +93,7 @@
 State INITIALIZE {
      > telemetry start
   +1 > fail lamp 0 off
+  +1 > TRU Off
 
   depending on (BELOW_CLOUDS) { validate ASCENT; }
   depending on (ABOVE_CLOUDS) { validate ASCENT; }
@@ -103,7 +104,7 @@ State INITIALIZE {
 ###################################################################
 
 State ASCENT {
-  +1 > TRU on
+  +1 > TRU On
   depending on (ABOVE_CLOUDS) { validate RECORD_INIT; }
   depending on (ON_GROUND) { validate SHUTDOWN; }
 }
