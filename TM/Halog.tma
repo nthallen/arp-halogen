@@ -158,7 +158,11 @@ State A_DEAD {
      +1 > Lamp A IR Setpoint 0
      +1 > Lamp A RF Setpoint 0
      +1 > Lamp A Off
-    "Lamp A is Dead"; 
+    "Lamp A is Dead";
+          Hold until (SW1_S == SWS_TIME_WARP) or 60:00;
+          { fail_cnt_a = 0, warn_a = 0;
+            Validate A_START;
+          }
 }
 
 #############################################################################
@@ -270,6 +274,10 @@ State B_DEAD {
      +1 > Lamp B RF Setpoint 0
      +1 > Lamp B Off
     "Lamp B is Dead"; 
+          Hold until (SW1_S == SWS_TIME_WARP) or 60:00;
+          { fail_cnt_b = 0, warn_b = 0;
+            Validate B_START;
+          }
 }
 
 #############################################################################
@@ -379,6 +387,10 @@ State C_DEAD {
    +1 > Lamp C RF Setpoint 0
    +1 > Lamp C Off
       "Lamp C is Dead"; 
+          Hold until (SW1_S == SWS_TIME_WARP) or 60:00;
+          { fail_cnt_c = 0, warn_c = 0;
+            Validate C_START;
+          }
 }
 
 #############################################################################
@@ -488,6 +500,10 @@ State D_DEAD {
    +1 > Lamp D RF Setpoint 0
    +1 > Lamp D Off
      "Lamp D is Dead"; 
+          Hold until (SW1_S == SWS_TIME_WARP) or 60:00;
+          { fail_cnt_d = 0, warn_d = 0;
+            Validate D_START;
+          }
 }
 
 #############################################################################
