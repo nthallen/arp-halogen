@@ -19,6 +19,9 @@
 #     A: 030321 ir0: 0.0500 irset: 300
 #   August 6, 2021, Salina Kansas
 #     A: 030521 ir0: 0.0300 irset: 150
+#   August 13, 2021: D: ir0 to 0.0400
+#   August 16, 2021:
+#     D: 060221 ir0: 0.0400 irset: 450 [Br]
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -36,7 +39,7 @@
   double ir0a = 0.03;
   double ir0b = 0.05;
   double ir0c = 0.05;
-  double ir0d = 0.05;
+  double ir0d = 0.04;
   int SW_stop = 0;
   #define A_STOPPED 1
   #define B_STOPPED 2
@@ -459,7 +462,7 @@ State D_START {
     +10 hold until (convert(D_IRV) > ir0d)
           or 20 else Validate D_START;
      +1 { fail_cnt_d = 0; }
-     +1 > Lamp D IR Setpoint 260
+     +1 > Lamp D IR Setpoint 450
         Validate D_ON;
 }
 
