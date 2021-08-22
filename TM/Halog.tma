@@ -24,6 +24,8 @@
 #     D: 060221 ir0: 0.0400 irset: 450 [Br]
 #   August 18, 2021:
 #     D: 020420 ir0: 0.0400 irset: 260 [Cl]
+#   August 23, 2021:
+#     D: 060221 ir0: 0.0400 irset: 550 [Br]
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -464,7 +466,7 @@ State D_START {
     +10 hold until (convert(D_IRV) > ir0d)
           or 20 else Validate D_START;
      +1 { fail_cnt_d = 0; }
-     +1 > Lamp D IR Setpoint 260
+     +1 > Lamp D IR Setpoint 550
         Validate D_ON;
 }
 
