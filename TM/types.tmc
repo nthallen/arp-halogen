@@ -661,10 +661,10 @@ Calibration ( AD12_DP1, TORR ) {
 TM typedef AD12 AD12_DP2 { convert TORR; text "%6.2lf"; }
 /* TM typedef AD12 AD12_DP2 { convert TORR; text "%6.4lf"; } */
 Calibration ( AD12_DP2, TORR ) {
-/*    0,  0.,
-  65536,  1011.9 */
-      0,  0.0465,
-  65536,  1.00
+      0,  0.,
+  65536,  1011.9
+/*    0,  0.0465,
+  65536,  1.00 */
 }
 
 TM typedef AD12 AD12_DPP { convert TORR; text "%6.3lf"; }
