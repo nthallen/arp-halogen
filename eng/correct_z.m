@@ -1,6 +1,14 @@
-function correct_z(pattern, verbosity)
+function correct_z(pattern, verbosity, fits)
+% Verbosity 1 Plot cool and uncool regions
+% Verbosity 2 Per segment data
+% Verbosity 4 Per flight 3-panel plot
+% Verbosity 8 Per flight 3-panel plot
+% Verbosity 16 Sch vs P or P/T for all flights
+% Verbosity 32 Don't do Twarmup correction
+% Verbosity 64 Useful to suppress everything else
 if nargin < 1; pattern = '*F'; end
 if nargin < 2; verbosity = 0; end
+if nargin < 3; fits = []; end
 %%
 cd C:\Data\Halogens\Analysis
 Eliminate = [];
@@ -20,6 +28,7 @@ Chamber.F210814_2F = 520; ZeroT.F210814_2F = 25;
 Chamber.F210817_2F = 520; ZeroT.F210817_2F = 25;
 % Chamber.F210820_1F = 710; ZeroT.F210820_1F = 25;
 Chamber.F210913_1F = 520; ZeroT.F210913_1F = 25;
+
 Navg = 60; % 16 points, 4 seconds
 
 %%
@@ -48,6 +57,11 @@ for fi = 1:length(flights)
   run = [ 'F' strrep(getrun(1),'.','_')];
   Sch = Chamber.(run)/4;
   ZeroTemp = ZeroT.(run);
+  if isfield(fits,run)
+    Sfit = fits.(run);
+  else
+    Sfit = [];
+  end
   %%
   T1 = time2d(H1.Thaleng_1);
   SF1BT_1 = H1.SF1BTemp;
@@ -57,6 +71,21 @@ for fi = 1:length(flights)
   hot = SF1BT_4 > 150;
   cool = SF1BT_4 < ZeroTemp+15; % & SF1BT_4 > -20;
   cold = SF1BT_4 < ZeroTemp-15;
+
+  % cool12 is on the S11/S12 time base and matches the conditions used in
+  % chamber_est2.
+  cool12 = S12.SF1BTemp_Z >= ZeroTemp-15 & S12.SF1BTemp_Z <= ZeroTemp+15;
+  cool12WU = cool12 & T11 < Sfit.Twarmup;
+  Tcool12 = T11(cool12);
+  SchWU = Sch*ones(size(Tcool12));
+  SchWU(Tcool12 < Sfit.Twarmup) = Sch * ...
+    S11.DetB_Z(cool12WU)./polyval([Sfit.dSdP Sfit.Sch],S11.SD1_P_Z(cool12WU));
+%   figure;
+%   plot(Tcool12,SchWU,'.','MarkerSize',15);
+%   title(getrun);
+%   ylabel('S_{ch}');
+%   xlabel('Time');
+%   grid on;
   % %
   % figure;
   % plot(T4(cool),H4.DetB(cool),'.');
@@ -117,6 +146,7 @@ for fi = 1:length(flights)
     MZ = [ S11.SD1_P_Z(V11)./(S12.SF1BTemp_Z(V11)+273.15) ones(size(SZ)) ];
     RegSchZFit(i,:) = MZ\SZ;
     if bitand(verbosity,2)
+      % Plot Signal vs Sch vfor both fits and all regions
       MM = [min(M);max(M)];
       SM = MM*(RegSchFit(i,:)');
       MMZ = [min(MZ);max(MZ)];
@@ -199,16 +229,17 @@ for fi = 1:length(flights)
     RegDs(i,:) = [ mean(H4.DetB(Rpre)) mean(H4.DetB(Rpost)) ];
     Rint = ends(i)+1:starts(i+1)-1;
     DetBZ(Rint) = interp1(RegTs(i,:),RegDs(i,:),T4(Rint));
-    %CorrDB(Rint) = ((DetBZ(Rint)-Sch) * ...
-    %  (mean(RegTemp(i,:))/mean(RegP(i,:))) .* ...
-    %  (H4.SD1_P(Rint)./(SF1BT_4(Rint)+273.15))) + Sch;
-    %Rayint = interp1(RegTs(i,:),Ray,T4(Rint));
-    %DetBZ(Rint) = Rayint .* H4.SD2_P(Rint) ./ (SF1BT_4(Rint)+273.15) + Sch;
+    TimeR = T4(Rint);
+    SchR = Sch*ones(size(TimeR));
+    if ~bitand(verbosity,32)
+      SchR(TimeR<Sfit.Twarmup) = ...
+        interp1(Tcool12,SchWU,TimeR(TimeR<Sfit.Twarmup));
+    end
     Temp1 = interp1(RegTs(i,:),RegTemp(i,:),T4(Rint));
     Pres1 = interp1(RegTs(i,:),RegP(i,:),T4(Rint));
-    CorrDB2(Rint) = ((DetBZ(Rint)-Sch) .* ...
+    CorrDB2(Rint) = ((DetBZ(Rint)-SchR) .* ...
       (Temp1./Pres1) .* ...
-      (H4.SD1_P(Rint)./(SF1BT_4(Rint)+273.15))) + Sch;
+      (H4.SD1_P(Rint)./(SF1BT_4(Rint)+273.15))) + SchR;
   end
   %%
   if verbosity == 0 || bitand(verbosity,8)
