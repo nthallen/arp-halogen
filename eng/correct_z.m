@@ -12,22 +12,22 @@ if nargin < 3; fits = []; end
 %%
 cd C:\Data\Halogens\Analysis
 Eliminate = [];
-Chamber.F210609_2F = 520; ZeroT.F210609_2F = 0;
-Chamber.F210614_3F = 520; ZeroT.F210614_3F = 0;
-Chamber.F210617_2F = 520; ZeroT.F210617_2F = 0;
+Chamber.F210609_2F = 589; ZeroT.F210609_2F = 0;
+Chamber.F210614_3F = 582; ZeroT.F210614_3F = 0;
+Chamber.F210617_2F = 577; ZeroT.F210617_2F = 0;
 % Chamber.F210713_1F = 710; ZeroT.F210713_1F = 0;
-Chamber.F210717_1F = 520; ZeroT.F210717_1F = 0;
-Chamber.F210721_1F = 520; ZeroT.F210721_1F = 0;
-Chamber.F210723_2F = 520; ZeroT.F210723_2F = 0;
-Chamber.F210726_2F = 520; ZeroT.F210726_2F = 0;
-Chamber.F210729_2F = 520; ZeroT.F210729_2F = 0;
-Chamber.F210802_3F = 520; ZeroT.F210802_3F = 25;
+Chamber.F210717_1F = 452; ZeroT.F210717_1F = 0;
+Chamber.F210721_1F = 471; ZeroT.F210721_1F = 0;
+Chamber.F210723_2F = 490; ZeroT.F210723_2F = 0;
+Chamber.F210726_2F = 541; ZeroT.F210726_2F = 0;
+Chamber.F210729_2F = 552; ZeroT.F210729_2F = 0;
+Chamber.F210802_3F = 490; ZeroT.F210802_3F = 25;
 % Chamber.F210807_1F = 710; ZeroT.F210807_1F = 25;
-Chamber.F210810_2F = 520; ZeroT.F210810_2F = 25;
-Chamber.F210814_2F = 520; ZeroT.F210814_2F = 25;
-Chamber.F210817_2F = 520; ZeroT.F210817_2F = 25;
+Chamber.F210810_2F = 546; ZeroT.F210810_2F = 25;
+Chamber.F210814_2F = 502; ZeroT.F210814_2F = 25;
+Chamber.F210817_2F = 532; ZeroT.F210817_2F = 25;
 % Chamber.F210820_1F = 710; ZeroT.F210820_1F = 25;
-Chamber.F210913_1F = 520; ZeroT.F210913_1F = 25;
+Chamber.F210913_1F = 434; ZeroT.F210913_1F = 25;
 
 Navg = 60; % 16 points, 4 seconds
 
