@@ -1,0 +1,145 @@
+#	Define global lamp failure threshold
+%{
+  #include "nortlib.h"
+
+  double ir0a = 0.04;
+  double ir0b = 0.04;
+  double ir0c = 0.04;
+  double ir0d = 0.04;
+%}
+
+Partition
+
+%{
+  int fail_cnt_a = 0;
+%}
+
+State A_Watch_Off {}
+
+State A_Watch_On {
+    { if (!Lmp_A) Validate A_Watch_Off; }
+    
+    Hold until (convert(A_IRV) < ir0a);
+    Hold until (convert(A_IRV) >= ir0a) OR 5
+    else Validate A_Watch_Restart;
+    Validate A_Watch_On;
+}
+
+State A_Watch_Restart {
+        > Lamp A IR Setpoint 0
+     +1 > Lamp A off
+  +1:00 { if (++fail_cnt_a>6) {
+            msg(2, "Lamp A Failed 6 times" );
+            Validate A_Watch_Off;
+          }
+        }
+#    +1 > Lamp A RF Setpoint 3000
+     +1 > Lamp A on
+    +10 Hold until (convert(A_IRV) >= ir0a)
+          or 20 else Validate A_Watch_Restart;
+     +1 { fail_cnt_a = 0; }
+#    +1 > Lamp A IR Setpoint 150
+        Validate A_Watch_On;
+}
+
+Partition
+
+%{
+  int fail_cnt_b = 0;
+%}
+
+State B_Watch_Off {}
+
+State B_Watch_On {
+    { if (!Lmp_B) Validate B_Watch_Off; }
+    
+    Hold until (convert(B_IRV) < ir0b);
+    Hold until (convert(B_IRV) >= ir0b) OR 5
+    else Validate B_Watch_Restart;
+    Validate B_Watch_On;
+}
+
+State B_Watch_Restart {
+        > Lamp B IR Setpoint 0
+     +1 > Lamp B off
+  +1:00 { if (++fail_cnt_b>6) {
+            msg(2, "Lamp B Failed 6 times" );
+            Validate B_Watch_Off;
+          }
+        }
+#    +1 > Lamp B RF Setpoint 3000
+     +1 > Lamp B on
+    +10 Hold until (convert(B_IRV) >= ir0b)
+          or 20 else Validate B_Watch_Restart;
+     +1 { fail_cnt_b = 0; }
+#    +1 > Lamp B IR Setpoint 150
+        Validate B_Watch_On;
+}
+
+Partition
+
+%{
+  int fail_cnt_c = 0;
+%}
+
+State C_Watch_Off {}
+
+State C_Watch_On {
+    { if (!Lmp_C) Validate C_Watch_Off; }
+    
+    Hold until (convert(C_IRV) < ir0c);
+    Hold until (convert(C_IRV) >= ir0c) OR 5
+    else Validate C_Watch_Restart;
+    Validate C_Watch_On;
+}
+
+State C_Watch_Restart {
+        > Lamp C IR Setpoint 0
+     +1 > Lamp C off
+  +1:00 { if (++fail_cnt_c>6) {
+            msg(2, "Lamp C Failed 6 times" );
+            Validate C_Watch_Off;
+          }
+        }
+#    +1 > Lamp C RF Setpoint 3000
+     +1 > Lamp C on
+    +10 Hold until (convert(C_IRV) >= ir0c)
+          or 20 else Validate C_Watch_Restart;
+     +1 { fail_cnt_c = 0; }
+#    +1 > Lamp C IR Setpoint 150
+        Validate C_Watch_On;
+}
+
+Partition
+
+%{
+  int fail_cnt_d = 0;
+%}
+
+State D_Watch_Off {}
+
+State D_Watch_On {
+    { if (!Lmp_D) Validate D_Watch_Off; }
+    
+    Hold until (convert(D_IRV) < ir0d);
+    Hold until (convert(D_IRV) >= ir0d) OR 5
+    else Validate D_Watch_Restart;
+    Validate D_Watch_On;
+}
+
+State D_Watch_Restart {
+        > Lamp D IR Setpoint 0
+     +1 > Lamp D off
+  +1:00 { if (++fail_cnt_d>6) {
+            msg(2, "Lamp D Failed 6 times" );
+            Validate D_Watch_Off;
+          }
+        }
+#    +1 > Lamp D RF Setpoint 3000
+     +1 > Lamp D on
+    +10 Hold until (convert(D_IRV) >= ir0d)
+          or 20 else Validate D_Watch_Restart;
+     +1 { fail_cnt_d = 0; }
+#    +1 > Lamp D IR Setpoint 150
+        Validate D_Watch_On;
+}

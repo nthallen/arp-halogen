@@ -30,6 +30,14 @@ extern swstat_t SWData;
 #define SWS_LAMP_B_ON 222
 #define SWS_LAMP_C_ON 223
 #define SWS_LAMP_D_ON 224
+#define SWS_LAMP_A_WATCH 231
+#define SWS_LAMP_B_WATCH 232
+#define SWS_LAMP_C_WATCH 233
+#define SWS_LAMP_D_WATCH 234
+#define SWS_LAMP_A_IGNORE 241
+#define SWS_LAMP_B_IGNORE 242
+#define SWS_LAMP_C_IGNORE 243
+#define SWS_LAMP_D_IGNORE 244
 
 #define SWS_TIME_WARP 253
 #define SWS_READFILE 254

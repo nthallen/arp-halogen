@@ -11,6 +11,14 @@ State SW_Watch {
       case SWS_FLOW2HI: Validate Flow2_High; break;
       case SWS_FLOW2MED: Validate Flow2_Medium; break;
       case SWS_FLOW2LOW: Validate Flow2_Low; break;
+      case SWS_LAMP_A_WATCH: Validate A_Watch_On; break;
+      case SWS_LAMP_A_IGNORE: Validate A_Watch_Off; break;
+      case SWS_LAMP_B_WATCH: Validate A_Watch_On; break;
+      case SWS_LAMP_B_IGNORE: Validate A_Watch_Off; break;
+      case SWS_LAMP_C_WATCH: Validate A_Watch_On; break;
+      case SWS_LAMP_C_IGNORE: Validate A_Watch_Off; break;
+      case SWS_LAMP_D_WATCH: Validate A_Watch_On; break;
+      case SWS_LAMP_D_IGNORE: Validate A_Watch_Off; break;
     }
   }
 }

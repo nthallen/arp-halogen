@@ -87,6 +87,14 @@
     : Lamp B Off { $0 = SWS_LAMP_B_OFF; }
     : Lamp C Off { $0 = SWS_LAMP_C_OFF; }
     : Lamp D Off { $0 = SWS_LAMP_D_OFF; }
+    : Lamp A Watch { $0 = SWS_LAMP_A_WATCH; }
+    : Lamp B Watch { $0 = SWS_LAMP_B_WATCH; }
+    : Lamp C Watch { $0 = SWS_LAMP_C_WATCH; }
+    : Lamp D Watch { $0 = SWS_LAMP_D_WATCH; }
+    : Lamp A Ignore { $0 = SWS_LAMP_A_IGNORE; }
+    : Lamp B Ignore { $0 = SWS_LAMP_B_IGNORE; }
+    : Lamp C Ignore { $0 = SWS_LAMP_C_IGNORE; }
+    : Lamp D Ignore { $0 = SWS_LAMP_D_IGNORE; }
     : TimeWarp { $0 = SWS_TIME_WARP; }
     : Shutdown { $0 = SWS_SHUTDOWN; }
     ;
