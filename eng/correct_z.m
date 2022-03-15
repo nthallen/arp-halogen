@@ -12,6 +12,7 @@ if nargin < 3; fits = []; end
 %%
 cd C:\Data\Halogens\Analysis
 Eliminate = [];
+%-----Chamber scatter DW based on scaling relative to 520
 Chamber.F210609_2F = 589; ZeroT.F210609_2F = 0;
 Chamber.F210614_3F = 582; ZeroT.F210614_3F = 0;
 Chamber.F210617_2F = 577; ZeroT.F210617_2F = 0;
@@ -28,6 +29,23 @@ Chamber.F210814_2F = 502; ZeroT.F210814_2F = 25;
 Chamber.F210817_2F = 532; ZeroT.F210817_2F = 25;
 % Chamber.F210820_1F = 710; ZeroT.F210820_1F = 25;
 Chamber.F210913_1F = 434; ZeroT.F210913_1F = 25;
+%----------Changes based on chamber_est2--------
+Chamber.F210609_2F = 602; ZeroT.F210609_2F = 0;
+Chamber.F210614_3F = 588; ZeroT.F210614_3F = 0;
+Chamber.F210617_2F = 563; ZeroT.F210617_2F = 0;
+% Chamber.F210713_1F = 710; ZeroT.F210713_1F = 0;
+Chamber.F210717_1F = 462; ZeroT.F210717_1F = 0;
+Chamber.F210721_1F = 497; ZeroT.F210721_1F = 0;
+Chamber.F210723_2F = 517; ZeroT.F210723_2F = 0;
+Chamber.F210726_2F = 550; ZeroT.F210726_2F = 0;
+Chamber.F210729_2F = 500; ZeroT.F210729_2F = 0;
+Chamber.F210802_3F = 505; ZeroT.F210802_3F = 25;
+% Chamber.F210807_1F = 710; ZeroT.F210807_1F = 25;
+Chamber.F210810_2F = 506; ZeroT.F210810_2F = 25;
+Chamber.F210814_2F = 471; ZeroT.F210814_2F = 25;
+Chamber.F210817_2F = 570; ZeroT.F210817_2F = 25;
+% Chamber.F210820_1F = 710; ZeroT.F210820_1F = 25;
+Chamber.F210913_1F = 435; ZeroT.F210913_1F = 25;
 
 Navg = 60; % 16 points, 4 seconds
 

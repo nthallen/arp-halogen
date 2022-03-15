@@ -140,7 +140,7 @@ for fi = 1:length(flights)
   cd C:\Data\Halogens\Analysis
   figs(end+1) = f;
   if bitand(verbosity,1)
-    savefig(f,[run '.fig']);
+    savefig(f,['Sch_est2_' xvarname '_' run '.fig']);
   end
 end
 gyl = [];

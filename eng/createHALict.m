@@ -1,4 +1,8 @@
 function createHALict(flightdate, revision, revdate)
+% createHALict(flightdate, revision, revdate)
+% flightdate is a string e.g. '20210823'
+% revision is a string e.g. 'RA'
+% revdate is a string e.g. '20220311'
 D = load([flightdate '.mat']);
 YYYY = flightdate(1:4);
 MM = flightdate(5:6);
