@@ -4,13 +4,15 @@ State Init {
 }
 
 State SW_Watch {
-  { switch (SW1_S) {
-      case SWS_FLOW1HI: Validate Flow1_High; break;
-      case SWS_FLOW1MED: Validate Flow1_Medium; break;
-      case SWS_FLOW1LOW: Validate Flow1_Low; break;
-      case SWS_FLOW2HI: Validate Flow2_High; break;
-      case SWS_FLOW2MED: Validate Flow2_Medium; break;
-      case SWS_FLOW2LOW: Validate Flow2_Low; break;
+  { int clear_SWS;
+    clear_SWS = 1;
+    switch (SW1_S) {
+      case SWS_FLOW1HI: Validate Flow1_High; clear_SWS = 0; break;
+      case SWS_FLOW1MED: Validate Flow1_Medium; clear_SWS = 0; break;
+      case SWS_FLOW1LOW: Validate Flow1_Low; clear_SWS = 0; break;
+      case SWS_FLOW2HI: Validate Flow2_High; clear_SWS = 0; break;
+      case SWS_FLOW2MED: Validate Flow2_Medium; clear_SWS = 0; break;
+      case SWS_FLOW2LOW: Validate Flow2_Low; clear_SWS = 0; break;
       case SWS_LAMP_A_WATCH: Validate A_Watch_On; break;
       case SWS_LAMP_A_IGNORE: Validate A_Watch_Off; break;
       case SWS_LAMP_B_WATCH: Validate A_Watch_On; break;
@@ -19,8 +21,15 @@ State SW_Watch {
       case SWS_LAMP_C_IGNORE: Validate A_Watch_Off; break;
       case SWS_LAMP_D_WATCH: Validate A_Watch_On; break;
       case SWS_LAMP_D_IGNORE: Validate A_Watch_Off; break;
+      default: clear_SWS = 0; break;
     }
+    if (clear_SWS) Validate SW_Clear;
   }
+}
+
+State SW_Clear {
+      > SW Status Clear
+   +1 Validate SW_Watch;
 }
 
 State Flow1_High {

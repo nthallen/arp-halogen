@@ -64,7 +64,7 @@ Hdoit : H.doit
 Hlabdoit : Hlab.doit
 Halfalgo : dstat.tmc idxflag.tmc VT.tmc VI.tmc bmm_conv.tmc \
            Half.tma Halog.tma DHtr.tma TRU.tma
-Halalgo : Hal.tma HalogLab.tma
+Halalgo : dstat.tmc Hal.tma HalogLab.tma
 
 Calcext : VT.tmc Calc.cdf
 NOTitr_4ext : VT.tmc NOTitr_4.tmc NOTitr_4.cdf

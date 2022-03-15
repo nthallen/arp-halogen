@@ -1,6 +1,7 @@
 #	Define global lamp failure threshold
 %{
   #include "nortlib.h"
+  #include "msg.h"
 
   double ir0a = 0.04;
   double ir0b = 0.04;
