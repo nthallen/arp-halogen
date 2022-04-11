@@ -93,7 +93,7 @@ TM 1 Hz CmdStat_t uDACS16_CmdStat;
 
 group uDACS16 (
     MS5607_P, MS5607_T, uDACS16_ADC_status, TRU1T, TRU2T, TRU3T,
-    TRUIB1T, TRUIB2T, V28V3, TRU_cmd_status )
+    TRUIB1T, TRUIB2T, V28V3, uDACS16_CmdStat )
 {
   if (uDACS_mread(uDACS16)) {
     MS5607_P = rvals_to_float(uDACS16_rvals[0]);

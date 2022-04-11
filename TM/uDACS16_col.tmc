@@ -1,4 +1,6 @@
-%}
+%{
+  #include "subbuspp.h"
+  #include "msg.h"
   #define disarm_sic()
 
   typedef struct {
@@ -66,7 +68,7 @@
   
   void uDACS_init(uDACS_mreq &mreq, const char *name) {
     msg(0, "uDACS_init()");
-    mreq.SB = new subbuspp(name, "serusb");
+    mreq.SB = new subbuspp(name);
     mreq.name = name;
     mreq.rvals = 0;
     mreq.saw_nack = false;

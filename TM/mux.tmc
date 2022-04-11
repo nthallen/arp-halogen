@@ -115,9 +115,9 @@ AD12_T30K    SDP1T;       invalidate SDP1T;
 AD12_T30K    SDP2T;       invalidate SDP2T;
 AD12         SPR_MUX1_15; invalidate SPR_MUX1_15;
 AD12         SPR_MUX1_16; invalidate SPR_MUX1_16;
-AD12_T30K    TRU1T;       invalidate TRU1T;
-AD12_T30K    TRU2T;       invalidate TRU2T;
-AD12_T30K    TRU3T;       invalidate TRU3T;
+/* AD12_T30K    TRU1T;       invalidate TRU1T; */
+/* AD12_T30K    TRU2T;       invalidate TRU2T; */
+/* AD12_T30K    TRU3T;       invalidate TRU3T; */
 AD12_T30K    TRUET;       invalidate TRUET;
 AD12_T30K    VicrT;       invalidate VicrT;
 AD12_T30K    X1FAT;       invalidate X1FAT;
@@ -252,7 +252,7 @@ switch ( MUXAddr ) {
     Rv_8T = MUX04; validate Rv_8T;
     OP2CT = MUX05; validate OP2CT;
     /* Cvr3T = MUX06; validate Cvr3T; */
-    TRU3T = MUX07; validate TRU3T;
+    /* TRU3T = MUX07; validate TRU3T; */
     break;
   case 13:
     AirHP = MUX01; validate AirHP;
@@ -261,7 +261,7 @@ switch ( MUXAddr ) {
     Rv_7T = MUX04; validate Rv_7T;
     OP1CT = MUX05; validate OP1CT;
     /* Cvr2T = MUX06; validate Cvr2T; */
-    TRU2T = MUX07; validate TRU2T;
+    /* TRU2T = MUX07; validate TRU2T; */
     break;
   case 14:
     SPR_MUX1_15 = MUX01; validate SPR_MUX1_15;
@@ -270,7 +270,7 @@ switch ( MUXAddr ) {
     Rv_6T = MUX04; validate Rv_6T;
     X2_4T = MUX05; validate X2_4T;
     /* Cvr1T = MUX06; validate Cvr1T; */
-    TRU1T = MUX07; validate TRU1T;
+    /* TRU1T = MUX07; validate TRU1T; */
     break;
   case 15:
     SPR_MUX1_16 = MUX01; validate SPR_MUX1_16;
