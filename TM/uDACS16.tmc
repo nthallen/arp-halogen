@@ -1,0 +1,110 @@
+%{ /* uDACS16.tmc */
+  #define rvals_to_float(x) (*(float*)&x)
+  
+  #include <math.h>
+
+  /*
+   * Steinhart/Hart conversion for uDACS16_T30K75KU
+   * 30K Thermistor pulled up by 75K
+   * Used with 16bit signed ADC on uDACS16
+   * DPOPS during DCOTSS 2021.
+   *
+   * Created using arp-das-matlab/Therm/T30K75KU_uDACS16.m
+   */
+  double uDACS16_T30K75KU_2_Celcius(int16_t At) {
+    double Rpu = 75e3;
+    int32_t Aref = 1<<15;
+    double logR = log(At * Rpu / (Aref - At));
+    double a0 = 9.3316e-04;
+    double a1 = 2.2141e-04;
+    double a3 = 1.2622e-07;
+    double C = 1/(a0 + a1 * logR + a3*pow(logR,3)) - 273.15;
+    return C;
+  }
+%}
+
+TM typedef double uDACS_CELCIUS { text "%7.3lf"; }
+TM typedef double uDACS_VOLTS { text "%6.3lf"; }
+
+/* uDACS16 ADS1115 ADC +/- 4.096 V */
+TM typedef int16_t ADS1115_AI { text "%7.4lf"; convert uDACS_VOLTS; }
+  Calibration (ADS1115_AI, uDACS_VOLTS) {
+    -32768, -4.096,
+     32768,  4.096
+  }
+TM typedef ADS1115_AI uDACS16_T30K75KU {
+  text "%7.3lf";
+  convert uDACS_CELCIUS uDACS16_T30K75KU_2_Celcius();
+}
+TM typedef ADS1115_AI V28V3_t {
+  text "%5.2lf";
+  convert uDACS_VOLTS;
+}
+  Calibration (V28V3_t, uDACS_VOLTS) {
+    0,      0,
+    32768, 40.789
+  }
+TM typedef uint16_t ADS1115_status_t { text "0x%02X"; }
+
+TM typedef float MS5607_P_t { text "%8.3lf"; } /* mbar */
+TM typedef float MS5607_T_t { text "%7.3lf"; } /* Celcius */
+
+TM typedef uint8_t CmdStat_t { text "%2X"; }
+
+%{
+  #define uDACS_on_off_text(x) ((x) ? " on" : "off")
+%}
+TM typedef uint8_t uDACS_on_off { text "%3u" uDACS_on_off_text(); }
+
+/*
+  Ch0    J10 TRU1T
+  Ch1    J11 TRU2T
+  Ch2    J12 TRU3T
+  Ch3    J13 box temp (used to be on CANable)
+  Ch4    J14 box temp (air)
+  Ch5    J15 unused temp
+  Ch6    J16 unused
+  Ch7    J17 V28V3
+
+  V28V3 has a 10k series resistance in the TRU
+  +
+  Channel 7 on the uDACS16 SN9 (V28V3) has an additional 34.7k series resistance,
+  with a 4.99k shunt resistor
+  for a ~10:1 divider
+  
+  SPR7 or J7 Turns on the green TRU LED, meant for TRU ON
+  SPR8, or J8 Turns on the red TRU LED, meant for TRU FAULT (whatever that may be: Over temp, under voltage?... )
+  J35_EN is the actual TRU ON command.
+
+*/
+
+/* MS5607 P and T */
+TM 1 Hz MS5607_P_t MS5607_P;
+TM 1 Hz MS5607_T_t MS5607_T;
+/* ADS1115 */
+TM 1 Hz ADS1115_status_t uDACS16_ADC_status;
+TM 1 Hz uDACS16_T30K75KU TRU1T;
+TM 1 Hz uDACS16_T30K75KU TRU2T;
+TM 1 Hz uDACS16_T30K75KU TRU3T;
+TM 1 Hz uDACS16_T30K75KU TRUIB1T;
+TM 1 Hz uDACS16_T30K75KU TRUIB2T;
+TM 1 Hz V28V3_t V28V3;
+TM 1 Hz CmdStat_t uDACS16_CmdStat;
+
+group uDACS16 (
+    MS5607_P, MS5607_T, uDACS16_ADC_status, TRU1T, TRU2T, TRU3T,
+    TRUIB1T, TRUIB2T, V28V3, TRU_cmd_status )
+{
+  if (uDACS_mread(uDACS16)) {
+    MS5607_P = rvals_to_float(uDACS16_rvals[0]);
+    MS5607_T = rvals_to_float(uDACS16_rvals[2]);
+    uDACS16_ADC_status = uDACS16_rvals[4];
+    TRU1T = uDACS16_rvals[5];
+    TRU2T = uDACS16_rvals[6];
+    TRU3T = uDACS16_rvals[7];
+    TRUIB1T = uDACS16_rvals[8];
+    TRUIB2T = uDACS16_rvals[9];
+    V28V3 = uDACS16_rvals[10];
+    uDACS16_CmdStat = uDACS16_rvals[11] ^ 0x4;
+  }
+}

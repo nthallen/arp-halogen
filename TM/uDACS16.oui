@@ -1,0 +1,11 @@
+<package> uDACS16
+<comment>
+  This package provides the necessary initialization for using the uDACS16
+  interface in command files. It is currently not appropriate for use
+  with telemetry files, since uDACS16_col.tmc handles the initialization
+  there.
+  
+<include> "uDACS16.h"
+
+<init>
+  uDACS16_init();

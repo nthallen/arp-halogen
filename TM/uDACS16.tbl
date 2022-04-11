@@ -1,0 +1,15 @@
+TRU {
+  HBox { +-; Title: "TRU"; -+ };
+  TRU:    (TRU_cmd,3);
+  Grn:    (LED_Grn,3);
+  Red:    (LED_Red,3);
+  V28V3:  (V28V3,5)    V;
+  MS_P:    (MS5607_P,8) mbar;
+  MS_T:    (MS5607_T,7) C;
+  TRU1T:   (TRU1T,7)    C;
+  TRU2T:   (TRU2T,7)    C;
+  TRU3T:   (TRU3T,7)    C;
+  TRUIB1T: (TRUIB1T,7)  C;
+  TRUIB2T: (TRUIB2T,7)  C;
+  ADC:     (uDACS16_ADC_Status,4);
+}

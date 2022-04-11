@@ -1,11 +1,11 @@
 Input "Rover.tbl";
 Input "therm.tbl";
-Input "bmm.tbl";
+Input "uDACS16.tbl";
 Input "TMbase.tbl";
 
 { HBox {
     |+;
-    { HBox { [therm]; |+; [BMM] };
+    { HBox { [therm]; |+; [TRU] };
       HBox { [Rover]; |+; [TMbaseB] };
     };
     |+;

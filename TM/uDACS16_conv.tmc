@@ -1,0 +1,11 @@
+%{
+  #define uDACS16_ON_OFF_text(x) ((x)?" On":"Off")
+%}
+TM typedef uint8_t uDACS16_ON_OFF_t { text "%3u" uDACS16_ON_OFF_text(); }
+
+uDACS16_ON_OFF_t LED_Grn; Invalidate LED_Grn;
+{ LED_Grn = (uDACS16_cmds>>0) & 1; Validate LED_Grn; }
+uDACS16_ON_OFF_t LED_Red; Invalidate LED_Red;
+{ LED_Red = (uDACS16_cmds>>1) & 1; Validate LED_Red; }
+uDACS16_ON_OFF_t TRU_cmd; Invalidate TRU_cmd;
+{ TRU_cmd = (uDACS16_cmds>>2) & 1; Validate TRU_cmd; }
