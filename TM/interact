@@ -4,7 +4,8 @@
 ### subbusd invoked via Experiment.config
 # Launch /dev/huarp/subbus  subbusd_sc104 -H 0CE0-E64 -S 1000-1005 -i10 -v
   [ -e /dev/serusb1 ] &&
-  Launch CAN            subbusd_slcan -N CAN -p /dev/serusb1
+  Launch uDACS16        subbusd_serusb -N uDACS16 -p /dev/serusb1
+# Launch CAN            subbusd_slcan -N CAN -p /dev/serusb1
 
   Launch TM/DCo         TMbfr
   
