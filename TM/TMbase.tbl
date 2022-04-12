@@ -1,13 +1,9 @@
-TMbase_data {
+TMbase {
   CPU:    (CPU_Pct,3)  %;
   RAM:    (freemem,7) MB;
   Disk:   (Disk,5)     %;
-#  SWStat: (SWStat,3);
-#    Fail:   (Fail,2);
   TDrift: (SysTDrift,7) sec;
-}
-
-TMbase_times {
+  VGlue 0+1;
   HBox {
     HGlue 0+1;
     {
@@ -15,12 +11,6 @@ TMbase_times {
       MFCtr: (MFCtr,5);
     }
   }
-}
-
-TMbase {
-  [TMbase_data];
-  VGlue 0+1;
-  [TMbase_times]
 }
 
 TMbaseB {
