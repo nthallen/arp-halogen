@@ -15,12 +15,12 @@ State SW_Watch {
       case SWS_FLOW2LOW: Validate Flow2_Low; clear_SWS = 0; break;
       case SWS_LAMP_A_WATCH: Validate A_Watch_On; break;
       case SWS_LAMP_A_IGNORE: Validate A_Watch_Off; break;
-      case SWS_LAMP_B_WATCH: Validate A_Watch_On; break;
-      case SWS_LAMP_B_IGNORE: Validate A_Watch_Off; break;
-      case SWS_LAMP_C_WATCH: Validate A_Watch_On; break;
-      case SWS_LAMP_C_IGNORE: Validate A_Watch_Off; break;
-      case SWS_LAMP_D_WATCH: Validate A_Watch_On; break;
-      case SWS_LAMP_D_IGNORE: Validate A_Watch_Off; break;
+      case SWS_LAMP_B_WATCH: Validate B_Watch_On; break;
+      case SWS_LAMP_B_IGNORE: Validate B_Watch_Off; break;
+      case SWS_LAMP_C_WATCH: Validate C_Watch_On; break;
+      case SWS_LAMP_C_IGNORE: Validate C_Watch_Off; break;
+      case SWS_LAMP_D_WATCH: Validate D_Watch_On; break;
+      case SWS_LAMP_D_IGNORE: Validate D_Watch_Off; break;
       default: clear_SWS = 0; break;
     }
     if (clear_SWS) Validate SW_Clear;
