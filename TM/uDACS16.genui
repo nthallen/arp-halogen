@@ -7,8 +7,8 @@
  1 TRUIB2T  uDACS16 T
  1 V28V3    uDACS16 V
  1 LED_Grn:uDACS16_CmdStat:0 uDACS16 Status %.0lf
- 1 LED_Red:uDACS16_CmdStat:0 uDACS16 Status %.0lf
- 1 TRU_cmd:uDACS16_CmdStat:0 uDACS16 Status %.0lf
+ 1 LED_Red:uDACS16_CmdStat:1 uDACS16 Status %.0lf
+ 1 TRU_cmd:uDACS16_CmdStat:3 uDACS16 Status %.0lf
  1 uD16_I2C_COLL:uDACS16_ADC_Status:0 uDACS16 Status %.0lf
  1 uD16_I2C_BUSY:uDACS16_ADC_Status:1 uDACS16 Status %.0lf
  1 uD16_I2C_BUS:uDACS16_ADC_Status:2  uDACS16 Status %.0lf

@@ -8,4 +8,4 @@ uDACS16_ON_OFF_t LED_Grn; Invalidate LED_Grn;
 uDACS16_ON_OFF_t LED_Red; Invalidate LED_Red;
 { LED_Red = (uDACS16_CmdStat>>1) & 1; Validate LED_Red; }
 uDACS16_ON_OFF_t TRU_cmd; Invalidate TRU_cmd;
-{ TRU_cmd = (uDACS16_CmdStat>>2) & 1; Validate TRU_cmd; }
+{ TRU_cmd = (uDACS16_CmdStat>>3) & 1; Validate TRU_cmd; }
