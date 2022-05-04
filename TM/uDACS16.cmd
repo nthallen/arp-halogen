@@ -28,7 +28,7 @@
   : TRU &uDACS16_On_Off * {
       /* Hard coded to commands 5,4 */
       if (uDACS16_is_present)
-        uDACS16->write_ack(0x30, 7-$2);
+        uDACS16->write_ack(0x30, 6+$2);
       else
         msg(2, "TRU/uDACS16 functions disabled");
    }
