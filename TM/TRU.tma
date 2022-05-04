@@ -58,3 +58,44 @@ State TRU_SHUTDOWN {
         { TRU_fail(); }
 #       Validate QUICK_SHUTDOWN;
 }
+
+Partition
+
+State TRULED_OFF {
+  > uDACS16 LED Status Off
+  > uDACS16 LED Fault Off
+  { if (TRU_cmd) {
+      if (convert(V28V3) >= 28) Validate TRULED_OK;
+      else if (convert(V28V3) < 28 && convert(V28V3) >= 26)
+        Validate TRULED_WARN;
+      else Validate TRULED_NOTOK;
+    }
+  }
+}
+
+State TRULED_OK {
+  > uDACS16 LED Status On
+  > uDACS16 LED Fault Off
+  { if (convert(V28V3) < 28 && convert(V28V3) >= 26)
+      Validate TRULED_WARN;
+    else if (convert(V28V3) < 26) Validate TRULED_NOTOK;
+  }
+}
+
+State TRULED_WARN {
+  > uDACS16 LED Status On
+  > uDACS16 LED Fault On
+  { if (convert(V28V3) >= 28) Validate TRULED_OK;
+    else if (convert(V28V3) < 26) Validate TRULED_NOTOK;
+  }
+}
+
+State TRULED_NOTOK {
+  > uDACS16 LED Status Off
+  > uDACS16 LED Fault On
+  { if (convert(V28V3) >= 28) Validate TRULED_OK;
+    else if (convert(V28V3) >= 26) Validate TRULED_WARN;
+    else if (convert(V28V3) < 5 && !TRU_cmd)
+      Validate TRULED_OFF;
+  }
+}
