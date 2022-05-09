@@ -57,7 +57,10 @@ State TRU_SHUTDOWN {
         Validate DHTR2_OFF;
         { TRU_fail(); }
 #       Validate QUICK_SHUTDOWN;
-}
+        > uDACS16 LED Status Off
+        > uDACS16 LED Fault On
+        { ci_sendfcmd(2,"uDACS16 LED Fault %s\n", LED_RED ? "Off" : "On"); }
+
 
 Partition
 
