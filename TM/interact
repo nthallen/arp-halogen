@@ -39,5 +39,6 @@
 
   Launch -              udpext
 
+  Launch -              uplink_rcvr
 # Launch -              Halfalgo -v
   Launch -              Halalgo -v

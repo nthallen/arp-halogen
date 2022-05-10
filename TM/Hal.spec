@@ -31,6 +31,7 @@ cmdbase = mux.cmd
 
 Module TMbase
 Module IWG1
+Module Uplink
 
 # Module RFD:
 #   Also need to:
