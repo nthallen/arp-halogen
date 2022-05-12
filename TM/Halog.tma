@@ -26,6 +26,11 @@
 #     D: 020420 ir0: 0.0400 irset: 260 [Cl]
 #   August 23, 2021:
 #     D: 060221 ir0: 0.0400 irset: 550 [Br]
+#   May 12, 2022: AFRC Palmdale
+#     A: 030520 ir0: 0.0200 irset: 150
+#     B: 021822 ir0: 0.0500 irset: 200
+#     C: 031822 ir0: 0.0500 irset: 260
+#     D: 031022 ir0: 0.0500 irset: 280 [Cl]
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -40,10 +45,10 @@
 %{
   #include "nortlib.h"
 
-  double ir0a = 0.03;
+  double ir0a = 0.02;
   double ir0b = 0.05;
   double ir0c = 0.05;
-  double ir0d = 0.04;
+  double ir0d = 0.05;
   int SW_stop = 0;
   #define A_STOPPED 1
   #define B_STOPPED 2
@@ -240,7 +245,7 @@ State B_START {
     +10 Hold until (convert(B_IRV) >= ir0b)
           or 20 else Validate B_START;
      +1 { fail_cnt_b = 0; }
-     +1 > Lamp B IR Setpoint 240
+     +1 > Lamp B IR Setpoint 200
         Validate B_ON;
 }
 
@@ -466,7 +471,7 @@ State D_START {
     +10 hold until (convert(D_IRV) > ir0d)
           or 20 else Validate D_START;
      +1 { fail_cnt_d = 0; }
-     +1 > Lamp D IR Setpoint 550
+     +1 > Lamp D IR Setpoint 280
         Validate D_ON;
 }
 
