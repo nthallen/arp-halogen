@@ -99,7 +99,7 @@ routine NODuct2 {
 mode 0 {
   duct1off
   duct2off
-  Sol1S0   :Z
+  Initialize Sol1S0   :Z
 }
 
 
