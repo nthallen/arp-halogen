@@ -31,6 +31,8 @@
 #     B: 021822 ir0: 0.0500 irset: 200
 #     C: 031822 ir0: 0.0500 irset: 260
 #     D: 031022 ir0: 0.0500 irset: 280 [Cl]
+#   May 14, 2022:
+#     A: 101819 ir0: 0.0200 irset: 160
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -129,7 +131,7 @@ State A_START {
     +10 Hold until (convert(A_IRV) >= ir0a)
           or 20 else Validate A_START;
      +1 { fail_cnt_a = 0; }
-     +1 > Lamp A IR Setpoint 150
+     +1 > Lamp A IR Setpoint 160
         Validate A_ON;
 }
 
