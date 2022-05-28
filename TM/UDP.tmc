@@ -52,8 +52,9 @@
 depending on (1 Hz, SF1FTemp, SF1BTemp) {
   int status;
   status = 3;
-  mr_format(clo_mr_text, 15, clo_mr_tx, clo_mr_stale);
-  mr_format(clono2_mr_text, 15, clono2_mr, clono2_mr_stale);
+  mr_format(clo_mr_text, 15, clo_mr_tx, clo_mr_stale > 35);
+  mr_format(clono2_mr_text, 15,
+    clono2_mr, clono2_mr < -1000 || clono2_mr_stale > 35);
   if (udpext_debug) {
     nl_error(0, "HAL,%s,%d,%.2lf,%.2lf,%d,%s,%d,%s",
       UDP.ISO8601(dtime()), status,
