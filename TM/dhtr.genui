@@ -48,6 +48,10 @@
   1 DH1P DHtr Pwr
   1 DH2P DHtr Pwr
   1 DHP  DHtr Pwr Total
+  1 DH1_I:DS855:3 DHtr Status
+  1 DH1_S:DS855:1 DHtr Status
+  1 DH2_I:DS855:4 DHtr Status
+  1 DH2_S:DS855:2 DHtr Status
   1 DH1R0 DH1 R
   1 DH1P0 DH1 P
   1 DH1R1 DH1 R
