@@ -71,6 +71,7 @@ f = ne_dialg(f, 'newcol');
 f = ne_dialg(f, 'add', 0, 1, 'ghaldhtr', 'D Htr' );
 f = ne_dialg(f, 'add', 1, 0, 'phaldhtrv', 'V' );
 f = ne_dialg(f, 'add', 1, 0, 'phaldhtrp', 'Pwr' );
+f = ne_dialg(f, 'add', 1, 0, 'phaldhtrs', 'Status' );
 f = ne_dialg(f, 'add', 0, 1, 'ghaldacs', 'uDACS16' );
 f = ne_dialg(f, 'add', 1, 0, 'phaldacsp', 'P' );
 f = ne_dialg(f, 'add', 1, 0, 'phaldacst', 'T' );
