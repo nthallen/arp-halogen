@@ -182,7 +182,7 @@ ROWS 18
 1 SF2F5 Temps SF2F 5
 1 SF2F6 Temps SF2F 6
 1 SF2FTemp Temps SF2F T
-1 A:SV1St:4 Throttle Bits1
+1 A:SV1St:4 Throttle Bits1 %.0lf
 1 B:SV1St:5 Throttle Bits1
 1 C:SV1St:7 Throttle Bits1
 1 D:SV1St:2 Throttle Bits1
@@ -190,7 +190,7 @@ ROWS 18
 1 O:SV1St:1 Throttle Bits1
 1 R:SV1St:3 Throttle Bits1
 1 Z:SV1St:6 Throttle Bits1
-1 A:SV2St:4 Throttle Bits2
+1 A:SV2St:4 Throttle Bits2 %.0lf
 1 B:SV2St:5 Throttle Bits2
 1 C:SV2St:7 Throttle Bits2
 1 D:SV2St:2 Throttle Bits2

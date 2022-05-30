@@ -31,7 +31,7 @@ TM typedef unsigned char UCHAR { text "%3u"; }
 TM typedef signed char SCHAR { text "%4d"; }
 TM typedef UCHAR DStat {
   collect x = sbrba(x.address);
-  text "%08b";
+  text "%5u";
 }
 TM typedef DStat DStat_PsMn { text "%02b"; }
 
