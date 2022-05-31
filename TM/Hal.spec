@@ -42,7 +42,7 @@ Module IWG1
 # genuibase = rfd.genui
 # cmdbase = rfd.cmd
 
-SRC = idx.idx NOTitr_4.cyc *.edf tlookup*.dat
+SRC = idx.idx NOTitr_4.cyc tlookup*.dat
 IGNORE = Makefile
 
 SCRIPT = dccc.dccc idx.idx64 interact Experiment.config
