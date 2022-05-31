@@ -131,7 +131,7 @@ State DHTR1_ON {
 State DHTR1_FAILED {
         { fail_cnt_dhtr1 = 0; }
         >   DHeater 1 Off
- 10:00  Validate DHTR1_START;
+   +15  Validate DHTR1_START;
 }
 
 #############################################################################
