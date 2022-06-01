@@ -304,3 +304,46 @@ State ABOVE_CLOUDS {
     validate BELOW_CLOUDS;
   }
 }
+
+#############################################################################
+#############################################################################
+# Partition 2a: System Controller Watchdog
+# If the system controller fails to initialize, all channels read will report
+# FFFF. In this case, we have no control over the instrument and cannot
+# even light a fail light, so the best thing to do is quit and wait for
+# a power cycle. However, it is useful to wait a little bit to allow
+# udpext to broadcast some of the obviously invalid data so observers can
+# request a power cycle before takeoff.
+#############################################################################
+#############################################################################
+
+PARTITION
+
+State Syscon_Watch {
+  Hold until (DetA != 0xFFFF || DetB != 0xFFFF ||
+              DetC != 0xFFFF || DetD != 0xFFFF) or 1:00
+  else Validate Syscon_Fail;
+
+  # We saw at least one value that wasn't 0xFFFF
+  # Check for 10 seconds in case that was just an initial blib
+  Hold until (DetA == 0xFFFF && DetB == 0xFFFF &&
+              DetC == 0xFFFF && DetD == 0xFFFF) or 10
+  else Validate Syscon_OK;
+
+  # We observed all four counters simultaneously reporting
+  # 0xFFFF, which is an obvious failure, but just to be sure,
+  # we'll give it one minute to prove us wrong:  
+  Hold until (DetA != 0xFFFF || DetB != 0xFFFF ||
+              DetC != 0xFFFF || DetD != 0xFFFF) or 1:00
+  else Validate Syscon_Fail;
+  
+  # We observed one more instance where at least one of the
+  # counters was not 0xFFFF. We'll call that healthy.
+  Validate Syscon_OK;
+}
+
+State Syscon_Fail {
+  > Quit
+}
+
+State Syscon_OK {}
