@@ -6,7 +6,7 @@
   Look at all 7 thermistors SF1F<n>. Eliminate any shorts or 
   opens. Shorts are pretty easy, but opens are ambiguous, since 
   we might actually see temps around -50C in the flow. So we will 
-  only through out opens if we see a max temp greater than -30C.
+  only throw out opens if we see a max temp greater than -30C.
   Then throw out min and max if we have enough good therms left.
   Note that comparisons on the raw data have the opposite sense, 
   since the conversion always has a negative slope. i.e. if 
@@ -60,7 +60,7 @@ CELCIUS_I SF1BTemp; invalidate SF1BTemp;
      here with a 0: e.g.
        Ts[1] = 0;
   */
-  Ts[0] = SF1B0; Ts[1] = SF1B1; Ts[2] = SF1B2;
+  Ts[0] = SF1B0; Ts[1] = SF1B1; Ts[2] = 0; /* SF1B2; */
   Ts[3] = SF1B3; Ts[4] = SF1B4; Ts[5] = SF1B5;
   Ts[6] = SF1B6;
 
