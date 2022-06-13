@@ -95,7 +95,7 @@ State INITIALIZE {
   +1 > fail lamp 0 off
   +1 > TRU Off
      { if (NOH1S) msg(2, "NOH1S ON at startup"); }
-  +1 > Soldrv Select Mode 0
+  +1 > Soldrv Select Halogen Mode 0
 
   depending on (BELOW_CLOUDS) { validate ASCENT; }
   depending on (ABOVE_CLOUDS) { validate ASCENT; }
