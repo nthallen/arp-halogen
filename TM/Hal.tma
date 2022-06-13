@@ -1,5 +1,7 @@
 State Init {
-    > Telemetry Start
+      > Telemetry Start
+   +1 { if (NOH1S) msg(2, "NOH1S ON at startup"); }
+   +1 > Soldrv Select Mode 0
       Validate SW_Watch;
 }
 
