@@ -37,6 +37,9 @@
 #     D: 070721 ir0: 0.0400 irset: 220 [Br]
 #   June 13, 2022:
 #     D: 052121 ir0: 0.0400 irset: 180 [Br]
+#   June 23, 2022:
+#     A: 022820 ir0: 0.0200 irset: 140
+#     B: 030520 ir0: 0.0300 irset: 150
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -52,7 +55,7 @@
   #include "nortlib.h"
 
   double ir0a = 0.02;
-  double ir0b = 0.05;
+  double ir0b = 0.03;
   double ir0c = 0.05;
   double ir0d = 0.04;
   int SW_stop = 0;
@@ -135,7 +138,7 @@ State A_START {
     +10 Hold until (convert(A_IRV) >= ir0a)
           or 20 else Validate A_START;
      +1 { fail_cnt_a = 0; }
-     +1 > Lamp A IR Setpoint 160
+     +1 > Lamp A IR Setpoint 140
         Validate A_ON;
 }
 
@@ -251,7 +254,7 @@ State B_START {
     +10 Hold until (convert(B_IRV) >= ir0b)
           or 20 else Validate B_START;
      +1 { fail_cnt_b = 0; }
-     +1 > Lamp B IR Setpoint 500
+     +1 > Lamp B IR Setpoint 150
         Validate B_ON;
 }
 
