@@ -60,7 +60,7 @@ CELCIUS_I SF1BTemp; invalidate SF1BTemp;
      here with a 0: e.g.
        Ts[1] = 0;
   */
-  Ts[0] = SF1B0; Ts[1] = SF1B1; Ts[2] = 0; /* SF1B2; */
+  Ts[0] = SF1B0; Ts[1] = 0; /* SF1B1 */; Ts[2] = SF1B2;
   Ts[3] = SF1B3; Ts[4] = SF1B4; Ts[5] = SF1B5;
   Ts[6] = SF1B6;
 
