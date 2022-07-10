@@ -44,6 +44,8 @@
 #     D: 020720 ir0: 0.0300 irset: 220 [Cl]
 #   July 5, 2022:
 #     D: 052121 ir0: 0.0400 irset: 200 [Br]
+#   July 10, 2022:
+#     D: 101819 ir0: 0.0300 irset: 240 [Cl]
 #----------------------------------------------------------------
 # Notes:
 #  Turn lamp off before checking fail count, else RF will be
@@ -61,7 +63,7 @@
   double ir0a = 0.02;
   double ir0b = 0.03;
   double ir0c = 0.05;
-  double ir0d = 0.04;
+  double ir0d = 0.03;
   int SW_stop = 0;
   #define A_STOPPED 1
   #define B_STOPPED 2
@@ -484,7 +486,7 @@ State D_START {
     +10 hold until (convert(D_IRV) > ir0d)
           or 20 else Validate D_START;
      +1 { fail_cnt_d = 0; }
-     +1 > Lamp D IR Setpoint 200
+     +1 > Lamp D IR Setpoint 240
         Validate D_ON;
 }
 
