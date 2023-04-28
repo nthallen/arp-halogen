@@ -41,6 +41,11 @@ Chamber.F210913_1F = 612; ZeroT.F210913_1F = 25;
 % Twarmups.F210820_1F = 0;
   Twarmups.F210913_1F = 52207;
 
+  Twarmups.F220526_2F = 63807;
+  Twarmups.F220602_2F = 61100;
+  Twarmups.F220605_2F = 69000;
+  Twarmups.F220608_3F = 55000;
+
 Navg = 60; % 16 points, 4 seconds
 Pmax = 140;
 PTmax = 0.6;
@@ -52,10 +57,10 @@ for fi = 1:length(flights)
   cd C:\Data\Halogens\Analysis
   rundir = flights(fi).name;
   run = [ 'F' strrep(rundir,'.','_')];
-  if ~isfield(Chamber, run)
-    fprintf(1,'Skipping flight %s\n', rundir);
-    continue;
-  end
+%   if ~isfield(Chamber, run)
+%     fprintf(1,'Skipping flight %s\n', rundir);
+%     continue;
+%   end
   fprintf(1,'Running flight %s\n', rundir);
   cd(rundir);
   %%
@@ -65,7 +70,11 @@ for fi = 1:length(flights)
   T11 = time2d(S11.TSolAd11);
   S12 = ne_load('SolAd12','Hal_Data_Dir');
   run = [ 'F' strrep(getrun(1),'.','_')];
-  ZeroTemp = ZeroT.(run);
+  if isfield(ZeroT,run)
+    ZeroTemp = ZeroT.(run);
+  else
+    ZeroTemp = 25;
+  end
   if isfield(Twarmups,run)
     Twarmup = Twarmups.(run);
   else
@@ -129,6 +138,7 @@ for fi = 1:length(flights)
     title(ax2(1),getrun);
     grid(ax2(1),'on');
     plot(ax2(2),Time,Xdata);
+    grid(ax2(2),'on');
     linkaxes(ax2,'x');
     pause;
     delete(f2);

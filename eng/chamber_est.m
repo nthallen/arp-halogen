@@ -40,10 +40,10 @@ for fi = 1:length(flights)
   cd C:\Data\Halogens\Analysis
   rundir = flights(fi).name;
   run = [ 'F' strrep(rundir,'.','_')];
-  if ~isfield(Chamber, run)
-    fprintf(1,'Skipping flight %s\n', rundir);
-    continue;
-  end
+%   if ~isfield(Chamber, run)
+%     fprintf(1,'Skipping flight %s\n', rundir);
+%     continue;
+%   end
   fprintf(1,'Running flight %s\n', rundir);
   cd(rundir);
   %%
@@ -58,8 +58,16 @@ for fi = 1:length(flights)
   end
 
   run = [ 'F' strrep(getrun(1),'.','_')];
-  Sch = Chamber.(run)/4;
-  ZeroTemp = ZeroT.(run);
+  if isfield(Chamber, run)
+    Sch = Chamber.(run)/4;
+  else
+    Sch = NaN;
+  end
+  if isfield(ZeroT, run)
+    ZeroTemp = ZeroT.(run)/4;
+  else
+    ZeroTemp = 25; % good for 2022
+  end
   %%
   T1 = time2d(H1.Thaleng_1);
   SF1BT_1 = H1.SF1BTemp;
@@ -138,9 +146,9 @@ for fi = 1:length(flights)
       SMZ = MMZ*(RegSchZFit(i,:)');
       plot(M(:,1),S,'.g',MM(:,1),SM,'b',MZ(:,1),SZ,'*k', ...
         MMZ(:,1),SMZ,'r');
-      hold on;
-      plot(MM(:,1),SM,'r');
-      hold off;
+%       hold on;
+%       plot(MM(:,1),SM,'r');
+%       hold off;
       pause;
     end
   end

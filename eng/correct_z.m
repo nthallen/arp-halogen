@@ -55,10 +55,6 @@ for fi = 1:length(flights)
   cd C:\Data\Halogens\Analysis
   rundir = flights(fi).name;
   run = [ 'F' strrep(rundir,'.','_')];
-  if ~isfield(Chamber, run)
-    fprintf(1,'Skipping flight %s\n', rundir);
-    continue;
-  end
   fprintf(1,'Running flight %s\n', rundir);
   cd(rundir);
   %%
@@ -78,8 +74,16 @@ for fi = 1:length(flights)
   if isfield(fits,run)
     Sfit = fits.(run);
   else
-    Sfit = [];
+    fprintf(1,'%s: No fit data, skipping\n', run);
+    continue;
   end
+  Sch = Sfit.Sch;
+  if isfield(Chamber, run)
+    fprintf(1,'%s: Overriding Sfit.Sch(%.0f) with Chamber(%.0f)\n', ...
+      Sfit.Sch, Chamber.(run));
+    Sch = Chamber.(run);
+  end
+
   %%
   T1 = time2d(H1.Thaleng_1);
   SF1BT_1 = H1.SF1BTemp;
@@ -171,9 +175,9 @@ for fi = 1:length(flights)
       SMZ = MMZ*(RegSchZFit(i,:)');
       plot(M(:,1),S,'.g',MM(:,1),SM,'b',MZ(:,1),SZ,'*k', ...
         MMZ(:,1),SMZ,'r');
-      hold on;
-      plot(MM(:,1),SM,'r');
-      hold off;
+%       hold on;
+%       plot(MM(:,1),SM,'r');
+%       hold off;
       pause;
     end
   end
