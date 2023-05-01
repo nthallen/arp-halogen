@@ -3,6 +3,7 @@ function correct_z23(pattern, verbosity)
 % That should change to Hal_Data_Dir using ne_load_runsdir
 % Verbosity 1 Plot cool and uncool regions
 % Verbosity 2 Plot DetB_Z and DetB_Z_C
+% Verbosity 4 Safe figures
 if nargin < 1; pattern = '*F'; end
 if nargin < 2; verbosity = 0; end
 %%
@@ -134,7 +135,7 @@ for fi = 1:length(flights)
   save(fname, '-struct', 'Corr');
   %%
   if bitand(verbosity,2)
-    figure;
+    f = figure;
     ax = [nsubplot(2,1,1) nsubplot(2,1,2)];
     plot(ax(1),Corr.T11,Corr.DetB_Z,'-o', ...
       Corr.T11,Corr.DetB_Z_C,'-*');
@@ -145,6 +146,9 @@ for fi = 1:length(flights)
     set(ax(1:end-1),'XTickLabel',[]);
     linkaxes(ax,'x');
     title(ax(1),rundir);
+    if bitand(verbosity,4)
+      savefig(f,['DetB_Z_z23_' run '.fig']);
+    end
   end
   %%
 end
