@@ -46,6 +46,9 @@ sigma_1189_O2 = 2e-20;
 l_ray = 7.5; %cm
 R_Torr_K_molecules_cm3 = 9.6563E18;
 T_lab = 295; % K
+pct = 50;
+pctp = 1+pct/100;
+pctm = 1-pct/100;
 %%
 runsdir = ne_load_runsdir('Hal_Data_Dir');
 flights = dir([runsdir filesep pattern]);
@@ -57,6 +60,8 @@ for fi = 1:length(flights)
     continue;
   end
   Q_M = Q_P.(run) * T_lab / R_Torr_K_molecules_cm3;
+  Q_Mp = Q_M*pctp;
+  Q_Mm = Q_M*pctm;
   ZeroTemp = 25;
   if isfield(ZeroT, run)
     ZeroTemp = ZeroT.(run);
@@ -76,10 +81,10 @@ for fi = 1:length(flights)
     continue;
   end
   T11 = time2d(S11.TSolAd11);
-
+  T2d = T11(1)-S11.TSolAd11(1);
   %%
-  T1 = time2d(H1.Thaleng_1);
-  T4 = time2d(H4.Thaleng_4);
+  T1 = T2d+H1.Thaleng_1;
+  T4 = T2d+H4.Thaleng_4;
   SF1BT_1 = H1.SF1BTemp;
   X4 = 1:length(T4);
   SD1P_4 = H4.SD1_P;
@@ -97,9 +102,13 @@ for fi = 1:length(flights)
   M_Z = R_Torr_K_molecules_cm3 * SD1_P_Z ./ (SF1BT_Z + 273.15);
   O2abs_Z = exp(-0.21*sigma_1189_O2*l_ray*M_Z);
   F_Z = (DetB_Z ./ O2abs_Z) ./ (1 + 0.84*Q_M*M_Z);
+  F_Zp = (DetB_Z ./ O2abs_Z) ./ (1 + 0.84*Q_Mp*M_Z);
+  F_Zm = (DetB_Z ./ O2abs_Z) ./ (1 + 0.84*Q_Mm*M_Z);
   Corr.T11 = T11;
   Corr.DetB_Z = DetB_Z;
   Corr.DetB_Z_C = DetB_Z;
+  Corr.DetB_Z_Cp = DetB_Z;
+  Corr.DetB_Z_Cm = DetB_Z;
   %%
   if bitand(verbosity,1)
     ax = [nsubplot(2,1,1) nsubplot(2,1,2)];
@@ -144,7 +153,11 @@ for fi = 1:length(flights)
     % S = dSdM * P/T + Sch. For the first pass, I will use all the data
     % from Rpre through Rpost.
     Ffit = interp1(T11(Ifit),F_Z(Ifit),T11(Rfit));
+    Ffit_p = interp1(T11(Ifit),F_Zp(Ifit),T11(Rfit));
+    Ffit_m = interp1(T11(Ifit),F_Zm(Ifit),T11(Rfit));
     Corr.DetB_Z_C(Rfit) = Ffit .* O2abs_Z(Rfit).*(1+0.84*Q_M*M_Z(Rfit));
+    Corr.DetB_Z_Cp(Rfit) = Ffit_p .* O2abs_Z(Rfit).*(1+0.84*Q_Mp*M_Z(Rfit));
+    Corr.DetB_Z_Cm(Rfit) = Ffit_m .* O2abs_Z(Rfit).*(1+0.84*Q_Mm*M_Z(Rfit));
   end
   %%
   fname = ['Corr_' rundir '.mat'];
@@ -153,12 +166,16 @@ for fi = 1:length(flights)
   %%
   if bitand(verbosity,2)
     f = figure;
-    ax = [nsubplot(2,1,1) nsubplot(2,1,2)];
+    ax = [nsubplot(3,1,1) nsubplot(3,1,2) nsubplot(3,1,3)];
     plot(ax(1),Corr.T11,Corr.DetB_Z,'-o', ...
-      Corr.T11,Corr.DetB_Z_C,'-*');
+      Corr.T11,Corr.DetB_Z_C,'-*', ...
+      Corr.T11,Corr.DetB_Z_Cp,'-x', ...
+      Corr.T11,Corr.DetB_Z_Cm,'-+');
     grid(ax(1),'on');
-    legend(ax(1),'uncorrected','corrected');
+    legend(ax(1),'uncorrected','corrected',sprintf('corr Q+%d%%',pct),...
+      sprintf('corr Q-%d%%',pct));
     plot(ax(2),T1,SF1BT_1);
+    plot(ax(3),T4,SD1P_4);
     set(ax(2:2:end),'YAxisLocation','Right');
     set(ax(1:end-1),'XTickLabel',[]);
     linkaxes(ax,'x');
